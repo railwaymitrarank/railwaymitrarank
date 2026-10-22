@@ -1,98 +1,214 @@
-function calculateScore(){
-  const total = numberValue('total');
-  const correct = numberValue('correct');
-  const wrong = numberValue('wrong');
-  const marks = numberValue('marks');
-  const negative = numberValue('negative');
-  const out = document.getElementById('scoreResult');
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Railway Rank Mitra - Railway Exam Score Calculator and Rank Estimator">
+<title>RAILWAY RANK MITRA | Exam Calculator</title>
 
-  if(!Number.isInteger(total) || total < 1 ||
-     !Number.isInteger(correct) || !Number.isInteger(wrong) ||
-     correct < 0 || wrong < 0 || correct + wrong > total ||
-     marks < 0 || negative < 0){
-    out.textContent = 'कृपया सही संख्या भरें। सही और गलत उत्तरों का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।';
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#172033}
+header{background:linear-gradient(135deg,#08294b,#0879cf);color:#fff;text-align:center;padding:28px 12px}
+header h1{font-size:30px;margin:0}
+header p{margin:10px 0 0;font-size:15px}
+nav{background:#061e36;display:flex;justify-content:center;flex-wrap:wrap;padding:10px}
+nav a{color:white;text-decoration:none;padding:12px;font-weight:bold}
+.container{max-width:850px;margin:22px auto;padding:0 12px}
+.card{background:#fff;padding:20px;margin-bottom:20px;border-radius:14px;box-shadow:0 4px 15px #00000012}
+h2{color:#0757a5;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 7px}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+button{background:#0879cf;color:#fff;border:0;padding:13px 18px;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:16px;width:100%}
+button:hover{background:#0757a5}
+.result{background:#e7f4ff;padding:15px;border-radius:9px;margin-top:16px;line-height:1.9;overflow-wrap:anywhere}
+.note{font-size:13px;color:#64748b;line-height:1.6}
+footer{text-align:center;padding:22px;background:#061e36;color:white}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🚆 RAILWAY RANK MITRA</h1>
+<p>Railway Exam Answer Key &amp; Rank Calculator</p>
+</header>
+
+<nav>
+<a href="#answer">Answer Key</a>
+<a href="#rank">Rank Calculator</a>
+<a href="#response">Response Sheet</a>
+</nav>
+
+<main class="container">
+
+<section class="card" id="answer">
+<h2>📝 Answer Key Calculator</h2>
+
+<label for="total">कुल प्रश्न</label>
+<input id="total" type="number" min="1" value="100">
+
+<label for="correct">सही उत्तर</label>
+<input id="correct" type="number" min="0" value="0">
+
+<label for="wrong">गलत उत्तर</label>
+<input id="wrong" type="number" min="0" value="0">
+
+<label for="marks">प्रत्येक सही उत्तर के अंक</label>
+<input id="marks" type="number" min="0" step="0.01" value="1">
+
+<label for="negative">प्रत्येक गलत उत्तर पर कटने वाले अंक</label>
+<input id="negative" type="number" min="0" step="0.01" value="0.33">
+
+<button type="button" onclick="calculateScore()">CALCULATE SCORE</button>
+<div class="result" id="scoreResult" aria-live="polite">
+अपना विवरण भरकर Calculate Score दबाएँ।
+</div>
+</section>
+
+<section class="card" id="rank">
+<h2>🏆 Rank Calculator</h2>
+
+<label for="exam">परीक्षा चुनें</label>
+<select id="exam">
+<option>RRB Group D</option>
+<option>RRB ALP</option>
+<option>RRB Technician</option>
+<option>RRB NTPC</option>
+<option>Railway GDCE / LDCE</option>
+<option>Other Railway Exam</option>
+</select>
+
+<label for="myScore">आपका स्कोर</label>
+<input id="myScore" type="number" min="0" step="0.01" placeholder="अपना स्कोर लिखें">
+
+<label for="above">आपसे अधिक अंक पाने वाले उम्मीदवार</label>
+<input id="above" type="number" min="0" step="1" placeholder="यदि पता हो तो संख्या लिखें">
+
+<button type="button" onclick="calculateRank()">ESTIMATE RANK</button>
+
+<div class="result" id="rankResult" aria-live="polite">
+अपना स्कोर और तुलना का डेटा भरें।
+</div>
+
+<p class="note">यह अनुमान है, आधिकारिक रैंक नहीं। सही अनुमान के लिए विश्वसनीय उम्मीदवार डेटा आवश्यक है।</p>
+</section>
+
+<section class="card" id="response">
+<h2>📄 Response Sheet PDF</h2>
+<p>अपने मोबाइल से Response Sheet PDF चुनें।</p>
+
+<label for="pdfFile">PDF फाइल चुनें</label>
+<input type="file" id="pdfFile" accept=".pdf,application/pdf">
+
+<div class="result" id="pdfResult" aria-live="polite">
+अभी कोई PDF नहीं चुनी गई है।
+</div>
+
+<button type="button" onclick="openPDF()">OPEN RESPONSE SHEET PDF</button>
+
+<p class="note">यह फीचर PDF को आपके ब्राउज़र में खोलता है। अभी PDF किसी सर्वर पर अपलोड या स्थायी रूप से सेव नहीं होती।</p>
+</section>
+
+</main>
+
+<footer>
+<strong>RAILWAY RANK MITRA</strong>
+<p>Prepare Smart • Practice Better • Aim Higher</p>
+</footer>
+
+<script>
+function val(id){
+  return Number(document.getElementById(id).value);
+}
+
+function calculateScore(){
+  const total=val('total');
+  const correct=val('correct');
+  const wrong=val('wrong');
+  const marks=val('marks');
+  const negative=val('negative');
+  const out=document.getElementById('scoreResult');
+
+  if(!Number.isInteger(total)||total<1||
+     !Number.isInteger(correct)||!Number.isInteger(wrong)||
+     correct<0||wrong<0||correct+wrong>total||
+     !Number.isFinite(marks)||marks<0||
+     !Number.isFinite(negative)||negative<0){
+    out.textContent='कृपया सही संख्या भरें। सही और गलत उत्तरों का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।';
     return;
   }
 
-  const attempted = correct + wrong;
-  const score = correct * marks - wrong * negative;
+  const attempted=correct+wrong;
+  const score=correct*marks-wrong*negative;
 
-  out.innerHTML =
-    '<strong>आपका रिजल्ट</strong><br>' +
-    'कुल प्रश्न: ' + total + '<br>' +
-    'Attempt किए: ' + attempted + '<br>' +
-    'छोड़े गए: ' + (total-attempted) + '<br>' +
-    'सही उत्तर: ' + correct + '<br>' +
-    'गलत उत्तर: ' + wrong + '<br>' +
-    'प्राप्त अंक: <strong>' + score.toFixed(2) + '</strong>';
+  out.innerHTML=
+    '<strong>आपका रिजल्ट</strong><br>'+
+    'कुल प्रश्न: '+total+'<br>'+
+    'कुल Attempt: '+attempted+'<br>'+
+    'सही उत्तर: '+correct+'<br>'+
+    'गलत उत्तर: '+wrong+'<br>'+
+    'छोड़े गए प्रश्न: '+(total-attempted)+'<br>'+
+    'प्राप्त अंक: <strong>'+score.toFixed(2)+'</strong>';
 }
 
 function calculateRank(){
-  const score = document.getElementById('myScore').value;
-  const candidatesInput = document.getElementById('candidates').value;
-  const aboveInput = document.getElementById('above').value;
-  const out = document.getElementById('rankResult');
+  const scoreInput=document.getElementById('myScore').value;
+  const aboveInput=document.getElementById('above').value;
+  const out=document.getElementById('rankResult');
 
-  if(score === '' || !Number.isFinite(Number(score)) || Number(score) < 0){
-    out.textContent = 'कृपया अपना सही स्कोर भरें।';
+  if(scoreInput===''||!Number.isFinite(Number(scoreInput))||Number(scoreInput)<0){
+    out.textContent='कृपया अपना सही स्कोर भरें।';
     return;
   }
 
-  if(aboveInput === ''){
-    out.textContent = 'रैंक का अनुमान लगाने के लिए आपसे अधिक अंक पाने वाले उम्मीदवारों की संख्या भरें। केवल स्कोर से रैंक तय नहीं की जा सकती।';
+  if(aboveInput===''||!Number.isInteger(Number(aboveInput))||Number(aboveInput)<0){
+    out.textContent='कृपया आपसे अधिक अंक पाने वाले उम्मीदवारों की संख्या भरें।';
     return;
   }
 
-  const above = Number(aboveInput);
-  const candidates = candidatesInput === '' ? null : Number(candidatesInput);
-
-  if(!Number.isInteger(above) || above < 0 ||
-     (candidates !== null &&
-      (!Number.isInteger(candidates) || candidates < 1 || above >= candidates))){
-    out.textContent = 'कृपया उम्मीदवारों की संख्या सही भरें।';
-    return;
-  }
-
-  out.innerHTML =
-    'परीक्षा: ' + document.getElementById('exam').value + '<br>' +
-    'आपका स्कोर: ' + Number(score).toFixed(2) + '<br>' +
-    'आपसे अधिक अंक पाने वाले उम्मीदवार: ' + above + '<br>' +
-    '<strong>अनुमानित रैंक: ' + (above+1) + '</strong><br>' +
-    '<span class="small">यह दिए गए डेटा पर आधारित अनुमान है। आधिकारिक रैंक अलग हो सकती है।</span>';
+  out.innerHTML=
+    'परीक्षा: '+document.getElementById('exam').value+'<br>'+
+    'आपका स्कोर: '+Number(scoreInput).toFixed(2)+'<br>'+
+    '<strong>अनुमानित रैंक: '+(Number(aboveInput)+1)+'</strong><br>'+
+    '<span class="note">यह आपके दिए हुए डेटा पर आधारित अनुमान है, आधिकारिक रैंक नहीं।</span>';
 }
 
-let currentPDFUrl = null;
+let pdfUrl=null;
 
-document.getElementById('pdfFile').addEventListener('change', function(){
-  const file = this.files[0];
-  const out = document.getElementById('pdfResult');
+document.getElementById('pdfFile').addEventListener('change',function(){
+  const file=this.files[0];
+  const out=document.getElementById('pdfResult');
 
-  if(currentPDFUrl){
-    URL.revokeObjectURL(currentPDFUrl);
-    currentPDFUrl = null;
+  if(pdfUrl){
+    URL.revokeObjectURL(pdfUrl);
+    pdfUrl=null;
   }
 
   if(!file){
-    out.textContent = 'अभी कोई PDF नहीं चुनी गई है।';
+    out.textContent='अभी कोई PDF नहीं चुनी गई है।';
     return;
   }
 
-  if(file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
-    out.textContent = 'कृपया PDF फाइल चुनें।';
-    this.value = '';
+  if(file.type!=='application/pdf'&&!file.name.toLowerCase().endsWith('.pdf')){
+    out.textContent='कृपया PDF फाइल चुनें।';
+    this.value='';
     return;
   }
 
-  currentPDFUrl = URL.createObjectURL(file);
-  out.textContent = 'PDF चुनी गई: ' + file.name;
+  pdfUrl=URL.createObjectURL(file);
+  out.textContent='PDF चुनी गई: '+file.name;
 });
 
 function openPDF(){
-  if(!currentPDFUrl){
+  if(!pdfUrl){
     alert('पहले Response Sheet PDF चुनें।');
     return;
   }
-  window.open(currentPDFUrl, '_blank');
+  const win=window.open(pdfUrl,'_blank');
+  if(!win){
+    alert('ब्राउज़र ने नई विंडो रोकी है। PDF खोलने की अनुमति दें।');
+  }
 }
 </script>
 
