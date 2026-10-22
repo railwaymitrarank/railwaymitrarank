@@ -3,144 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Railway Rank Mitra</title>
+<title>RAILWAY RANK MITRA</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #eef3f9;
-    margin: 0;
-    color: #172554;
-}
-header {
-    background: #123b75;
-    color: white;
-    text-align: center;
-    padding: 24px 10px;
-}
-header h1 { margin: 0; font-size: 28px; }
-header p { margin-bottom: 0; }
-.container {
-    max-width: 600px;
-    margin: 22px auto;
-    padding: 15px;
-}
-.card {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px #00000012;
-}
-h2 { color: #123b75; }
-label {
-    display: block;
-    margin-top: 12px;
-}
-input, select, button {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    margin-top: 7px;
-    border-radius: 7px;
-    border: 1px solid #ccd5e1;
-    font-size: 16px;
-}
-button {
-    background: #e87516;
-    color: white;
-    border: none;
-    font-weight: bold;
-    margin-top: 18px;
-}
-.result {
-    margin-top: 15px;
-    padding: 12px;
-    background: #e5f7e9;
-    border-radius: 8px;
-    display: none;
-}
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #123b75;
-    color: white;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:linear-gradient(135deg,#10234f,#1769aa);color:white;padding:25px 16px;text-align:center}
+header h1{margin:0;font-size:27px}
+header p{margin:9px 0 0;font-size:14px}
+nav{display:flex;gap:8px;justify-content:center;padding:14px;flex-wrap:wrap;background:white}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 16px;font-weight:bold}
+nav button{background:#e3edff;color:#123d75}
+nav button.active,.primary{background:#1769e0;color:white}
+.container{max-width:850px;margin:20px auto;padding:0 13px}
+.card{background:white;border-radius:15px;padding:20px;margin-bottom:16px;box-shadow:0 3px 15px #17203310}
+.card h2{margin-top:0;color:#173e75;font-size:21px}
+label{display:block;font-weight:bold;font-size:14px;margin:13px 0 6px}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.full{grid-column:1/-1}
+.primary{width:100%;margin-top:18px;font-size:16px}
+.result{display:none;background:#e9f8ef;border:1px solid #a7e4bd;padding:18px;border-radius:12px;margin-top:18px}
+.score{font-size:34px;font-weight:bold;color:#087443}
+.small{font-size:13px;line-height:1.6;color:#5b6473}
+footer{text-align:center;padding:22px;background:#10234f;color:white;margin-top:30px}
+.badge{display:inline-block;padding:6px 10px;background:#fff1cf;color:#875500;border-radius:20px;font-size:12px;font-weight:bold}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}header h1{font-size:23px}.card{padding:16px}}
 </style>
 </head>
 <body>
 
 <header>
-    <h1>🚆 RAILWAY MITRA RANK</h1>
-    <p>Railway Exam Answer Key & Rank Calculator</p>
-</header>
-
-<div class="container">
-
-<div class="card">
-    <h2>📊 Answer Key Calculator</h2>
-
-    <label>कुल प्रश्न</label>
-    <input type="number" id="total" value="100" min="1">
-
-    <label>सही उत्तर</label>
-    <input type="number" id="correct" placeholder="सही प्रश्नों की संख्या">
-
-    <label>गलत उत्तर</label>
-    <input type="number" id="wrong" placeholder="गलत प्रश्नों की संख्या">
-
-    <label>हर सही उत्तर के अंक</label>
-    <input type="number" id="marks" value="1" step="0.01" min="0">
-
-    <label>गलत उत्तर पर कटने वाले अंक</label>
-    <input type="number" id="negative" value="0.33" step="0.01" min="0">
-
-    <button onclick="calculate()">Calculate My Score</button>
-
-    <div class="result" id="result"></div>
-</div>
-
-<div class="card">
-    <h2>🏆 Rank Calculator</h2>
-    <p>अपनी संभावित रैंक का अनुमान लगाने की सुविधा जल्द जोड़ी जाएगी।</p>
-    <p>ध्यान दें: सही रैंक उम्मीदवारों के वास्तविक डेटा पर निर्भर करेगी।</p>
-</div>
-
-</div>
-
-<footer>
-    <p>RAILWAY MITRA RANK</p>
-    <p>आपकी रेलवे परीक्षा की तैयारी में आपका साथी 🚆</p>
-</footer>
-
-<script>
-function calculate() {
-    const total = Number(document.getElementById('total').value);
-    const correct = Number(document.getElementById('correct').value);
-    const wrong = Number(document.getElementById('wrong').value);
-    const marks = Number(document.getElementById('marks').value);
-    const negative = Number(document.getElementById('negative').value);
-    const result = document.getElementById('result');
-
-    if (!Number.isInteger(total)  total < 1 
-        document.getElementById('correct').value === '' ||
-        document.getElementById('wrong').value === '' ||
-        correct < 0  wrong < 0 
-        correct + wrong > total ||
-        marks < 0 || negative < 0) {
-        alert('कृपया सही जानकारी भरें।');
-        return;
-    }
-
-    const score = (correct * marks) - (wrong * negative);
-    result.style.display = 'block';
-    result.innerHTML =
-        '<h3>आपका अनुमानित स्कोर: ' + score.toFixed(2) +
-        ' अंक</h3><p>सही उत्तर: ' + correct +
-        '</p><p>गलत उत्तर: ' + wrong +
-        '</p><p>बिना उत्तर वाले प्रश्न: ' +
-        (total - correct - wrong) + '</p>';
-}
-</script>
-
-</body>
-</html>
+  <h1>🚆 RAILWAY RANK MITRA</h1>
+  <p>Answer Key Calculator • Scorecard • Rank
