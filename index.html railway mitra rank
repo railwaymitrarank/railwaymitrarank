@@ -30,6 +30,7 @@ footer{text-align:center;padding:22px;background:#10234f;color:white;margin-top:
 @media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}header h1{font-size:23px}.card{padding:16px}}
 </style>
 </head>
+</htm1>
 <body>
 
 <header>
