@@ -1,38 +1,100 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+function calculateScore(){
+  const total = numberValue('total');
+  const correct = numberValue('correct');
+  const wrong = numberValue('wrong');
+  const marks = numberValue('marks');
+  const negative = numberValue('negative');
+  const out = document.getElementById('scoreResult');
 
-<title>RAILWAY RANK MITRA</title>
+  if(!Number.isInteger(total) || total < 1 ||
+     !Number.isInteger(correct) || !Number.isInteger(wrong) ||
+     correct < 0 || wrong < 0 || correct + wrong > total ||
+     marks < 0 || negative < 0){
+    out.textContent = 'कृपया सही संख्या भरें। सही और गलत उत्तरों का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।';
+    return;
+  }
 
-<style>
-* {
-  box-sizing: border-box;
+  const attempted = correct + wrong;
+  const score = correct * marks - wrong * negative;
+
+  out.innerHTML =
+    '<strong>आपका रिजल्ट</strong><br>' +
+    'कुल प्रश्न: ' + total + '<br>' +
+    'Attempt किए: ' + attempted + '<br>' +
+    'छोड़े गए: ' + (total-attempted) + '<br>' +
+    'सही उत्तर: ' + correct + '<br>' +
+    'गलत उत्तर: ' + wrong + '<br>' +
+    'प्राप्त अंक: <strong>' + score.toFixed(2) + '</strong>';
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f4f8;
-  color: #172033;
+function calculateRank(){
+  const score = document.getElementById('myScore').value;
+  const candidatesInput = document.getElementById('candidates').value;
+  const aboveInput = document.getElementById('above').value;
+  const out = document.getElementById('rankResult');
+
+  if(score === '' || !Number.isFinite(Number(score)) || Number(score) < 0){
+    out.textContent = 'कृपया अपना सही स्कोर भरें।';
+    return;
+  }
+
+  if(aboveInput === ''){
+    out.textContent = 'रैंक का अनुमान लगाने के लिए आपसे अधिक अंक पाने वाले उम्मीदवारों की संख्या भरें। केवल स्कोर से रैंक तय नहीं की जा सकती।';
+    return;
+  }
+
+  const above = Number(aboveInput);
+  const candidates = candidatesInput === '' ? null : Number(candidatesInput);
+
+  if(!Number.isInteger(above) || above < 0 ||
+     (candidates !== null &&
+      (!Number.isInteger(candidates) || candidates < 1 || above >= candidates))){
+    out.textContent = 'कृपया उम्मीदवारों की संख्या सही भरें।';
+    return;
+  }
+
+  out.innerHTML =
+    'परीक्षा: ' + document.getElementById('exam').value + '<br>' +
+    'आपका स्कोर: ' + Number(score).toFixed(2) + '<br>' +
+    'आपसे अधिक अंक पाने वाले उम्मीदवार: ' + above + '<br>' +
+    '<strong>अनुमानित रैंक: ' + (above+1) + '</strong><br>' +
+    '<span class="small">यह दिए गए डेटा पर आधारित अनुमान है। आधिकारिक रैंक अलग हो सकती है।</span>';
 }
 
-header {
-  background: linear-gradient(135deg, #062b67, #0878c9);
-  color: white;
-  padding: 25px 12px;
-  text-align: center;
-}
+let currentPDFUrl = null;
 
-header h1 {
-  margin: 0;
-  font-size: 27px;
-}
+document.getElementById('pdfFile').addEventListener('change', function(){
+  const file = this.files[0];
+  const out = document.getElementById('pdfResult');
 
-header p {
-  margin-bottom: 0;
-}
+  if(currentPDFUrl){
+    URL.revokeObjectURL(currentPDFUrl);
+    currentPDFUrl = null;
+  }
 
-nav {
-  display: flex;
+  if(!file){
+    out.textContent = 'अभी कोई PDF नहीं चुनी गई है।';
+    return;
+  }
+
+  if(file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){
+    out.textContent = 'कृपया PDF फाइल चुनें।';
+    this.value = '';
+    return;
+  }
+
+  currentPDFUrl = URL.createObjectURL(file);
+  out.textContent = 'PDF चुनी गई: ' + file.name;
+});
+
+function openPDF(){
+  if(!currentPDFUrl){
+    alert('पहले Response Sheet PDF चुनें।');
+    return;
+  }
+  window.open(currentPDFUrl, '_blank');
+}
+</script>
+
+</body>
+</html>
