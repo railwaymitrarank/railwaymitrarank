@@ -512,9 +512,9 @@ Logout
   const records = document.getElementById("adminRecords");
 
   login.addEventListener("click", async function () {
-    if (!window.auth || !window.db) {
-      status.textContent = "Firebase अभी उपलब्ध नहीं है।";
-      return;
+   if (typeof auth === "undefined" || typeof db === "undefined") {
+  status.textContent = "Firebase अभी उपलब्ध नहीं है।";
+  return;
     }
 
     if (!email.value.trim() || !password.value) {
