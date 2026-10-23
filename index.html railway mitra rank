@@ -4,262 +4,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Railway Rank Mitra</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#eef3f9;
-  color:#172033;
-}
-header{
-  background:linear-gradient(135deg,#073b73,#087fbd);
-  color:white;
-  text-align:center;
-  padding:25px 12px;
-}
-header h1{margin:0 0 10px;font-size:27px}
-header p{margin:0;font-size:14px}
-.container{max-width:650px;margin:20px auto;padding:0 12px}
-.card{
-  background:white;
-  padding:20px;
-  margin-bottom:18px;
-  border-radius:14px;
-  box-shadow:0 3px 12px #00000012;
-}
-h2{font-size:20px;color:#07549b;margin-top:0}
-label{display:block;margin-top:12px;font-weight:bold}
-input,select{
-  width:100%;
-  padding:12px;
-  margin-top:6px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:16px;
-  background:white;
-}
-button{
-  width:100%;
-  padding:13px;
-  margin-top:16px;
-  border:0;
-  border-radius:8px;
-  background:#0866c6;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:hover{background:#064c94}
-.result{
-  margin-top:15px;
-  padding:14px;
-  border-radius:8px;
-  background:#e5f5e9;
-  color:#14532d;
-  font-weight:bold;
-  line-height:1.8;
-  overflow-wrap:anywhere;
-}
-.note{font-size:13px;color:#64748b;line-height:1.6}
-footer{
-  text-align:center;
-  padding:20px;
-  color:#64748b;
-  font-size:13px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#f0f5ff;color:#172554}
+header{background:linear-gradient(135deg,#082b70,#087cf0);color:white;text-align:center;padding:25px 12px}
+header h1{margin:0;font-size:28px}
+header p{margin:8px 0 0}
+.container{max-width:650px;margin:18px auto;padding:12px}
+.card{background:white;border-radius:15px;padding:20px;margin-bottom:16px;box-shadow:0 4px 15px #00000012}
+h2{font-size:20px;margin-top:0;color:#0754b8}
+label{display:block;margin:13px 0 6px;font-weight:bold}
+input,select{width:100%;padding:12px;border:1px solid #bdcce0;border-radius:8px;font-size:16px;background:white}
+button{width:100%;padding:14px;background:#0866d9;color:white;border:0;border-radius:9px;font-size:17px;font-weight:bold;margin-top:18px}
+button:active{opacity:.8}
+.result{display:none;background:#e7f8ed;padding:16px;border-radius:10px;margin-top:16px;line-height:1.9}
+.note{font-size:13px;color:#526078;line-height:1.6}
+footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
 </style>
 </head>
-
 <body>
-
 <header>
-  <h1>🚆 RAILWAY RANK MITRA</h1>
-  <p>Railway Exams की तैयारी का साथी</p>
-  <p>Answer Key • Rank Calculator • Response Sheet</p>
+<h1>🚂 RAILWAY RANK MITRA</h1>
+<p>आपकी Railway Exam Preparation का साथी</p>
 </header>
 
-<div class="container">
+<main class="container">
+<div class="card">
+<h2>📝 Answer Key Calculator</h2>
+<label for="exam">अपनी परीक्षा चुनें</label>
+<select id="exam">
+<option>RRB Group D</option>
+<option>RRB ALP</option>
+<option>RRB Technician</option>
+<option>RRB NTPC UG</option>
+<option>RRB NTPC Graduate</option>
+<option>RRB JE</option>
+<option>GDCE / LDCE</option>
+<option>Other Railway Exam</option>
+</select>
 
-  <section class="card">
-    <h2>📝 Answer Key Calculator</h2>
+<label for="total">कुल प्रश्न</label>
+<input id="total" type="number" min="1" value="100">
 
-    <label>कुल प्रश्न</label>
-    <input type="number" id="total" min="0" placeholder="जैसे 100">
+<label for="correct">सही उत्तर</label>
+<input id="correct" type="number" min="0" value="0">
 
-    <label>सही प्रश्न</label>
-    <input type="number" id="correct" min="0" placeholder="जैसे 75">
+<label for="wrong">गलत उत्तर</label>
+<input id="wrong" type="number" min="0" value="0">
 
-    <label>गलत प्रश्न</label>
-    <input type="number" id="wrong" min="0" placeholder="जैसे 15">
+<label for="marks">प्रत्येक सही उत्तर के अंक</label>
+<input id="marks" type="number" min="0" step="0.25" value="1">
 
-    <label>हर सही उत्तर के अंक</label>
-    <input type="number" id="positive" value="1" step="0.01">
+<label for="negative">प्रत्येक गलत उत्तर की नेगेटिव मार्किंग</label>
+<select id="negative">
+<option value="0.3333333333">1/3 अंक</option>
+<option value="0.25">1/4 अंक</option>
+<option value="0">नेगेटिव मार्किंग नहीं</option>
+</select>
 
-    <label>हर गलत उत्तर पर कटने वाले अंक</label>
-    <input type="number" id="negative" value="0.33" min="0" step="0.01">
-
-    <button onclick="calculateMarks()">Calculate Marks</button>
-    <div id="marksResult" class="result" hidden></div>
-  </section>
-
-  <section class="card">
-    <h2>🏆 Rank Calculator</h2>
-
-    <label>आपके प्राप्त अंक</label>
-    <input type="number" id="myMarks" min="0" step="0.01"
-           placeholder="अपने अंक डालें">
-
-    <label>कुल उम्मीदवार</label>
-    <input type="number" id="candidates" min="1"
-           placeholder="जैसे 100000">
-
-    <label>आपका अनुमानित Percentile (%)</label>
-    <input type="number" id="percentile" min="0" max="100"
-           step="0.01" placeholder="जैसे 95">
-
-    <button onclick="calculateRank()">Estimate Rank</button>
-    <div id="rankResult" class="result" hidden></div>
-
-    <p class="note">
-      नोट: यह अनुमानित रैंक है। वास्तविक रैंक परीक्षा के परिणाम,
-      नॉर्मलाइजेशन और अन्य उम्मीदवारों के प्रदर्शन पर निर्भर करती है।
-    </p>
-  </section>
-
-  <section class="card">
-    <h2>📄 Response Sheet PDF</h2>
-
-    <label>अपनी Response Sheet PDF चुनें</label>
-    <input type="file" id="pdfFile" accept="application/pdf">
-
-    <button onclick="openPDF()">Open Response Sheet</button>
-    <div id="pdfResult" class="result" hidden></div>
-
-    <p class="note">
-      PDF आपके ब्राउज़र में खोली जाएगी। यह वेबसाइट आपकी PDF
-      को सर्वर पर अपलोड नहीं करती।
-    </p>
-  </section>
-
+<button onclick="calculate()">Calculate My Score</button>
+<div class="result" id="result" aria-live="polite"></div>
 </div>
 
+<div class="card">
+<h2>🏆 Rank Calculator</h2>
+<p>अपना स्कोर भरकर अनुमानित रैंक की जानकारी देखें।</p>
+<label for="rankScore">आपके अनुमानित अंक</label>
+<input id="rankScore" type="number" min="0" placeholder="जैसे 75">
+
+<button onclick="rankEstimate()">Check Estimated Rank</button>
+<div class="result" id="rankResult" aria-live="polite"></div>
+<p class="note">नोट: वास्तविक रैंक परीक्षा के कठिनाई स्तर, शिफ्ट, उम्मीदवारों की संख्या और आधिकारिक परिणाम पर निर्भर करती है। यह टूल वास्तविक रैंक की गारंटी नहीं देता।</p>
+</div>
+</main>
+
 <footer>
-  © 2026 Railway Rank Mitra | All Rights Reserved
+© 2026 Railway Rank Mitra | Learn • Practice • Succeed
 </footer>
 
 <script>
-function getNumber(id) {
-  return Number(document.getElementById(id).value);
+function num(id){
+ return Number(document.getElementById(id).value);
 }
+function calculate(){
+ const total=num('total');
+ const correct=num('correct');
+ const wrong=num('wrong');
+ const marks=num('marks');
+ const neg=num('negative');
+ const box=document.getElementById('result');
 
-function calculateMarks() {
-  const total = getNumber("total");
-  const correct = getNumber("correct");
-  const wrong = getNumber("wrong");
-  const positive = getNumber("positive");
-  const negative = getNumber("negative");
+ if(!Number.isFinite(total)||!Number.isFinite(correct)||!Number.isFinite(wrong)||
+ total<1||correct<0||wrong<0||marks<0||
+ !Number.isInteger(total)||!Number.isInteger(correct)||!Number.isInteger(wrong)||
+ correct+wrong>total){
+  box.style.display='block';
+  box.innerHTML='⚠️ कृपया सही जानकारी भरें। सही और गलत उत्तरों का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।';
+  return;
+ }
 
-  const box = document.getElementById("marksResult");
-  box.hidden = false;
+ const score=correct*marks-wrong*neg*marks;
+ const attempted=correct+wrong;
+ const accuracy=attempted?correct/attempted*100:0;
 
-  if (
-    document.getElementById("total").value === "" ||
-    document.getElementById("correct").value === "" ||
-    document.getElementById("wrong").value === "" ||
-    total < 0 || correct < 0 || wrong < 0 ||
-    positive < 0 || negative < 0 ||
-    correct + wrong > total
-  ) {
-    box.textContent =
-      "कृपया सही जानकारी भरें। सही और गलत प्रश्नों का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।";
-    return;
-  }
-
-  const unattempted = total - correct - wrong;
-  const marks = correct * positive - wrong * negative;
-
-  box.innerHTML =
-    "✅ प्राप्त अंक: " + marks.toFixed(2) +
-    "<br>✔️ सही उत्तर: " + correct +
-    "<br>❌ गलत उत्तर: " + wrong +
-    "<br>⭕ बिना प्रयास: " + unattempted;
+ box.style.display='block';
+ box.innerHTML=
+ '<b>परीक्षा:</b> '+document.getElementById('exam').value+'<br>'+
+ '<b>Attempt किए:</b> '+attempted+' / '+total+'<br>'+
+ '<b>बिना प्रयास प्रश्न:</b> '+(total-attempted)+'<br>'+
+ '<b>कुल स्कोर:</b> '+score.toFixed(2)+' अंक<br>'+
+ '<b>Accuracy:</b> '+accuracy.toFixed(2)+'%';
 }
-
-function calculateRank() {
-  const marksField = document.getElementById("myMarks");
-  const candidatesField = document.getElementById("candidates");
-  const percentileField = document.getElementById("percentile");
-  const box = document.getElementById("rankResult");
-
-  const marks = getNumber("myMarks");
-  const candidates = getNumber("candidates");
-  const percentile = getNumber("percentile");
-
-  box.hidden = false;
-
-  if (
-    marksField.value === "" ||
-    candidatesField.value === "" ||
-    percentileField.value === "" ||
-    marks < 0 || candidates < 1 ||
-    percentile < 0 || percentile > 100
-  ) {
-    box.textContent = "कृपया सभी जानकारी सही भरें।";
-    return;
-  }
-
-  const rank = Math.max(
-    1,
-    Math.ceil(candidates * (100 - percentile) / 100)
-  );
-
-  box.innerHTML =
-    "आपके अंक: " + marks +
-    "<br>अनुमानित Percentile: " + percentile + "%" +
-    "<br>अनुमानित Rank: " + rank.toLocaleString("en-IN");
-}
-
-let pdfURL = null;
-
-function openPDF() {
-  const input = document.getElementById("pdfFile");
-  const box = document.getElementById("pdfResult");
-  box.hidden = false;
-
-  if (!input.files || !input.files[0]) {
-    box.textContent = "पहले अपनी Response Sheet PDF चुनें।";
-    return;
-  }
-
-  const file = input.files[0];
-
-  if (file.type !== "application/pdf") {
-    box.textContent = "कृपया PDF फाइल ही चुनें।";
-    return;
-  }
-
-  if (pdfURL) {
-    URL.revokeObjectURL(pdfURL);
-  }
-
-  pdfURL = URL.createObjectURL(file);
-
-  box.innerHTML = "";
-
-  const link = document.createElement("a");
-  link.href = pdfURL;
-  link.target = "_blank";
-  link.rel = "noopener";
-  link.textContent = "📄 PDF खोलने के लिए यहाँ टैप करें";
-  link.style.color = "#07549b";
-  link.style.fontWeight = "bold";
-
-  box.appendChild(link);
+function rankEstimate(){
+ const score=num('rankScore');
+ const box=document.getElementById('rankResult');
+ box.style.display='block';
+ if(document.getElementById('rankScore').value===''||!Number.isFinite(score)||score<0){
+  box.innerHTML='⚠️ कृपया वैध स्कोर भरें।';
+  return;
+ }
+ box.innerHTML='आपका स्कोर: <b>'+score.toFixed(2)+'</b><br><br>'+
+ 'अनुमानित रैंक बताने के लिए परीक्षा, शिफ्ट, कुल उम्मीदवारों और दूसरे उम्मीदवारों के स्कोर का डेटा आवश्यक है।<br>'+
+ '<b>अभी वास्तविक या विश्वसनीय रैंक उपलब्ध नहीं है।</b>';
 }
 </script>
-
 </body>
 </html>
