@@ -334,7 +334,10 @@ async function rrmReadResponse() {
   const url = document.getElementById("responseUrl").value.trim();
 
   box.innerHTML = "";
-
+if (file && url) {
+  box.textContent = "कृपया URL या HTML फ़ाइल में से केवल एक चुनें।";
+  return;
+}
   if (!file && !url) {
     box.textContent = "कृपया HTML/PDF फ़ाइल चुनें या URL डालें।";
     return;
@@ -566,4 +569,5 @@ Logout
 })();
 </script>
 </body>
+ 
 </html>
