@@ -449,5 +449,19 @@ style="background:#16a34a;color:white;padding:13px 20px;border:0;border-radius:8
  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+ <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDLt4ZogCPO5wdfpSLS2PFrnswjAobjcQk",
+  authDomain: "railway-rank-mitra.firebaseapp.com",
+  projectId: "railway-rank-mitra",
+  storageBucket: "railway-rank-mitra.firebasestorage.app",
+  messagingSenderId: "317125681510",
+  appId: "1:317125681510:web:7de168876275f5c0bfa8a7"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+ </script>
 </body>
 </html>
