@@ -1,587 +1,221 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!DOCTYPE html><html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Railway Rank Mitra</title>
-
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#eef3ff;
- color:#172554;
-}
-header{
- background:linear-gradient(135deg,#082f80,#1769d2);
- color:white;
- text-align:center;
- padding:25px 12px;
-}
-header h1{margin:0;font-size:28px}
-header p{margin:9px 0 0;font-size:14px}
-nav{
- display:flex;flex-wrap:wrap;justify-content:center;
- gap:8px;padding:12px;background:white;
- position:sticky;top:0;
- box-shadow:0 2px 8px #0001;
-}
-nav a{
- text-decoration:none;background:#e0eaff;
- color:#123b86;padding:9px 12px;
- border-radius:20px;font-weight:bold;font-size:13px;
-}
-.container{max-width:750px;margin:auto;padding:14px}
-.card{
- background:white;padding:18px;margin:15px 0;
- border-radius:16px;box-shadow:0 4px 15px #152c5012;
-}
-h2{margin-top:0;color:#123b86;font-size:21px}
-label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
-input,select{
- width:100%;padding:12px;margin-top:6px;
- border:1px solid #cbd5e1;border-radius:9px;
- font-size:16px;background:white;
-}
-button,.btn{
- display:block;width:100%;border:0;
- padding:13px;margin-top:14px;border-radius:10px;
- background:#1457c5;color:white;font-size:16px;
- font-weight:bold;text-align:center;text-decoration:none;
- cursor:pointer;
-}
-.green{background:#07834b}
-.orange{background:#ea7808}
-.result{
- display:none;background:#e5f8ed;border:1px solid #86d6a5;
- padding:15px;border-radius:10px;margin-top:15px;
- line-height:1.8;overflow-wrap:anywhere;
-}
-.exam-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.exam-list button{margin:0;background:#e6efff;color:#123b86}
-footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
-.small{font-size:13px;color:#64748b;line-height:1.6}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+header{background:#123b78;color:white;text-align:center;padding:24px 12px}
+header h1{margin:0;font-size:27px}
+header p{margin-bottom:0}
+main{max-width:760px;margin:auto;padding:15px}
+.card{background:white;padding:18px;margin:16px 0;border-radius:14px;box-shadow:0 2px 9px #00000012}
+h2{font-size:21px;color:#174ea6;margin-top:0}
+.exam-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+button{border:0;border-radius:9px;padding:12px;background:#174ea6;color:white;font-size:15px;font-weight:bold;cursor:pointer}
+button:active{opacity:.8}
+input,select{display:block;width:100%;padding:12px;margin:7px 0 15px;border:1px solid #b8c4d6;border-radius:8px;font-size:16px;background:white}
+label{font-weight:bold}
+.note{font-size:13px;color:#526174;line-height:1.5}
+.result{background:#e9f4ff;padding:12px;border-radius:8px;margin-top:12px;overflow-wrap:anywhere}
+.secondary{background:#087443}
+footer{text-align:center;padding:20px;color:#526174;font-size:13px}
 </style>
 </head>
-
 <body>
-
 <header>
-<h1>🚂 RAILWAY RANK MITRA</h1>
-<p>Railway Exam Answer Key Calculator & Rank Predictor</p>
-</header>
-
-<nav>
-<a href="#calculator">Calculator</a>
-<a href="#scorecard">Scorecard</a>
-<a href="#rank">Rank Predictor</a>
-<a href="#social">YouTube / Telegram</a>
-</nav>
-
-<div class="container">
-
+<h1>🚆 RAILWAY RANK MITRA</h1>
+<p>Railway Exam Score Calculator</p>
+</header><main>
 <section class="card">
-<h2>🎯 Railway Exam चुनें</h2>
+<h2>अपना Exam चुनें</h2>
 <div class="exam-list">
-<button onclick="chooseExam('RRB Group D')">Group D</button>
-<button onclick="chooseExam('RRB ALP')">ALP</button>
-<button onclick="chooseExam('RRB Technician')">Technician</button>
-<button onclick="chooseExam('RRB NTPC UG')">NTPC UG</button>
-<button onclick="chooseExam('RRB NTPC Graduate')">NTPC Graduate</button>
-<button onclick="chooseExam('RRB JE')">JE</button>
-<button onclick="chooseExam('GDCE')">GDCE</button>
-<button onclick="chooseExam('LDCE')">LDCE</button>
+<button type="button" onclick="chooseExam('RRB Group D')">Group D</button>
+<button type="button" onclick="chooseExam('RRB ALP')">ALP</button>
+<button type="button" onclick="chooseExam('RRB Technician')">Technician</button>
+<button type="button" onclick="chooseExam('RRB NTPC UG')">NTPC UG</button>
+<button type="button" onclick="chooseExam('RRB NTPC Graduate')">NTPC Graduate</button>
+<button type="button" onclick="chooseExam('RRB JE')">JE</button>
+<button type="button" onclick="chooseExam('GDCE')">GDCE</button>
+<button type="button" onclick="chooseExam('LDCE')">LDCE</button>
 </div>
-<p id="examName" class="small">अपना Exam चुनें।</p>
-</section>
+<p id="examName" class="result">अपना Exam चुनें।</p>
+</section><section class="card" id="responseSection">
+<h2>📄 Response Sheet</h2>
+<label for="railExam">Exam चुनें</label>
+<select id="railExam">
+<option value="RRB Group D">RRB Group D</option>
+<option value="RRB ALP">RRB ALP</option>
+<option value="RRB Technician">RRB Technician</option>
+<option value="RRB NTPC UG">RRB NTPC UG</option>
+<option value="RRB NTPC Graduate">RRB NTPC Graduate</option>
+<option value="RRB JE">RRB JE</option>
+<option value="GDCE">GDCE</option>
+<option value="LDCE">LDCE</option>
+<option value="Other">Other Railway Exam</option>
+</select><label for="responseUrl">Response Sheet URL (लिंक)</label>
+<input id="responseUrl" type="url" placeholder="https://example.com/response-sheet">
 
-<section class="card" id="calculator">
+<p style="text-align:center">— या —</p><label for="responseFile">HTML Response Sheet फ़ाइल अपलोड करें</label>
+<input id="responseFile" type="file" accept=".html,.htm,text/html">
+
+<p class="note">URL या HTML फ़ाइल में से केवल एक विकल्प इस्तेमाल करें। लॉगिन की आवश्यकता वाली लिंक अपने आप नहीं खुल सकती। PDF अपलोड अभी समर्थित नहीं है।</p><button type="button" onclick="readResponse()">Response Sheet खोलें</button>
+
+<div id="responseMessage" class="result" hidden></div>
+</section><section class="card" id="calculator">
 <h2>🧮 Answer Key Calculator</h2>
+<label for="total">कुल प्रश्न</label>
+<input id="total" type="number" min="1" placeholder="जैसे 100"><label for="correct">सही उत्तर</label>
+<input id="correct" type="number" min="0" placeholder="जैसे 75">
 
-<label>Total Questions</label>
-<input type="number" id="total" placeholder="जैसे 100" min="1">
+<label for="wrong">गलत उत्तर</label>
+<input id="wrong" type="number" min="0" placeholder="जैसे 15">
 
-<label>Correct Answers</label>
-<input type="number" id="correct" placeholder="सही प्रश्नों की संख्या" min="0">
+<label for="marks">हर सही उत्तर के अंक</label>
+<input id="marks" type="number" min="0" step="0.01" value="1">
 
-<label>Wrong Answers</label>
-<input type="number" id="wrong" placeholder="गलत प्रश्नों की संख्या" min="0">
+<label for="negative">हर गलत उत्तर की नेगेटिव मार्किंग</label>
+<input id="negative" type="number" min="0" step="0.01" value="0.33">
 
-<label>हर सही उत्तर के Marks</label>
-<input type="number" id="marks" value="1" step="0.01" min="0">
+<button type="button" onclick="calculate()">Calculate Score</button>
 
-<label>हर गलत उत्तर की Negative Marking</label>
-<select id="negative">
-<option value="0">कोई Negative Marking नहीं</option>
-<option value="0.25" selected>1/3 (0.33 Marks लगभग)</option>
-<option value="0.33">0.33 Marks</option>
-<option value="0.5">0.50 Marks</option>
-<option value="1">1 Mark</option>
-</select>
+<div id="calcResult" class="result" hidden></div>
+</section><section class="card" id="rankCalculator">
+<h2>📊 अनुमानित Rank Calculator</h2>
+<label for="candidates">कुल उम्मीदवार</label>
+<input id="candidates" type="number" min="1" placeholder="जैसे 100000"><label for="percentile">आपका Percentile (0–100)</label>
+<input id="percentile" type="number" min="0" max="100" step="0.01" placeholder="जैसे 95">
 
-<button onclick="calculate()">Calculate Score</button>
-<div class="result" id="calcResult"></div>
+<button type="button" onclick="predictRank()">Estimate Rank</button>
+
+<div id="rankResult" class="result" hidden></div>
+<p class="note">यह केवल गणितीय अनुमान है। वास्तविक रैंक आधिकारिक परिणाम और उम्मीदवारों के डेटा पर निर्भर करती है।</p>
 </section>
-
-<section class="card" id="scorecard">
-<h2>📄 Scorecard</h2>
-<p class="small">Calculator में अपना डेटा भरकर पहले Calculate Score दबाएँ। फिर Scorecard बनाएँ।</p>
-<label>विद्यार्थी का नाम (वैकल्पिक)</label>
-<input id="studentName" placeholder="अपना नाम लिखें">
-
-<label>Roll Number (वैकल्पिक)</label>
-<input id="roll" placeholder="अपना Roll Number लिखें">
-
-<button class="green" onclick="makeScorecard()">Generate Scorecard</button>
-<div class="result" id="scoreResult"></div>
-<button class="orange" onclick="window.print()">Print / Save PDF</button>
-</section>
-
-<section class="card" id="rank">
-<h2>🏆 Rank Predictor</h2>
-<p class="small">यह केवल अनुमान है। वास्तविक रैंक आधिकारिक परिणाम और सभी उम्मीदवारों के प्रदर्शन पर निर्भर करेगी।</p>
-
-<label>कुल उम्मीदवार (अनुमानित)</label>
-<input type="number" id="candidates" placeholder="जैसे 100000" min="1">
-
-<label>आपका अनुमानित Percentile (%)</label>
-<input type="number" id="percentile" placeholder="जैसे 90" min="0" max="100" step="0.01">
-
-<button onclick="predictRank()">Estimate Rank</button>
-<div class="result" id="rankResult"></div>
-</section>
-
-<section class="card" id="social">
-<h2>📢 Railway Success Point से जुड़ें</h2>
-<p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
-
-<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener">▶️ YouTube Channel</a>
-
-<a class="btn green" href="https://t.me/railwaysuccespointchannel" target="_blank" rel="noopener">✈️ Telegram Channel</a>
-</section>
-
-</div>
-
-<footer>
-<strong>RAILWAY RANK MITRA</strong>
-<p>Railway Exam Preparation के लिए आपका साथी 🚂</p>
-<p>यह स्वतंत्र अनुमान टूल है, आधिकारिक Railway वेबसाइट नहीं।</p>
-</footer>
-
-<script>
-let currentScore = null;
-let currentCorrect = 0;
-let currentWrong = 0;
+</main><footer>RAILWAY RANK MITRA<br>यह एक स्वतंत्र शैक्षणिक कैलकुलेटर है, आधिकारिक रेलवे वेबसाइट नहीं।</footer><script>
 let selectedExam = "Railway Exam";
+let currentScore = null;
 
 function chooseExam(name){
- selectedExam = name;
+  selectedExam = name;
+  document.getElementById("examName").textContent = "Selected Exam: " + name;
+  document.getElementById("railExam").value = name;
+  document.getElementById("responseSection").scrollIntoView({behavior:"smooth"});
+}
 
- document.getElementById("examName").textContent =
-   "Selected Exam: " + name;
+async function readResponse(){
+  const url = document.getElementById("responseUrl").value.trim();
+  const file = document.getElementById("responseFile").files[0];
+  const msg = document.getElementById("responseMessage");
 
- const examDropdown = document.getElementById("railExam");
+  msg.hidden = false;
+  msg.textContent = "";
 
- if (examDropdown) {
-   examDropdown.value = name;
- }
+  if(url && file){
+    msg.textContent = "कृपया URL या HTML फ़ाइल में से केवल एक चुनें।";
+    return;
+  }
 
- const responseSection =
-   document.getElementById("gdce-ldce-calculator");
+  if(!url && !file){
+    msg.textContent = "पहले Response Sheet का URL डालें या HTML फ़ाइल अपलोड करें।";
+    return;
+  }
 
- if (responseSection) {
-   responseSection.scrollIntoView({behavior:"smooth"});
- }
+  if(file){
+    if(!/\.(html|htm)$/i.test(file.name)){
+      msg.textContent = "कृपया HTML या HTM फ़ाइल चुनें।";
+      return;
+    }
+    const text = await file.text();
+    showResponseText(text, msg);
+    return;
+  }
+
+  try{
+    const parsed = new URL(url);
+    if(!["https:","http:"].includes(parsed.protocol)){
+      throw new Error("Invalid URL");
+    }
+    msg.textContent = "Response Sheet लोड हो रही है…";
+    const response = await fetch(parsed.href);
+    if(!response.ok) throw new Error("लोड नहीं हो सकी");
+    const text = await response.text();
+    showResponseText(text, msg);
+  }catch(error){
+    msg.textContent = "लिंक नहीं पढ़ी जा सकी। वेबसाइट की सुरक्षा (CORS), लॉगिन या लिंक की अनुमति कारण हो सकती है। Response Sheet को HTML फ़ाइल के रूप में डाउनलोड करके अपलोड करने की कोशिश करें।";
+  }
+}
+
+function showResponseText(text, msg){
+  const doc = new DOMParser().parseFromString(text,"text/html");
+  const plain = (doc.body ? doc.body.innerText : doc.documentElement.textContent)
+    .replace(/\s+/g," ").trim();
+
+  if(!plain){
+    msg.textContent = "फ़ाइल से पढ़ने योग्य टेक्स्ट नहीं मिला।";
+    return;
+  }
+
+  const preview = plain.slice(0,4000);
+  msg.textContent = "Response Sheet का टेक्स्ट प्रीव्यू (पहले 4000 अक्षर): " + preview +
+    (plain.length > 4000 ? " … (प्रीव्यू सीमित है)" : "") +
+    " — यह प्रीव्यू अपने आप स्कोर नहीं निकालता।";
 }
 
 function calculate(){
- const total=Number(document.getElementById("total").value);
- const correct=Number(document.getElementById("correct").value);
- const wrong=Number(document.getElementById("wrong").value);
- const marks=Number(document.getElementById("marks").value);
- const negative=Number(document.getElementById("negative").value);
- const result=document.getElementById("calcResult");
+  const totalInput = document.getElementById("total").value;
+  const correctInput = document.getElementById("correct").value;
+  const wrongInput = document.getElementById("wrong").value;
+  const marksInput = document.getElementById("marks").value;
+  const negativeInput = document.getElementById("negative").value;
+  const result = document.getElementById("calcResult");
 
- if(document.getElementById("total").value==="" ||
- document.getElementById("correct").value==="" ||
- document.getElementById("wrong").value==="" ||
- document.getElementById("marks").value===""){
- alert("कृपया सभी जरूरी जानकारी भरें।");return;
- }
- if(total<=0 || correct<0 || wrong<0 || marks<0 ||
- correct+wrong>total){
- alert("कृपया सही संख्या भरें। Correct + Wrong, Total Questions से ज्यादा नहीं हो सकते।");
- return;
- }
+  if([totalInput,correctInput,wrongInput,marksInput,negativeInput].some(v=>v==="")){
+    alert("कृपया सभी जानकारी भरें।");
+    return;
+  }
 
- currentScore=(correct*marks)-(wrong*negative);
- currentCorrect=correct;
- currentWrong=wrong;
+  const total=Number(totalInput);
+  const correct=Number(correctInput);
+  const wrong=Number(wrongInput);
+  const marks=Number(marksInput);
+  const negative=Number(negativeInput);
 
- result.style.display="block";
- result.innerHTML=
- "<b>Exam:</b> "+selectedExam+"<br>"+
- "<b>Total Questions:</b> "+total+"<br>"+
- "<b>Correct:</b> "+correct+"<br>"+
- "<b>Wrong:</b> "+wrong+"<br>"+
- "<b>Unattempted:</b> "+(total-correct-wrong)+"<br>"+
- "<b>Final Score:</b> "+currentScore.toFixed(2);
-}
+  if(![total,correct,wrong,marks,negative].every(Number.isFinite) ||
+     total<=0 || correct<0 || wrong<0 || marks<0 || negative<0 ||
+     !Number.isInteger(total) || !Number.isInteger(correct) ||
+     !Number.isInteger(wrong) || correct+wrong>total){
+    alert("सही संख्या भरें। सही और गलत उत्तरों का योग कुल प्रश्नों से ज्यादा नहीं होना चाहिए।");
+    return;
+  }
 
-function makeScorecard(){
- if(currentScore===null){
- alert("पहले Answer Key Calculator में Calculate Score करें।");return;
- }
- const name=document.getElementById("studentName").value || "Not Provided";
- const roll=document.getElementById("roll").value || "Not Provided";
- const result=document.getElementById("scoreResult");
- result.style.display="block";
- result.innerHTML=
- "<h3>🚂 RAILWAY RANK MITRA SCORECARD</h3>"+
- "<b>Exam:</b> "+selectedExam+"<br>"+
- "<b>Name:</b> "+escapeHTML(name)+"<br>"+
- "<b>Roll Number:</b> "+escapeHTML(roll)+"<br>"+
- "<b>Correct Answers:</b> "+currentCorrect+"<br>"+
- "<b>Wrong Answers:</b> "+currentWrong+"<br>"+
- "<b>Calculated Score:</b> "+currentScore.toFixed(2)+"<br>"+
- "<p class='small'>यह स्कोर आपके द्वारा दर्ज की गई जानकारी के आधार पर है। यह आधिकारिक स्कोरकार्ड नहीं है।</p>";
-}
-
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,function(ch){
- return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
- });
+  currentScore = correct*marks - wrong*negative;
+  result.hidden=false;
+  result.textContent = "Exam: "+selectedExam+
+    " | कुल प्रश्न: "+total+
+    " | सही: "+correct+
+    " | गलत: "+wrong+
+    " | छोड़े गए: "+(total-correct-wrong)+
+    " | अनुमानित स्कोर: "+currentScore.toFixed(2);
 }
 
 function predictRank(){
- const candidates=Number(document.getElementById("candidates").value);
- const percentile=Number(document.getElementById("percentile").value);
- const result=document.getElementById("rankResult");
+  const cInput=document.getElementById("candidates").value;
+  const pInput=document.getElementById("percentile").value;
+  const result=document.getElementById("rankResult");
+  const candidates=Number(cInput);
+  const percentile=Number(pInput);
 
- if(document.getElementById("candidates").value==="" ||
- document.getElementById("percentile").value==="" ||
- candidates<1 || percentile<0 || percentile>100){
- alert("कुल उम्मीदवार और 0 से 100 के बीच Percentile भरें।");
- return;
- }
-
- const rank=Math.max(1,Math.round(candidates*(100-percentile)/100)+1);
- result.style.display="block";
- result.innerHTML=
- "<b>Estimated Rank:</b> लगभग "+rank.toLocaleString("en-IN")+
- "<br><p class='small'>यह केवल गणितीय अनुमान है, वास्तविक रैंक नहीं। सही अनुमान के लिए विश्वसनीय percentile और कुल उम्मीदवारों की संख्या जरूरी है।</p>";
-}
-</script>
-<!-- Railway Rank Mitra: GDCE / LDCE Calculator -->
-<section id="gdce-ldce-calculator"
-style="max-width:650px;margin:25px auto;padding:20px;
-background:#f4f7ff;border:2px solid #174ea6;
-border-radius:15px;font-family:Arial,sans-serif;">
-
-<h2 style="text-align:center;color:#174ea6;">
-🚆 GDCE / LDCE Answer Key Calculator
-</h2>
-
-<p>अपनी Response Sheet से स्कोर निकालने के लिए फ़ाइल चुनें।</p>
-
-<label><b>Candidate Name</b></label>
-<input id="candidateName" type="text"
-placeholder="अपना नाम लिखें"
-style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-
-<label><b>Roll Number</b></label>
-<input id="candidateRoll" type="text"
-placeholder="अपना Roll Number लिखें"
-style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-
-<label><b>Exam चुनें</b></label>
-<select id="railExam"
-style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-<option value="GDCE">GDCE</option>
-<option value="LDCE">LDCE</option>
-<option value="ALP">ALP</option>
-<option value="Technician">Technician</option>
-<option value="Group D">Group D</option>
-<option value="NTPC">NTPC</option>
-<option value="Other">Other Railway Exam</option>
-</select>
-
-<label><b>Response Sheet URL</b></label>
-<input id="responseUrl" type="url"
-placeholder="Response Sheet का लिंक (Optional)"
-style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-
-<label><b>HTML या PDF फ़ाइल अपलोड करें</b></label>
-<input id="responseFile" type="file"
-accept=".html,.htm,.pdf"
-style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-
-<p style="font-size:13px;color:#555;">
-HTML फ़ाइल बेहतर रहेगी। PDF पढ़ने के लिए अलग PDF parser की जरूरत पड़ सकती है।
-कुछ URL लॉगिन या वेबसाइट सुरक्षा के कारण नहीं खुलेंगे।
-</p>
-
-<label><b>Negative Marking प्रति गलत उत्तर</b></label>
-<select id="negativeMark"
-style="width:100%;padding:12px;margin:8px 0;box-sizing:border-box;">
-<option value="0.33">1/3 अंक</option>
-<option value="0.25">1/4 अंक</option>
-<option value="0">Negative Marking नहीं</option>
-</select>
-
-<button type="button" onclick="rrmReadResponse()"
-style="width:100%;padding:14px;background:#174ea6;
-color:white;border:0;border-radius:8px;font-size:16px;">
-📄 Response Sheet पढ़ें
-</button>
-
-<div id="rrmMessage"
-style="margin-top:15px;overflow-wrap:anywhere;"></div>
-
-</section>
-
-<script>
-async function rrmReadResponse() {
-  const box = document.getElementById("rrmMessage");
-  const file = document.getElementById("responseFile").files[0];
-  const url = document.getElementById("responseUrl").value.trim();
-
-  box.innerHTML = "";
-if (file && url) {
-  box.textContent = "कृपया URL या HTML फ़ाइल में से केवल एक चुनें।";
-  return;
-}
-  if (!file && !url) {
-    box.textContent = "कृपया HTML/PDF फ़ाइल चुनें या URL डालें।";
+  if(cInput==="" || pInput==="" || !Number.isFinite(candidates) ||
+     !Number.isFinite(percentile) || candidates<1 ||
+     percentile<0 || percentile>100){
+    alert("कुल उम्मीदवार और 0 से 100 के बीच Percentile भरें।");
     return;
   }
 
-  if (file && !/\.(html?|pdf)$/i.test(file.name)) {
-    box.textContent = "कृपया HTML या PDF फ़ाइल चुनें।";
-    return;
-  }
-
-  if (file && /\.pdf$/i.test(file.name)) {
-    box.textContent =
-      "PDF फ़ाइल चुनी गई है। स्कोर निकालने के लिए PDF parser जोड़ना बाकी है।";
-    return;
-  }
-
-  try {
-    let content = "";
-
-    if (file) {
-      content = await file.text();
-    } else {
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("URL से फ़ाइल प्राप्त नहीं हुई।");
-      }
-
-      content = await response.text();
-    }
-
-    const doc = new DOMParser().parseFromString(content, "text/html");
-    const extractedText = (doc.body?.innerText || "").trim();
-
-    if (!extractedText) {
-      box.textContent =
-        "फ़ाइल पढ़ी गई, लेकिन उसमें से प्रश्नों का टेक्स्ट नहीं मिला।";
-      return;
-    }
-
-    const result = document.createElement("div");
-    result.style.cssText =
-      "margin-top:12px;padding:12px;background:white;border-radius:8px;";
-
-    const heading = document.createElement("h3");
-    heading.textContent = "फ़ाइल पढ़ ली गई";
-    result.appendChild(heading);
-
-    const details = document.createElement("p");
-    details.textContent =
-      "नाम: " + (document.getElementById("candidateName").value || "नहीं भरा") +
-      " | Roll Number: " +
-      (document.getElementById("candidateRoll").value || "नहीं भरा") +
-      " | Exam: " + document.getElementById("railExam").value;
-    result.appendChild(details);
-
-    const note = document.createElement("p");
-    note.textContent =
-      "अभी केवल टेक्स्ट पढ़ा गया है। सही/गलत उत्तर और कुल अंक निकालने के लिए इस Response Sheet के प्रश्नों तथा उत्तरों का प्रारूप पहचानना होगा।";
-    result.appendChild(note);
-
-    const preview = document.createElement("details");
-    const summary = document.createElement("summary");
-    summary.textContent = "पढ़ा गया टेक्स्ट देखें";
-    preview.appendChild(summary);
-
-    const pre = document.createElement("pre");
-    pre.style.cssText =
-      "white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto;";
-    pre.textContent = extractedText.slice(0, 12000);
-    preview.appendChild(pre);
-    result.appendChild(preview);
-
-    box.appendChild(result);
-  } catch (error) {
-    box.textContent =
-      "फ़ाइल/URL नहीं पढ़ पाया। URL पर CORS या लॉगिन की पाबंदी हो सकती है। HTML फ़ाइल डाउनलोड करके अपलोड करके देखें।";
-  }
+  const rank=Math.max(1,Math.round(candidates*(100-percentile)/100)+1);
+  result.hidden=false;
+  result.textContent="अनुमानित Rank: लगभग "+rank.toLocaleString("en-IN");
 }
-</script>
- <div id="telegramScoreLock" style="max-width:500px;margin:20px auto;padding:20px;border:2px solid #229ED9;border-radius:14px;text-align:center;font-family:Arial,sans-serif;background:#f0f9ff;">
-  <h2 style="color:#1677a8;">🔒 Scorecard Unlock</h2>
-  <p>अपना Scorecard देखने के लिए पहले Railway Success Point Telegram Channel खोलें।</p><a id="telegramJoinButton"
-href="https://t.me/railwaysuccespointchannel"
-target="_blank"
-rel="noopener noreferrer"
-style="display:block;background:#229ED9;color:white;padding:14px;border-radius:8px;text-decoration:none;font-weight:bold;margin:15px 0;">
-📢 JOIN TELEGRAM CHANNEL
-</a>
-
-<button id="unlockScorecardButton"
-type="button"
-style="background:#16a34a;color:white;padding:13px 20px;border:0;border-radius:8px;font-weight:bold;font-size:16px;">
-वापस आया हूँ — Scorecard खोलें
-</button>
-
-  <p id="telegramLockMessage" style="font-size:13px;color:#555;margin-top:12px;">
-    Telegram खोलने के बाद वापस आकर ऊपर वाला हरा बटन दबाएँ।
-  </p>
-</div><script>
-(function () {
-  const unlockButton = document.getElementById("unlockScorecardButton");
-  const message = document.getElementById("telegramLockMessage");
-
-  unlockButton.addEventListener("click", function () {
-    document.getElementById("telegramScoreLock").innerHTML =
-      '<h2 style="color:#16a34a;">✅ Scorecard Section Unlocked</h2>' +
-      '<p>अब नीचे अपने Calculator या Scorecard विकल्प पर जाएँ।</p>';
-  });
-})();
-</script>
- <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
- <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDLt4ZogCPO5wdfpSLS2PFrnswjAobjcQk",
-  authDomain: "railway-rank-mitra.firebaseapp.com",
-  projectId: "railway-rank-mitra",
-  storageBucket: "railway-rank-mitra.firebasestorage.app",
-  messagingSenderId: "317125681510",
-  appId: "1:317125681510:web:7de168876275f5c0bfa8a7"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
- </script>
- <!-- Railway Rank Mitra Admin Dashboard -->
-<section id="adminDashboard"
-style="max-width:750px;margin:25px auto;padding:18px;
-background:white;border:2px solid #1457c5;border-radius:15px;
-font-family:Arial,sans-serif;">
-
-<h2>🔐 Railway Rank Mitra Admin</h2>
-<p>Admin Login करके Candidate Details देखें।</p>
-
-<label for="adminEmail">Admin Email</label>
-<input id="adminEmail" type="email"
-placeholder="अपना Admin email लिखें"
-style="width:100%;padding:12px;margin:8px 0;">
-
-<label for="adminPassword">Password</label>
-<input id="adminPassword" type="password"
-placeholder="अपना Password लिखें"
-style="width:100%;padding:12px;margin:8px 0;">
-
-<button type="button" id="adminLoginButton"
-style="width:100%;padding:13px;background:#1457c5;
-color:white;border:0;border-radius:8px;font-weight:bold;">
-Admin Login
-</button>
-
-<button type="button" id="adminLogoutButton"
-style="width:100%;padding:13px;background:#b91c1c;
-color:white;border:0;border-radius:8px;font-weight:bold;display:none;">
-Logout
-</button>
-
-<p id="adminStatus" role="status" style="overflow-wrap:anywhere;">
-अभी Login नहीं किया गया है।
-</p>
-
-<div id="adminRecords" style="overflow-wrap:anywhere;"></div>
-
-</section>
-
-<script>
-(function () {
-  const email = document.getElementById("adminEmail");
-  const password = document.getElementById("adminPassword");
-  const login = document.getElementById("adminLoginButton");
-  const logout = document.getElementById("adminLogoutButton");
-  const status = document.getElementById("adminStatus");
-  const records = document.getElementById("adminRecords");
-
-  login.addEventListener("click", async function () {
-   if (typeof auth === "undefined" || typeof db === "undefined") {
-  status.textContent = "Firebase अभी उपलब्ध नहीं है।";
-  return;
-    }
-
-    if (!email.value.trim() || !password.value) {
-      status.textContent = "Admin Email और Password भरें।";
-      return;
-    }
-
-    login.disabled = true;
-    status.textContent = "Login हो रहा है…";
-
-    try {
-      await auth.signInWithEmailAndPassword(
-        email.value.trim(),
-        password.value
-      );
-
-      password.value = "";
-      login.style.display = "none";
-      email.style.display = "none";
-      password.style.display = "none";
-      logout.style.display = "block";
-
-      status.textContent =
-        "Login सफल। अब सुरक्षित डेटा अनुमति जाँची जाएगी।";
-
-      records.textContent =
-        "डेटा दिखाने के लिए Firestore Rules और submissions डेटा सेट करना बाकी है।";
-    } catch (error) {
-      status.textContent =
-        "Login नहीं हुआ। Email और Password जाँचें।";
-    } finally {
-      login.disabled = false;
-    }
-  });
-
-  logout.addEventListener("click", async function () {
-    try {
-      await auth.signOut();
-      records.textContent = "";
-      status.textContent = "आप Logout हो गए हैं।";
-      login.style.display = "block";
-      email.style.display = "block";
-      password.style.display = "block";
-      logout.style.display = "none";
-    } catch (error) {
-      status.textContent = "Logout नहीं हो पाया।";
-    }
-  });
-})();
-</script>
-</body>
- 
+</script></body>
 </html>
