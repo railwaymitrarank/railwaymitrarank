@@ -463,5 +463,107 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
  </script>
+ <!-- Railway Rank Mitra Admin Dashboard -->
+<section id="adminDashboard"
+style="max-width:750px;margin:25px auto;padding:18px;
+background:white;border:2px solid #1457c5;border-radius:15px;
+font-family:Arial,sans-serif;">
+
+<h2>🔐 Railway Rank Mitra Admin</h2>
+<p>Admin Login करके Candidate Details देखें।</p>
+
+<label for="adminEmail">Admin Email</label>
+<input id="adminEmail" type="email"
+placeholder="अपना Admin email लिखें"
+style="width:100%;padding:12px;margin:8px 0;">
+
+<label for="adminPassword">Password</label>
+<input id="adminPassword" type="password"
+placeholder="अपना Password लिखें"
+style="width:100%;padding:12px;margin:8px 0;">
+
+<button type="button" id="adminLoginButton"
+style="width:100%;padding:13px;background:#1457c5;
+color:white;border:0;border-radius:8px;font-weight:bold;">
+Admin Login
+</button>
+
+<button type="button" id="adminLogoutButton"
+style="width:100%;padding:13px;background:#b91c1c;
+color:white;border:0;border-radius:8px;font-weight:bold;display:none;">
+Logout
+</button>
+
+<p id="adminStatus" role="status" style="overflow-wrap:anywhere;">
+अभी Login नहीं किया गया है।
+</p>
+
+<div id="adminRecords" style="overflow-wrap:anywhere;"></div>
+
+</section>
+
+<script>
+(function () {
+  const email = document.getElementById("adminEmail");
+  const password = document.getElementById("adminPassword");
+  const login = document.getElementById("adminLoginButton");
+  const logout = document.getElementById("adminLogoutButton");
+  const status = document.getElementById("adminStatus");
+  const records = document.getElementById("adminRecords");
+
+  login.addEventListener("click", async function () {
+    if (!window.auth || !window.db) {
+      status.textContent = "Firebase अभी उपलब्ध नहीं है।";
+      return;
+    }
+
+    if (!email.value.trim() || !password.value) {
+      status.textContent = "Admin Email और Password भरें।";
+      return;
+    }
+
+    login.disabled = true;
+    status.textContent = "Login हो रहा है…";
+
+    try {
+      await auth.signInWithEmailAndPassword(
+        email.value.trim(),
+        password.value
+      );
+
+      password.value = "";
+      login.style.display = "none";
+      email.style.display = "none";
+      password.style.display = "none";
+      logout.style.display = "block";
+
+      status.textContent =
+        "Login सफल। अब सुरक्षित डेटा अनुमति जाँची जाएगी।";
+
+      records.textContent =
+        "डेटा दिखाने के लिए Firestore Rules और submissions डेटा सेट करना बाकी है।";
+    } catch (error) {
+      status.textContent =
+        "Login नहीं हुआ। Email और Password जाँचें।";
+    } finally {
+      login.disabled = false;
+    }
+  });
+
+  logout.addEventListener("click", async function () {
+    try {
+      await auth.signOut();
+      records.textContent = "";
+      status.textContent = "आप Logout हो गए हैं।";
+      login.style.display = "block";
+      email.style.display = "block";
+      password.style.display = "block";
+      logout.style.display = "none";
+    } catch (error) {
+      status.textContent = "Logout नहीं हो पाया।";
+    }
+  });
+})();
+</script>
 </body>
 </html>
