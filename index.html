@@ -3,353 +3,262 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#082b59">
-<meta name="description" content="Railway Rank Mitra - Railway Exam Answer Key Calculator, Scorecard and Rank Predictor">
-<title>Railway Rank Mitra | Answer Key Calculator</title>
+<title>Railway Rank Mitra</title>
 
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,"Noto Sans Devanagari",sans-serif;
-  background:#f0f5ff;
-  color:#17243a;
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#eef3ff;
+ color:#172554;
 }
 header{
-  background:linear-gradient(135deg,#062653,#0879dc);
-  color:white;
-  text-align:center;
-  padding:25px 12px;
+ background:linear-gradient(135deg,#082f80,#1769d2);
+ color:white;
+ text-align:center;
+ padding:25px 12px;
 }
-header h1{margin:0;font-size:27px}
+header h1{margin:0;font-size:28px}
 header p{margin:9px 0 0;font-size:14px}
 nav{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:9px;
-  padding:12px;
-  background:white;
-  box-shadow:0 2px 8px #0001;
+ display:flex;flex-wrap:wrap;justify-content:center;
+ gap:8px;padding:12px;background:white;
+ position:sticky;top:0;
+ box-shadow:0 2px 8px #0001;
 }
 nav a{
-  color:#0754a5;
-  text-decoration:none;
-  font-size:14px;
-  font-weight:bold;
-  padding:8px 10px;
+ text-decoration:none;background:#e0eaff;
+ color:#123b86;padding:9px 12px;
+ border-radius:20px;font-weight:bold;font-size:13px;
 }
-.container{
-  width:100%;
-  max-width:750px;
-  margin:18px auto;
-  padding:0 12px;
-}
+.container{max-width:750px;margin:auto;padding:14px}
 .card{
-  background:white;
-  border-radius:15px;
-  padding:18px;
-  margin-bottom:18px;
-  box-shadow:0 4px 15px #143b6812;
-  border:1px solid #e0eaff;
+ background:white;padding:18px;margin:15px 0;
+ border-radius:16px;box-shadow:0 4px 15px #152c5012;
 }
-h2{
-  color:#0754a5;
-  margin:0 0 15px;
-  font-size:21px;
-}
-label{
-  display:block;
-  font-weight:bold;
-  margin:13px 0 6px;
-  font-size:14px;
-}
+h2{margin-top:0;color:#123b86;font-size:21px}
+label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
 input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #c8d6e9;
-  border-radius:9px;
-  background:#fff;
-  font-size:16px;
-  outline-color:#0879dc;
+ width:100%;padding:12px;margin-top:6px;
+ border:1px solid #cbd5e1;border-radius:9px;
+ font-size:16px;background:white;
 }
-.exam-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
+button,.btn{
+ display:block;width:100%;border:0;
+ padding:13px;margin-top:14px;border-radius:10px;
+ background:#1457c5;color:white;font-size:16px;
+ font-weight:bold;text-align:center;text-decoration:none;
+ cursor:pointer;
 }
-.exam-btn{
-  border:1px solid #b7d5ff;
-  background:#edf5ff;
-  color:#0754a5;
-  padding:12px 5px;
-  border-radius:9px;
-  font-weight:bold;
-  cursor:pointer;
-}
-.exam-btn.active{
-  background:#0754a5;
-  color:white;
-}
-.main-btn{
-  width:100%;
-  border:0;
-  border-radius:10px;
-  padding:14px;
-  margin-top:16px;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  background:linear-gradient(90deg,#0754a5,#0789ec);
-  cursor:pointer;
-}
+.green{background:#07834b}
+.orange{background:#ea7808}
 .result{
-  display:none;
-  margin-top:18px;
-  padding:15px;
-  border-radius:12px;
-  background:#edf7ff;
-  border:1px solid #cce5ff;
+ display:none;background:#e5f8ed;border:1px solid #86d6a5;
+ padding:15px;border-radius:10px;margin-top:15px;
+ line-height:1.8;overflow-wrap:anywhere;
 }
-.score-big{
-  text-align:center;
-  background:#0754a5;
-  color:white;
-  padding:20px;
-  border-radius:12px;
-  margin-bottom:14px;
-}
-.score-big span{display:block;font-size:34px;font-weight:bold;margin-top:6px}
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-.result-item{
-  background:white;
-  padding:12px;
-  border-radius:9px;
-  border:1px solid #dce9f8;
-}
-.result-item small{display:block;color:#64748b;margin-bottom:5px}
-.result-item strong{font-size:18px;overflow-wrap:anywhere}
-.notice{
-  font-size:13px;
-  color:#52647b;
-  line-height:1.6;
-  margin-top:12px;
-}
-.social{
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  color:white;
-  border-radius:10px;
-  padding:14px;
-  margin-top:10px;
-  font-weight:bold;
-}
-.youtube{background:#e62117}
-.telegram{background:#168bd2}
-footer{
-  text-align:center;
-  padding:22px 12px;
-  color:#65758b;
-  font-size:13px;
-}
-@media(max-width:380px){
-  header h1{font-size:23px}
-  .card{padding:14px}
-  .result-grid{grid-template-columns:1fr 1fr}
-}
-@media print{
-  body{background:white}
-  header,nav,footer,.no-print,#calculatorCard,#rankCard,#linksCard{
-    display:none!important;
-  }
-  .container{max-width:100%;margin:0;padding:0}
-  #scoreCard{display:block!important;border:0;box-shadow:none}
-  #scoreResult{display:block!important}
-}
+.exam-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.exam-list button{margin:0;background:#e6efff;color:#123b86}
+footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
+.small{font-size:13px;color:#64748b;line-height:1.6}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🚂 RAILWAY RANK MITRA</h1>
-  <p>Railway Exams का Scorecard और Rank Analysis</p>
+<h1>🚂 RAILWAY RANK MITRA</h1>
+<p>Railway Exam Answer Key Calculator & Rank Predictor</p>
 </header>
 
 <nav>
-  <a href="#calculatorCard">Calculator</a>
-  <a href="#scoreCard">Scorecard</a>
-  <a href="#rankCard">Rank Predictor</a>
-  <a href="#linksCard">Our Channels</a>
+<a href="#calculator">Calculator</a>
+<a href="#scorecard">Scorecard</a>
+<a href="#rank">Rank Predictor</a>
+<a href="#social">YouTube / Telegram</a>
 </nav>
 
-<main class="container">
+<div class="container">
 
 <section class="card">
-  <h2>🎯 अपना Railway Exam चुनें</h2>
-  <div class="exam-grid">
-    <button class="exam-btn active" data-exam="RRB Group D">Group D</button>
-    <button class="exam-btn" data-exam="RRB ALP">ALP</button>
-    <button class="exam-btn" data-exam="RRB Technician">Technician</button>
-    <button class="exam-btn" data-exam="RRB NTPC UG">NTPC UG</button>
-    <button class="exam-btn" data-exam="RRB NTPC Graduate">NTPC Graduate</button>
-    <button class="exam-btn" data-exam="RRB JE">JE</button>
-    <button class="exam-btn" data-exam="GDCE">GDCE</button>
-    <button class="exam-btn" data-exam="LDCE">LDCE</button>
-  </div>
-  <p class="notice">चुना गया Exam आपके Scorecard में दिखाई देगा। अपने वास्तविक पेपर की marking scheme भरें।</p>
+<h2>🎯 Railway Exam चुनें</h2>
+<div class="exam-list">
+<button onclick="chooseExam('RRB Group D')">Group D</button>
+<button onclick="chooseExam('RRB ALP')">ALP</button>
+<button onclick="chooseExam('RRB Technician')">Technician</button>
+<button onclick="chooseExam('RRB NTPC UG')">NTPC UG</button>
+<button onclick="chooseExam('RRB NTPC Graduate')">NTPC Graduate</button>
+<button onclick="chooseExam('RRB JE')">JE</button>
+<button onclick="chooseExam('GDCE')">GDCE</button>
+<button onclick="chooseExam('LDCE')">LDCE</button>
+</div>
+<p id="examName" class="small">अपना Exam चुनें।</p>
 </section>
 
-<section class="card" id="calculatorCard">
-  <h2>🧮 Answer Key Calculator</h2>
+<section class="card" id="calculator">
+<h2>🧮 Answer Key Calculator</h2>
 
-  <label for="examName">Exam का नाम</label>
-  <input id="examName" value="RRB Group D" maxlength="80">
+<label>Total Questions</label>
+<input type="number" id="total" placeholder="जैसे 100" min="1">
 
-  <label for="total">कुल प्रश्न (Total Questions)</label>
-  <input id="total" type="number" min="1" max="500" value="100">
+<label>Correct Answers</label>
+<input type="number" id="correct" placeholder="सही प्रश्नों की संख्या" min="0">
 
-  <label for="correct">सही उत्तर (Correct)</label>
-  <input id="correct" type="number" min="0" value="0">
+<label>Wrong Answers</label>
+<input type="number" id="wrong" placeholder="गलत प्रश्नों की संख्या" min="0">
 
-  <label for="wrong">गलत उत्तर (Wrong)</label>
-  <input id="wrong" type="number" min="0" value="0">
+<label>हर सही उत्तर के Marks</label>
+<input type="number" id="marks" value="1" step="0.01" min="0">
 
-  <label for="marks">हर सही उत्तर के अंक</label>
-  <input id="marks" type="number" min="0" max="10" step="0.01" value="1">
+<label>हर गलत उत्तर की Negative Marking</label>
+<select id="negative">
+<option value="0">कोई Negative Marking नहीं</option>
+<option value="0.25" selected>1/3 (0.33 Marks लगभग)</option>
+<option value="0.33">0.33 Marks</option>
+<option value="0.5">0.50 Marks</option>
+<option value="1">1 Mark</option>
+</select>
 
-  <label for="negative">हर गलत उत्तर पर कटने वाले अंक</label>
-  <select id="negative">
-    <option value="0">0 — Negative Marking नहीं</option>
-    <option value="0.25" selected>0.25 अंक</option>
-    <option value="0.33">लगभग 1/3 अंक (0.33)</option>
-    <option value="0.5">0.50 अंक</option>
-    <option value="0.66">लगभग 2/3 अंक (0.66)</option>
-    <option value="1">1 अंक</option>
-  </select>
-
-  <button class="main-btn" onclick="calculate()">CALCULATE SCORE</button>
-  <p id="error" style="color:#d71920;font-weight:bold" role="alert"></p>
+<button onclick="calculate()">Calculate Score</button>
+<div class="result" id="calcResult"></div>
 </section>
 
-<section class="card" id="scoreCard">
-  <h2>📊 आपका Scorecard</h2>
-  <div id="scoreResult" class="result" aria-live="polite">
-    <div class="score-big">
-      आपका कुल स्कोर
-      <span id="score">0</span>
-      <div id="examOutput"></div>
-    </div>
+<section class="card" id="scorecard">
+<h2>📄 Scorecard</h2>
+<p class="small">Calculator में अपना डेटा भरकर पहले Calculate Score दबाएँ। फिर Scorecard बनाएँ।</p>
+<label>विद्यार्थी का नाम (वैकल्पिक)</label>
+<input id="studentName" placeholder="अपना नाम लिखें">
 
-    <div class="result-grid">
-      <div class="result-item"><small>सही उत्तर</small><strong id="rCorrect">0</strong></div>
-      <div class="result-item"><small>गलत उत्तर</small><strong id="rWrong">0</strong></div>
-      <div class="result-item"><small>Attempted</small><strong id="attempted">0</strong></div>
-      <div class="result-item"><small>Unattempted</small><strong id="unattempted">0</strong></div>
-      <div class="result-item"><small>Accuracy</small><strong id="accuracy">0%</strong></div>
-      <div class="result-item"><small>कुल प्रतिशत</small><strong id="percentage">0%</strong></div>
-      <div class="result-item"><small>Negative Marks</small><strong id="deduction">0</strong></div>
-      <div class="result-item"><small>सही उत्तरों के अंक</small><strong id="gross">0</strong></div>
-    </div>
+<label>Roll Number (वैकल्पिक)</label>
+<input id="roll" placeholder="अपना Roll Number लिखें">
 
-    <p class="notice">यह आपके भरे हुए उत्तरों के आधार पर अनुमानित स्कोर है। आधिकारिक स्कोरकार्ड अलग हो सकता है।</p>
-    <button class="main-btn no-print" onclick="window.print()">🖨️ Scorecard Print / Save PDF</button>
-  </div>
-  <p id="scoreHint" class="notice">स्कोर देखने के लिए ऊपर प्रश्नों की संख्या भरकर Calculate Score दबाएँ।</p>
+<button class="green" onclick="makeScorecard()">Generate Scorecard</button>
+<div class="result" id="scoreResult"></div>
+<button class="orange" onclick="window.print()">Print / Save PDF</button>
 </section>
 
-<section class="card" id="rankCard">
-  <h2>🏆 Rank Predictor</h2>
-  <p>आपके स्कोर के आधार पर रैंक का सही अनुमान लगाने के लिए उसी परीक्षा के उम्मीदवारों के वास्तविक स्कोर या विश्वसनीय rank data की जरूरत होती है।</p>
+<section class="card" id="rank">
+<h2>🏆 Rank Predictor</h2>
+<p class="small">यह केवल अनुमान है। वास्तविक रैंक आधिकारिक परिणाम और सभी उम्मीदवारों के प्रदर्शन पर निर्भर करेगी।</p>
 
-  <label for="candidates">उम्मीदवारों की संख्या (यदि मालूम हो)</label>
-  <input id="candidates" type="number" min="1" placeholder="जैसे 50000">
+<label>कुल उम्मीदवार (अनुमानित)</label>
+<input type="number" id="candidates" placeholder="जैसे 100000" min="1">
 
-  <label for="percentile">आपकी आधिकारिक Percentile (यदि उपलब्ध हो)</label>
-  <input id="percentile" type="number" min="0" max="100" step="0.01" placeholder="जैसे 95.5">
+<label>आपका अनुमानित Percentile (%)</label>
+<input type="number" id="percentile" placeholder="जैसे 90" min="0" max="100" step="0.01">
 
-  <button class="main-btn" onclick="predictRank()">CHECK RANK ANALYSIS</button>
-  <div id="rankResult" class="result" aria-live="polite"></div>
-  <p class="notice">बिना आधिकारिक percentile या वास्तविक उम्मीदवार डेटा के exact rank बताना संभव नहीं है। यह टूल फर्जी रैंक नहीं दिखाता।</p>
+<button onclick="predictRank()">Estimate Rank</button>
+<div class="result" id="rankResult"></div>
 </section>
 
-<section class="card" id="linksCard">
-  <h2>📢 Railway Success Point से जुड़ें</h2>
-  <p>Railway Exam Updates, Answer Key Solutions और परीक्षा की तैयारी के लिए हमारे चैनल पर जाएँ।</p>
+<section class="card" id="social">
+<h2>📢 Railway Success Point से जुड़ें</h2>
+<p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
 
-  <a class="social youtube"
-     href="https://www.youtube.com/@RailwaySuccessPoint"
-     target="_blank" rel="noopener noreferrer">
-     ▶ SUBSCRIBE YOUTUBE CHANNEL
-  </a>
+<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener">▶️ YouTube Channel</a>
 
-  <a class="social telegram"
-     href="https://t.me/railwaysuccespointchannel"
-     target="_blank" rel="noopener noreferrer">
-     ✈ JOIN TELEGRAM CHANNEL
-  </a>
+<a class="btn green" href="https://t.me/railwaysuccespointchannel" target="_blank" rel="noopener">✈️ Telegram Channel</a>
 </section>
 
-</main>
+</div>
 
 <footer>
-  <strong>RAILWAY RANK MITRA</strong><br>
-  Railway Exam Score Calculator & Analysis<br>
-  यह एक स्वतंत्र educational tool है, आधिकारिक Railway वेबसाइट नहीं।
+<strong>RAILWAY RANK MITRA</strong>
+<p>Railway Exam Preparation के लिए आपका साथी 🚂</p>
+<p>यह स्वतंत्र अनुमान टूल है, आधिकारिक Railway वेबसाइट नहीं।</p>
 </footer>
 
 <script>
-let selectedExam = "RRB Group D";
+let currentScore = null;
+let currentCorrect = 0;
+let currentWrong = 0;
+let selectedExam = "Railway Exam";
 
-document.querySelectorAll(".exam-btn").forEach(function(button){
-  button.addEventListener("click",function(){
-    document.querySelectorAll(".exam-btn").forEach(function(b){
-      b.classList.remove("active");
-    });
-    button.classList.add("active");
-    selectedExam = button.dataset.exam;
-    document.getElementById("examName").value = selectedExam;
-  });
-});
-
-function numberValue(id){
-  return Number(document.getElementById(id).value);
-}
-
-function formatNumber(value){
-  return Number(value.toFixed(2)).toString();
+function chooseExam(name){
+ selectedExam=name;
+ document.getElementById("examName").textContent="Selected Exam: "+name;
+ document.getElementById("calculator").scrollIntoView({behavior:"smooth"});
 }
 
 function calculate(){
-  const total = numberValue("total");
-  const correct = numberValue("correct");
-  const wrong = numberValue("wrong");
-  const marks = numberValue("marks");
-  const negative = numberValue("negative");
-  const error = document.getElementById("error");
+ const total=Number(document.getElementById("total").value);
+ const correct=Number(document.getElementById("correct").value);
+ const wrong=Number(document.getElementById("wrong").value);
+ const marks=Number(document.getElementById("marks").value);
+ const negative=Number(document.getElementById("negative").value);
+ const result=document.getElementById("calcResult");
 
-  error.textContent = "";
+ if(document.getElementById("total").value==="" ||
+ document.getElementById("correct").value==="" ||
+ document.getElementById("wrong").value==="" ||
+ document.getElementById("marks").value===""){
+ alert("कृपया सभी जरूरी जानकारी भरें।");return;
+ }
+ if(total<=0 || correct<0 || wrong<0 || marks<0 ||
+ correct+wrong>total){
+ alert("कृपया सही संख्या भरें। Correct + Wrong, Total Questions से ज्यादा नहीं हो सकते।");
+ return;
+ }
 
-  if(!Number.isInteger(total) || total < 1 || total > 500){
-    error.textContent = "कुल प्रश्न 1 से 500 के बीच भरें।";
-    return;
-  }
+ currentScore=(correct*marks)-(wrong*negative);
+ currentCorrect=correct;
+ currentWrong=wrong;
 
-  if(!Number.isInteger(correct) || !Number.isInteger(wrong) ||
-     correct < 0 || wrong < 0){
-    error.textContent = "सही और गलत उत्तर पूर्ण संख्या में भरें।";
-    return;
-  }
+ result.style.display="block";
+ result.innerHTML=
+ "<b>Exam:</b> "+selectedExam+"<br>"+
+ "<b>Total Questions:</b> "+total+"<br>"+
+ "<b>Correct:</b> "+correct+"<br>"+
+ "<b>Wrong:</b> "+wrong+"<br>"+
+ "<b>Unattempted:</b> "+(total-correct-wrong)+"<br>"+
+ "<b>Final Score:</b> "+currentScore.toFixed(2);
+}
 
-  if(correct + wrong > total){
-    error.textContent = "सही और गलत उत्तरों का योग कुल प्रश्नों से अधिक नहीं हो सकता।";
-    return;
-  }
+function makeScorecard(){
+ if(currentScore===null){
+ alert("पहले Answer Key Calculator में Calculate Score करें।");return;
+ }
+ const name=document.getElementById("studentName").value || "Not Provided";
+ const roll=document.getElementById("roll").value || "Not Provided";
+ const result=document.getElementById("scoreResult");
+ result.style.display="block";
+ result.innerHTML=
+ "<h3>🚂 RAILWAY RANK MITRA SCORECARD</h3>"+
+ "<b>Exam:</b> "+selectedExam+"<br>"+
+ "<b>Name:</b> "+escapeHTML(name)+"<br>"+
+ "<b>Roll Number:</b> "+escapeHTML(roll)+"<br>"+
+ "<b>Correct Answers:</b> "+currentCorrect+"<br>"+
+ "<b>Wrong Answers:</b> "+currentWrong+"<br>"+
+ "<b>Calculated Score:</b> "+currentScore.toFixed(2)+"<br>"+
+ "<p class='small'>यह स्कोर आपके द्वारा दर्ज की गई जानकारी के आधार पर है। यह आधिकारिक स्कोरकार्ड नहीं है।</p>";
+}
 
-  if(!Number.isFinite(marks) || marks < 0 || marks > 10){
-    error.textContent
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,function(ch){
+ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
+ });
+}
+
+function predictRank(){
+ const candidates=Number(document.getElementById("candidates").value);
+ const percentile=Number(document.getElementById("percentile").value);
+ const result=document.getElementById("rankResult");
+
+ if(document.getElementById("candidates").value==="" ||
+ document.getElementById("percentile").value==="" ||
+ candidates<1 || percentile<0 || percentile>100){
+ alert("कुल उम्मीदवार और 0 से 100 के बीच Percentile भरें।");
+ return;
+ }
+
+ const rank=Math.max(1,Math.round(candidates*(100-percentile)/100)+1);
+ result.style.display="block";
+ result.innerHTML=
+ "<b>Estimated Rank:</b> लगभग "+rank.toLocaleString("en-IN")+
+ "<br><p class='small'>यह केवल गणितीय अनुमान है, वास्तविक रैंक नहीं। सही अनुमान के लिए विश्वसनीय percentile और कुल उम्मीदवारों की संख्या जरूरी है।</p>";
+}
+</script>
+
+</body>
+</html>
