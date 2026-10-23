@@ -176,9 +176,23 @@ let currentWrong = 0;
 let selectedExam = "Railway Exam";
 
 function chooseExam(name){
- selectedExam=name;
- document.getElementById("examName").textContent="Selected Exam: "+name;
- document.getElementById("calculator").scrollIntoView({behavior:"smooth"});
+ selectedExam = name;
+
+ document.getElementById("examName").textContent =
+   "Selected Exam: " + name;
+
+ const examDropdown = document.getElementById("railExam");
+
+ if (examDropdown) {
+   examDropdown.value = name;
+ }
+
+ const responseSection =
+   document.getElementById("gdce-ldce-calculator");
+
+ if (responseSection) {
+   responseSection.scrollIntoView({behavior:"smooth"});
+ }
 }
 
 function calculate(){
