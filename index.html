@@ -2,17 +2,18 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RAILWAY RANK MITRA</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#eef3f9;color:#172033}
-header{background:linear-gradient(135deg,#102a56,#0878bd);color:white;text-align:center;padding:25px 10px}
+header{background:linear-gradient(135deg,#102a56,#0878bd);color:white;text-align:center;padding:24px 10px}
 header h1{margin:0;font-size:26px}
 header p{margin-bottom:0}
 .container{max-width:800px;margin:20px auto;padding:0 12px}
 .card{background:white;padding:18px;margin-bottom:18px;border-radius:14px;box-shadow:0 3px 12px #0001}
-h2{font-size:20px;color:#075c9c;border-bottom:2px solid #e4edf6;padding-bottom:10px}
+h2{color:#075c9c;font-size:20px;border-bottom:2px solid #e4edf6;padding-bottom:10px}
 label{display:block;font-weight:bold;margin:12px 0 6px}
 input,select{width:100%;padding:12px;border:1px solid #ccd6e2;border-radius:8px;font-size:15px;background:white}
 input[type=file]{padding:9px}
@@ -27,8 +28,8 @@ footer{text-align:center;padding:20px;color:#526173;font-size:13px}
 @media(max-width:520px){.grid{grid-template-columns:1fr}header h1{font-size:22px}}
 </style>
 </head>
-<body>
 
+<body>
 <header>
 <h1>🚆 RAILWAY RANK MITRA</h1>
 <p>Railway Exam Score & Rank Information</p>
@@ -89,19 +90,23 @@ footer{text-align:center;padding:20px;color:#526173;font-size:13px}
 <option>Other</option>
 </select>
 
+<!-- RESPONSE SHEET: केवल एक बार -->
 <h2 style="margin-top:25px">📄 Response Sheet</h2>
-<label>Response Sheet HTML File अपलोड करें</label>
+
+<label>Response Sheet HTML File</label>
 <input id="responseFile" type="file" accept=".html,.htm">
 
-<label>या Response Sheet URL डालें</label>
-<input id="responseURL" type="url" placeholder="Response Sheet URL">
+<label>या Response Sheet URL</label>
+<input id="responseURL" type="url" placeholder="Response Sheet URL डालें">
 
+<!-- ANSWER KEY: केवल एक बार -->
 <h2 style="margin-top:25px">🔑 Official Answer Key</h2>
-<label>Answer Key HTML File अपलोड करें</label>
+
+<label>Answer Key HTML File</label>
 <input id="answerFile" type="file" accept=".html,.htm">
 
-<label>या Answer Key URL डालें</label>
-<input id="answerURL" type="url" placeholder="Answer Key URL">
+<label>या Answer Key URL</label>
+<input id="answerURL" type="url" placeholder="Answer Key URL डालें">
 
 <div class="grid">
 <div>
@@ -118,7 +123,7 @@ footer{text-align:center;padding:20px;color:#526173;font-size:13px}
 <button id="calculate" type="button">🧮 Answer Key से Score निकालें</button>
 
 <div class="note">
-स्कोर निकालने के लिए Response Sheet और Official Answer Key दोनों आवश्यक हैं। URL कभी-कभी सुरक्षा या लॉगिन के कारण नहीं खुलता। ऐसी स्थिति में HTML फ़ाइल डाउनलोड करके अपलोड करें।
+Response Sheet और Official Answer Key दोनों आवश्यक हैं। URL से डेटा पढ़ना कभी-कभी सुरक्षा या लॉगिन के कारण संभव नहीं होता। ऐसी स्थिति में HTML फ़ाइल अपलोड करें।
 </div>
 
 <div id="message"></div>
@@ -136,145 +141,131 @@ footer{text-align:center;padding:20px;color:#526173;font-size:13px}
 
 <section class="card">
 <h2>📈 Rank Information</h2>
-<p>Rank का अनुमान लगाने के लिए उसी परीक्षा के दूसरे उम्मीदवारों के स्कोर का डेटा चाहिए।</p>
-<div class="note">अभी वेबसाइट पर उम्मीदवारों का साझा स्कोर डेटाबेस नहीं है, इसलिए वास्तविक Rank उपलब्ध नहीं है।</div>
+<p>Rank का अनुमान लगाने के लिए उसी परीक्षा के दूसरे उम्मीदवारों के स्कोर का डेटा आवश्यक है।</p>
+<div class="note">अभी दूसरे उम्मीदवारों के स्कोर का साझा डेटाबेस नहीं है, इसलिए वास्तविक Rank उपलब्ध नहीं है।</div>
 </section>
 
 </main>
 
-<footer>
-© 2026 RAILWAY SUCCESS POINT | RAILWAY RANK MITRA
-</footer>
+<footer>© 2026 RAILWAY SUCCESS POINT | RAILWAY RANK MITRA</footer>
 
 <script>
 const el=id=>document.getElementById(id);
 
-function message(text){
- el("message").style.display="block";
- el("message").textContent=text;
+function showMessage(text){
+el("message").style.display="block";
+el("message").textContent=text;
 }
 
 el("save").onclick=()=>{
- const data={
- name:el("name").value,
- roll:el("roll").value,
- exam:el("exam").value,
- zone:el("zone").value,
- date:el("date").value,
- shift:el("shift").value,
- category:el("category").value
- };
- try{
- localStorage.setItem("rrmCandidate",JSON.stringify(data));
- message("Candidate Details इस ब्राउज़र में सेव हो गई हैं।");
- }catch(e){
- message("Details सेव नहीं हो पाईं।");
- }
+const data={
+name:el("name").value,
+roll:el("roll").value,
+exam:el("exam").value,
+zone:el("zone").value,
+date:el("date").value,
+shift:el("shift").value,
+category:el("category").value
+};
+try{
+localStorage.setItem("rrmCandidate",JSON.stringify(data));
+showMessage("Candidate Details इस ब्राउज़र में सेव हो गई हैं।");
+}catch(e){
+showMessage("Details सेव नहीं हो पाईं।");
+}
 };
 
 try{
- const d=JSON.parse(localStorage.getItem("rrmCandidate")||"null");
- if(d){
- el("name").value=d.name||"";
- el("roll").value=d.roll||"";
- el("exam").value=d.exam||"";
- el("zone").value=d.zone||"";
- el("date").value=d.date||"";
- el("shift").value=d.shift||"";
- el("category").value=d.category||"";
- }
+const d=JSON.parse(localStorage.getItem("rrmCandidate")||"null");
+if(d){
+el("name").value=d.name||"";
+el("roll").value=d.roll||"";
+el("exam").value=d.exam||"";
+el("zone").value=d.zone||"";
+el("date").value=d.date||"";
+el("shift").value=d.shift||"";
+el("category").value=d.category||"";
+}
 }catch(e){}
 
-async function getHTML(fileId,urlId){
- const file=el(fileId).files[0];
- if(file) return await file.text();
-
- const url=el(urlId).value.trim();
- if(!url) throw Error("Response Sheet और Answer Key दोनों की फ़ाइल अपलोड करें या URL भरें।");
-
- try{
- const r=await fetch(url);
- if(!r.ok) throw Error();
- return await r.text();
- }catch(e){
- throw Error("URL से डेटा नहीं पढ़ा जा सका। HTML फ़ाइल डाउनलोड करके अपलोड करें।");
- }
+async function readHTML(fileId,urlId){
+const file=el(fileId).files[0];
+if(file)return await file.text();
+const url=el(urlId).value.trim();
+if(!url)throw Error("Response Sheet और Answer Key की फ़ाइल या URL भरें।");
+try{
+const r=await fetch(url);
+if(!r.ok)throw Error();
+return await r.text();
+}catch(e){
+throw Error("URL नहीं खुला। HTML फ़ाइल डाउनलोड करके अपलोड करें।");
+}
 }
 
 function clean(s){
- return (s||"").replace(/\s+/g," ").trim().toLowerCase();
+return (s||"").replace(/\s+/g," ").trim().toLowerCase();
 }
 
-function getMap(html,label){
- const doc=new DOMParser().parseFromString(html,"text/html");
- const rows=[...doc.querySelectorAll("tr")].map(tr=>
- [...tr.querySelectorAll("th,td")].map(td=>clean(td.innerText||td.textContent))
- ).filter(r=>r.length>=2);
+function makeMap(html,label){
+const doc=new DOMParser().parseFromString(html,"text/html");
+const rows=[...doc.querySelectorAll("tr")].map(tr=>
+[...tr.querySelectorAll("th,td")].map(td=>clean(td.innerText||td.textContent))
+).filter(r=>r.length>=2);
 
- let header=-1,qcol=-1,acol=-1;
+let header=-1,qcol=-1,acol=-1;
+for(let i=0;i<Math.min(rows.length,15);i++){
+const q=rows[i].findIndex(x=>/question id|question no|question number|questionid/.test(x));
+const a=rows[i].findIndex(x=>/correct answer|official answer|right answer|correct option/.test(x));
+if(q>=0&&a>=0){header=i;qcol=q;acol=a;break;}
+}
 
- for(let i=0;i<Math.min(rows.length,15);i++){
- const q=rows[i].findIndex(x=>/question id|question no|question number|questionid/.test(x));
- const a=rows[i].findIndex(x=>/correct answer|official answer|right answer|correct option/.test(x));
- if(q>=0&&a>=0){header=i;qcol=q;acol=a;break;}
- }
+if(header<0)throw Error(label+" का फ़ॉर्मेट पहचाना नहीं गया।");
 
- if(header<0) throw Error(label+" का फ़ॉर्मेट पहचान नहीं पाया। फ़ाइल के अनुसार कोड अपडेट करना होगा।");
-
- const map=new Map();
- for(let i=header+1;i<rows.length;i++){
- const q=rows[i][qcol],a=rows[i][acol];
- if(q&&a) map.set(q,a);
- }
- if(!map.size) throw Error(label+" में प्रश्नों का डेटा नहीं मिला।");
- return map;
+const map=new Map();
+for(let i=header+1;i<rows.length;i++){
+const q=rows[i][qcol],a=rows[i][acol];
+if(q&&a)map.set(q,a);
+}
+if(!map.size)throw Error(label+" से प्रश्नों का डेटा नहीं मिला।");
+return map;
 }
 
 el("calculate").onclick=async()=>{
- el("result").style.display="none";
- message("फ़ाइलें पढ़ी जा रही हैं...");
+el("result").style.display="none";
+showMessage("फ़ाइलें पढ़ी जा रही हैं...");
+try{
+const rh=await readHTML("responseFile","responseURL");
+const ah=await readHTML("answerFile","answerURL");
+const response=makeMap(rh,"Response Sheet");
+const answer=makeMap(ah,"Answer Key");
 
- try{
- const rh=await getHTML("responseFile","responseURL");
- const ah=await getHTML("answerFile","answerURL");
- const response=getMap(rh,"Response Sheet");
- const answer=getMap(ah,"Answer Key");
+let correct=0,wrong=0,unanswered=0,total=0;
+for(const [q,userAnswer] of response){
+if(!answer.has(q))continue;
+total++;
+const official=answer.get(q);
+if(!userAnswer||/not answered|unanswered|--/.test(userAnswer))unanswered++;
+else if(userAnswer===official)correct++;
+else wrong++;
+}
 
- let correct=0,wrong=0,unanswered=0,total=0;
+if(!total)throw Error("दोनों फ़ाइलों में समान Question ID नहीं मिले।");
 
- for(const [q,userAnswer] of response){
- if(!answer.has(q)) continue;
- total++;
- const official=answer.get(q);
+const p=Number(el("positive").value);
+const n=Number(el("negative").value);
+if(!Number.isFinite(p)||!Number.isFinite(n)||p<0||n<0)throw Error("अंकों की वैल्यू सही भरें।");
 
- if(!userAnswer||/not answered|unanswered|--/.test(userAnswer)){
- unanswered++;
- }else if(userAnswer===official){
- correct++;
- }else{
- wrong++;
- }
- }
-
- if(total===0) throw Error("दोनों फ़ाइलों में समान Question ID नहीं मिले।");
-
- const p=Number(el("positive").value);
- const n=Number(el("negative").value);
- if(!Number.isFinite(p)||!Number.isFinite(n)||p<0||n<0){
- throw Error("अंकों की वैल्यू सही भरें।");
- }
-
- el("score").textContent=(correct*p-wrong*n).toFixed(2);
- el("total").textContent=total;
- el("correct").textContent=correct;
- el("wrong").textContent=wrong;
- el("unanswered").textContent=unanswered;
- el("resultNote").textContent="यह परिणाम पहचाने गए प्रश्नों पर आधारित है। आधिकारिक स्कोर से सत्यापित करें।";
- el("result").style.display="block";
- message("गणना पूरी हुई। परिणाम को आधिकारिक उत्तर-कुंजी से सत्यापित करें।");
- }catch(e){
- message(e.message||"स्कोर नहीं निकाला जा सका।");
- }
+el("score").textContent=(correct*p-wrong*n).toFixed(2);
+el("total").textContent=total;
+el("correct").textContent=correct;
+el("wrong").textContent=wrong;
+el("unanswered").textContent=unanswered;
+el("resultNote").textContent="यह परिणाम पहचाने गए प्रश्नों पर आधारित है। आधिकारिक स्कोर से सत्यापित करें।";
+el("result").style.display="block";
+showMessage("गणना पूरी हुई।");
+}catch(e){
+showMessage(e.message||"स्कोर नहीं निकाला जा सका।");
+}
 };
 </script>
 </body>
