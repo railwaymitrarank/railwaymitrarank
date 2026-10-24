@@ -2,110 +2,36 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Railway Rank Mitra | By Rajat Kumar</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Railway Rank Mitra | Rajat Kumar</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#eef3ff;
-  color:#172033;
-}
-header{
-  background:linear-gradient(135deg,#092b70,#1767cf);
-  color:white;
-  text-align:center;
-  padding:25px 12px;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172033}
+header{background:linear-gradient(135deg,#08285f,#1768d0);color:white;text-align:center;padding:24px 12px}
 header h1{margin:0;font-size:27px}
-header p{margin:8px 0 0}
-.container{
-  max-width:650px;
-  margin:20px auto;
-  padding:0 12px;
-}
-.card{
-  background:white;
-  border-radius:15px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 4px 15px #102b5015;
-}
-h2{
-  color:#10469a;
-  font-size:20px;
-  margin-top:0;
-}
-label{
-  display:block;
-  font-weight:bold;
-  margin:14px 0 6px;
-}
-input,select,button{
-  width:100%;
-  padding:12px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  font-size:16px;
-}
-input[type="file"]{
-  background:#f5f8ff;
-  padding:10px;
-}
-button{
-  border:0;
-  background:#1456bd;
-  color:white;
-  font-weight:bold;
-  margin-top:15px;
-  cursor:pointer;
-}
-button:disabled{opacity:.6}
-.or{
-  text-align:center;
-  font-weight:bold;
-  color:#555;
-  margin:15px 0;
-}
-.note{
-  background:#fff7d6;
-  padding:12px;
-  border-radius:8px;
-  font-size:14px;
-  line-height:1.5;
-}
-.result{
-  background:#edfdf3;
-  padding:12px;
-  border-radius:8px;
-  overflow-wrap:anywhere;
-  white-space:pre-wrap;
-  line-height:1.5;
-}
-.links a{
-  display:block;
-  text-align:center;
-  padding:12px;
-  border-radius:8px;
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-  margin-top:10px;
-}
+header p{margin:7px 0 0}
+.container{max-width:700px;margin:18px auto;padding:0 12px}
+.card{background:#fff;padding:18px;margin-bottom:16px;border-radius:14px;box-shadow:0 4px 14px #102b5015}
+h2{font-size:20px;color:#124a9d;margin-top:0}
+label{display:block;font-weight:bold;margin:13px 0 6px}
+input,select,button{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px}
+input[type=file]{background:#f7f9ff}
+button{background:#1456bd;color:#fff;border:0;font-weight:bold;margin-top:14px;cursor:pointer}
+button:disabled{opacity:.55}
+.note{background:#fff6d8;padding:12px;border-radius:8px;line-height:1.5;font-size:14px}
+.status{background:#f1f6ff;padding:12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#f1f6ff;padding:13px;border-radius:9px;text-align:center}
+.stat strong{display:block;font-size:23px;color:#124a9d;margin-top:5px}
+.hidden{display:none}
+.small{font-size:13px;color:#555;line-height:1.5}
+.links a{display:block;text-align:center;color:#fff;text-decoration:none;padding:12px;border-radius:8px;margin-top:10px;font-weight:bold}
 .youtube{background:#d71920}
 .telegram{background:#168bd2}
-footer{
-  text-align:center;
-  padding:20px 10px;
-  color:#555;
-  font-size:13px;
-}
-.small{font-size:13px;color:#555;line-height:1.5}
+footer{text-align:center;color:#555;padding:20px;font-size:13px}
+@media(max-width:430px){.grid{grid-template-columns:1fr 1fr}.card{padding:14px}}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -116,339 +42,325 @@ footer{
 
 <main class="container">
 
-  <section class="card">
-    <h2>👤 Candidate Details</h2>
+<section class="card">
+<h2>👤 Candidate Details</h2>
 
-    <form id="candidateForm">
-      <label for="candidateName">Candidate Name</label>
-      <input id="candidateName" type="text"
-        placeholder="अपना नाम लिखें" required>
+<label for="name">Candidate Name</label>
+<input id="name" placeholder="अपना नाम लिखें" required>
 
-      <label for="registration">Registration Number / Roll Number</label>
-      <input id="registration" type="text"
-        placeholder="Registration या Roll Number" required>
+<label for="reg">Registration / Roll Number</label>
+<input id="reg" placeholder="Registration या Roll Number" required>
 
-      <label for="exam">Exam Name</label>
-      <select id="exam" required>
-        <option value="">Select Exam</option>
-        <option>RRB Group D</option>
-        <option>RRB ALP</option>
-        <option>RRB Technician</option>
-        <option>RRB NTPC</option>
-        <option>RRB JE</option>
-        <option>Railway GDCE</option>
-        <option>Railway LDCE</option>
-        <option>Other Railway Exam</option>
-      </select>
+<label for="category">Category</label>
+<select id="category">
+<option value="">Select Category</option>
+<option>UR / General</option>
+<option>OBC</option>
+<option>SC</option>
+<option>ST</option>
+<option>EWS</option>
+</select>
 
-      <label for="zone">Railway Zone / RRB</label>
-      <input id="zone" type="text"
-        placeholder="जैसे RRB Chandigarh / Western Railway">
+<label for="examType">Exam Type</label>
+<select id="examType">
+<option value="">Select Exam Type</option>
+<option>RRB All Exam</option>
+<option>GDCE</option>
+<option>LDCE</option>
+</select>
 
-      <label for="category">Category</label>
-      <select id="category">
-        <option value="">Select Category</option>
-        <option>UR / General</option>
-        <option>OBC</option>
-        <option>SC</option>
-        <option>ST</option>
-        <option>EWS</option>
-      </select>
+<label for="zone">Railway Zone / RRB</label>
+<select id="zone">
+<option value="">Select Railway Zone / RRB</option>
+<option>RRB Ahmedabad</option>
+<option>RRB Ajmer</option>
+<option>RRB Allahabad / Prayagraj</option>
+<option>RRB Bengaluru</option>
+<option>RRB Bhopal</option>
+<option>RRB Bhubaneswar</option>
+<option>RRB Bilaspur</option>
+<option>RRB Chandigarh</option>
+<option>RRB Chennai</option>
+<option>RRB Gorakhpur</option>
+<option>RRB Guwahati</option>
+<option>RRB Jammu-Srinagar</option>
+<option>RRB Kolkata</option>
+<option>RRB Malda</option>
+<option>RRB Mumbai</option>
+<option>RRB Muzaffarpur</option>
+<option>RRB Patna</option>
+<option>RRB Ranchi</option>
+<option>RRB Secunderabad</option>
+<option>RRB Siliguri</option>
+<option>RRB Thiruvananthapuram</option>
+<option>Other Railway Zone</option>
+</select>
 
-      <label for="examDate">Exam Date / Shift</label>
-      <input id="examDate" type="text"
-        placeholder="जैसे 06-10-2026 First Shift">
+<label for="exam">Exam Name</label>
+<select id="exam">
+<option value="">Select Exam</option>
+<option>RRB Group D</option>
+<option>RRB ALP</option>
+<option>RRB Technician</option>
+<option>RRB NTPC Graduate</option>
+<option>RRB NTPC Undergraduate</option>
+<option>RRB JE</option>
+<option>RRB Ministerial and Isolated</option>
+<option>Railway GDCE</option>
+<option>Railway LDCE</option>
+<option>Other Railway Exam</option>
+</select>
 
-      <hr style="margin:22px 0;border:0;border-top:1px solid #ddd">
+<div class="grid">
+<div>
+<label for="examDate">Exam Date</label>
+<input id="examDate" type="date">
+</div>
+<div>
+<label for="shift">Shift</label>
+<select id="shift">
+<option value="">Select Shift</option>
+<option>First Shift</option>
+<option>Second Shift</option>
+<option>Third Shift</option>
+<option>Other / Unknown</option>
+</select>
+</div>
+</div>
 
-      <h2>📄 Official Answer Key</h2>
+<label for="code">4-digit Code</label>
+<input id="code" inputmode="numeric" maxlength="4" placeholder="4-digit code">
 
-      <label for="answerUrl">Official Answer Key URL (Optional)</label>
-      <input id="answerUrl" type="url"
-        placeholder="https://...">
+</section>
 
-      <div class="or">— OR —</div>
+<section class="card">
+<h2>📄 Response Sheet / Answer Key</h2>
 
-      <label for="answerFile">Upload Answer Key File (PDF or HTML)</label>
-      <input id="answerFile" type="file"
-        accept=".pdf,.html,.htm,application/pdf,text/html">
+<div class="note">
+एक ही विकल्प से दोनों दस्तावेज़ बारी-बारी से जोड़ें। पहले Response Sheet चुनें, फिर Official Answer Key चुनें। दोनों दस्तावेज़ों का डेटा इस पेज के खुले रहने तक रखा जाएगा।
+</div>
 
-      <p class="small">
-        PDF, HTML या HTM फ़ाइल चुनें। URL या फ़ाइल में से केवल एक इस्तेमाल करें।
-        PDF पढ़ने के लिए इंटरनेट कनेक्शन आवश्यक हो सकता है।
-      </p>
+<label for="docType">अभी कौन-सा दस्तावेज़ जोड़ रहे हैं?</label>
+<select id="docType">
+<option value="response">Candidate Response Sheet</option>
+<option value="key">Official Answer Key</option>
+</select>
 
-      <button type="submit" id="submitBtn">
-        Answer Key पढ़ें
-      </button>
-    </form>
-  </section>
+<label for="docUrl">Document URL (Optional)</label>
+<input id="docUrl" type="url" placeholder="https://...">
 
-  <section class="card">
-    <h2>📊 Result / Status</h2>
-    <div id="status" class="result" aria-live="polite">
-      अभी कोई Answer Key अपलोड नहीं की गई है।
-    </div>
-  </section>
+<div style="text-align:center;margin:12px">— OR —</div>
 
-  <section class="card">
-    <h2>⚠️ जरूरी जानकारी</h2>
-    <div class="note">
-      यह पेज अपलोड की गई PDF या HTML से टेक्स्ट पढ़ने की कोशिश करता है।
-      इससे अपने-आप आधिकारिक सही उत्तरों की पुष्टि या उम्मीदवार का स्कोर तय
-      नहीं होता। स्कोर निकालने के लिए उम्मीदवार की Response Sheet और
-      आधिकारिक Answer Key दोनों की जरूरत होती है।
-      <br><br>
-      अगर URL नहीं खुलता, तो वेबसाइट की अनुमति (CORS), लॉगिन या परीक्षा
-      पोर्टल की सुरक्षा के कारण ऐसा हो सकता है।
-    </div>
-  </section>
+<label for="docFile">Upload PDF / HTML File</label>
+<input id="docFile" type="file" accept=".pdf,.html,.htm,application/pdf,text/html">
 
-  <section class="card links">
-    <h2>Railway Success Point</h2>
-    <a class="youtube"
-       href="https://www.youtube.com/@RailwaySuccessPoint"
-       target="_blank" rel="noopener">
-       ▶ Subscribe YouTube Channel
-    </a>
-    <a class="telegram"
-       href="https://t.me/railwaysuccespoint"
-       target="_blank" rel="noopener">
-       ✈ Join Telegram
-    </a>
-  </section>
+<p class="small">URL या फ़ाइल में से केवल एक चुनें। PDF टेक्स्ट निकालने के लिए इंटरनेट कनेक्शन और पढ़ने योग्य PDF आवश्यक है।</p>
+
+<button id="readBtn" type="button">इस दस्तावेज़ को पढ़ें</button>
+<div id="readStatus" class="status" style="margin-top:12px" aria-live="polite">अभी कोई दस्तावेज़ नहीं जोड़ा गया है।</div>
+
+<button id="scoreBtn" type="button">Calculate Score / Scorecard</button>
+</section>
+
+<section id="scoreSection" class="card hidden">
+<h2>📊 Candidate Scorecard</h2>
+<div id="candidateSummary" class="status"></div>
+<div class="grid" style="margin-top:12px">
+<div class="stat">Total Questions<strong id="total">—</strong></div>
+<div class="stat">Attempted<strong id="attempted">—</strong></div>
+<div class="stat">Correct<strong id="correct">—</strong></div>
+<div class="stat">Incorrect<strong id="incorrect">—</strong></div>
+<div class="stat">Unattempted<strong id="unattempted">—</strong></div>
+<div class="stat">Accuracy<strong id="accuracy">—</strong></div>
+<div class="stat">Negative Marks<strong id="negative">—</strong></div>
+<div class="stat">Final Score<strong id="finalScore">—</strong></div>
+</div>
+<p id="scoreNote" class="note" style="margin-top:12px"></p>
+</section>
+
+<section class="card">
+<h2>⚠️ जरूरी जानकारी</h2>
+<div class="note">
+स्कोर तभी निकलेगा जब वेबसाइट दोनों दस्तावेज़ों से प्रश्न नंबर, उम्मीदवार के चुने हुए उत्तर और आधिकारिक सही उत्तर पहचान पाए। अलग-अलग RRB फ़ॉर्मेट के कारण कुछ PDFs को पढ़ने के लिए अतिरिक्त बदलाव की ज़रूरत हो सकती है। गलत या अधूरे डेटा से स्कोर नहीं दिखाया जाना चाहिए।
+<br><br>
+यह पेज बंद या रिफ्रेश करने पर दस्तावेज़ों का अस्थायी डेटा मिट जाएगा। किसी भी अनुमानित रैंक को आधिकारिक रैंक न मानें।
+</div>
+</section>
+
+<section class="card links">
+<h2>Railway Success Point</h2>
+<a class="youtube" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener">▶ Subscribe YouTube Channel</a>
+<a class="telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Join Telegram</a>
+</section>
 
 </main>
 
-<footer>
-  RAILWAY RANK MITRA<br>
-  BY RAJAT KUMAR | Railway Success Point
-</footer>
+<footer>RAILWAY RANK MITRA<br>BY RAJAT KUMAR | Railway Success Point</footer>
 
 <script>
-const form = document.getElementById("candidateForm");
-const fileInput = document.getElementById("answerFile");
-const urlInput = document.getElementById("answerUrl");
-const statusBox = document.getElementById("status");
-const submitBtn = document.getElementById("submitBtn");
+const $ = id => document.getElementById(id);
 
-let pdfLibraryPromise = null;
+let responseText = "";
+let answerKeyText = "";
 
-function showStatus(message) {
-  statusBox.textContent = message;
+function status(message) {
+  $("readStatus").textContent = message;
 }
 
 function loadPdfLibrary() {
-  if (window.pdfjsLib) {
-    return Promise.resolve(window.pdfjsLib);
-  }
+  if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
 
-  if (pdfLibraryPromise) return pdfLibraryPromise;
+  if (window.pdfLibraryPromise) return window.pdfLibraryPromise;
 
-  pdfLibraryPromise = new Promise((resolve, reject) => {
+  window.pdfLibraryPromise = new Promise((resolve, reject) => {
     const script = document.createElement("script");
-    script.src =
-      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
 
     script.onload = () => {
       if (!window.pdfjsLib) {
-        reject(new Error("PDF पढ़ने वाली लाइब्रेरी लोड नहीं हुई।"));
+        reject(new Error("PDF पढ़ने की लाइब्रेरी उपलब्ध नहीं है।"));
         return;
       }
-
       window.pdfjsLib.GlobalWorkerOptions.workerSrc =
         "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-
       resolve(window.pdfjsLib);
     };
 
-    script.onerror = () => {
-      reject(new Error(
-        "PDF पढ़ने की लाइब्रेरी डाउनलोड नहीं हुई। इंटरनेट कनेक्शन जाँचें।"
-      ));
-    };
+    script.onerror = () => reject(
+      new Error("PDF लाइब्रेरी लोड नहीं हुई। इंटरनेट कनेक्शन जाँचें।")
+    );
 
     document.head.appendChild(script);
   });
 
-  return pdfLibraryPromise;
+  return window.pdfLibraryPromise;
 }
 
-async function extractPdfText(file) {
-  const pdfjs = await loadPdfLibrary();
+async function pdfToText(file) {
+  const lib = await loadPdfLibrary();
   const buffer = await file.arrayBuffer();
-  const pdf = await pdfjs.getDocument({
-    data: new Uint8Array(buffer)
-  }).promise;
+  const pdf = await lib.getDocument({data:new Uint8Array(buffer)}).promise;
+  let text = "";
 
-  let allText = "";
-
-  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-    showStatus(
-      "PDF पढ़ी जा रही है... पेज " + pageNum + " / " + pdf.numPages
-    );
-
-    const page = await pdf.getPage(pageNum);
+  for (let p = 1; p <= pdf.numPages; p++) {
+    status("PDF पढ़ी जा रही है: पेज " + p + " / " + pdf.numPages);
+    const page = await pdf.getPage(p);
     const content = await page.getTextContent();
-    const pageText = content.items
-      .map(item => item.str)
-      .join(" ");
-
-    allText += "\n" + pageText;
+    text += "\n" + content.items.map(x => x.str).join(" ");
   }
 
-  return {
-    text: allText.trim(),
-    pages: pdf.numPages
-  };
-}
-
-function countQuestionReferences(text) {
-  const patterns = [
-    /\bquestion\s*(?:no\.?|number)?\s*[:#.-]?\s*\d+/gi,
-    /\bQ(?:uestion)?\s*No\.?\s*[:#.-]?\s*\d+/gi,
-    /प्रश्न\s*संख्या\s*[:#.-]?\s*\d+/gi
-  ];
-
-  let count = 0;
-  for (const pattern of patterns) {
-    const matches = text.match(pattern);
-    if (matches) count = Math.max(count, matches.length);
+  if (!text.trim()) {
+    throw new Error("PDF से टेक्स्ट नहीं मिला। संभव है PDF स्कैन की गई तस्वीर हो।");
   }
-  return count;
+  return text.trim();
 }
 
-function escapeHtml(text) {
-  return text.replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  })[char]);
-}
+async function getDocumentText(file, url) {
+  if (file) {
+    const name = file.name.toLowerCase();
+    if (name.endsWith(".pdf") || file.type === "application/pdf") {
+      return await pdfToText(file);
+    }
+    if (name.endsWith(".html") || name.endsWith(".htm") ||
+        file.type === "text/html") {
+      const html = await file.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      return (doc.body?.innerText || doc.documentElement.textContent || "").trim();
+    }
+    throw new Error("PDF, HTML या HTM फ़ाइल चुनें।");
+  }
 
-async function readHtmlFile(file) {
-  const html = await file.text();
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("URL नहीं खुला। HTTP " + res.status);
+  const type = res.headers.get("content-type") || "";
+
+  if (type.includes("pdf")) {
+    const blob = await res.blob();
+    return await pdfToText(new File([blob], "document.pdf", {type:"application/pdf"}));
+  }
+
+  const html = await res.text();
   const doc = new DOMParser().parseFromString(html, "text/html");
-  return (doc.body ? doc.body.innerText : doc.documentElement.textContent).trim();
+  return (doc.body?.innerText || doc.documentElement.textContent || "").trim();
 }
 
-async function readUrl(url) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error("URL खोलने में समस्या हुई: HTTP " + response.status);
+$("docFile").addEventListener("change", () => {
+  const file = $("docFile").files[0];
+  if (file) {
+    $("docUrl").value = "";
+    status("फ़ाइल चुनी गई: " + file.name + "\nअब “इस दस्तावेज़ को पढ़ें” दबाएँ।");
   }
+});
 
-  const contentType = response.headers.get("content-type") || "";
-  if (contentType.includes("pdf")) {
-    const blob = await response.blob();
-    const pdfFile = new File([blob], "answer-key.pdf", {
-      type: "application/pdf"
-    });
-    return await extractPdfText(pdfFile);
-  }
+$("docUrl").addEventListener("input", () => {
+  if ($("docUrl").value.trim()) $("docFile").value = "";
+});
 
-  const html = await response.text();
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return {
-    text: (doc.body ? doc.body.innerText : doc.documentElement.textContent).trim(),
-    pages: null
-  };
-}
+$("readBtn").addEventListener("click", async () => {
+  const file = $("docFile").files[0];
+  const url = $("docUrl").value.trim();
 
-form.addEventListener("submit", async function(event) {
-  event.preventDefault();
-
-  const url = urlInput.value.trim();
-  const file = fileInput.files && fileInput.files[0];
-
-  if (url && file) {
-    showStatus("कृपया URL या फ़ाइल में से केवल एक चुनें।");
+  if ((file && url) || (!file && !url)) {
+    status("URL या फ़ाइल में से केवल एक चुनें।");
     return;
   }
 
-  if (!url && !file) {
-    showStatus("पहले Official Answer Key का URL डालें या PDF/HTML फ़ाइल चुनें।");
-    return;
-  }
-
-  submitBtn.disabled = true;
+  $("readBtn").disabled = true;
 
   try {
-    let result;
+    const text = await getDocumentText(file, url);
+    if (!text) throw new Error("दस्तावेज़ में पढ़ने योग्य टेक्स्ट नहीं मिला।");
 
-    if (file) {
-      const name = file.name.toLowerCase();
-
-      if (name.endsWith(".pdf") || file.type === "application/pdf") {
-        result = await extractPdfText(file);
-      } else if (name.endsWith(".html") || name.endsWith(".htm") ||
-                 file.type === "text/html") {
-        result = {
-          text: await readHtmlFile(file),
-          pages: null
-        };
-      } else {
-        throw new Error("यह फ़ाइल प्रकार समर्थित नहीं है। PDF, HTML या HTM चुनें।");
-      }
+    if ($("docType").value === "response") {
+      responseText = text;
+      status("Response Sheet का टेक्स्ट पढ़ लिया गया।\nअगला कदम: Document Type में Official Answer Key चुनें और उसकी फ़ाइल/URL पढ़ें।");
     } else {
-      result = await readUrl(url);
+      answerKeyText = text;
+      status("Official Answer Key का टेक्स्ट पढ़ लिया गया।\nअब Calculate Score दबाएँ।");
     }
-
-    if (!result.text) {
-      throw new Error(
-        "फ़ाइल से पढ़ने योग्य टेक्स्ट नहीं मिला। यह स्कैन की गई PDF हो सकती है।"
-      );
-    }
-
-    const questionCount = countQuestionReferences(result.text);
-    const details = [
-      "फ़ाइल/URL पढ़ लिया गया।",
-      "",
-      "Candidate: " + document.getElementById("candidateName").value,
-      "Registration/Roll No.: " + document.getElementById("registration").value,
-      "Exam: " + document.getElementById("exam").value,
-      "Railway Zone: " + (document.getElementById("zone").value || "नहीं दिया"),
-      "Category: " + (document.getElementById("category").value || "नहीं दी"),
-      "Exam Date/Shift: " + (document.getElementById("examDate").value || "नहीं दिया"),
-      "",
-      "PDF Pages: " + (result.pages === null ? "लागू नहीं" : result.pages),
-      "Question references detected: " + questionCount,
-      "",
-      "ध्यान दें: यह केवल टेक्स्ट पढ़ने का परिणाम है। प्रश्नों और सही उत्तरों की पुष्टि नहीं हुई है और स्कोर नहीं निकाला गया है।",
-      "",
-      "Text preview:",
-      result.text.slice(0, 1800)
-    ];
-
-    showStatus(details.join("\n"));
-
-  } catch (error) {
-    showStatus(
-      "फ़ाइल/URL पढ़ने में समस्या:\n" +
-      error.message +
-      "\n\nयदि PDF चुनी है, तो जाँचें कि वह पासवर्ड से सुरक्षित या स्कैन की गई इमेज तो नहीं है।"
-    );
+  } catch (e) {
+    status("दस्तावेज़ पढ़ने में समस्या:\n" + e.message +
+      "\nURL पर CORS या लॉगिन की पाबंदी हो सकती है। फ़ाइल अपलोड करके देखें।");
   } finally {
-    submitBtn.disabled = false;
+    $("readBtn").disabled = false;
   }
 });
 
-fileInput.addEventListener("change", function() {
-  const file = fileInput.files && fileInput.files[0];
-  if (file) {
-    urlInput.value = "";
-    showStatus("फ़ाइल चुनी गई: " + file.name + "\nअब “Answer Key पढ़ें” दबाएँ।");
-  }
-});
+/*
+  सुरक्षित मिलान:
+  अलग-अलग RRB फ़ॉर्मेट में प्रश्न और उत्तर अलग ढंग से दिए जाते हैं।
+  इसलिए नीचे का सामान्य parser किसी फ़ॉर्मेट को सही पहचानने का दावा नहीं करता।
+  जब तक प्रश्न-उत्तर की स्पष्ट संरचना न मिले, स्कोर नहीं दिखाया जाता।
+*/
+function normalize(s) {
+  return s.toLowerCase().replace(/\s+/g," ").trim();
+}
 
-urlInput.addEventListener("input", function() {
-  if (urlInput.value.trim()) {
-    fileInput.value = "";
+$("scoreBtn").addEventListener("click", () => {
+  $("scoreSection").classList.remove("hidden");
+
+  if (!responseText || !answerKeyText) {
+    $("candidateSummary").textContent =
+      "पहले इसी विकल्प से Response Sheet और Official Answer Key दोनों बारी-बारी से पढ़ें।";
+    $("scoreNote").textContent =
+      "दोनों दस्तावेज़ उपलब्ध होने के बाद भी, यदि उनके फ़ॉर्मेट से प्रश्न नंबर और उत्तर स्पष्ट रूप से न पहचाने जाएँ, तो स्कोर निकालने के लिए फ़ॉर्मेट के अनुसार parser बनाना होगा।";
+    return;
   }
+
+  $("candidateSummary").textContent =
+    "Candidate: " + ($("name").value || "—") +
+    "\nRegistration / Roll No.: " + ($("reg").value || "—") +
+    "\nExam: " + ($("exam").value || "—") +
+    "\nZone / RRB: " + ($("zone").value || "—") +
+    "\nDate: " + ($("examDate").value || "—") +
+    "\nShift: " + ($("shift").value || "—");
+
+  ["total","attempted","correct","incorrect","unattempted",
+   "accuracy","negative","finalScore"].forEach(id => $(id).textContent = "—");
+
+  $("scoreNote").textContent =
+    "दोनों दस्तावेज़ पढ़ लिए गए हैं, लेकिन अभी उनके प्रश्न-उत्तर का प्रारूप सत्यापित नहीं हुआ है। गलत स्कोर दिखाने से बचने के लिए परिणाम नहीं निकाला गया। इस RRB परीक्षा की Response Sheet और Answer Key का वास्तविक फ़ॉर्मेट देखकर मिलान वाला parser जोड़ना होगा।";
 });
 </script>
-
 </body>
 </html>
