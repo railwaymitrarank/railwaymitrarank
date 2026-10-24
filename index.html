@@ -2,33 +2,33 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Railway Rank Mitra</title>
 <meta name="description" content="Railway Rank Mitra - Railway Exam Response Sheet Helper">
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#172033}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3f9;color:#172033}
 header{background:linear-gradient(135deg,#092b60,#0879c9);color:white;text-align:center;padding:25px 12px}
-header h1{margin:0 0 8px;font-size:28px}
+header h1{margin:0 0 10px;font-size:28px}
 header p{margin:6px 0}
 nav{background:#071e43;padding:12px;text-align:center}
-nav a{display:inline-block;color:white;text-decoration:none;margin:5px 9px;font-weight:bold}
+nav a{color:white;text-decoration:none;font-weight:bold;margin:5px 10px;display:inline-block}
 .container{max-width:720px;margin:20px auto;padding:0 12px}
-.card{background:white;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 3px 12px #00000012}
+.card{background:white;padding:20px;border-radius:14px;margin-bottom:18px;box-shadow:0 3px 12px #00000012}
 h2{margin-top:0;color:#064b91;font-size:22px}
 label{display:block;font-weight:bold;margin:16px 0 7px}
-input,select{display:block;width:100%;padding:13px;border:1px solid #b8c5d5;border-radius:8px;font-size:16px;background:white;color:#172033}
-button{display:block;width:100%;border:0;border-radius:9px;padding:14px;margin-top:15px;background:#0879c9;color:white;font-size:16px;font-weight:bold;cursor:pointer}
-button.green{background:#128044}
-.notice{background:#fff6d9;border-left:4px solid #e5a000;padding:12px;border-radius:6px;line-height:1.6;font-size:14px}
-.or{text-align:center;font-weight:bold;margin:18px 0;color:#64748b}
-#message{margin-top:15px;padding:12px;border-radius:8px;line-height:1.6;overflow-wrap:anywhere}
+input,select{width:100%;display:block;padding:14px;border:2px solid #c5d1df;border-radius:8px;font-size:16px;background:white;color:#111}
+select{min-height:50px}
+button{width:100%;padding:14px;border:0;border-radius:9px;margin-top:15px;background:#0879c9;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+.green{background:#128044}
+.notice{background:#fff6d9;border-left:4px solid #e5a000;padding:12px;border-radius:6px;line-height:1.7}
+.or{text-align:center;font-weight:bold;margin:20px 0;color:#64748b}
+#message{padding:12px;margin-top:15px;background:#eaf4ff;border-radius:8px;overflow-wrap:anywhere;line-height:1.6}
 .hidden{display:none}
-.links a{display:block;text-decoration:none;color:#075da0;padding:9px 0;font-weight:bold;overflow-wrap:anywhere}
-footer{background:#071e43;color:white;text-align:center;padding:20px 12px;line-height:1.8}
-small{color:#64748b;display:block;margin-top:6px;line-height:1.5}
-@media(max-width:480px){header h1{font-size:24px}.card{padding:16px}}
+.links a{display:block;padding:10px 0;color:#075da0;text-decoration:none;font-weight:bold;overflow-wrap:anywhere}
+footer{background:#071e43;color:white;text-align:center;padding:20px;line-height:1.8}
+small{display:block;margin-top:7px;color:#64748b;line-height:1.5}
 </style>
 </head>
 
@@ -50,13 +50,13 @@ small{color:#64748b;display:block;margin-top:6px;line-height:1.5}
 
 <section class="card" id="candidate">
 <h2>📝 Candidate Details</h2>
-<p>अपना Exam चुनें और अपनी जानकारी भरें।</p>
+<p>अपना Exam चुनें और Registration Number भरें।</p>
 
 <form id="responseForm">
 
 <label for="exam">1. RRB / Railway Exam चुनें *</label>
 <select id="exam" name="exam" required>
-<option value="">-- अपना Exam चुनें --</option>
+<option value="">▼ अपना Exam चुनें</option>
 <option value="RRB Group D">RRB Group D</option>
 <option value="RRB ALP">RRB ALP</option>
 <option value="RRB Technician">RRB Technician</option>
@@ -71,38 +71,40 @@ small{color:#64748b;display:block;margin-top:6px;line-height:1.5}
 </select>
 
 <label for="candidateName">2. Candidate का नाम</label>
-<input type="text" id="candidateName" placeholder="अपना नाम लिखें" autocomplete="name">
+<input type="text" id="candidateName" name="candidateName" placeholder="अपना नाम लिखें" autocomplete="name">
 
-<label for="roll">3. Roll Number</label>
-<input type="text" id="roll" placeholder="अपना Roll Number लिखें">
+<label for="registration">3. Registration Number *</label>
+<input type="text" id="registration" name="registration" placeholder="अपना Registration Number लिखें" required>
 
-<label for="registration">4. Registration Number</label>
-<input type="text" id="registration" placeholder="अपना Registration Number लिखें">
+<label for="responseUrl">4. Response Sheet URL</label>
+<input type="url" id="responseUrl" name="responseUrl" placeholder="अपनी Response Sheet का लिंक डालें">
 
-<label for="responseUrl">5. Response Sheet URL</label>
-<input type="url" id="responseUrl" placeholder="https://...">
-
-<small>कुछ Railway Response Sheet लिंक केवल Login या सक्रिय Session में खुलते हैं।</small>
+<small>
+यदि Response Sheet का लिंक आपके पास है, तो यहाँ डालें।
+कुछ आधिकारिक लिंक केवल Login या सक्रिय Session में खुलते हैं।
+</small>
 
 <button type="submit">🔎 Response Sheet खोलें</button>
 
 <div class="or">— या —</div>
 
-<label for="htmlFile">6. अपने फोन से HTML Response Sheet चुनें</label>
+<label for="htmlFile">5. HTML Response Sheet फाइल चुनें</label>
 <input type="file" id="htmlFile" accept=".html,.htm,text/html">
 
-<small>इस विकल्प के लिए डाउनलोड की गई .html या .htm फाइल चुनें।</small>
+<small>यहाँ डाउनलोड की गई .html या .htm फाइल चुनें। PDF फाइल इस विकल्प से नहीं खुलेगी।</small>
+
 <button type="button" class="green" id="readFile">📂 HTML File खोलें</button>
 
 </form>
+
 <div id="message" class="hidden" role="status" aria-live="polite"></div>
 </section>
 
 <section class="card" id="instructions">
 <h2>📌 जरूरी जानकारी</h2>
 <div class="notice">
-यह वेबसाइट अभी Exam चुनने, Response Sheet लिंक खोलने और HTML फाइल पढ़ने में मदद करती है।<br><br>
-अभी यह अपने आप Answer Key से उत्तर मिलाकर Score, Negative Marking या Rank Calculate नहीं करती। इसके लिए Response Sheet के फॉर्मेट और आधिकारिक Answer Key से मिलान करने वाला सिस्टम अलग से बनाना होगा।
+यह वेबसाइट अभी Exam चुनने, Candidate Details भरने, Response Sheet लिंक खोलने और HTML फाइल खोलने में मदद करती है।<br><br>
+<strong>महत्वपूर्ण:</strong> अभी यह अपने आप आधिकारिक Answer Key से उत्तर मिलाकर Score, Negative Marking या Rank Calculate नहीं करती। इसके लिए Response Sheet और संबंधित Answer Key का डेटा मिलाकर अलग सिस्टम बनाना होगा।
 </div>
 </section>
 
@@ -112,7 +114,7 @@ small{color:#64748b;display:block;margin-top:6px;line-height:1.5}
 <a href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶ YouTube: Railway Success Point</a>
 <a href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">✈ Telegram: Railway Success Point</a>
 </div>
-<small>यदि Telegram लिंक गलत हो, तो अपने चैनल का सही लिंक यहाँ डालें।</small>
+<small>यदि Telegram लिंक गलत हो, तो अपने चैनल का सही लिंक डालें।</small>
 </section>
 
 </main>
@@ -139,16 +141,23 @@ form.addEventListener("submit",function(event){
   event.preventDefault();
 
   const exam=document.getElementById("exam").value;
+  const registration=document.getElementById("registration").value.trim();
   const url=document.getElementById("responseUrl").value.trim();
 
   if(!exam){
-    showMessage("कृपया पहले RRB / Railway Exam चुनें।");
+    showMessage("कृपया अपना RRB / Railway Exam चुनें।");
     document.getElementById("exam").focus();
     return;
   }
 
+  if(!registration){
+    showMessage("कृपया Registration Number भरें।");
+    document.getElementById("registration").focus();
+    return;
+  }
+
   if(!url){
-    showMessage("कृपया Response Sheet URL डालें या HTML फाइल चुनें।");
+    showMessage("Response Sheet URL डालें या नीचे HTML फाइल चुनें।");
     document.getElementById("responseUrl").focus();
     return;
   }
@@ -161,32 +170,40 @@ form.addEventListener("submit",function(event){
       return;
     }
 
-    showMessage("चुना गया Exam: "+exam+". Response Sheet खोलने की कोशिश हो रही है।");
+    showMessage("चुना गया Exam: "+exam+". लिंक खोलने के लिए नीचे दबाएँ।");
 
     const link=document.createElement("a");
     link.href=parsed.href;
     link.target="_blank";
     link.rel="noopener noreferrer";
-    link.textContent="Response Sheet खोलने के लिए यहाँ दबाएँ";
-    message.replaceChildren(link);
-    message.classList.remove("hidden");
+    link.textContent="Response Sheet खोलें";
+    message.appendChild(document.createElement("br"));
+    message.appendChild(link);
+
   }catch(error){
-    showMessage("URL सही नहीं है। कृपया पूरा Response Sheet लिंक डालें।");
+    showMessage("Response Sheet URL सही नहीं है।");
   }
 });
 
 document.getElementById("readFile").addEventListener("click",function(){
   const exam=document.getElementById("exam").value;
+  const registration=document.getElementById("registration").value.trim();
   const file=fileInput.files[0];
 
   if(!exam){
-    showMessage("कृपया पहले RRB / Railway Exam चुनें।");
+    showMessage("पहले RRB / Railway Exam चुनें।");
     document.getElementById("exam").focus();
     return;
   }
 
+  if(!registration){
+    showMessage("पहले Registration Number भरें।");
+    document.getElementById("registration").focus();
+    return;
+  }
+
   if(!file){
-    showMessage("पहले अपने फोन से HTML Response Sheet फाइल चुनें।");
+    showMessage("कृपया अपने फोन से HTML Response Sheet फाइल चुनें।");
     fileInput.click();
     return;
   }
@@ -209,18 +226,24 @@ document.getElementById("readFile").addEventListener("click",function(){
     const blob=new Blob([content],{type:"text/html;charset=utf-8"});
     const fileUrl=URL.createObjectURL(blob);
 
+    message.replaceChildren();
+
+    const info=document.createElement("p");
+    info.textContent="Exam: "+exam+" | Registration Number: "+registration;
+    message.appendChild(info);
+
     const link=document.createElement("a");
     link.href=fileUrl;
     link.target="_blank";
     link.rel="noopener noreferrer";
-    link.textContent="आपकी HTML Response Sheet खोलें";
+    link.textContent="अपनी HTML Response Sheet खोलें";
+    message.appendChild(link);
 
-    message.replaceChildren(link);
     message.classList.remove("hidden");
   };
 
   reader.onerror=function(){
-    showMessage("फाइल पढ़ने में समस्या आई। कृपया दूसरी HTML फाइल चुनें।");
+    showMessage("फाइल पढ़ने में समस्या आई। दूसरी HTML फाइल चुनें।");
   };
 
   reader.readAsText(file);
