@@ -2,287 +2,777 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Railway Rank Mitra | Rajat Kumar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Railway Rank Mitra | By Rajat Kumar</title>
+<meta name="theme-color" content="#10264f">
+
 <style>
+:root{
+  --navy:#10264f;
+  --blue:#185adb;
+  --light:#eef4ff;
+  --green:#087443;
+  --red:#bd2525;
+  --border:#d6deeb;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172033}
-header{background:linear-gradient(135deg,#08285f,#1768d0);color:white;text-align:center;padding:24px 12px}
+body{
+  margin:0;
+  font-family:Arial,"Noto Sans Devanagari",sans-serif;
+  background:#edf2fa;
+  color:#17243b;
+  line-height:1.5;
+}
+header{
+  background:linear-gradient(135deg,#10264f,#185adb);
+  color:white;
+  text-align:center;
+  padding:24px 12px;
+}
 header h1{margin:0;font-size:27px}
-header p{margin:7px 0 0}
-main{max-width:700px;margin:18px auto;padding:0 12px}
-.card{background:white;padding:18px;margin-bottom:16px;border-radius:14px;box-shadow:0 4px 14px #102b5015}
-h2{font-size:20px;color:#124a9d;margin-top:0}
-label{display:block;font-weight:bold;margin:13px 0 6px}
-input,select,button{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px}
-input[type=file]{background:#f7f9ff}
-button{background:#1456bd;color:white;border:0;font-weight:bold;margin-top:14px;cursor:pointer}
-button:disabled{opacity:.6}
-.note{background:#fff6d8;padding:12px;border-radius:8px;font-size:14px;line-height:1.5}
-.status{background:#f1f6ff;padding:12px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:#f1f6ff;padding:12px;border-radius:9px;text-align:center}
-.stat strong{display:block;font-size:23px;color:#124a9d;margin-top:5px}
-.small{font-size:13px;color:#555;line-height:1.5}
-.hidden{display:none}
-.links a{display:block;text-align:center;color:white;text-decoration:none;padding:12px;border-radius:8px;margin-top:10px;font-weight:bold}
-.youtube{background:#d71920}
-.telegram{background:#168bd2}
-footer{text-align:center;color:#555;padding:20px;font-size:13px}
-@media(max-width:430px){.card{padding:14px}}
+header p{margin:5px 0}
+header .powered{font-size:14px;color:#e1eaff}
+.container{max-width:900px;margin:18px auto;padding:0 12px}
+.card{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 3px 12px #15284a0b;
+}
+h2{font-size:20px;margin:0 0 15px;color:var(--navy)}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.field{min-width:0}
+label{display:block;font-weight:700;font-size:14px;margin-bottom:5px}
+input,select,button{
+  font:inherit;
+  width:100%;
+  min-height:44px;
+  border-radius:8px;
+}
+input,select{
+  border:1px solid #bfcadd;
+  padding:10px;
+  background:#fff;
+  color:#15223b;
+}
+button{
+  border:0;
+  background:var(--blue);
+  color:white;
+  padding:11px 14px;
+  font-weight:700;
+  cursor:pointer;
+}
+button:disabled{opacity:.55;cursor:wait}
+button.secondary{background:var(--navy)}
+button.green{background:var(--green)}
+button.red{background:#a32121}
+.full{grid-column:1/-1}
+.help{
+  background:#f1f6ff;
+  padding:12px;
+  border-radius:8px;
+  font-size:14px;
+  margin:10px 0;
+}
+.notice{
+  padding:12px;
+  border-radius:8px;
+  background:#fff6dd;
+  border:1px solid #f0d58c;
+  color:#674900;
+  overflow-wrap:anywhere;
+}
+.status{
+  margin-top:12px;
+  padding:11px;
+  border-radius:8px;
+  background:#f1f5fb;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+}
+.status.ok{background:#e7f8ee;color:#075b30}
+.status.error{background:#ffeded;color:#921f1f}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.stat{
+  border:1px solid var(--border);
+  background:#f8faff;
+  border-radius:10px;
+  padding:12px 8px;
+  text-align:center;
+  min-width:0;
+}
+.stat span{display:block;font-size:13px;color:#53627a}
+.stat strong{font-size:22px;overflow-wrap:anywhere}
+.greenText{color:var(--green)}
+.redText{color:var(--red)}
+.tableWrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;margin-top:12px}
+th,td{border:1px solid var(--border);padding:9px;text-align:left}
+th{background:#eaf0ff}
+.small{font-size:13px;color:#53627a}
+footer{
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:20px 12px;
+}
+footer a{
+  display:inline-block;
+  color:white;
+  text-decoration:none;
+  padding:10px 14px;
+  margin:5px;
+  border-radius:8px;
+  background:#185adb;
+  font-weight:bold;
+}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  header h1{font-size:23px}
+  .card{padding:14px}
+}
 </style>
 </head>
+
 <body>
 <header>
-<h1>🚆 RAILWAY RANK MITRA</h1>
-<p>BY RAJAT KUMAR</p>
-<p>Powered by Railway Success Point</p>
+  <h1>🚆 RAILWAY RANK MITRA</h1>
+  <p><b>BY RAJAT KUMAR</b></p>
+  <p class="powered">Powered by Railway Success Point</p>
 </header>
 
-<main>
-<section class="card">
-<h2>👤 Candidate Details</h2>
-
-<label for="name">Candidate Name</label>
-<input id="name" placeholder="अपना नाम लिखें">
-
-<label for="reg">Registration Number / Roll Number</label>
-<input id="reg" placeholder="Registration Number">
-
-<label for="category">Category</label>
-<select id="category">
-<option value="">Select Category</option>
-<option>UR / General</option><option>OBC</option>
-<option>SC</option><option>ST</option><option>EWS</option>
-</select>
-
-<label for="examType">Exam Type</label>
-<select id="examType">
-<option value="">Select Exam Type</option>
-<option>RRB All Exam</option><option>GDCE</option><option>LDCE</option>
-</select>
-
-<label for="zone">Railway Zone / RRB</label>
-<select id="zone">
-<option value="">Select Railway Zone / RRB</option>
-<option>RRB Ahmedabad</option><option>RRB Ajmer</option>
-<option>RRB Allahabad / Prayagraj</option><option>RRB Bengaluru</option>
-<option>RRB Bhopal</option><option>RRB Bhubaneswar</option>
-<option>RRB Bilaspur</option><option>RRB Chandigarh</option>
-<option>RRB Chennai</option><option>RRB Gorakhpur</option>
-<option>RRB Guwahati</option><option>RRB Jammu-Srinagar</option>
-<option>RRB Kolkata</option><option>RRB Mumbai</option>
-<option>RRB Patna</option><option>RRB Ranchi</option>
-<option>RRB Secunderabad</option><option>Other Railway Zone</option>
-</select>
-
-<label for="exam">Exam Name</label>
-<select id="exam">
-<option value="">Select Exam</option>
-<option>RRB ALP</option><option>RRB Group D</option>
-<option>RRB Technician</option><option>RRB NTPC Graduate</option>
-<option>RRB NTPC Undergraduate</option><option>RRB JE</option>
-<option>Railway GDCE</option><option>Railway LDCE</option>
-</select>
-
-<div class="grid">
-<div>
-<label for="examDate">Exam Date</label>
-<input id="examDate" type="date">
-</div>
-<div>
-<label for="shift">Shift</label>
-<select id="shift">
-<option value="">Select Shift</option>
-<option>First Shift</option><option>Second Shift</option>
-<option>Third Shift</option><option>Other / Unknown</option>
-</select>
-</div>
-</div>
-
-<label for="code">4-digit Code</label>
-<input id="code" inputmode="numeric" maxlength="4" placeholder="4-digit code">
-</section>
+<main class="container">
 
 <section class="card">
-<h2>📄 Response Sheet / Answer Key</h2>
-<div class="note">
-नीचे एक ही विकल्प है। पहले Response Sheet चुनकर पढ़ें। फिर उसी विकल्प में Official Answer Key चुनकर पढ़ें। दोनों का डेटा इस पेज के खुले रहने तक रखा जाएगा।
-</div>
+  <h2>👤 Candidate Details</h2>
 
-<label for="docType">दस्तावेज़ का प्रकार</label>
-<select id="docType">
-<option value="response">Candidate Response Sheet</option>
-<option value="key">Official Answer Key</option>
-</select>
+  <div class="grid">
+    <div class="field">
+      <label for="candidate">Candidate Name</label>
+      <input id="candidate" value="Rajat kumar" autocomplete="name">
+    </div>
 
-<label for="docUrl">Document URL (Optional)</label>
-<input id="docUrl" type="url" placeholder="https://...">
+    <div class="field">
+      <label for="reg">Registration / Roll Number</label>
+      <input id="reg" value="121240046893">
+    </div>
 
-<p style="text-align:center">— OR —</p>
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category">
+        <option value="">Select Category</option>
+        <option>UR</option>
+        <option>OBC</option>
+        <option selected>SC</option>
+        <option>ST</option>
+        <option>EWS</option>
+      </select>
+    </div>
 
-<label for="docFile">Upload PDF / HTML File</label>
-<input id="docFile" type="file" accept=".pdf,.html,.htm,application/pdf,text/html">
-<p class="small">URL या फ़ाइल में से केवल एक इस्तेमाल करें।</p>
+    <div class="field">
+      <label for="examType">Exam Type</label>
+      <select id="examType">
+        <option>RRB All Exam</option>
+        <option>GDCE</option>
+        <option>LDCE</option>
+      </select>
+    </div>
 
-<button id="readBtn" type="button">इस दस्तावेज़ को पढ़ें</button>
-<div id="readStatus" class="status" style="margin-top:12px" aria-live="polite">अभी कोई दस्तावेज़ नहीं जोड़ा गया।</div>
-<button id="scoreBtn" type="button">Calculate Score / Scorecard</button>
-</section>
+    <div class="field">
+      <label for="zone">Railway Zone / RRB</label>
+      <select id="zone">
+        <option>RRB Chandigarh</option>
+        <option>RRB Ahmedabad</option>
+        <option>RRB Ajmer</option>
+        <option>RRB Allahabad / Prayagraj</option>
+        <option>RRB Bengaluru</option>
+        <option>RRB Bhopal</option>
+        <option>RRB Bhubaneswar</option>
+        <option>RRB Bilaspur</option>
+        <option>RRB Chennai</option>
+        <option>RRB Gorakhpur</option>
+        <option>RRB Guwahati</option>
+        <option>RRB Jammu-Srinagar</option>
+        <option>RRB Kolkata</option>
+        <option>RRB Malda</option>
+        <option>RRB Mumbai</option>
+        <option>RRB Muzaffarpur</option>
+        <option>RRB Patna</option>
+        <option>RRB Ranchi</option>
+        <option>RRB Secunderabad</option>
+        <option>RRB Siliguri</option>
+        <option>RRB Thiruvananthapuram</option>
+        <option>Other Railway Zone</option>
+      </select>
+    </div>
 
-<section id="scoreSection" class="card hidden">
-<h2>📊 Candidate Scorecard</h2>
-<div id="summary" class="status"></div>
-<div class="grid" style="margin-top:12px">
-<div class="stat">Total Questions<strong id="total">—</strong></div>
-<div class="stat">Attempted<strong id="attempted">—</strong></div>
-<div class="stat">Correct<strong id="correct">—</strong></div>
-<div class="stat">Incorrect<strong id="incorrect">—</strong></div>
-<div class="stat">Unattempted<strong id="unattempted">—</strong></div>
-<div class="stat">Accuracy<strong id="accuracy">—</strong></div>
-<div class="stat">Negative Marks<strong id="negative">—</strong></div>
-<div class="stat">Final Score<strong id="finalScore">—</strong></div>
-</div>
-<div id="scoreNote" class="note" style="margin-top:12px"></div>
+    <div class="field">
+      <label for="exam">Exam Name</label>
+      <select id="exam">
+        <option>RRB ALP</option>
+        <option>RRB Technician</option>
+        <option>RRB Group D</option>
+        <option>RRB NTPC Graduate</option>
+        <option>RRB NTPC Undergraduate</option>
+        <option>RRB JE</option>
+        <option>GDCE ALP</option>
+        <option>GDCE Technician</option>
+        <option>GDCE Goods Guard / Train Manager</option>
+        <option>GDCE Station Master</option>
+        <option>LDCE</option>
+        <option>Other Railway Exam</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="examDate">Exam Date</label>
+      <input id="examDate" type="date" value="2024-11-27">
+    </div>
+
+    <div class="field">
+      <label for="shift">Shift</label>
+      <select id="shift">
+        <option>First Shift</option>
+        <option>Second Shift</option>
+        <option>Third Shift</option>
+        <option>Fourth Shift</option>
+        <option>Other / Not Known</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="code">4-digit Code</label>
+      <input id="code" inputmode="numeric" maxlength="4" placeholder="Enter 4-digit code">
+    </div>
+  </div>
 </section>
 
 <section class="card">
-<h2>⚠️ जरूरी जानकारी</h2>
-<div class="note">
-सही स्कोर निकालने के लिए Response Sheet से उम्मीदवार के चुने हुए उत्तर और Official Answer Key से सही उत्तर पहचानना आवश्यक है। अगर फ़ॉर्मेट स्पष्ट न हो, तो वेबसाइट अनुमान लगाकर स्कोर नहीं दिखाएगी।
-</div>
+  <h2>📄 Response Sheet / Answer Key</h2>
+
+  <div class="help">
+    इसी एक विकल्प से दोनों दस्तावेज़ बारी-बारी से जोड़ें। पहले Candidate Response Sheet पढ़ें, फिर Official Answer Key चुनकर पढ़ें। दोनों का डेटा इस पेज के खुले रहने तक रखा जाएगा।
+  </div>
+
+  <div class="grid">
+    <div class="field full">
+      <label for="docType">अभी कौन-सा दस्तावेज़ जोड़ रहे हैं?</label>
+      <select id="docType">
+        <option value="response">Candidate Response Sheet</option>
+        <option value="key">Official Answer Key</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="docUrl">Document URL (Optional)</label>
+      <input id="docUrl" type="url"
+        placeholder="https://example.com/response-sheet.html">
+    </div>
+
+    <div class="field full">
+      <label for="docFile">— OR — Upload PDF / HTML File</label>
+      <input id="docFile" type="file"
+        accept=".pdf,.html,.htm,text/html,application/pdf">
+      <p class="small">URL या फ़ाइल में से केवल एक चुनें। RRB लिंक पर CORS या लॉगिन की पाबंदी हो सकती है। ऐसी स्थिति में फ़ाइल अपलोड करें।</p>
+    </div>
+
+    <div class="field full">
+      <button id="readBtn" type="button">इस दस्तावेज़ को पढ़ें</button>
+      <div id="readStatus" class="status" role="status" aria-live="polite">
+        अभी कोई दस्तावेज़ नहीं पढ़ा गया।
+      </div>
+    </div>
+
+    <div class="field full">
+      <button id="showDataBtn" type="button" class="secondary">
+        पढ़े गए दस्तावेज़ों की स्थिति देखें
+      </button>
+      <div id="dataStatus" class="status" aria-live="polite">
+        Response Sheet: उपलब्ध नहीं<br>Official Answer Key: उपलब्ध नहीं
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="card links">
-<h2>Railway Success Point</h2>
-<a class="youtube" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener">▶ Subscribe YouTube Channel</a>
-<a class="telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Join Telegram</a>
+<section class="card">
+  <h2>🧮 Calculate Score / Scorecard</h2>
+
+  <div class="help">
+    स्कोर निकालने के लिए दोनों दस्तावेज़ आवश्यक हैं। वेबसाइट प्रश्न ID, चुना गया विकल्प और आधिकारिक सही विकल्प मिलाने की कोशिश करेगी। अस्पष्ट डेटा पर अनुमानित स्कोर नहीं दिखाया जाएगा।
+  </div>
+
+  <div class="field">
+    <label for="markCorrect">हर सही उत्तर के अंक</label>
+    <input id="markCorrect" type="number" value="1" step="0.25" min="0">
+  </div>
+
+  <div class="field" style="margin-top:12px">
+    <label for="markWrong">हर गलत उत्तर पर कटने वाले अंक</label>
+    <input id="markWrong" type="number" value="0.3333333333" step="0.01" min="0">
+  </div>
+
+  <div style="margin-top:15px">
+    <button id="calculateBtn" type="button" class="green">Calculate Score / Scorecard</button>
+  </div>
+
+  <div id="scoreStatus" class="status" role="status" aria-live="polite">
+    पहले इसी विकल्प से Response Sheet और Official Answer Key दोनों पढ़ें।
+  </div>
+
+  <div id="scorecard" hidden>
+    <h2 style="margin-top:20px">📊 Candidate Scorecard</h2>
+    <p id="candidateSummary"></p>
+
+    <div class="stats">
+      <div class="stat"><span>Total Questions</span><strong id="total">—</strong></div>
+      <div class="stat"><span>Attempted</span><strong id="attempted">—</strong></div>
+      <div class="stat"><span>Correct</span><strong class="greenText" id="correct">—</strong></div>
+      <div class="stat"><span>Incorrect</span><strong class="redText" id="incorrect">—</strong></div>
+      <div class="stat"><span>Unattempted</span><strong id="unattempted">—</strong></div>
+      <div class="stat"><span>Accuracy</span><strong id="accuracy">—</strong></div>
+      <div class="stat"><span>Negative Marks</span><strong id="negative">—</strong></div>
+      <div class="stat"><span>Final Score</span><strong id="finalScore">—</strong></div>
+    </div>
+
+    <div id="subjectSection" class="tableWrap"></div>
+    <p class="small">यह दस्तावेज़ों के उपलब्ध डेटा से निकला स्कोर है, आधिकारिक RRB परिणाम या आधिकारिक रैंक नहीं।</p>
+  </div>
+</section>
+
+<section class="card">
+  <h2>⚠️ जरूरी जानकारी</h2>
+  <ul>
+    <li>स्कोर तभी निकलेगा जब Response Sheet और Official Answer Key दोनों पढ़े जा सकें।</li>
+    <li>PDF से टेक्स्ट निकालना और सही उत्तर पहचानना अलग-अलग काम हैं। PDF में रंग या टिक के रूप में दिखाया गया सही उत्तर टेक्स्ट में हमेशा नहीं मिलता।</li>
+    <li>अगर आधिकारिक उत्तरों का फ़ॉर्मेट पहचाना नहीं जा सका, तो वेबसाइट स्कोर देने के बजाय कारण बताएगी।</li>
+    <li>पेज बंद या रिफ्रेश करने पर दस्तावेज़ों का अस्थायी डेटा मिट जाएगा।</li>
+  </ul>
 </section>
 </main>
 
-<footer>RAILWAY RANK MITRA<br>BY RAJAT KUMAR | Railway Success Point</footer>
+<footer>
+  <b>Railway Success Point</b><br>
+  <a href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener">▶ Subscribe YouTube Channel</a>
+  <a href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Join Telegram</a>
+</footer>
+
+<!-- PDF.js: PDF text extraction library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script>
-const $ = id => document.getElementById(id);
+(function(){
+"use strict";
+
+if(window.pdfjsLib){
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+}
+
 let responseText = "";
 let answerKeyText = "";
+let responseFileName = "";
+let answerKeyFileName = "";
 
-function showStatus(s){ $("readStatus").textContent = s; }
+const $ = id => document.getElementById(id);
 
-async function loadPdfJs(){
- if(window.pdfjsLib) return window.pdfjsLib;
- if(window.pdfJsPromise) return window.pdfJsPromise;
- window.pdfJsPromise = new Promise((resolve,reject)=>{
-  const s=document.createElement("script");
-  s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-  s.onload=()=>{
-   if(!window.pdfjsLib){reject(new Error("PDF library उपलब्ध नहीं है।"));return;}
-   window.pdfjsLib.GlobalWorkerOptions.workerSrc=
-    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-   resolve(window.pdfjsLib);
-  };
-  s.onerror=()=>reject(new Error("PDF library लोड नहीं हुई। इंटरनेट जाँचें।"));
-  document.head.appendChild(s);
- });
- return window.pdfJsPromise;
+function setStatus(id, message, type){
+  const el = $(id);
+  el.textContent = message;
+  el.className = "status" + (type ? " " + type : "");
 }
 
-async function pdfText(file){
- const lib=await loadPdfJs();
- const pdf=await lib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
- let text="";
- for(let p=1;p<=pdf.numPages;p++){
-  showStatus("PDF पढ़ी जा रही है: पेज "+p+" / "+pdf.numPages);
-  const page=await pdf.getPage(p);
-  const content=await page.getTextContent();
-  text+="\n"+content.items.map(x=>x.str).join(" ");
- }
- if(!text.trim()) throw new Error("PDF से टेक्स्ट नहीं मिला। यह scanned PDF हो सकती है।");
- return text;
+function normalizeText(text){
+  return String(text || "")
+    .replace(/\u00a0/g, " ")
+    .replace(/[‐-‒–—]/g, "-")
+    .replace(/\r/g, "\n")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n[ \t]+/g, "\n")
+    .trim();
 }
 
-async function readDocument(file,url){
- if(file){
-  const n=file.name.toLowerCase();
-  if(n.endsWith(".pdf")||file.type==="application/pdf") return await pdfText(file);
-  if(n.endsWith(".html")||n.endsWith(".htm")||file.type==="text/html"){
-   const d=new DOMParser().parseFromString(await file.text(),"text/html");
-   return (d.body?.innerText||d.documentElement.textContent||"").trim();
+function cleanOption(value){
+  if(value === null || value === undefined) return "";
+  return String(value).trim().replace(/\s+/g," ");
+}
+
+function optionLetter(value){
+  const s = cleanOption(value);
+  if(!s) return "";
+
+  // Explicit option labels, e.g. A, B, C, D or Option 1, Option 2.
+  let m = s.match(/^(?:option\s*)?([A-D])$/i);
+  if(m) return m[1].toUpperCase();
+
+  m = s.match(/^(?:option|विकल्प)\s*([1-4])$/i);
+  if(m) return String.fromCharCode(64 + Number(m[1]));
+
+  // Do not treat arbitrary long numeric option IDs as option numbers.
+  if(/^[1-4]$/.test(s)) return String.fromCharCode(64 + Number(s));
+
+  return "";
+}
+
+function canonicalOption(value){
+  const s = cleanOption(value);
+  if(!s) return "";
+  const letter = optionLetter(s);
+  if(letter) return letter;
+
+  // A full option text can be compared only when both documents provide text.
+  return s.toLowerCase().replace(/[.,:;()[\]{}]/g,"").replace(/\s+/g," ");
+}
+
+async function readPdf(file){
+  if(!window.pdfjsLib){
+    throw new Error("PDF पढ़ने की लाइब्रेरी लोड नहीं हुई। इंटरनेट चालू करके पेज रिफ्रेश करें।");
   }
-  throw new Error("PDF, HTML या HTM फ़ाइल चुनें।");
- }
- const res=await fetch(url);
- if(!res.ok) throw new Error("URL नहीं खुला: HTTP "+res.status);
- const type=res.headers.get("content-type")||"";
- if(type.includes("pdf")){
-  const blob=await res.blob();
-  return await pdfText(new File([blob],"document.pdf",{type:"application/pdf"}));
- }
- const d=new DOMParser().parseFromString(await res.text(),"text/html");
- return (d.body?.innerText||d.documentElement.textContent||"").trim();
+  const buffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({data:buffer}).promise;
+  let pages = [];
+  for(let p=1;p<=pdf.numPages;p++){
+    const page = await pdf.getPage(p);
+    const content = await page.getTextContent();
+    const items = content.items || [];
+    let lines = [];
+    let current = [];
+    let lastY = null;
+
+    for(const item of items){
+      if(!item.str) continue;
+      const y = item.transform ? item.transform[5] : null;
+      if(lastY !== null && y !== null && Math.abs(y-lastY)>3){
+        lines.push(current.join(" "));
+        current = [];
+      }
+      current.push(item.str);
+      if(y !== null) lastY = y;
+    }
+    if(current.length) lines.push(current.join(" "));
+    pages.push(lines.join("\n"));
+  }
+  return normalizeText(pages.join("\n"));
 }
 
-$("docFile").addEventListener("change",()=>{
- const f=$("docFile").files[0];
- if(f){$("docUrl").value="";showStatus("फ़ाइल चुनी गई: "+f.name+"\nअब दस्तावेज़ पढ़ें दबाएँ।");}
-});
-$("docUrl").addEventListener("input",()=>{if($("docUrl").value.trim())$("docFile").value="";});
+async function readHtmlFile(file){
+  const html = await file.text();
+  const doc = new DOMParser().parseFromString(html,"text/html");
+  doc.querySelectorAll("script,style,noscript,svg").forEach(e=>e.remove());
 
-$("readBtn").addEventListener("click",async()=>{
- const f=$("docFile").files[0],url=$("docUrl").value.trim();
- if((f&&url)||(!f&&!url)){showStatus("URL या फ़ाइल में से केवल एक चुनें।");return;}
- $("readBtn").disabled=true;
- try{
-  const text=await readDocument(f,url);
-  if(!text)throw new Error("दस्तावेज़ में पढ़ने योग्य टेक्स्ट नहीं मिला।");
-  if($("docType").value==="response"){
-   responseText=text;
-   showStatus("Response Sheet पढ़ ली गई। अब Document Type में Official Answer Key चुनें और उसकी फ़ाइल/URL पढ़ें।");
+  // Preserve table cell boundaries, which can be important for answer-key tables.
+  doc.querySelectorAll("tr").forEach(tr=>{
+    tr.insertBefore(doc.createTextNode("\n"),tr.firstChild);
+    tr.querySelectorAll("td,th").forEach(td=>{
+      td.appendChild(doc.createTextNode(" | "));
+    });
+  });
+
+  return normalizeText(doc.body ? doc.body.innerText : doc.documentElement.textContent);
+}
+
+async function fetchUrl(url){
+  const response = await fetch(url,{credentials:"include"});
+  if(!response.ok) throw new Error("URL से डेटा नहीं मिला (HTTP " + response.status + "). फ़ाइल अपलोड करके देखें।");
+  const type = (response.headers.get("content-type") || "").toLowerCase();
+  if(type.includes("pdf") || /\.pdf(?:[?#]|$)/i.test(url)){
+    const blob = await response.blob();
+    const file = new File([blob],"document.pdf",{type:"application/pdf"});
+    return {text:await readPdf(file),name:url};
+  }
+  const html = await response.text();
+  const doc = new DOMParser().parseFromString(html,"text/html");
+  doc.querySelectorAll("script,style,noscript,svg").forEach(e=>e.remove());
+  return {text:normalizeText(doc.body ? doc.body.innerText : doc.documentElement.textContent),name:url};
+}
+
+async function readSelectedDocument(){
+  const type = $("docType").value;
+  const url = $("docUrl").value.trim();
+  const file = $("docFile").files[0];
+
+  if(url && file){
+    throw new Error("कृपया URL या फ़ाइल में से केवल एक चुनें।");
+  }
+  if(!url && !file){
+    throw new Error("पहले Document URL डालें या PDF / HTML फ़ाइल चुनें।");
+  }
+
+  let result;
+  if(file){
+    const name = file.name.toLowerCase();
+    if(name.endsWith(".pdf") || file.type === "application/pdf"){
+      result = {text:await readPdf(file),name:file.name};
+    }else if(name.endsWith(".html") || name.endsWith(".htm") || file.type.includes("html")){
+      result = {text:await readHtmlFile(file),name:file.name};
+    }else{
+      throw new Error("यह फ़ाइल प्रकार समर्थित नहीं है। PDF या HTML चुनें।");
+    }
   }else{
-   answerKeyText=text;
-   showStatus("Official Answer Key पढ़ ली गई। अब Calculate Score दबाएँ।");
+    try{
+      result = await fetchUrl(url);
+    }catch(e){
+      if(String(e.message).toLowerCase().includes("fetch") ||
+         String(e.message).toLowerCase().includes("cors") ||
+         String(e.message).toLowerCase().includes("network")){
+        throw new Error("लिंक पढ़ने में CORS / लॉगिन / नेटवर्क की समस्या है। उसी दस्तावेज़ को मोबाइल में सेव करके PDF या HTML फ़ाइल अपलोड करें।");
+      }
+      throw e;
+    }
   }
- }catch(e){
-  showStatus("दस्तावेज़ पढ़ने में समस्या:\n"+e.message+"\nURL पर CORS या लॉगिन की पाबंदी हो सकती है।");
- }finally{$("readBtn").disabled=false;}
-});
 
-function getQuestionIds(text){
- const ids=new Set();
- const re=/Question ID\s*:\s*(\d+)/gi;
- let m;
- while((m=re.exec(text))!==null)ids.add(m[1]);
- return ids;
+  if(!result.text || result.text.length < 30){
+    throw new Error("दस्तावेज़ से पर्याप्त टेक्स्ट नहीं मिला। यह स्कैन की हुई या लॉगिन-सुरक्षित फ़ाइल हो सकती है।");
+  }
+
+  if(type === "response"){
+    responseText = result.text;
+    responseFileName = result.name;
+  }else{
+    answerKeyText = result.text;
+    answerKeyFileName = result.name;
+  }
+
+  return {type,name:result.name,length:result.text.length};
 }
 
-$("scoreBtn").addEventListener("click",()=>{
- $("scoreSection").classList.remove("hidden");
- $("summary").textContent=
- "Candidate: "+($("name").value||"—")+
- "\nRegistration: "+($("reg").value||"—")+
- "\nExam: "+($("exam").value||"—")+
- "\nZone: "+($("zone").value||"—")+
- "\nDate: "+($("examDate").value||"—")+
- "\nShift: "+($("shift").value||"—");
-
- ["total","attempted","correct","incorrect","unattempted","accuracy","negative","finalScore"]
- .forEach(id=>$(id).textContent="—");
-
- if(!responseText||!answerKeyText){
-  $("scoreNote").textContent="पहले इसी विकल्प से Response Sheet और Official Answer Key दोनों बारी-बारी से पढ़ें।";
-  return;
- }
-
- const rIds=getQuestionIds(responseText);
- const kIds=getQuestionIds(answerKeyText);
- const common=[...rIds].filter(id=>kIds.has(id));
-
- $("scoreNote").textContent=
- "Response Sheet के Question ID: "+rIds.size+
- "\nAnswer Key के Question ID: "+kIds.size+
- "\nदोनों में समान Question ID: "+common.length+
- "\n\nअभी इस परीक्षा के उत्तरों का सही मिलान करने वाला parser सत्यापित नहीं है। इसलिए स्कोर दिखाना सुरक्षित नहीं है। परीक्षा की Answer Key में सही उत्तर किस तरह दर्शाए गए हैं, उसे पहचानकर अगला बदलाव करना होगा।";
+$("readBtn").addEventListener("click",async function(){
+  this.disabled = true;
+  setStatus("readStatus","दस्तावेज़ पढ़ा जा रहा है। कृपया प्रतीक्षा करें…");
+  try{
+    const result = await readSelectedDocument();
+    setStatus("readStatus",
+      (result.type==="response" ? "Candidate Response Sheet" : "Official Answer Key") +
+      " पढ़ लिया गया।\nफ़ाइल: " + result.name +
+      "\nनिकाला गया टेक्स्ट: " + result.length + " अक्षर।",
+      "ok");
+    updateDataStatus();
+    $("docUrl").value = "";
+    $("docFile").value = "";
+  }catch(e){
+    setStatus("readStatus","दस्तावेज़ पढ़ने में समस्या:\n" + e.message,"error");
+  }finally{
+    this.disabled = false;
+  }
 });
+
+function updateDataStatus(){
+  setStatus("dataStatus",
+    "Response Sheet: " + (responseText ? "उपलब्ध ("+responseFileName+")" : "उपलब्ध नहीं") +
+    "\nOfficial Answer Key: " + (answerKeyText ? "उपलब्ध ("+answerKeyFileName+")" : "उपलब्ध नहीं"),
+    responseText && answerKeyText ? "ok" : "");
+}
+
+$("showDataBtn").addEventListener("click",updateDataStatus);
+
+function parseResponse(text){
+  const result = new Map();
+  const t = normalizeText(text);
+
+  // Common RRB Digialm HTML/PDF format:
+  // Question ID: 12345 ... Status: Answered ... Chosen Option: 67890
+  const blocks = t.split(/(?=Question\s*ID\s*[:：])/i);
+
+  for(const block of blocks){
+    const idMatch = block.match(/Question\s*ID\s*[:：]?\s*(\d+)/i);
+    if(!idMatch) continue;
+
+    const id = idMatch[1];
+    const statusMatch = block.match(/Status\s*[:：]?\s*(Answered|Not\s*Answered|Not\s*Attempted|Unanswered)/i);
+    const chosenMatch = block.match(/Chosen\s*Option\s*[:：]?\s*([^\n|]+)/i);
+
+    let status = statusMatch ? statusMatch[1].toLowerCase().replace(/\s+/g," ") : "";
+    let chosen = chosenMatch ? cleanOption(chosenMatch[1]) : "";
+
+    // Option ID numbers are identifiers, not necessarily A/B/C/D.
+    if(/not answered|not attempted|unanswered/.test(status)){
+      chosen = "";
+    }
+
+    if(!result.has(id)){
+      result.set(id,{id,chosen,status,raw:block.slice(0,500)});
+    }
+  }
+
+  return result;
+}
+
+function parseKey(text){
+  const result = new Map();
+  const t = normalizeText(text);
+  const blocks = t.split(/(?=Question\s*ID\s*[:：])/i);
+
+  // Only accept explicitly labelled correct-answer fields.
+  // Generic "Ans 1. 2. 3. 4." is not enough to determine the answer.
+  const patterns = [
+    /Correct\s*Answer\s*(?:Option)?\s*[:：]?\s*([A-D1-4])/i,
+    /Correct\s*Option\s*[:：]?\s*([A-D1-4])/i,
+    /Right\s*Answer\s*[:：]?\s*([A-D1-4])/i,
+    /Answer\s*Key\s*[:：]?\s*([A-D1-4])/i,
+    /सही\s*उत्तर\s*[:：]?\s*([A-D1-4])/i
+  ];
+
+  for(const block of blocks){
+    const idMatch = block.match(/Question\s*ID\s*[:：]?\s*(\d+)/i);
+    if(!idMatch) continue;
+    const id = idMatch[1];
+
+    let answer = "";
+    for(const pattern of patterns){
+      const m = block.match(pattern);
+      if(m){ answer = optionLetter(m[1]); if(answer) break; }
+    }
+    if(answer && !result.has(id)) result.set(id,{id,answer});
+  }
+
+  // Also support clearly labelled table-style rows:
+  // Question ID | Correct Answer
+  const lines = t.split(/\n/);
+  for(const line of lines){
+    const m = line.match(/(?:Question\s*ID\s*[:|]?\s*)(\d+).*?(?:Correct\s*Answer|Correct\s*Option|Right\s*Answer)\s*[:|]?\s*([A-D1-4])/i);
+    if(m){
+      const answer = optionLetter(m[2]);
+      if(answer) result.set(m[1],{id:m[1],answer});
+    }
+  }
+  return result;
+}
+
+function fmt(n){
+  return Number(n).toLocaleString("en-IN",{maximumFractionDigits:2});
+}
+
+function calculate(){
+  $("scorecard").hidden = true;
+
+  if(!$("code").value.trim()){
+    setStatus("scoreStatus","कृपया 4-digit Code भरें।","error");
+    return;
+  }
+  if(!/^\d{4}$/.test($("code").value.trim())){
+    setStatus("scoreStatus","4-digit Code में ठीक 4 अंक होने चाहिए।","error");
+    return;
+  }
+  if(!responseText || !answerKeyText){
+    setStatus("scoreStatus","स्कोर निकालने के लिए पहले इसी विकल्प से Candidate Response Sheet और Official Answer Key दोनों पढ़ें।","error");
+    return;
+  }
+
+  const response = parseResponse(responseText);
+  const key = parseKey(answerKeyText);
+
+  if(response.size===0){
+    setStatus("scoreStatus",
+      "Response Sheet पढ़ी गई, लेकिन प्रश्न ID और चुने गए उत्तर का पहचाने जाने योग्य डेटा नहीं मिला।\nइस RRB फ़ॉर्मेट के लिए parser में बदलाव आवश्यक है।",
+      "error");
+    return;
+  }
+  if(key.size===0){
+    setStatus("scoreStatus",
+      "Official Answer Key का टेक्स्ट पढ़ा गया, लेकिन सही उत्तर स्पष्ट रूप से पहचाने नहीं जा सके।\nयदि सही उत्तर PDF में हरे रंग या टिक से दिखते हैं, तो सामान्य टेक्स्ट निकालने पर वह जानकारी खो सकती है। इस फ़ॉर्मेट के लिए अलग parser आवश्यक है।\nअभी कोई अनुमानित स्कोर नहीं दिखाया गया।",
+      "error");
+    return;
+  }
+
+  let matched = 0, correct = 0, incorrect = 0, unattempted = 0;
+  let missingKey = 0, unrecognizedChosen = 0;
+  const details = [];
+
+  for(const [id,q] of response){
+    const k = key.get(id);
+    if(!k){ missingKey++; continue; }
+
+    const status = (q.status || "").toLowerCase();
+    if(!q.chosen || /not answered|not attempted|unanswered/.test(status)){
+      unattempted++;
+      matched++;
+      details.push({id,result:"Unattempted"});
+      continue;
+    }
+
+    const chosen = optionLetter(q.chosen);
+    if(!chosen){
+      unrecognizedChosen++;
+      continue;
+    }
+
+    matched++;
+    if(chosen === k.answer){
+      correct++;
+      details.push({id,result:"Correct"});
+    }else{
+      incorrect++;
+      details.push({id,result:"Incorrect"});
+    }
+  }
+
+  if(matched===0 || (missingKey + unrecognizedChosen) > 0){
+    setStatus("scoreStatus",
+      "पूरे प्रश्नों का भरोसेमंद मिलान नहीं हो पाया।\nResponse Sheet प्रश्न: "+response.size+
+      "\nOfficial Key में पहचाने गए प्रश्न: "+key.size+
+      "\nमिलान हुए प्रश्न: "+matched+
+      "\nKey न मिलने वाले प्रश्न: "+missingKey+
+      "\nचुने गए विकल्प जिन्हें समझ नहीं पाए: "+unrecognizedChosen+
+      "\n\nअधूरे मिलान से स्कोर गलत हो सकता है, इसलिए स्कोरकार्ड नहीं बनाया गया।",
+      "error");
+    return;
+  }
+
+  const total = response.size;
+  const attempted = correct + incorrect;
+  const markCorrect = Number($("markCorrect").value);
+  const markWrong = Number($("markWrong").value);
+
+  if(!Number.isFinite(markCorrect) || !Number.isFinite(markWrong) || markCorrect<0 || markWrong<0){
+    setStatus("scoreStatus","अंक और नेगेटिव मार्किंग के मान सही भरें।","error");
+    return;
+  }
+
+  const negative = incorrect * markWrong;
+  const finalScore = correct * markCorrect - negative;
+  const accuracy = attempted ? (correct / attempted) * 100 : 0;
+
+  $("candidateSummary").textContent =
+    "Candidate: " + ($("candidate").value.trim() || "Not entered") +
+    " | Registration / Roll No.: " + ($("reg").value.trim() || "Not entered") +
+    " | Exam: " + $("exam").value +
+    " | Category: " + ($("category").value || "Not selected");
+
+  $("total").textContent = total;
+  $("attempted").textContent = attempted;
+  $("correct").textContent = correct;
+  $("incorrect").textContent = incorrect;
+  $("unattempted").textContent = unattempted;
+  $("accuracy").textContent = fmt(accuracy) + "%";
+  $("negative").textContent = fmt(negative);
+  $("finalScore").textContent = fmt(finalScore);
+
+  $("subjectSection").innerHTML =
+    "<h3>मिलान की जानकारी</h3><p>Response Sheet और Official Answer Key में " +
+    matched + " प्रश्नों का मिलान हुआ।</p>";
+
+  $("scorecard").hidden = false;
+  setStatus("scoreStatus",
+    "स्कोरकार्ड तैयार है। सभी "+total+" प्रश्नों का मिलान उपलब्ध डेटा से हो गया।",
+    "ok");
+}
+
+$("calculateBtn").addEventListener("click",calculate);
+updateDataStatus();
+
+})();
 </script>
 </body>
 </html>
