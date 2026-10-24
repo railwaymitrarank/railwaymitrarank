@@ -1,268 +1,483 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#1457c5">
-<title>Railway Rank Mitra</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172554}
-header{background:linear-gradient(135deg,#082f80,#1769d2);color:white;text-align:center;padding:25px 12px}
-header h1{margin:0;font-size:27px}
-header p{margin:8px 0 0;font-size:14px}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:white}
-nav a{background:#e0eaff;color:#123b86;text-decoration:none;padding:9px 12px;border-radius:20px;font-weight:bold;font-size:13px}
-main{max-width:760px;margin:auto;padding:14px}
-.card{background:white;padding:18px;margin:15px 0;border-radius:16px;box-shadow:0 4px 15px #152c5012}
-h2{margin-top:0;color:#123b86;font-size:21px}
-label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
-input,select{width:100%;padding:12px;margin-top:6px;border:1px solid #cbd5e1;border-radius:9px;font-size:16px;background:white}
-button,.btn{display:block;width:100%;border:0;padding:13px;margin-top:14px;border-radius:10px;background:#1457c5;color:white;font-size:16px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}
-button:disabled{opacity:.6;cursor:wait}
-.green{background:#07834b}
-.notice{background:#fff7d6;border:1px solid #f0d36b;border-radius:10px;padding:12px;color:#684d00;font-size:13px;line-height:1.6}
-.result{display:none;background:#e5f8ed;border:1px solid #86d6a5;padding:15px;border-radius:10px;margin-top:15px;line-height:1.8;overflow-wrap:anywhere}
-.small{font-size:13px;color:#64748b;line-height:1.6}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.or-divider{text-align:center;margin:20px 0;font-weight:bold;color:#1457c5}
-footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
-pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}
-@media(max-width:480px){.grid{grid-template-columns:1fr}}
-@media print{nav,button,.no-print{display:none!important}body{background:white}.card{box-shadow:none;border:1px solid #ddd}}
-</style>
+  <title>Railway Rank Mitra</title>
+  <meta name="description" content="Railway Rank Mitra - Railway exam response sheet helper">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      color: #172033;
+    }
+
+    header {
+      background: linear-gradient(135deg, #092b60, #0879c9);
+      color: white;
+      text-align: center;
+      padding: 25px 12px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 29px;
+    }
+
+    header p {
+      margin: 5px 0;
+      font-size: 15px;
+    }
+
+    nav {
+      background: #071e43;
+      padding: 12px;
+      text-align: center;
+    }
+
+    nav a {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      margin: 5px 9px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 20px auto;
+      padding: 0 12px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #064b91;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 16px 0 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #b8c5d5;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+      color: #172033;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 9px;
+      padding: 14px;
+      margin-top: 15px;
+      background: #0879c9;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #075da0;
+    }
+
+    .green {
+      background: #128044;
+    }
+
+    .green:hover {
+      background: #0b6333;
+    }
+
+    .notice {
+      background: #fff6d9;
+      border-left: 4px solid #e5a000;
+      padding: 12px;
+      border-radius: 6px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .or {
+      text-align: center;
+      font-weight: bold;
+      margin: 18px 0;
+      color: #64748b;
+    }
+
+    #message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .links a {
+      display: block;
+      text-decoration: none;
+      color: #075da0;
+      padding: 9px 0;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      background: #071e43;
+      color: white;
+      text-align: center;
+      padding: 20px 12px;
+      line-height: 1.8;
+    }
+
+    small {
+      color: #64748b;
+      display: block;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 25px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-<h1>🚂 RAILWAY RANK MITRA</h1>
-<p>Railway Exam Response Sheet & Scorecard</p>
+  <h1>🚆 RAILWAY RANK MITRA</h1>
+  <p>Railway Exam Preparation & Response Sheet Helper</p>
+  <p>आपकी Railway Exam तैयारी का साथी</p>
 </header>
 
 <nav>
-<a href="#score">Scorecard</a>
-<a href="#social">YouTube / Telegram</a>
+  <a href="#score">Scorecard Helper</a>
+  <a href="#instructions">Instructions</a>
+  <a href="#contact">Contact</a>
 </nav>
 
-<main>
+<main class="container">
 
-<section class="card" id="score">
-<h2>📄 अपना Railway Scorecard देखें</h2>
+  <section class="card" id="score">
 
-<p class="notice">
-अपनी परीक्षा चुनें और Candidate Details भरें। फिर Response Sheet URL डालें या OR के नीचे HTML फ़ाइल चुनें। सही स्कोर निकालने के लिए Response Sheet और Official Answer Key का मिलान करना जरूरी है।
-</p>
+    <h2>📄 Railway Response Sheet Helper</h2>
 
-<label for="exam">RRB / Railway Exam चुनें</label>
-<select id="exam" required>
-<option value="">-- अपना Exam चुनें --</option>
-<option>RRB Group D</option>
-<option>RRB ALP</option>
-<option>RRB Technician</option>
-<option>RRB NTPC UG</option>
-<option>RRB NTPC Graduate</option>
-<option>RRB JE</option>
-<option>GDCE</option>
-<option>LDCE</option>
-</select>
+    <p>
+      अपना RRB Exam चुनें और Response Sheet का लिंक डालें
+      या अपने फोन से HTML फाइल चुनें।
+    </p>
 
-<div class="grid">
-<div>
-<label for="name">Candidate का नाम</label>
-<input id="name" autocomplete="name" placeholder="पूरा नाम">
-</div>
-<div>
-<label for="roll">Roll Number</label>
-<input id="roll" placeholder="Roll Number">
-</div>
-</div>
+    <form id="responseForm">
 
-<label for="reg">Registration Number</label>
-<input id="reg" placeholder="Registration Number">
+      <!-- EXAM DROPDOWN: सबसे ऊपर -->
 
-<label for="url">Response Sheet का URL डालें</label>
-<input id="url" type="url" placeholder="https://...">
+      <label for="exam">1. अपना RRB / Railway Exam चुनें *</label>
 
-<button id="check" type="button">URL से Response Sheet खोलें</button>
+      <select id="exam" required>
+        <option value="">-- अपना Exam चुनें --</option>
+        <option value="RRB Group D">RRB Group D</option>
+        <option value="RRB ALP">RRB ALP</option>
+        <option value="RRB Technician">RRB Technician</option>
+        <option value="RRB NTPC UG">RRB NTPC Undergraduate</option>
+        <option value="RRB NTPC Graduate">RRB NTPC Graduate</option>
+        <option value="RRB JE">RRB JE</option>
+        <option value="RRB Paramedical">RRB Paramedical</option>
+        <option value="RRB Ministerial and Isolated">RRB Ministerial & Isolated</option>
+        <option value="GDCE">Railway GDCE</option>
+        <option value="LDCE">Railway LDCE</option>
+        <option value="Other Railway Exam">Other Railway Exam</option>
+      </select>
 
-<div class="or-divider">━━━━━━━━━━ OR ━━━━━━━━━━</div>
+      <label for="candidate">2. Candidate का नाम</label>
+      <input
+        type="text"
+        id="candidate"
+        placeholder="अपना नाम लिखें"
+        autocomplete="name"
+      >
 
-<label for="file">Response Sheet की HTML फ़ाइल चुनें</label>
-<input id="file" type="file" accept=".html,.htm,text/html">
+      <label for="roll">3. Roll Number</label>
+      <input
+        type="text"
+        id="roll"
+        placeholder="अपना Roll Number लिखें"
+      >
 
-<button id="readFile" type="button" class="green">
-फ़ाइल से Response Sheet खोलें
-</button>
+      <label for="registration">4. Registration Number</label>
+      <input
+        type="text"
+        id="registration"
+        placeholder="अपना Registration Number लिखें"
+      >
 
-<div id="status" class="small" aria-live="polite"></div>
-<div id="result" class="result" aria-live="polite"></div>
+      <label for="responseUrl">5. Response Sheet URL</label>
+      <input
+        type="url"
+        id="responseUrl"
+        placeholder="https://response-sheet-link..."
+      >
 
-<button id="print" type="button" class="no-print">
-Scorecard Print / PDF में Save करें
-</button>
-</section>
+      <small>
+        केवल अपनी आधिकारिक Response Sheet का लिंक इस्तेमाल करें।
+        कुछ लिंक लॉगिन या परीक्षा पोर्टल के Session के बिना नहीं खुलते।
+      </small>
 
-<section class="card" id="social">
-<h2>📢 Railway Success Point से जुड़ें</h2>
-<p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
+      <button type="submit">🔎 Response Sheet खोलने की कोशिश करें</button>
 
-<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">
-▶️ YouTube Channel
-</a>
+      <div class="or">— या —</div>
 
-<a class="btn green" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">
-✈️ Telegram Channel
-</a>
-</section>
+      <label for="htmlFile">6. अपने फोन से HTML Response Sheet चुनें</label>
+
+      <input
+        type="file"
+        id="htmlFile"
+        accept=".html,.htm,text/html"
+      >
+
+      <small>
+        यह विकल्प डाउनलोड की गई HTML Response Sheet के लिए है।
+        PDF या Screenshot इस विकल्प से नहीं पढ़े जा सकते।
+      </small>
+
+      <button type="button" class="green" id="readFile">
+        📂 HTML File खोलें
+      </button>
+
+    </form>
+
+    <div id="message" class="hidden" role="status" aria-live="polite"></div>
+
+  </section>
+
+  <section class="card" id="instructions">
+
+    <h2>📌 जरूरी जानकारी</h2>
+
+    <div class="notice">
+      <strong>ध्यान दें:</strong><br>
+      यह वेबसाइट अभी Exam चुनने, Response Sheet लिंक खोलने
+      और HTML फाइल का टेक्स्ट देखने में मदद करती है।
+
+      <br><br>
+
+      अभी यह अपने आप Answer Key से उत्तर मिलाकर Score,
+      Negative Marking या Rank Calculate नहीं करती।
+      इसके लिए Response Sheet और संबंधित आधिकारिक Answer Key
+      का सही डेटा तथा अलग Matching System जोड़ना होगा।
+
+      <br><br>
+
+      किसी लिंक का न खुलना वेबसाइट की गलती ही हो, यह जरूरी नहीं।
+      Railway पोर्टल की Login, Session या सुरक्षा सेटिंग भी कारण
+      हो सकती है।
+    </div>
+
+  </section>
+
+  <section class="card" id="contact">
+
+    <h2>📺 Railway Success Point</h2>
+
+    <div class="links">
+      <a
+        href="https://www.youtube.com/@RailwaySuccessPoint"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ▶ YouTube: Railway Success Point
+      </a>
+
+      <a
+        href="https://t.me/railwaysuccespoint"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ✈ Telegram: Railway Success Point
+      </a>
+    </div>
+
+    <small>
+      यदि Telegram का लिंक काम न करे, तो अपने चैनल का सही
+      Telegram URL इस कोड में बदल दें।
+    </small>
+
+  </section>
 
 </main>
 
 <footer>
-<strong>RAILWAY RANK MITRA</strong>
-<p>Railway Exam Preparation के लिए आपका साथी 🚂</p>
-<p>यह स्वतंत्र वेबसाइट है, आधिकारिक Railway वेबसाइट नहीं।</p>
+  <strong>RAILWAY RANK MITRA</strong>
+  <br>
+  Powered by Railway Success Point
+  <br>
+  © <span id="year"></span> All Rights Reserved
 </footer>
 
 <script>
-"use strict";
+  const form = document.getElementById("responseForm");
+  const message = document.getElementById("message");
+  const fileInput = document.getElementById("htmlFile");
 
-const $ = id => document.getElementById(id);
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-function showStatus(message){
-  $("status").textContent = message;
-}
-
-function escapeHTML(value){
-  return String(value).replace(/[&<>"']/g, ch => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  }[ch]));
-}
-
-function extractText(html){
-  const doc = new DOMParser().parseFromString(html,"text/html");
-  return (doc.body?.innerText || "").trim();
-}
-
-function showResponse(source,text){
-  if(!$("exam").value){
-    showStatus("पहले अपना RRB / Railway Exam चुनें।");
-    return;
+  function showMessage(text) {
+    message.textContent = text;
+    message.classList.remove("hidden");
   }
 
-  const name = $("name").value.trim() || "नहीं भरा";
-  const roll = $("roll").value.trim() || "नहीं भरा";
-  const reg = $("reg").value.trim() || "नहीं भरा";
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-  $("result").style.display = "block";
+    const exam = document.getElementById("exam").value;
+    const url = document.getElementById("responseUrl").value.trim();
 
-  $("result").innerHTML =
-    "<h3>🚂 RAILWAY RANK MITRA</h3>" +
-    "<b>परीक्षा:</b> " + escapeHTML($("exam").value) + "<br>" +
-    "<b>Candidate:</b> " + escapeHTML(name) + "<br>" +
-    "<b>Roll Number:</b> " + escapeHTML(roll) + "<br>" +
-    "<b>Registration Number:</b> " + escapeHTML(reg) + "<br>" +
-    "<b>Response Sheet:</b> " + escapeHTML(source) +
-    "<p><b>Response Sheet का टेक्स्ट पढ़ लिया गया है।</b></p>" +
-    "<p>अभी सही और गलत उत्तरों का मिलान करके स्कोर अपने-आप नहीं निकाला गया है। इसके लिए प्रश्नों, Candidate के चुने उत्तरों और Official Answer Key को पहचानकर मिलाना जरूरी है।</p>" +
-    "<details><summary>Response Sheet का टेक्स्ट देखें</summary>" +
-    "<pre>" + escapeHTML(text.slice(0,5000)) + "</pre></details>";
-}
-
-$("check").addEventListener("click",async function(){
-  if(!$("exam").value){
-    showStatus("पहले अपना RRB / Railway Exam चुनें।");
-    return;
-  }
-
-  const url = $("url").value.trim();
-
-  if(!url){
-    showStatus("पहले Response Sheet का URL डालें।");
-    return;
-  }
-
-  try{
-    new URL(url);
-  }catch(e){
-    showStatus("कृपया सही URL डालें।");
-    return;
-  }
-
-  this.disabled = true;
-  showStatus("URL खोलने की कोशिश हो रही है...");
-
-  try{
-    const response = await fetch(url,{
-      method:"GET",
-      mode:"cors",
-      credentials:"omit"
-    });
-
-    if(!response.ok) throw new Error("URL नहीं खुला");
-
-    const html = await response.text();
-    const text = extractText(html);
-
-    if(!text) throw new Error("टेक्स्ट नहीं मिला");
-
-    showResponse(url,text);
-    showStatus("URL से टेक्स्ट पढ़ लिया गया।");
-
-  }catch(error){
-    showStatus("URL नहीं खुल सका। Railway वेबसाइट लॉगिन, सेशन या सुरक्षा के कारण इसे रोक सकती है। नीचे HTML फ़ाइल चुनकर कोशिश करें। अपना पासवर्ड या OTP यहाँ न डालें।");
-  }finally{
-    this.disabled = false;
-  }
-});
-
-$("readFile").addEventListener("click",async function(){
-  if(!$("exam").value){
-    showStatus("पहले अपना RRB / Railway Exam चुनें।");
-    return;
-  }
-
-  const file = $("file").files[0];
-
-  if(!file){
-    showStatus("पहले Response Sheet की HTML फ़ाइल चुनें।");
-    return;
-  }
-
-  if(!/\.html?$/i.test(file.name)){
-    showStatus("अभी केवल HTML फ़ाइल पढ़ी जा सकती है।");
-    return;
-  }
-
-  try{
-    const html = await file.text();
-    const text = extractText(html);
-
-    if(!text){
-      showStatus("फ़ाइल में पढ़ने योग्य टेक्स्ट नहीं मिला।");
+    if (!exam) {
+      showMessage("कृपया पहले अपना RRB / Railway Exam चुनें।");
+      document.getElementById("exam").focus();
       return;
     }
 
-    showResponse(file.name,text);
-    showStatus("HTML फ़ाइल पढ़ ली गई।");
+    if (!url) {
+      showMessage("कृपया Response Sheet URL डालें या नीचे HTML File चुनें।");
+      document.getElementById("responseUrl").focus();
+      return;
+    }
 
-  }catch(error){
-    showStatus("फ़ाइल नहीं पढ़ पाए। दूसरी HTML फ़ाइल आज़माएँ।");
-  }
-});
+    try {
+      const parsedUrl = new URL(url);
 
-$("print").addEventListener("click",function(){
-  if($("result").style.display !== "block"){
-    showStatus("पहले Response Sheet URL या HTML फ़ाइल पढ़ें।");
-    return;
-  }
-  window.print();
-});
+      if (parsedUrl.protocol !== "https:" &&
+          parsedUrl.protocol !== "http:") {
+        showMessage("कृपया सही HTTP या HTTPS लिंक डालें।");
+        return;
+      }
+
+      showMessage(
+        "आपका चुना हुआ Exam: " + exam +
+        ". Response Sheet नए टैब में खोलने की कोशिश की जा रही है।"
+      );
+
+      const opened = window.open(
+        parsedUrl.href,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+      if (!opened) {
+        showMessage(
+          "ब्राउज़र ने नया टैब रोक दिया हो सकता है। " +
+          "अपने ब्राउज़र में Pop-ups की अनुमति दें या लिंक को कॉपी करके खोलें।"
+        );
+      }
+
+    } catch (error) {
+      showMessage("URL सही नहीं लग रहा। कृपया पूरा Response Sheet लिंक डालें।");
+    }
+  });
+
+  document.getElementById("readFile").addEventListener("click", function() {
+    const exam = document.getElementById("exam").value;
+    const file = fileInput.files[0];
+
+    if (!exam) {
+      showMessage("कृपया पहले अपना RRB / Railway Exam चुनें।");
+      document.getElementById("exam").focus();
+      return;
+    }
+
+    if (!file) {
+      showMessage("पहले अपने फोन से HTML Response Sheet फाइल चुनें।");
+      fileInput.click();
+      return;
+    }
+
+    const validExtension = /\.(html|htm)$/i.test(file.name);
+
+    if (!validExtension) {
+      showMessage("कृपया .html या .htm फाइल चुनें।");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function() {
+      const content = String(reader.result || "");
+
+      if (!content.trim()) {
+        showMessage("यह फाइल खाली है या पढ़ी नहीं जा सकी।");
+        return;
+      }
+
+      const blob = new Blob(
+        [content],
+        { type: "text/html;charset=utf-8" }
+      );
+
+      const fileUrl = URL.createObjectURL(blob);
+      const opened = window.open(fileUrl, "_blank");
+
+      if (!opened) {
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.target = "_blank";
+        link.rel = "noopener";
+        link.textContent = "HTML Response Sheet खोलने के लिए यहाँ दबाएँ";
+
+        message.replaceChildren();
+        message.appendChild(link);
+        message.classList.remove("hidden");
+      } else {
+        showMessage(
+          "आपकी HTML फाइल नए टैब में खोली जा रही है। " +
+          "यह अभी Score या Rank Calculate नहीं करती।"
+        );
+      }
+    };
+
+    reader.onerror = function() {
+      showMessage("फाइल पढ़ने में समस्या आई। कृपया दूसरी HTML फाइल चुनें।");
+    };
+
+    reader.readAsText(file);
+  });
 </script>
 
 </body>
