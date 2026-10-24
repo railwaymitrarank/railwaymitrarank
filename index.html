@@ -67,6 +67,7 @@ button:disabled{opacity:.6;cursor:wait}
 }
 
 .small{font-size:13px;color:#64748b;line-height:1.6}
+
 #social .btn{
   min-height:60px;padding:18px 12px;font-size:19px;
   border-radius:12px;margin-top:14px;
@@ -191,33 +192,19 @@ This four-digit code is not connected to an official OTP or verification service
 
 <hr style="margin-top:22px;border:0;border-top:1px solid #e2e8f0">
 
-<h2 style="margin-top:20px">📄 Response Sheet</h2>
-
-<label for="responseUrl">8. Response Sheet URL (Optional)</label>
-<input id="responseUrl" type="url" placeholder="https://...">
-
-<label for="responseFile">OR Upload Response Sheet HTML File</label>
-<input id="responseFile" type="file" accept=".html,.htm,text/html">
-
-<small class="small">
-Enter the URL OR select an HTML/HTM file. You do not need to provide both.
-</small>
-
-<hr style="margin-top:22px;border:0;border-top:1px solid #e2e8f0">
-
 <h2 style="margin-top:20px">✅ Official Answer Key</h2>
 
-<label for="answerUrl">9. Official Answer Key URL (Optional)</label>
+<label for="answerUrl">8. Official Answer Key URL (Optional)</label>
 <input id="answerUrl" type="url" placeholder="https://...">
 
 <label for="answerFile">OR Upload Official Answer Key HTML File</label>
 <input id="answerFile" type="file" accept=".html,.htm,text/html">
 
 <small class="small">
-Enter the URL OR select an HTML/HTM file. You do not need to provide both.
+URL या HTML/HTM फ़ाइल में से कोई एक चुनें। दोनों भरने की ज़रूरत नहीं है।
 </small>
 
-<button id="calculateButton" type="submit">CALCULATE SCORE</button>
+<button id="submitButton" type="submit">CHECK OFFICIAL ANSWER KEY</button>
 
 <div id="status" class="small" aria-live="polite"></div>
 <div id="result" class="result" aria-live="polite"></div>
@@ -229,35 +216,27 @@ Enter the URL OR select an HTML/HTM file. You do not need to provide both.
 <h2>📌 Important Information</h2>
 
 <div class="notice">
-1. Fill in the required candidate details.
+1. अपनी Candidate Details भरें।
 
 <br><br>
 
-2. For the Response Sheet, enter a URL or upload an HTML/HTM file.
+2. Official Answer Key के लिए URL डालें या HTML/HTM फ़ाइल अपलोड करें। दोनों में से केवल एक विकल्प इस्तेमाल करें।
 
 <br><br>
 
-3. For the Official Answer Key, enter a URL or upload an HTML/HTM file.
+3. URL पढ़ने के लिए संबंधित वेबसाइट को ब्राउज़र से एक्सेस की अनुमति देनी होगी। अगर URL नहीं खुलता, तो HTML फ़ाइल डाउनलोड करके अपलोड करें।
 
 <br><br>
 
-4. At least one source must be provided for each: Response Sheet and Official Answer Key.
+4. यह पेज केवल पहचानने योग्य Answer Key डेटा पढ़ने की कोशिश करता है। यह अकेले उम्मीदवार का स्कोर या रैंक नहीं निकाल सकता।
 
 <br><br>
 
-5. The calculator attempts to read clearly labelled question numbers and answer columns. It will not guess when it cannot identify the required data.
+5. उम्मीदवार का स्कोर निकालने के लिए उसकी Response Sheet और Official Answer Key, दोनों का मिलान करना आवश्यक है।
 
 <br><br>
 
-6. Some websites prevent URL access because of browser security, CORS or login requirements. If a URL cannot be read, download the HTML file and upload it instead.
-
-<br><br>
-
-7. The result is only an answer comparison. Negative marking, deleted questions, revised keys and exam-specific scoring rules are not automatically applied.
-
-<br><br>
-
-This website does not upload your files to its own server or save candidate details to a database.
+यह वेबसाइट आपके विवरण को अपने सर्वर पर सेव नहीं करती।
 </div>
 </section>
 
@@ -297,10 +276,6 @@ const $ = id => document.getElementById(id);
 
 $("year").textContent = new Date().getFullYear();
 
-function showStatus(message) {
-  $("status").textContent = message;
-}
-
 function escapeHTML(text) {
   return String(text).replace(/[&<>"']/g, ch => ({
     "&": "&amp;",
@@ -311,72 +286,37 @@ function escapeHTML(text) {
   }[ch]));
 }
 
-function normalizeText(value) {
-  return String(value || "")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
+function showStatus(message) {
+  $("status").textContent = message;
 }
 
-function normalizeAnswer(value) {
-  let answer = normalizeText(value);
-
-  answer = answer
-    .replace(/^option\s*[:.-]?\s*/, "")
-    .replace(/^selected\s*option\s*[:.-]?\s*/, "")
-    .replace(/^chosen\s*option\s*[:.-]?\s*/, "")
-    .replace(/^correct\s*answer\s*[:.-]?\s*/, "")
-    .replace(/^correct\s*option\s*[:.-]?\s*/, "")
-    .replace(/^answer\s*[:.-]?\s*/, "")
-    .trim();
-
-  const optionMatch = answer.match(/^(?:\(?([a-d])\)?|([1-4]))$/i);
-
-  if (optionMatch) {
-    if (optionMatch[1]) return optionMatch[1].toUpperCase();
-    return "ABCD"[Number(optionMatch[2]) - 1];
-  }
-
-  return answer;
-}
-
-function normalizeQuestionNumber(value) {
-  const text = normalizeText(value);
-  const match = text.match(
-    /^(?:question\s*(?:no\.?|number|id)?\s*[:#-]?\s*)?(\d{1,5})$/
-  );
-
-  return match ? String(Number(match[1])) : null;
-}
-
-async function getSourceText(urlInputId, fileInputId, label) {
-  const url = $(urlInputId).value.trim();
-  const file = $(fileInputId).files[0];
+async function readAnswerKey() {
+  const url = $("answerUrl").value.trim();
+  const file = $("answerFile").files[0];
 
   if (url && file) {
-    throw new Error(
-      label + ": Please use either a URL or an uploaded file, not both."
-    );
+    throw new Error("Official Answer Key के लिए URL या फ़ाइल में से केवल एक चुनें।");
   }
 
   if (!url && !file) {
-    throw new Error(
-      label + ": Please enter a URL or upload an HTML/HTM file."
-    );
+    throw new Error("कृपया Official Answer Key का URL भरें या HTML फ़ाइल अपलोड करें।");
   }
 
   if (file) {
     if (!/\.(html|htm)$/i.test(file.name)) {
-      throw new Error(label + ": Please select an HTML or HTM file.");
+      throw new Error("कृपया HTML या HTM फ़ाइल अपलोड करें।");
     }
 
     const text = await file.text();
 
     if (!text.trim()) {
-      throw new Error(label + ": The selected file is empty.");
+      throw new Error("अपलोड की गई फ़ाइल खाली है।");
     }
 
-    return text;
+    return {
+      text,
+      sourceName: file.name
+    };
   }
 
   let parsedURL;
@@ -384,58 +324,44 @@ async function getSourceText(urlInputId, fileInputId, label) {
   try {
     parsedURL = new URL(url);
   } catch {
-    throw new Error(label + ": Please enter a valid URL.");
+    throw new Error("कृपया सही URL दर्ज करें।");
   }
 
   if (!["http:", "https:"].includes(parsedURL.protocol)) {
-    throw new Error(label + ": Only HTTP and HTTPS URLs are supported.");
+    throw new Error("केवल HTTP या HTTPS URL इस्तेमाल करें।");
   }
 
+  let response;
+
   try {
-    const response = await fetch(parsedURL.href, {
+    response = await fetch(parsedURL.href, {
       method: "GET",
       mode: "cors",
       credentials: "omit"
     });
-
-    if (!response.ok) {
-      throw new Error("HTTP " + response.status);
-    }
-
-    const contentType = response.headers.get("content-type") || "";
-
-    if (
-      contentType &&
-      !/text\/html|application\/xhtml\+xml|text\/plain/i.test(contentType)
-    ) {
-      throw new Error("The URL did not return a readable HTML/text page.");
-    }
-
-    const text = await response.text();
-
-    if (!text.trim()) {
-      throw new Error("The URL returned an empty page.");
-    }
-
-    return text;
-  } catch (error) {
+  } catch {
     throw new Error(
-      label +
-      ": The URL could not be read by this browser. The website may block cross-origin access (CORS), require login, or be unavailable. Download its HTML file and upload it instead."
+      "URL नहीं पढ़ा जा सका। वेबसाइट CORS या लॉगिन के कारण डेटा रोक सकती है। HTML फ़ाइल डाउनलोड करके अपलोड करें।"
     );
   }
+
+  if (!response.ok) {
+    throw new Error("URL से डेटा नहीं मिला। HTTP स्थिति: " + response.status);
+  }
+
+  const text = await response.text();
+
+  if (!text.trim()) {
+    throw new Error("URL से खाली डेटा मिला।");
+  }
+
+  return {
+    text,
+    sourceName: parsedURL.hostname
+  };
 }
 
-/*
- Supported structure:
- - An HTML table with a clearly labelled question-number column.
- - A clearly labelled selected/candidate-response column in the response sheet.
- - A clearly labelled correct-answer column in the official key.
-
-Other layouts require a parser specifically designed for that exam's HTML.
-*/
-
-function parseAnswerTable(htmlText, mode) {
+function findAnswerKeyTable(htmlText) {
   const doc = new DOMParser().parseFromString(htmlText, "text/html");
   const tables = Array.from(doc.querySelectorAll("table"));
 
@@ -444,246 +370,136 @@ function parseAnswerTable(htmlText, mode) {
 
     if (rows.length < 2) continue;
 
-    let headerRow = -1;
-    let questionColumn = -1;
-    let answerColumn = -1;
-
-    for (let r = 0; r < Math.min(rows.length, 5); r++) {
-      const cells = Array.from(rows[r].querySelectorAll("th,td"));
+    for (let headerRow = 0; headerRow < Math.min(rows.length, 5); headerRow++) {
+      const cells = Array.from(rows[headerRow].querySelectorAll("th,td"));
       const headers = cells.map(cell =>
-        normalizeText(cell.innerText || cell.textContent)
+        (cell.innerText || cell.textContent || "")
+          .replace(/\s+/g, " ")
+          .trim()
+          .toLowerCase()
       );
 
-      const qIndex = headers.findIndex(text =>
+      const questionCol = headers.findIndex(text =>
         /^(question\s*(no\.?|number|id)?|q\.?\s*no\.?)$/.test(text)
       );
 
-      let aIndex = -1;
+      const answerCol = headers.findIndex(text =>
+        /^(official\s*)?(correct|right)\s*(option|answer)?$/.test(text) ||
+        /^(correct answer|correct option|official answer|answer key|key answer)$/.test(text)
+      );
 
-      if (mode === "response") {
-        aIndex = headers.findIndex(text =>
-          /^(your\s*)?(chosen|selected|candidate|marked)\s*(option|answer)?$/.test(text) ||
-          /^(your response|candidate response|response|selected option|chosen option|your answer)$/.test(text)
-        );
-      } else {
-        aIndex = headers.findIndex(text =>
-          /^(official\s*)?(correct|right)\s*(option|answer)?$/.test(text) ||
-          /^(correct answer|correct option|official answer|answer key|key answer)$/.test(text)
-        );
-      }
-
-      if (qIndex !== -1 && aIndex !== -1 && qIndex !== aIndex) {
-        headerRow = r;
-        questionColumn = qIndex;
-        answerColumn = aIndex;
-        break;
-      }
-    }
-
-    if (headerRow === -1) continue;
-
-    const answers = new Map();
-
-    for (let r = headerRow + 1; r < rows.length; r++) {
-      const cells = Array.from(rows[r].querySelectorAll("th,td"));
-
-      if (cells.length <= Math.max(questionColumn, answerColumn)) {
+      if (questionCol === -1 || answerCol === -1 || questionCol === answerCol) {
         continue;
       }
 
-      const question = normalizeQuestionNumber(
-        cells[questionColumn].innerText || cells[questionColumn].textContent
-      );
+      let count = 0;
+      let duplicates = false;
+      const seen = new Set();
 
-      const answer = normalizeAnswer(
-        cells[answerColumn].innerText || cells[answerColumn].textContent
-      );
+      for (let r = headerRow + 1; r < rows.length; r++) {
+        const dataCells = Array.from(rows[r].querySelectorAll("th,td"));
 
-      if (!question || !answer) continue;
+        if (dataCells.length <= Math.max(questionCol, answerCol)) continue;
 
-      if (answers.has(question)) {
+        const questionText =
+          (dataCells[questionCol].innerText || dataCells[questionCol].textContent || "")
+            .replace(/\s+/g, " ").trim();
+
+        const answerText =
+          (dataCells[answerCol].innerText || dataCells[answerCol].textContent || "")
+            .replace(/\s+/g, " ").trim();
+
+        const qMatch = questionText.match(
+          /^(?:question\s*(?:no\.?|number|id)?\s*[:#-]?\s*)?(\d{1,5})$/i
+        );
+
+        if (!qMatch || !answerText) continue;
+
+        const questionNumber = String(Number(qMatch[1]));
+
+        if (seen.has(questionNumber)) {
+          duplicates = true;
+          break;
+        }
+
+        seen.add(questionNumber);
+        count++;
+      }
+
+      if (duplicates) {
         return {
           ok: false,
-          reason: "Repeated question numbers were found. The score was not calculated."
+          message: "Answer Key में दोहराए गए प्रश्न नंबर मिले। डेटा की जाँच करें।"
         };
       }
 
-      answers.set(question, answer);
-    }
-
-    if (answers.size > 0) {
-      return {ok: true, answers};
+      if (count > 0) {
+        return {
+          ok: true,
+          count,
+          title: doc.title || "Official Answer Key"
+        };
+      }
     }
   }
 
   return {
     ok: false,
-    reason: mode === "response"
-      ? "The Response Sheet format was not recognized. A question-number column and selected-answer column could not be identified."
-      : "The Official Answer Key format was not recognized. A question-number column and correct-answer column could not be identified."
-  };
-}
-
-function compareAnswers(responseAnswers, keyAnswers) {
-  let correct = 0;
-  let wrong = 0;
-  let unanswered = 0;
-  let matched = 0;
-
-  for (const [question, correctAnswer] of keyAnswers.entries()) {
-    if (!responseAnswers.has(question)) continue;
-
-    matched++;
-
-    const candidateAnswer = responseAnswers.get(question);
-
-    if (/^(not answered|not attempted|unanswered|--|-)$/i.test(candidateAnswer)) {
-      unanswered++;
-    } else if (candidateAnswer === correctAnswer) {
-      correct++;
-    } else {
-      wrong++;
-    }
-  }
-
-  if (matched === 0) {
-    return {
-      ok: false,
-      reason: "No matching question numbers were found in the two files."
-    };
-  }
-
-  if (
-    matched !== keyAnswers.size ||
-    matched !== responseAnswers.size
-  ) {
-    return {
-      ok: false,
-      reason: "The question counts do not match completely. No score was calculated."
-    };
-  }
-
-  return {
-    ok: true,
-    total: matched,
-    correct,
-    wrong,
-    unanswered
+    message: "Answer Key का फ़ॉर्मेट पहचाना नहीं जा सका। इस फ़ाइल में प्रश्न नंबर और सही उत्तर वाली पहचानने योग्य टेबल नहीं मिली।"
   };
 }
 
 $("candidateForm").addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  const button = $("calculateButton");
+  const button = $("submitButton");
   const result = $("result");
 
   result.style.display = "none";
   result.textContent = "";
 
-  const examType = $("examType").value;
-  const zone = $("zone").value;
-  const exam = $("exam").value;
-  const name = $("name").value.trim();
-  const reg = $("reg").value.trim();
-  const category = $("category").value;
-  const code = $("code").value.trim();
-
-  if (!examType || !zone || !exam || !name || !reg || !category) {
-    showStatus("Please complete all required candidate details.");
-    return;
-  }
-
-  if (!/^[0-9]{4}$/.test(code)) {
-    showStatus("Please enter a valid four-digit code.");
+  if (!/^[0-9]{4}$/.test($("code").value.trim())) {
+    showStatus("कृपया चार अंकों का सही कोड भरें।");
     $("code").focus();
     return;
   }
 
-  const responseUrl = $("responseUrl").value.trim();
-  const responseFile = $("responseFile").files[0];
-  const answerUrl = $("answerUrl").value.trim();
-  const answerFile = $("answerFile").files[0];
-
-  if ((!responseUrl && !responseFile) || (!answerUrl && !answerFile)) {
-    showStatus(
-      "Provide either a URL or an HTML file for BOTH the Response Sheet and Official Answer Key."
-    );
-    return;
-  }
-
-  if (responseUrl && responseFile) {
-    showStatus("For the Response Sheet, use either the URL or the file, not both.");
-    return;
-  }
-
-  if (answerUrl && answerFile) {
-    showStatus("For the Official Answer Key, use either the URL or the file, not both.");
+  if (!$("candidateForm").checkValidity()) {
+    $("candidateForm").reportValidity();
     return;
   }
 
   button.disabled = true;
-  showStatus("Reading the Response Sheet and Official Answer Key...");
+  showStatus("Official Answer Key पढ़ी जा रही है...");
 
   try {
-    const responseHTML = await getSourceText(
-      "responseUrl",
-      "responseFile",
-      "Response Sheet"
-    );
+    const source = await readAnswerKey();
+    const parsed = findAnswerKeyTable(source.text);
 
-    const answerHTML = await getSourceText(
-      "answerUrl",
-      "answerFile",
-      "Official Answer Key"
-    );
-
-    const responseData = parseAnswerTable(responseHTML, "response");
-
-    if (!responseData.ok) {
-      showStatus(responseData.reason);
-      return;
-    }
-
-    const answerData = parseAnswerTable(answerHTML, "key");
-
-    if (!answerData.ok) {
-      showStatus(answerData.reason);
-      return;
-    }
-
-    const score = compareAnswers(
-      responseData.answers,
-      answerData.answers
-    );
-
-    if (!score.ok) {
-      showStatus(score.reason);
+    if (!parsed.ok) {
+      showStatus(parsed.message);
       return;
     }
 
     result.innerHTML =
       "<h3>🚂 RAILWAY RANK MITRA</h3>" +
-      "<b>Exam Type:</b> " + escapeHTML(examType) + "<br>" +
-      "<b>Railway Zone:</b> " + escapeHTML(zone) + "<br>" +
-      "<b>Exam:</b> " + escapeHTML(exam) + "<br>" +
-      "<b>Candidate Name:</b> " + escapeHTML(name) + "<br>" +
-      "<b>Registration Number:</b> " + escapeHTML(reg) + "<br>" +
-      "<b>Category:</b> " + escapeHTML(category) + "<hr>" +
-      "<h3>📊 Answer Comparison</h3>" +
-      "<b>Matched Questions:</b> " + score.total + "<br>" +
-      "<b>Correct Answers:</b> " + score.correct + "<br>" +
-      "<b>Wrong Answers:</b> " + score.wrong + "<br>" +
-      "<b>Unanswered:</b> " + score.unanswered + "<br><br>" +
-      "<b>Raw Correct Count:</b> " + score.correct + "<br>" +
-      "<p><b>Important:</b> This is an answer comparison, not an official Railway score or rank. Negative marking, deleted questions, multiple correct answers and exam-specific marks have not been applied.</p>" +
-      "<p>Candidate details and uploaded file contents are processed in this browser. This page does not send them to its own server.</p>";
+      "<b>Exam Type:</b> " + escapeHTML($("examType").value) + "<br>" +
+      "<b>Railway Zone:</b> " + escapeHTML($("zone").value) + "<br>" +
+      "<b>Exam:</b> " + escapeHTML($("exam").value) + "<br>" +
+      "<b>Candidate Name:</b> " + escapeHTML($("name").value.trim()) + "<br>" +
+      "<b>Registration Number:</b> " + escapeHTML($("reg").value.trim()) + "<br>" +
+      "<b>Category:</b> " + escapeHTML($("category").value) + "<hr>" +
+      "<h3>✅ Official Answer Key Read</h3>" +
+      "<b>Source:</b> " + escapeHTML(source.sourceName) + "<br>" +
+      "<b>Recognized Questions:</b> " + parsed.count + "<br>" +
+      "<p>Answer Key डेटा पढ़ा गया। उम्मीदवार का स्कोर निकालने के लिए Response Sheet भी आवश्यक है।</p>" +
+      "<p>यह वेबसाइट आधिकारिक Railway परिणाम या रैंक जारी नहीं करती।</p>";
 
     result.style.display = "block";
-    showStatus("Answer comparison completed. Review the result and important notes.");
+    showStatus("Answer Key पढ़ ली गई। अभी उम्मीदवार का स्कोर नहीं निकाला गया है।");
 
   } catch (error) {
-    showStatus(error.message || "An unexpected error occurred.");
+    showStatus(error.message || "Answer Key पढ़ते समय समस्या हुई।");
   } finally {
     button.disabled = false;
   }
