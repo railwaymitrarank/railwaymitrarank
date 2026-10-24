@@ -1,64 +1,333 @@
-<section class="card">
-  <h2>📝 Candidate Details</h2>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102451">
+<title>Railway Rank Mitra</title>
 
-  <form id="scoreForm">
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:#f1f5fb;color:#17233d
+}
+header{
+ background:linear-gradient(135deg,#102451,#1764a5);
+ color:white;text-align:center;padding:24px 12px
+}
+header h1{margin:0 0 8px;font-size:27px}
+header p{margin:0}
+.container{max-width:760px;margin:20px auto;padding:0 12px}
+.card{
+ background:white;padding:19px;margin-bottom:17px;
+ border-radius:14px;box-shadow:0 4px 15px #0000000c
+}
+h2{font-size:20px;color:#102451;margin-top:0}
+label{display:block;font-weight:bold;margin:14px 0 7px;font-size:14px}
+input,select{
+ width:100%;padding:12px;border:1px solid #cbd5e1;
+ border-radius:8px;font-size:15px;background:white
+}
+button{
+ width:100%;padding:13px;margin-top:17px;border:0;
+ border-radius:8px;background:#1261b0;color:white;
+ font-size:16px;font-weight:bold;cursor:pointer
+}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tabs button{margin:0;background:#dceaff;color:#123d70}
+.tabs button.active{background:#1261b0;color:white}
+.panel{display:none}
+.panel.active{display:block}
+.note{
+ background:#fff5dc;color:#76500a;padding:12px;
+ border-radius:8px;font-size:13px;line-height:1.6
+}
+.small{font-size:12px;color:#64748b;line-height:1.6}
+.status{
+ display:none;margin-top:14px;padding:12px;border-radius:8px;
+ background:#fff0f0;color:#a52323;line-height:1.6
+}
+.scoreboard{display:none}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{background:#edf4ff;padding:14px 6px;text-align:center;border-radius:9px}
+.box span{display:block;font-size:12px;color:#52627b;margin-bottom:7px}
+.box strong{font-size:20px;color:#124e91}
+footer{
+ background:#102451;color:white;text-align:center;padding:22px 12px;
+ line-height:2;font-size:13px
+}
+footer a{color:#ffe17a;text-decoration:none;margin:0 8px}
+@media(max-width:380px){header h1{font-size:23px}.card{padding:15px}}
+</style>
+</head>
 
-    <!-- URL सबसे पहले -->
-    <label for="examUrl">Response Sheet / Answer Key URL</label>
-    <input
-      id="examUrl"
-      type="url"
-      placeholder="अपना Exam URL यहाँ डालें"
-      required
-    >
+<body>
+<header>
+ <h1>🚆 RAILWAY RANK MITRA</h1>
+ <p>Railway Exam Score Calculator</p>
+ <p style="margin-top:10px;font-size:13px">Powered by RAILWAY SUCCESS POINT</p>
+</header>
 
-    <p class="hint">
-      अपनी परीक्षा का वैध URL डालें।
-    </p>
+<main class="container">
 
-    <label for="exam">Select Railway Exam</label>
-    <select id="exam" required>
-      <option value="">-- परीक्षा चुनें --</option>
-      <option>RRB ALP</option>
-      <option>RRB Technician</option>
-      <option>RRB Group D</option>
-      <option>RRB NTPC Graduate</option>
-      <option>RRB NTPC Undergraduate</option>
-      <option>RRB JE</option>
-      <option>GDCE ALP</option>
-      <option>GDCE Technician</option>
-      <option>GDCE Goods Guard / Train Manager</option>
-      <option>GDCE Station Master</option>
-      <option>LDCE Station Master</option>
-      <option>LDCE Goods Guard / Train Manager</option>
-      <option>LDCE CCTC</option>
-      <option>Other Railway Exam</option>
-    </select>
+ <section class="card">
+  <h2>Choose Exam Section</h2>
+  <div class="tabs">
+   <button type="button" class="active" data-panel="rrbPanel">
+    RRB ALL EXAMS + GDCE
+   </button>
+   <button type="button" data-panel="ldcePanel">
+    LDCE EXAMS
+   </button>
+  </div>
+ </section>
 
-    <label for="candidateName">Candidate Name</label>
-    <input
-      id="candidateName"
-      type="text"
-      maxlength="100"
-      placeholder="अपना नाम लिखें"
-      required
-    >
+ <!-- RRB ALL EXAMS + GDCE -->
+ <section class="card panel active" id="rrbPanel">
+  <h2>RRB All Exams / GDCE</h2>
 
-    <label for="registration">Registration Number</label>
-    <input
-      id="registration"
-      type="text"
-      maxlength="50"
-      placeholder="Registration Number डालें"
-      required
-    >
+  <form id="rrbForm">
+   <label for="rrbUrl">Exam URL</label>
+   <input id="rrbUrl" type="url" placeholder="अपना परीक्षा URL डालें" required>
 
-    <button type="submit" id="calculateBtn">
-      CALCULATE SCORE
-    </button>
+   <label for="rrbType">Exam Type</label>
+   <select id="rrbType" required>
+    <option value="">परीक्षा का प्रकार चुनें</option>
+    <option>RRB Direct Recruitment</option>
+    <option>GDCE</option>
+   </select>
 
+   <label for="rrbZone">Railway Zone</label>
+   <select id="rrbZone" required>
+    <option value="">Zone चुनें</option>
+    <option>Central Railway</option>
+    <option>Eastern Railway</option>
+    <option>East Central Railway</option>
+    <option>East Coast Railway</option>
+    <option>North Central Railway</option>
+    <option>North Eastern Railway</option>
+    <option>Northeast Frontier Railway</option>
+    <option>Northern Railway</option>
+    <option>North Western Railway</option>
+    <option>South Central Railway</option>
+    <option>South Eastern Railway</option>
+    <option>South East Central Railway</option>
+    <option>Southern Railway</option>
+    <option>South Western Railway</option>
+    <option>West Central Railway</option>
+    <option>Western Railway</option>
+    <option>Metro Railway Kolkata</option>
+   </select>
+
+   <label for="rrbPost">Exam Post</label>
+   <select id="rrbPost" required>
+    <option value="">Post चुनें</option>
+    <option>ALP</option>
+    <option>Technician</option>
+    <option>Group D</option>
+    <option>NTPC Graduate</option>
+    <option>NTPC Undergraduate</option>
+    <option>JE</option>
+    <option>Goods Guard / Train Manager</option>
+    <option>Station Master</option>
+    <option>CCTC</option>
+    <option>Other</option>
+   </select>
+
+   <label for="rrbDate">Exam Date</label>
+   <input id="rrbDate" type="date" required>
+
+   <label for="rrbShift">Exam Shift</label>
+   <select id="rrbShift" required>
+    <option value="">Shift चुनें</option>
+    <option>First Shift</option>
+    <option>Second Shift</option>
+    <option>Third Shift</option>
+    <option>Other / Not Known</option>
+   </select>
+
+   <label for="rrbCategory">Category</label>
+   <select id="rrbCategory" required>
+    <option value="">Category चुनें</option>
+    <option>UR</option>
+    <option>OBC</option>
+    <option>SC</option>
+    <option>ST</option>
+    <option>EWS</option>
+   </select>
+
+   <label for="rrbName">Candidate Name</label>
+   <input id="rrbName" maxlength="100" placeholder="नाम लिखें" required>
+
+   <label for="rrbReg">Registration Number</label>
+   <input id="rrbReg" maxlength="50" placeholder="Registration Number" required>
+
+   <button type="submit">CALCULATE SCORE</button>
   </form>
 
-  <div id="status" class="status" role="status"
-       aria-live="polite"></div>
-</section>
+  <div id="rrbStatus" class="status" role="status"></div>
+  <p class="small">
+   स्कोर निकालने के लिए URL से Response Sheet और आधिकारिक Answer Key
+   का डेटा पढ़ना आवश्यक है। यह सुविधा सर्वर से जोड़ने के बाद काम करेगी।
+  </p>
+ </section>
+
+ <!-- SEPARATE LDCE -->
+ <section class="card panel" id="ldcePanel">
+  <h2>LDCE Score Calculator</h2>
+
+  <form id="ldceForm">
+   <label for="ldceName">Candidate Name</label>
+   <input id="ldceName" maxlength="100" placeholder="नाम लिखें" required>
+
+   <label for="ldceZone">Railway Zone</label>
+   <select id="ldceZone" required>
+    <option value="">Zone चुनें</option>
+    <option>Central Railway</option>
+    <option>Eastern Railway</option>
+    <option>East Central Railway</option>
+    <option>East Coast Railway</option>
+    <option>North Central Railway</option>
+    <option>North Eastern Railway</option>
+    <option>Northeast Frontier Railway</option>
+    <option>Northern Railway</option>
+    <option>North Western Railway</option>
+    <option>South Central Railway</option>
+    <option>South Eastern Railway</option>
+    <option>South East Central Railway</option>
+    <option>Southern Railway</option>
+    <option>South Western Railway</option>
+    <option>West Central Railway</option>
+    <option>Western Railway</option>
+    <option>Metro Railway Kolkata</option>
+   </select>
+
+   <label for="ldceDivision">Division</label>
+   <input id="ldceDivision" maxlength="100" placeholder="Division का नाम" required>
+
+   <label for="ldcePost">Exam / Post</label>
+   <select id="ldcePost" required>
+    <option value="">Exam / Post चुनें</option>
+    <option>ALP</option>
+    <option>Technician</option>
+    <option>Goods Guard / Train Manager</option>
+    <option>Station Master</option>
+    <option>CCTC</option>
+    <option>Shunting Master</option>
+    <option>JE</option>
+    <option>Other</option>
+   </select>
+
+   <label for="ldceCategory">Category</label>
+   <select id="ldceCategory" required>
+    <option value="">Category चुनें</option>
+    <option>UR</option>
+    <option>OBC</option>
+    <option>SC</option>
+    <option>ST</option>
+    <option>EWS</option>
+   </select>
+
+   <label for="ldceCode">4-Digit Code</label>
+   <input id="ldceCode" type="password" inputmode="numeric"
+          pattern="[0-9]{4}" maxlength="4"
+          placeholder="चार अंकों का कोड" required>
+
+   <label for="questionPaper">Question Paper</label>
+   <input id="questionPaper" type="file"
+          accept=".html,.htm,.txt,.csv,.json" required>
+
+   <label for="answerSheet">Candidate Answer Sheet</label>
+   <input id="answerSheet" type="file"
+          accept=".html,.htm,.txt,.csv,.json" required>
+
+   <p class="note">
+    Question Paper और Candidate Answer Sheet का डेटा पढ़ने योग्य
+    होना चाहिए। केवल फाइल चुनने से स्कोर अपने-आप नहीं निकलता।
+   </p>
+
+   <button type="submit">SHOW SCORE</button>
+  </form>
+
+  <div id="ldceStatus" class="status" role="status"></div>
+ </section>
+
+ <!-- SCORE BOARD -->
+ <section class="card scoreboard" id="scoreboard">
+  <h2>📊 Score Board</h2>
+  <p id="scoreCandidate"></p>
+
+  <div class="grid">
+   <div class="box"><span>Total Questions</span><strong id="totalQ">—</strong></div>
+   <div class="box"><span>Correct Answers</span><strong id="correctQ">—</strong></div>
+   <div class="box"><span>Wrong Answers</span><strong id="wrongQ">—</strong></div>
+   <div class="box"><span>Unattempted</span><strong id="blankQ">—</strong></div>
+   <div class="box"><span>Total Score</span><strong id="score">—</strong></div>
+   <div class="box"><span>Accuracy</span><strong id="accuracy">—</strong></div>
+  </div>
+
+  <p class="small">
+   वास्तविक स्कोर केवल सत्यापित उत्तरों और सही marking scheme से निकाला जाएगा।
+  </p>
+ </section>
+
+ <section class="card">
+  <h2>Important Information</h2>
+  <p class="small">
+   Railway Rank Mitra का यह इंटरफेस है। वास्तविक परिणामों के लिए
+   आधिकारिक उत्तर-कुंजी, उम्मीदवार के उत्तर और परीक्षा के marking rules
+   का मिलान करने वाला स्कोरिंग इंजन आवश्यक है। अभी यह पेज अनुमानित अंक
+   या रैंक नहीं दिखाएगा।
+  </p>
+ </section>
+
+</main>
+
+<footer>
+ <strong>RAILWAY RANK MITRA</strong><br>
+ Railway Success Point
+ <br>
+ <a href="https://www.youtube.com/" target="_blank"
+    rel="noopener noreferrer">▶ YouTube</a>
+ <a href="https://telegram.org/" target="_blank"
+    rel="noopener noreferrer">✈ Telegram</a>
+</footer>
+
+<script>
+document.querySelectorAll("[data-panel]").forEach(button=>{
+ button.addEventListener("click",()=>{
+  document.querySelectorAll("[data-panel]").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+  button.classList.add("active");
+  document.getElementById(button.dataset.panel).classList.add("active");
+ });
+});
+
+document.getElementById("rrbForm").addEventListener("submit",event=>{
+ event.preventDefault();
+ const box=document.getElementById("rrbStatus");
+ box.style.display="block";
+ box.textContent=
+  "आपकी जानकारी दर्ज हो गई है। वास्तविक स्कोर निकालने के लिए URL पढ़ने और आधिकारिक Answer Key से मिलान करने वाली सर्वर सेवा अभी जोड़नी बाकी है। कोई अनुमानित स्कोर नहीं दिखाया गया।";
+});
+
+document.getElementById("ldceForm").addEventListener("submit",event=>{
+ event.preventDefault();
+ const box=document.getElementById("ldceStatus");
+ const paper=document.getElementById("questionPaper").files[0];
+ const answers=document.getElementById("answerSheet").files[0];
+
+ box.style.display="block";
+
+ if(!paper || !answers){
+  box.textContent="Question Paper और Candidate Answer Sheet दोनों चुनें।";
+  return;
+ }
+
+ box.textContent=
+  "दोनों फाइलें चुनी गई हैं, लेकिन फाइलों का डेटा पढ़कर उत्तरों का मिलान करने वाला स्कोरिंग इंजन अभी कनेक्ट नहीं है। इसलिए अभी स्कोर नहीं दिखाया जा सकता।";
+});
+</script>
+</body>
+</html>
