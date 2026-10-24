@@ -1,272 +1,376 @@
-<!DOCTYPE html>
-<html lang="hi">
+<!DOCTYPE html><html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAILWAY RANK MITRA</title>
-
-<style>
+<title>RAILWAY RANK MITRA</title><style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef3f9;color:#172033}
-header{background:linear-gradient(135deg,#102a56,#0878bd);color:white;text-align:center;padding:25px 12px}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#172033;
+}
+header{
+  background:linear-gradient(135deg,#102c70,#0878c9);
+  color:white;
+  text-align:center;
+  padding:24px 12px;
+}
 header h1{margin:0;font-size:27px}
-header p{margin-bottom:0}
-.container{max-width:800px;margin:20px auto;padding:0 12px}
-.card{background:white;padding:18px;margin-bottom:18px;border-radius:14px;box-shadow:0 3px 12px #0001}
-h2{color:#075c9c;font-size:20px;border-bottom:2px solid #e4edf6;padding-bottom:10px}
-label{display:block;font-weight:bold;margin:12px 0 6px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #ccd6e2;border-radius:8px;font-size:15px;background:white}
-textarea{min-height:110px;resize:vertical}
-input[type=file]{padding:9px}
-button{width:100%;padding:13px;border:0;border-radius:9px;margin-top:14px;font-size:16px;font-weight:bold;background:#0878bd;color:white;cursor:pointer}
-.green{background:#16824b}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.note{background:#fff8dc;border-left:4px solid #e8b323;padding:11px;border-radius:5px;font-size:13px;line-height:1.6;margin-top:12px}
-#message{display:none;margin-top:15px;padding:12px;border-radius:8px;background:#eaf2ff;overflow-wrap:anywhere}
-#result{display:none;background:#e8f7ee;padding:15px;border-radius:10px;margin-top:15px}
-.score{font-size:30px;text-align:center;font-weight:bold;color:#08743e}
-footer{text-align:center;padding:20px;color:#526173;font-size:13px}
-@media(max-width:520px){.grid{grid-template-columns:1fr}header h1{font-size:22px}}
-</style>
-</head>
+header p{margin:9px 0 0}
+.container{max-width:800px;margin:18px auto;padding:0 12px}
+.card{
+  background:white;
+  padding:18px;
+  margin-bottom:16px;
+  border-radius:14px;
+  box-shadow:0 3px 12px #00000012;
+}
+h2{font-size:20px;margin-top:0;color:#123879}
+h3{font-size:17px;color:#123879}
+label{
+  display:block;
+  font-weight:bold;
+  margin:12px 0 6px;
+}
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:16px;
+  background:white;
+}
+input[readonly]{background:#e8edf4;color:#24344d}
+button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:9px;
+  background:#075fc5;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  margin-top:14px;
+  cursor:pointer;
+}
+button.secondary{background:#16804a}
+button:active{opacity:.85}
+.note{
+  background:#eff6ff;
+  padding:12px;
+  border-radius:8px;
+  line-height:1.6;
+  font-size:14px;
+}
+.result{
+  display:none;
+  background:#eafaf0;
+  border:1px solid #a7e4bd;
+  padding:15px;
+  border-radius:10px;
+  margin-top:16px;
+  line-height:1.8;
+}
+.error{
+  color:#b91c1c;
+  font-weight:bold;
+  margin-top:12px;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+}
+.small{font-size:13px;color:#64748b;line-height:1.6}
+footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
+</style></head><body><header>
+  <h1>🚆 RAILWAY RANK MITRA</h1>
+  <p>Answer Key • Score Calculator • Candidate Details</p>
+</header><div class="container">  <section class="card">
+    <h2>👤 Candidate Details</h2><label for="candidateName">Candidate Name</label>
+<input id="candidateName" type="text" placeholder="अपना नाम लिखें">
 
-<body>
-<header>
-<h1>🚆 RAILWAY RANK MITRA</h1>
-<p>Railway Exam Score & Rank Information</p>
-</header>
+<label for="rollNumber">Roll Number / Registration Number</label>
+<input id="rollNumber" type="text" placeholder="अपना रोल नंबर लिखें">
 
-<main class="container">
-
-<section class="card">
-<h2>👤 Candidate Details</h2>
-
-<label>Candidate Name</label>
-<input id="name" placeholder="अपना नाम लिखें">
-
-<label>Roll Number / Registration Number</label>
-<input id="roll" placeholder="रोल नंबर लिखें">
-
-<label>Exam Name</label>
-<select id="exam">
-<option value="">परीक्षा चुनें</option>
-<option>RRB Group D</option>
-<option>RRB ALP</option>
-<option>RRB Technician</option>
-<option>RRB NTPC</option>
-<option>RRB JE</option>
-<option>GDCE</option>
-<option>LDCE</option>
-<option>Other Railway Exam</option>
+<label for="examName">Exam Name</label>
+<select id="examName">
+  <option value="">Exam चुनें</option>
+  <option>RRB Group D</option>
+  <option>RRB ALP</option>
+  <option>RRB Technician</option>
+  <option>RRB NTPC</option>
+  <option>RRB JE</option>
+  <option>GDCE</option>
+  <option>LDCE</option>
+  <option>Other Railway Exam</option>
 </select>
 
-<label>Railway Zone / RRB</label>
-<input id="zone" placeholder="जैसे Western Railway">
+<label for="railwayZone">Railway Zone</label>
+<input id="railwayZone" type="text" placeholder="जैसे Western Railway">
 
-<div class="grid">
-<div>
-<label>Exam Date</label>
-<input id="date" type="date">
-</div>
-<div>
-<label>Exam Shift</label>
-<select id="shift">
-<option value="">शिफ्ट चुनें</option>
-<option>First Shift</option>
-<option>Second Shift</option>
-<option>Third Shift</option>
-<option>Fourth Shift</option>
+<label for="examDate">Exam Date</label>
+<input id="examDate" type="date">
+
+<label for="examShift">Exam Shift</label>
+<select id="examShift">
+  <option value="">Shift चुनें</option>
+  <option>First Shift</option>
+  <option>Second Shift</option>
+  <option>Third Shift</option>
+  <option>Fourth Shift</option>
 </select>
-</div>
-</div>
 
-<label>Category</label>
+<label for="category">Category</label>
 <select id="category">
-<option value="">कैटेगरी चुनें</option>
-<option>UR</option>
-<option>OBC</option>
-<option>SC</option>
-<option>ST</option>
-<option>EWS</option>
-<option>Other</option>
+  <option value="">Category चुनें</option>
+  <option>UR</option>
+  <option>OBC</option>
+  <option>SC</option>
+  <option>ST</option>
+  <option>EWS</option>
 </select>
 
-<h2 style="margin-top:25px">🔑 Official Answer Key</h2>
+<h3>📄 Official Answer Key</h3>
 
-<label>Official Answer Key HTML File अपलोड करें</label>
+<label for="answerFile">Answer Key HTML File Upload करें</label>
 <input id="answerFile" type="file" accept=".html,.htm">
 
-<label>या Official Answer Key URL डालें</label>
-<input id="answerURL" type="url" placeholder="Official Answer Key URL डालें">
+<label for="answerURL">या Answer Key URL डालें</label>
+<input id="answerURL" type="url" placeholder="https://example.com/answerkey">
 
-<label>अपने चुने हुए उत्तर दर्ज करें</label>
-<p style="font-size:13px;color:#526173">प्रश्न संख्या और आपका उत्तर अलग-अलग लाइन में लिखें। उदाहरण: 1=A, 2=C, 3=B</p>
-<textarea id="userAnswers" placeholder="1=A&#10;2=C&#10;3=B"></textarea>
+<p class="small">
+  नोट: URL से Answer Key लोड होना वेबसाइट की अनुमति और लॉगिन पर निर्भर है।
+  अगर URL काम न करे तो HTML फाइल अपलोड करें।
+</p>
 
-<div class="grid">
-<div>
-<label>सही उत्तर के अंक</label>
-<input id="positive" type="number" value="1" min="0" step="0.01">
-</div>
-<div>
-<label>गलत उत्तर की कटौती</label>
-<input id="negative" type="number" value="0.33" min="0" step="0.01">
-</div>
-</div>
+<label for="userAnswers">अपने उत्तर लिखें</label>
+<textarea id="userAnswers" rows="5"
+  placeholder="उदाहरण: 1=A, 2=C, 3=B, 4=D"></textarea>
 
-<button class="green" id="save" type="button">💾 Candidate Details Save करें</button>
-<button id="calculate" type="button">🧮 Score Calculate करें</button>
+<p class="small">
+  उत्तर Question Number और Option के रूप में लिखें।
+  उदाहरण: 1=A, 2=C, 3=B
+</p>
 
-<div class="note">
-Official Answer Key URL कभी-कभी सुरक्षा या लॉगिन के कारण नहीं खुलता। ऐसी स्थिति में HTML फ़ाइल अपलोड करें। स्कोर की सटीकता इस बात पर निर्भर करेगी कि उत्तर-कुंजी का फ़ॉर्मेट पहचाना जा रहा है या नहीं।
-</div>
+<label for="positiveMarks">सही उत्तर के अंक</label>
+<input id="positiveMarks" type="number" value="1" readonly>
 
-<div id="message"></div>
+<label for="negativeMarks">गलत उत्तर की Negative Marking</label>
+<input id="negativeMarks" type="number" value="0.33" readonly>
 
-<div id="result">
-<h2>📊 Score Result</h2>
-<div class="score" id="score">0</div>
-<p>जाँचे गए प्रश्न: <b id="total">0</b></p>
-<p>सही उत्तर: <b id="correct">0</b></p>
-<p>गलत उत्तर: <b id="wrong">0</b></p>
-<p>बिना उत्तर: <b id="unanswered">0</b></p>
-</div>
-</section>
+<button class="secondary" type="button" onclick="saveDetails()">
+  Save Candidate Details
+</button>
 
-<section class="card">
-<h2>📈 Rank Information</h2>
-<p>Rank का अनुमान लगाने के लिए उसी परीक्षा के अन्य उम्मीदवारों के स्कोर का डेटा आवश्यक है।</p>
-<div class="note">अभी दूसरे उम्मीदवारों के स्कोर का साझा डेटाबेस नहीं है, इसलिए वास्तविक Rank उपलब्ध नहीं है।</div>
-</section>
+<button type="button" onclick="calculateScore()">
+  Calculate Score
+</button>
 
-</main>
+<div id="message" class="error" role="status"></div>
+<div id="result" class="result" aria-live="polite"></div>
 
-<footer>© 2026 RAILWAY SUCCESS POINT | RAILWAY RANK MITRA</footer>
+  </section>  <section class="card">
+    <h2>📊 Rank Information</h2>
+    <p>
+      आपका Score निकलने के बाद वास्तविक Rank जानने के लिए
+      अन्य उम्मीदवारों के विश्वसनीय Score Data की जरूरत होगी।
+    </p>
+    <div class="note">
+      <b>ध्यान दें:</b> यह Calculator अपने आप पूरे रेलवे के उम्मीदवारों की
+      Rank या Official Cut-off नहीं जान सकता। वास्तविक Rank के लिए
+      पर्याप्त उम्मीदवारों का डेटा आवश्यक है।
+    </div>
+  </section></div><footer>
+  RAILWAY RANK MITRA<br>
+  Candidate details are saved in this browser only.
+</footer><script>
+const $ = id => document.getElementById(id);
 
-<script>
-const el=id=>document.getElementById(id);
+function saveDetails(){
+  const details = {
+    candidateName: $("candidateName").value,
+    rollNumber: $("rollNumber").value,
+    examName: $("examName").value,
+    railwayZone: $("railwayZone").value,
+    examDate: $("examDate").value,
+    examShift: $("examShift").value,
+    category: $("category").value
+  };
 
-function showMessage(text){
- el("message").style.display="block";
- el("message").textContent=text;
+  try{
+    localStorage.setItem("rrmCandidateDetails", JSON.stringify(details));
+    $("message").style.color = "#16804a";
+    $("message").textContent = "Candidate Details इस ब्राउज़र में Save हो गई हैं।";
+  }catch(e){
+    $("message").textContent = "Details Save नहीं हो सकीं। Browser Storage उपलब्ध नहीं है।";
+  }
 }
 
-el("save").onclick=()=>{
- const data={
- name:el("name").value,
- roll:el("roll").value,
- exam:el("exam").value,
- zone:el("zone").value,
- date:el("date").value,
- shift:el("shift").value,
- category:el("category").value
- };
- try{
- localStorage.setItem("rrmCandidate",JSON.stringify(data));
- showMessage("Candidate Details इस ब्राउज़र में सेव हो गई हैं।");
- }catch(e){
- showMessage("Details सेव नहीं हो पाईं।");
- }
-};
-
-try{
- const d=JSON.parse(localStorage.getItem("rrmCandidate")||"null");
- if(d){
- el("name").value=d.name||"";
- el("roll").value=d.roll||"";
- el("exam").value=d.exam||"";
- el("zone").value=d.zone||"";
- el("date").value=d.date||"";
- el("shift").value=d.shift||"";
- el("category").value=d.category||"";
- }
-}catch(e){}
-
-async function readAnswerKey(){
- const file=el("answerFile").files[0];
- if(file)return await file.text();
-
- const url=el("answerURL").value.trim();
- if(!url)throw Error("Official Answer Key फ़ाइल अपलोड करें या URL डालें।");
-
- try{
-  const response=await fetch(url);
-  if(!response.ok)throw Error();
-  return await response.text();
- }catch(e){
-  throw Error("URL से Answer Key नहीं पढ़ी जा सकी। HTML फ़ाइल डाउनलोड करके अपलोड करें।");
- }
+function loadDetails(){
+  try{
+    const saved = JSON.parse(localStorage.getItem("rrmCandidateDetails") || "{}");
+    Object.keys(saved).forEach(key => {
+      if($(key)) $(key).value = saved[key];
+    });
+  }catch(e){}
 }
 
-function extractKey(html){
- const doc=new DOMParser().parseFromString(html,"text/html");
- const rows=[...doc.querySelectorAll("tr")].map(tr=>
-  [...tr.querySelectorAll("th,td")].map(td=>(td.innerText||td.textContent).trim())
- ).filter(r=>r.length>=2);
-
- let header=-1,qcol=-1,acol=-1;
-
- for(let i=0;i<Math.min(rows.length,15);i++){
-  const q=rows[i].findIndex(x=>/question id|question no|question number|questionid/i.test(x));
-  const a=rows[i].findIndex(x=>/correct answer|official answer|right answer|correct option/i.test(x));
-  if(q>=0&&a>=0){header=i;qcol=q;acol=a;break;}
- }
-
- if(header<0)throw Error("Answer Key का फ़ॉर्मेट पहचाना नहीं गया।");
-
- const key={};
- for(let i=header+1;i<rows.length;i++){
-  const q=rows[i][qcol];
-  const a=rows[i][acol];
-  if(q&&a)key[q.trim()]=a.trim().toUpperCase();
- }
- if(!Object.keys(key).length)throw Error("Answer Key से प्रश्न नहीं मिले।");
- return key;
+function normalizeAnswer(value){
+  return String(value || "")
+    .trim()
+    .replace(/^[\s.():\-]+|[\s.():\-]+$/g,"")
+    .toUpperCase();
 }
 
-el("calculate").onclick=async()=>{
- el("result").style.display="none";
- showMessage("Official Answer Key पढ़ी जा रही है...");
+function parseUserAnswers(text){
+  const answers = {};
+  const parts = text.split(/[\n,;]+/);
 
- try{
-  const html=await readAnswerKey();
-  const key=extractKey(html);
-  const raw=el("userAnswers").value.trim();
+  for(const part of parts){
+    const match = part.trim().match(/^(\d+)\s*[:=\-]\s*(.+)$/);
+    if(match){
+      answers[match[1]] = normalizeAnswer(match[2]);
+    }
+  }
+  return answers;
+}
 
-  if(!raw)throw Error("पहले अपने चुने हुए उत्तर दर्ज करें। उदाहरण: 1=A, 2=C");
+function findHeaderIndex(headers, patterns){
+  return headers.findIndex(h => patterns.some(p => p.test(h)));
+}
 
-  const answers={};
-  raw.split(/[\n,;]+/).forEach(item=>{
-   const m=item.trim().match(/^(.+?)\s*[:=]\s*(.+)$/);
-   if(m)answers[m[1].trim()]=m[2].trim().toUpperCase();
-  });
+function parseAnswerKey(html){
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const tables = [...doc.querySelectorAll("table")];
 
-  let correct=0,wrong=0,unanswered=0,total=0;
-  for(const q in key){
-   if(!(q in answers))continue;
-   total++;
-   if(!answers[q]||answers[q]==="-")unanswered++;
-   else if(answers[q]===key[q])correct++;
-   else wrong++;
+  for(const table of tables){
+    const rows = [...table.querySelectorAll("tr")];
+    if(rows.length < 2) continue;
+
+    const headers = [...rows[0].querySelectorAll("th,td")]
+      .map(cell => cell.textContent.trim().toLowerCase().replace(/\s+/g," "));
+
+    const qIndex = findHeaderIndex(headers, [
+      /question\s*(id|no|number)/i,
+      /^ques(?:tion)?$/i
+    ]);
+
+    const aIndex = findHeaderIndex(headers, [
+      /correct\s*answer/i,
+      /official\s*answer/i,
+      /right\s*answer/i,
+      /correct\s*option/i
+    ]);
+
+    if(qIndex < 0 || aIndex < 0) continue;
+
+    const key = {};
+
+    for(const row of rows.slice(1)){
+      const cells = [...row.querySelectorAll("th,td")];
+      if(!cells[qIndex] || !cells[aIndex]) continue;
+
+      const qText = cells[qIndex].textContent.trim();
+      const qMatch = qText.match(/\d+/);
+      if(!qMatch) continue;
+
+      const questionNo = qMatch[0];
+      const answerText = normalizeAnswer(cells[aIndex].textContent);
+
+      if(answerText) key[questionNo] = answerText;
+    }
+
+    if(Object.keys(key).length) return key;
   }
 
-  if(!total)throw Error("आपके प्रश्न नंबर Answer Key से मेल नहीं खाते।");
+  throw new Error(
+    "Answer Key का format पहचाना नहीं गया। HTML में Question Number और Correct Answer वाला table होना चाहिए।"
+  );
+}
 
-  const p=Number(el("positive").value);
-  const n=Number(el("negative").value);
-  if(!Number.isFinite(p)||!Number.isFinite(n)||p<0||n<0)throw Error("अंकों की वैल्यू जाँचें।");
+async function getAnswerKey(){
+  const file = $("answerFile").files[0];
 
-  el("score").textContent=(correct*p-wrong*n).toFixed(2);
-  el("total").textContent=total;
-  el("correct").textContent=correct;
-  el("wrong").textContent=wrong;
-  el("unanswered").textContent=unanswered;
-  el("result").style.display="block";
-  showMessage("स्कोर निकाल दिया गया है। कृपया आधिकारिक परिणाम से मिलान करें।");
- }catch(e){
-  showMessage(e.message||"स्कोर नहीं निकाला जा सका।");
- }
-};
-</script>
-</body>
+  if(file){
+    return await file.text();
+  }
+
+  const url = $("answerURL").value.trim();
+
+  if(url){
+    try{
+      const response = await fetch(url);
+      if(!response.ok){
+        throw new Error("HTTP " + response.status);
+      }
+      return await response.text();
+    }catch(e){
+      throw new Error(
+        "URL से Answer Key नहीं खुल सकी। Login या browser security (CORS) की समस्या हो सकती है। HTML फाइल अपलोड करके देखें।"
+      );
+    }
+  }
+
+  throw new Error("पहले Answer Key की HTML फाइल अपलोड करें या URL डालें।");
+}
+
+async function calculateScore(){
+  $("message").style.color = "#b91c1c";
+  $("message").textContent = "";
+  $("result").style.display = "none";
+
+  try{
+    const userText = $("userAnswers").value.trim();
+
+    if(!userText){
+      throw new Error("पहले अपने उत्तर लिखें। उदाहरण: 1=A, 2=C, 3=B");
+    }
+
+    const html = await getAnswerKey();
+    const key = parseAnswerKey(html);
+    const user = parseUserAnswers(userText);
+
+    const questionNumbers = Object.keys(user);
+    if(!questionNumbers.length){
+      throw new Error("उत्तर का format सही नहीं है। उदाहरण: 1=A, 2=C, 3=B");
+    }
+
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+
+    for(const q of Object.keys(key)){
+      if(!user[q]){
+        unanswered++;
+      }else if(normalizeAnswer(user[q]) === normalizeAnswer(key[q])){
+        correct++;
+      }else{
+        wrong++;
+      }
+    }
+
+    const attempted = correct + wrong;
+    const score = correct - (wrong * 0.33);
+
+    $("result").innerHTML =
+      "<h3>✅ Score Result</h3>" +
+      "<b>Total Questions in detected Answer Key:</b> " + Object.keys(key).length + "<br>" +
+      "<b>Attempted:</b> " + attempted + "<br>" +
+      "<b>Correct Answers:</b> " + correct + "<br>" +
+      "<b>Wrong Answers:</b> " + wrong + "<br>" +
+      "<b>Unanswered:</b> " + unanswered + "<br>" +
+      "<b>Positive Marks:</b> +" + correct.toFixed(2) + "<br>" +
+      "<b>Negative Marks:</b> −" + (wrong * 0.33).toFixed(2) + "<hr>" +
+      "<b>Final Score:</b> " + score.toFixed(2);
+
+    $("result").style.display = "block";
+    $("message").style.color = "#16804a";
+    $("message").textContent = "Score Calculate हो गया।";
+
+  }catch(error){
+    $("message").textContent = error.message || "Score Calculate नहीं हो सका।";
+  }
+}
+
+loadDetails();
+</script></body>
 </html>
