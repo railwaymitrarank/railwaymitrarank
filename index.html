@@ -3,354 +3,485 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1457c5">
 <title>Railway Rank Mitra</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
-header{background:linear-gradient(135deg,#082f66,#0759a8);color:white;text-align:center;padding:23px 10px}
-header h1{margin:0;font-size:27px}
-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:white;position:sticky;top:0}
-button,.btn{border:0;border-radius:8px;padding:11px 14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
-nav button{background:#e0edff;color:#083b78}
-nav button.active,.primary{background:#0759a8;color:white}
-.container{max-width:900px;margin:18px auto;padding:0 12px}
-.card{background:white;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 2px 10px #0001}
-h2{color:#0759a8;margin-top:0;font-size:21px}
-label{display:block;font-weight:bold;margin:12px 0 5px}
-input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:7px;background:white;font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.hidden{display:none!important}
-.note{background:#fff7d6;border-left:4px solid #e6a700;padding:12px;line-height:1.5}
-.result{background:#e9f8ef;border-radius:8px;padding:14px;margin-top:14px;overflow-wrap:anywhere}
-.green{background:#128044;color:white}
-.telegram{background:#168bd2;color:white}
-.youtube{background:#d91f26;color:white}
-.group{background:#087b64;color:white}
-.social{display:flex;flex-wrap:wrap;gap:8px}
-.social a{flex:1;min-width:140px}
-table{width:100%;border-collapse:collapse;margin:12px 0}
-td,th{border:1px solid #cbd5e1;padding:9px;text-align:left}
-footer{text-align:center;background:#082f66;color:white;padding:20px}
-@media print{nav,.social,.no-print,header p{display:none!important}body{background:white}.card{box-shadow:none}}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172554}
+header{background:linear-gradient(135deg,#082f80,#1769d2);color:white;text-align:center;padding:25px 12px}
+header h1{margin:0;font-size:28px}
+header p{margin:9px 0 0;font-size:14px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
+nav a{text-decoration:none;background:#e0eaff;color:#123b86;padding:9px 12px;border-radius:20px;font-weight:bold;font-size:13px}
+.container{max-width:750px;margin:auto;padding:14px}
+.card{background:white;padding:18px;margin:15px 0;border-radius:16px;box-shadow:0 4px 15px #152c5012}
+h2{margin-top:0;color:#123b86;font-size:21px}
+label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
+input,select{width:100%;padding:12px;margin-top:6px;border:1px solid #cbd5e1;border-radius:9px;font-size:16px;background:white}
+button,.btn{display:block;width:100%;border:0;padding:13px;margin-top:14px;border-radius:10px;background:#1457c5;color:white;font-size:16px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+.green{background:#07834b}
+.orange{background:#ea7808}
+.result{display:none;background:#e5f8ed;border:1px solid #86d6a5;padding:15px;border-radius:10px;margin-top:15px;line-height:1.8;overflow-wrap:anywhere}
+.exam-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.exam-list button{margin:0;background:#e6efff;color:#123b86}
+footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
+.small{font-size:13px;color:#64748b;line-height:1.6}
+.notice{background:#fff7d6;border:1px solid #f0d36b;border-radius:10px;padding:12px;color:#684d00;font-size:13px;line-height:1.6}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}
+@media print{
+nav,button,.no-print,#social,#adminDashboard,#gdce-ldce-calculator{display:none!important}
+body{background:white}
+.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>🚆 RAILWAY RANK MITRA</h1>
-<p>Railway Exam • Rank Predictor • Answer Key Score Card</p>
+<h1>🚂 RAILWAY RANK MITRA</h1>
+<p>Railway Exam Answer Key Calculator & Rank Predictor</p>
 </header>
 
 <nav>
-<button class="active" onclick="showPage('rrb',this)">RRB + GDCE</button>
-<button onclick="showPage('ldce',this)">LDCE EXAMS</button>
-<button onclick="showPage('rank',this)">Rank Predictor</button>
+<a href="#calculator">Calculator</a>
+<a href="#scorecard">Scorecard</a>
+<a href="#rank">Rank Predictor</a>
+<a href="#gdce-ldce-calculator">GDCE / LDCE</a>
+<a href="#social">YouTube / Telegram</a>
+<a href="#adminDashboard">Admin</a>
 </nav>
 
-<div class="container">
+<main class="container">
 
-<section id="rrb" class="page">
-<div class="card">
-<h2>Candidate Details</h2>
+<section class="card">
+<h2>🎯 Railway Exam चुनें</h2>
 
-<form id="candidateForm">
-<label>Response Sheet URL (वैकल्पिक)</label>
-<input id="responseURL" type="url" placeholder="Response Sheet URL">
-
-<div class="grid">
-<div>
-<label>Exam Type</label>
-<select id="examType" required>
-<option value="">Select Exam Type</option>
-<option value="RRB">RRB</option>
-<option value="GDCE">GDCE</option>
-</select>
+<div class="exam-list">
+<button type="button" data-exam="RRB Group D">Group D</button>
+<button type="button" data-exam="RRB ALP">ALP</button>
+<button type="button" data-exam="RRB Technician">Technician</button>
+<button type="button" data-exam="RRB NTPC UG">NTPC UG</button>
+<button type="button" data-exam="RRB NTPC Graduate">NTPC Graduate</button>
+<button type="button" data-exam="RRB JE">JE</button>
+<button type="button" data-exam="GDCE">GDCE</button>
+<button type="button" data-exam="LDCE">LDCE</button>
 </div>
 
-<div>
-<label>Exam Post</label>
-<select id="examPost" required>
-<option value="">Select Exam Post</option>
-<option>Assistant Loco Pilot (ALP)</option>
+<p id="examName" class="small">अपना Exam चुनें।</p>
+</section>
+
+<section class="card" id="calculator">
+<h2>🧮 Answer Key Calculator</h2>
+
+<label for="total">Total Questions</label>
+<input type="number" id="total" placeholder="जैसे 100" min="1" step="1">
+
+<label for="correct">Correct Answers</label>
+<input type="number" id="correct" placeholder="सही प्रश्नों की संख्या" min="0" step="1">
+
+<label for="wrong">Wrong Answers</label>
+<input type="number" id="wrong" placeholder="गलत प्रश्नों की संख्या" min="0" step="1">
+
+<label for="marks">हर सही उत्तर के Marks</label>
+<input type="number" id="marks" value="1" min="0" step="0.01">
+
+<label for="negative">हर गलत उत्तर की Negative Marking</label>
+<select id="negative">
+<option value="0">कोई Negative Marking नहीं</option>
+<option value="0.3333333333" selected>1/3 (लगभग 0.33 Marks)</option>
+<option value="0.25">0.25 Marks</option>
+<option value="0.33">0.33 Marks</option>
+<option value="0.5">0.50 Marks</option>
+<option value="1">1 Mark</option>
+</select>
+
+<button type="button" id="calculateButton">Calculate Score</button>
+<div class="result" id="calcResult" aria-live="polite"></div>
+</section>
+
+<section class="card" id="scorecard">
+<h2>📄 Scorecard</h2>
+<p class="small">पहले Calculator में Calculate Score दबाएँ, फिर Scorecard बनाएँ।</p>
+
+<label for="studentName">विद्यार्थी का नाम (वैकल्पिक)</label>
+<input id="studentName" placeholder="अपना नाम लिखें">
+
+<label for="roll">Roll Number (वैकल्पिक)</label>
+<input id="roll" placeholder="अपना Roll Number लिखें">
+
+<button type="button" class="green" id="scorecardButton">Generate Scorecard</button>
+<div class="result" id="scoreResult"></div>
+<button type="button" class="orange no-print" id="printButton">Print / Save PDF</button>
+</section>
+
+<section class="card" id="rank">
+<h2>🏆 Rank Predictor</h2>
+
+<p class="small">
+यह केवल गणितीय अनुमान है। वास्तविक रैंक आधिकारिक परिणाम और सभी उम्मीदवारों के प्रदर्शन पर निर्भर करेगी।
+</p>
+
+<label for="candidates">कुल उम्मीदवार (अनुमानित)</label>
+<input type="number" id="candidates" placeholder="जैसे 100000" min="1" step="1">
+
+<label for="percentile">आपका अनुमानित Percentile (%)</label>
+<input type="number" id="percentile" placeholder="जैसे 90" min="0" max="100" step="0.01">
+
+<button type="button" id="rankButton">Estimate Rank</button>
+<div class="result" id="rankResult"></div>
+</section>
+
+<section class="card" id="gdce-ldce-calculator">
+<h2>🚆 GDCE / LDCE Response Sheet Helper</h2>
+
+<p class="notice">
+सही स्कोर निकालने के लिए Candidate Response और Official Answer Key दोनों का मिलान जरूरी है।
+</p>
+
+<div style="margin-top:14px;padding:13px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fbff">
+
+<h3 style="margin-top:0;color:#123b86">
+🔗 Response Sheet URL से Score
+</h3>
+
+<label for="responseSheetUrl">Response Sheet URL</label>
+<input id="responseSheetUrl" type="url" placeholder="https://rrb.digialm.com/...">
+
+<label for="urlPositiveMarks">हर सही उत्तर के Marks</label>
+<input id="urlPositiveMarks" type="number" min="0" step="0.01" value="1">
+
+<label for="urlNegativeMarks">हर गलत उत्तर की Negative Marking</label>
+<select id="urlNegativeMarks">
+<option value="0.3333333333" selected>1/3 (लगभग 0.33)</option>
+<option value="0.25">0.25</option>
+<option value="0.33">0.33</option>
+<option value="0.5">0.50</option>
+<option value="0">कोई Negative Marking नहीं</option>
+</select>
+
+<button type="button" id="urlScoreButton">CLICK HERE FOR SCORE</button>
+
+<div id="urlScoreMessage" class="small" role="status" aria-live="polite"></div>
+<div id="urlScoreResult" class="result" aria-live="polite"></div>
+
+<p class="small">
+नोट: URL से स्कोर निकालने के लिए Backend और matching Official Answer Key की जरूरत है।
+यदि लिंक नहीं खुलता या डेटा match नहीं होता, तो स्कोर नहीं दिखाया जाएगा।
+</p>
+
+</div>
+
+<label for="candidateName">Candidate Name (वैकल्पिक)</label>
+<input id="candidateName" placeholder="अपना नाम लिखें">
+
+<label for="candidateRoll">Roll Number (वैकल्पिक)</label>
+<input id="candidateRoll" placeholder="अपना Roll Number लिखें">
+
+<label for="railExam">Exam चुनें</label>
+<select id="railExam">
+<option>GDCE</option>
+<option>LDCE</option>
+<option>ALP</option>
 <option>Technician</option>
 <option>Group D</option>
-<option>NTPC Graduate</option>
-<option>NTPC Undergraduate</option>
-<option>Junior Engineer (JE)</option>
-<option>RPF Constable</option>
-<option>RPF Sub Inspector (SI)</option>
-<option>Paramedical</option>
-<option>Ministerial & Isolated Categories</option>
-<option>Section Controller</option>
-<option>Goods Guard / Train Manager</option>
-<option>Station Master</option>
-<option>Chief Commercial cum Ticket Supervisor</option>
-<option>Commercial cum Ticket Clerk</option>
-<option>Technician Grade I Signal</option>
-<option>Technician Grade III</option>
-<option>Other</option>
+<option>NTPC</option>
+<option>Other Railway Exam</option>
 </select>
-</div>
 
-<div>
-<label>Railway Zone</label>
-<select id="zone" required>
-<option value="">Select Zone</option>
-<option>Central Railway</option>
-<option>Eastern Railway</option>
-<option>East Central Railway</option>
-<option>East Coast Railway</option>
-<option>Northern Railway</option>
-<option>North Central Railway</option>
-<option>North Eastern Railway</option>
-<option>Northeast Frontier Railway</option>
-<option>North Western Railway</option>
-<option>Southern Railway</option>
-<option>South Central Railway</option>
-<option>South Eastern Railway</option>
-<option>South East Central Railway</option>
-<option>South Western Railway</option>
-<option>Western Railway</option>
-<option>Metro Railway</option>
-<option>Other</option>
-</select>
-</div>
+<label for="responseFile">HTML फ़ाइल चुनें</label>
+<input id="responseFile" type="file" accept=".html,.htm,text/html">
 
-<div><label>Exam Date</label><input id="examDate" type="date" required></div>
-
-<div><label>Shift</label>
-<select id="shift" required>
-<option value="">Select Shift</option>
-<option>First Shift</option>
-<option>Second Shift</option>
-<option>Third Shift</option>
-<option>Not Known</option>
-</select></div>
-
-<div><label>Category</label>
-<select id="category" required>
-<option value="">Select Category</option>
-<option>UR</option><option>OBC</option><option>SC</option>
-<option>ST</option><option>EWS</option>
-</select></div>
-
-<div><label>Candidate Name</label><input id="candidateName" required></div>
-<div><label>Registration Number</label><input id="regNo" required></div>
-</div>
-
-<br>
-<button type="submit" class="primary">CLICK HERE</button>
-</form>
-
-<div id="candidateResult" class="result hidden"></div>
-<p class="note">Response Sheet URL अपने-आप स्कोर नहीं निकालता। सही स्कोर के लिए Candidate Response Sheet और Official Answer Key का पढ़ने योग्य डेटा आवश्यक है।</p>
-</div>
+<button type="button" id="readResponseButton">📄 HTML फ़ाइल पढ़ें</button>
+<div id="rrmMessage" class="small" aria-live="polite"></div>
 </section>
 
-<section id="ldce" class="page hidden">
-<div class="card">
-<h2>LDCE Answer Key Calculator</h2>
+<section class="card" id="social">
+<h2>📢 Railway Success Point से जुड़ें</h2>
 
-<div class="grid">
-<div><label>Candidate Name</label><input id="ldceName"></div>
-<div><label>Zone</label><input id="ldceZone"></div>
-<div><label>Division</label><input id="division"></div>
-<div><label>Exam / Post</label><input id="ldcePost"></div>
-</div>
+<p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
 
-<label>Official Answer Key (JSON/CSV)</label>
-<input type="file" id="keyFile" accept=".json,.csv">
+<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">
+▶️ YouTube Channel
+</a>
 
-<label>Candidate Response Sheet (JSON/CSV)</label>
-<input type="file" id="responseFile" accept=".json,.csv">
-
-<div class="grid">
-<div><label>Marks for Correct Answer</label><input id="positive" type="number" value="1" step="0.01"></div>
-<div><label>Negative Marks per Wrong Answer</label><input id="negative" type="number" value="0.33" step="0.01"></div>
-</div>
-
-<p class="note">JSON उदाहरण — Answer Key: [{"id":"1","correctAnswer":"A"}] और Response Sheet: [{"id":"1","candidateAnswer":"B"}]. दोनों फ़ाइलों में प्रश्न ID समान होनी चाहिए।</p>
-
-<button class="primary" onclick="calculateScore()">CALCULATE ANSWER KEY</button>
-<div id="scoreError" class="note hidden"></div>
-<div id="scoreResult" class="result hidden"></div>
-
-<div id="downloadSection" class="hidden no-print">
-<h3>Score Card से पहले Telegram Channel Join करें</h3>
-<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ JOIN TELEGRAM CHANNEL</a>
-<br><br>
-<button class="green" onclick="window.print()">DOWNLOAD / SAVE SCORE CARD PDF</button>
-</div>
-</div>
+<a class="btn green" href="https://t.me/railwaysuccespointchannel" target="_blank" rel="noopener noreferrer">
+✈️ Telegram Channel
+</a>
 </section>
 
-<section id="rank" class="page hidden">
-<div class="card">
-<h2>Rank Predictor</h2>
-<label>आपके Marks</label><input id="rankMarks" type="number" min="0">
-<label>Total Candidates</label><input id="totalCandidates" type="number" min="1">
-<label>Percentile (यदि पता है)</label><input id="rankPercentile" type="number" min="0" max="100" step="0.01">
-<button class="primary" onclick="predictRank()">ESTIMATE RANK</button>
-<div id="rankResult" class="result hidden"></div>
-<p class="note">यह अनुमानित रैंक है, आधिकारिक RRB रैंक नहीं।</p>
-</div>
+<section class="card">
+<h2>🔒 Scorecard Unlock</h2>
+<p>Telegram Channel खोलने के लिए नीचे क्लिक करें।</p>
+
+<a class="btn" href="https://t.me/railwaysuccespointchannel" target="_blank" rel="noopener noreferrer">
+📢 JOIN TELEGRAM CHANNEL
+</a>
+
+<p class="small">नोट: वेबसाइट Telegram membership verify नहीं करती।</p>
 </section>
 
-<div class="card">
-<h2>Railway Success Point से जुड़ें</h2>
-<div class="social">
-<a class="btn youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">▶ YouTube Channel</a>
-<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Telegram Channel</a>
-<a class="btn group" href="https://t.me/" target="_blank" rel="noopener">👥 Telegram Group</a>
-</div>
-<p class="note">YouTube और Telegram के लिंक को अपने सही चैनल/ग्रुप लिंक से बदलें।</p>
-</div>
+<section class="card" id="adminDashboard">
+<h2>🔐 Railway Rank Mitra Admin</h2>
 
-</div>
+<p class="small">
+यह login Firebase Authentication का उपयोग करता है। Candidate records दिखाने के लिए सुरक्षित Firestore database configure करना बाकी है।
+</p>
+
+<label for="adminEmail">Admin Email</label>
+<input id="adminEmail" type="email" autocomplete="username" placeholder="अपना Admin email लिखें">
+
+<label for="adminPassword">Password</label>
+<input id="adminPassword" type="password" autocomplete="current-password" placeholder="अपना Password यहाँ लिखें">
+
+<button type="button" id="adminLoginButton">Admin Login</button>
+<button type="button" id="adminLogoutButton" class="orange" hidden>Logout</button>
+
+<p id="adminStatus" role="status" aria-live="polite" class="small">
+अभी Login नहीं किया गया है।
+</p>
+
+<div id="adminRecords" class="small"></div>
+</section>
+
+</main>
 
 <footer>
 <strong>RAILWAY RANK MITRA</strong>
-<p>Railway Exam Preparation & Candidate Tools</p>
+<p>Railway Exam Preparation के लिए आपका साथी 🚂</p>
+<p>यह स्वतंत्र अनुमान टूल है, आधिकारिक Railway वेबसाइट नहीं।</p>
 </footer>
 
 <script>
-function showPage(id,button){
- document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
- document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
- button.classList.add('active');
- window.scrollTo({top:0,behavior:'smooth'});
+"use strict";
+
+let currentScore=null;
+let currentCorrect=0;
+let currentWrong=0;
+let currentTotal=0;
+let selectedExam="Railway Exam";
+
+const $=id=>document.getElementById(id);
+
+const show=(el,html)=>{
+  el.textContent="";
+  el.style.display="block";
+  el.innerHTML=html;
+};
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,ch=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[ch]));
 }
 
-function esc(v){
- return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-document.getElementById('candidateForm').addEventListener('submit',function(e){
- e.preventDefault();
- const fields=[
- ['Candidate Name','candidateName'],['Registration Number','regNo'],
- ['Exam Type','examType'],['Exam Post','examPost'],['Railway Zone','zone'],
- ['Exam Date','examDate'],['Shift','shift'],['Category','category']
- ];
- const result=document.getElementById('candidateResult');
- result.innerHTML='<h3>Candidate Details</h3><table>'+
- fields.map(([label,id])=>'<tr><th>'+label+'</th><td>'+esc(document.getElementById(id).value)+'</td></tr>').join('')+
- '</table><p>आगे Answer Key Calculator के लिए बटन दबाएँ।</p>'+
- '<button class="primary" onclick="showCalculator()">CLICK HERE TO CALCULATE SCORE</button>';
- result.classList.remove('hidden');
- result.scrollIntoView({behavior:'smooth',block:'start'});
+document.querySelectorAll("[data-exam]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    selectedExam=btn.dataset.exam;
+    $("examName").textContent="Selected Exam: "+selectedExam;
+    $("calculator").scrollIntoView({behavior:"smooth"});
+  });
 });
 
-function showCalculator(){
- document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
- document.getElementById('ldce').classList.remove('hidden');
- document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
- document.querySelectorAll('nav button')[1].classList.add('active');
- window.scrollTo({top:0,behavior:'smooth'});
-}
+$("calculateButton").addEventListener("click",()=>{
+  const fields=["total","correct","wrong","marks"];
 
-async function readRows(file){
- if(!file)throw Error('Official Answer Key और Candidate Response Sheet दोनों अपलोड करें।');
- const text=await file.text();
- if(file.name.toLowerCase().endsWith('.json')){
-  const data=JSON.parse(text);
-  if(Array.isArray(data))return data;
-  if(Array.isArray(data.questions))return data.questions;
-  throw Error('JSON में प्रश्नों की सूची नहीं मिली।');
- }
- const lines=text.trim().split(/\r?\n/);
- if(lines.length<2)throw Error('CSV में पर्याप्त डेटा नहीं है।');
- const parse=line=>line.split(',').map(x=>x.trim().replace(/^"|"$/g,''));
- const heads=parse(lines[0]);
- return lines.slice(1).filter(Boolean).map(line=>{
-  const vals=parse(line),obj={};
-  heads.forEach((h,i)=>obj[h]=vals[i]||'');
-  return obj;
- });
-}
-
-function field(r,names){
- for(const n of names)if(r[n]!==undefined&&String(r[n]).trim()!=='')return String(r[n]).trim();
- return '';
-}
-
-async function calculateScore(){
- const error=document.getElementById('scoreError');
- const out=document.getElementById('scoreResult');
- const dl=document.getElementById('downloadSection');
- error.classList.add('hidden');out.classList.add('hidden');dl.classList.add('hidden');
-
- try{
-  const key=await readRows(document.getElementById('keyFile').files[0]);
-  const response=await readRows(document.getElementById('responseFile').files[0]);
-  const keys=new Map(),answers=new Map();
-
-  key.forEach(r=>{
-   const id=field(r,['id','ID','questionId','question_id']);
-   const a=field(r,['correctAnswer','correct_answer','answerKey']);
-   if(id&&a)keys.set(id,a.toUpperCase());
-  });
-  response.forEach(r=>{
-   const id=field(r,['id','ID','questionId','question_id']);
-   const a=field(r,['candidateAnswer','candidate_answer','selectedAnswer','response','answer']);
-   if(id)answers.set(id,a.toUpperCase());
-  });
-
-  if(!keys.size||!answers.size)throw Error('फ़ाइलों में प्रश्न ID और उत्तर नहीं पढ़े जा सके।');
-  const missing=[...keys.keys()].filter(id=>!answers.has(id));
-  if(missing.length)throw Error(missing.length+' प्रश्नों के उत्तर Response Sheet में नहीं मिले। स्कोर नहीं निकाला गया।');
-
-  let correct=0,wrong=0,unattempted=0;
-  for(const [id,k] of keys){
-   const a=answers.get(id);
-   if(!a||a==='-'||a==='N/A')unattempted++;
-   else if(a===k)correct++;
-   else wrong++;
+  if(fields.some(id=>$(id).value==="")){
+    alert("कृपया सभी जरूरी जानकारी भरें।");
+    return;
   }
 
-  const total=keys.size,attempted=correct+wrong;
-  const positive=Number(document.getElementById('positive').value);
-  const negative=Number(document.getElementById('negative').value);
-  if(positive<0||negative<0)throw Error('Marks की वैल्यू सही भरें।');
+  const total=Number($("total").value);
+  const correct=Number($("correct").value);
+  const wrong=Number($("wrong").value);
+  const marks=Number($("marks").value);
+  const negative=Number($("negative").value);
 
-  const score=correct*positive-wrong*negative;
-  const maximum=total*positive;
-  const percentage=maximum?score/maximum*100:0;
-  const accuracy=attempted?correct/attempted*100:0;
+  if(
+    !Number.isInteger(total)||
+    !Number.isInteger(correct)||
+    !Number.isInteger(wrong)||
+    total<1||
+    correct<0||
+    wrong<0||
+    marks<0||
+    correct+wrong>total
+  ){
+    alert("सही संख्या भरें। Correct + Wrong, Total Questions से ज्यादा नहीं हो सकते।");
+    return;
+  }
 
-  out.innerHTML='<h2>RAILWAY RANK MITRA SCORE CARD</h2>'+
-  '<p><b>Candidate:</b> '+esc(document.getElementById('ldceName').value||document.getElementById('candidateName').value||'—')+'</p>'+
-  '<table><tr><th>विवरण</th><th>परिणाम</th></tr>'+
-  '<tr><td>Total Questions</td><td>'+total+'</td></tr>'+
-  '<tr><td>Attempted</td><td>'+attempted+'</td></tr>'+
-  '<tr><td>Correct Answers</td><td>'+correct+'</td></tr>'+
-  '<tr><td>Wrong Answers</td><td>'+wrong+'</td></tr>'+
-  '<tr><td>Unattempted</td><td>'+unattempted+'</td></tr>'+
-  '<tr><td>Total Score</td><td>'+score.toFixed(2)+' / '+maximum.toFixed(2)+'</td></tr>'+
-  '<tr><td>Percentage</td><td>'+percentage.toFixed(2)+'%</td></tr>'+
-  '<tr><td>Accuracy</td><td>'+accuracy.toFixed(2)+'%</td></tr></table>'+
-  '<p>स्कोर अपलोड की गई फ़ाइलों पर आधारित है। Negative marking आपके चुने हुए मान के अनुसार है।</p>';
+  currentScore=correct*marks-wrong*negative;
+  currentCorrect=correct;
+  currentWrong=wrong;
+  currentTotal=total;
 
-  out.classList.remove('hidden');
-  dl.classList.remove('hidden');
-  out.scrollIntoView({behavior:'smooth',block:'start'});
- }catch(e){
-  error.textContent='Calculation नहीं हुई: '+e.message;
-  error.classList.remove('hidden');
- }
-}
+  show($("calcResult"),"");
 
-function predictRank(){
- const total=Number(document.getElementById('totalCandidates').value);
- const pct=document.getElementById('rankPercentile').value;
- const out=document.getElementById('rankResult');
- if(!total||total<1){alert('Total Candidates भरें।');return;}
- if(pct===''||Number(pct)<0||Number(pct)>100){alert('Percentile 0 से 100 के बीच भरें।');return;}
- const rank=Math.max(1,Math.ceil(total*(1-Number(pct)/100)));
- out.innerHTML='<h3>Estimated Rank: '+rank.toLocaleString('en-IN')+'</h3><p>Marks: '+esc(document.getElementById('rankMarks').value||'—')+'</p><p>Percentile: '+Number(pct)+'%</p><p>यह अनुमान है, आधिकारिक रैंक नहीं।</p>';
- out.classList.remove('hidden');
-}
-</script>
-</body>
-</html>
+  $("calcResult").innerHTML=
+    "<b>Exam:</b> "+escapeHTML(selectedExam)+
+    "<br><b>Total Questions:</b> "+total+
+    "<br><b>Correct:</b> "+correct+
+    "<br><b>Wrong:</b> "+wrong+
+    "<br><b>Unattempted:</b> "+(total-correct-wrong)+
+    "<br><b>Final Score:</b> "+currentScore.toFixed(2);
+});
+
+$("scorecardButton").addEventListener("click",()=>{
+  if(currentScore===null){
+    alert("पहले Answer Key Calculator में Calculate Score करें।");
+    return;
+  }
+
+  const name=$("studentName").value.trim()||"Not Provided";
+  const roll=$("roll").value.trim()||"Not Provided";
+
+  show($("scoreResult"),"");
+
+  $("scoreResult").innerHTML=
+    "<h3>🚂 RAILWAY RANK MITRA SCORECARD</h3>"+
+    "<b>Exam:</b> "+escapeHTML(selectedExam)+
+    "<br><b>Name:</b> "+escapeHTML(name)+
+    "<br><b>Roll Number:</b> "+escapeHTML(roll)+
+    "<br><b>Total Questions:</b> "+currentTotal+
+    "<br><b>Correct Answers:</b> "+currentCorrect+
+    "<br><b>Wrong Answers:</b> "+currentWrong+
+    "<br><b>Calculated Score:</b> "+currentScore.toFixed(2)+
+    "<p class='small'>यह स्कोर आपके द्वारा दर्ज जानकारी पर आधारित है, आधिकारिक स्कोरकार्ड नहीं।</p>";
+});
+
+$("printButton").addEventListener("click",()=>window.print());
+
+$("rankButton").addEventListener("click",()=>{
+  if($("candidates").value===""||$("percentile").value===""){
+    alert("कुल उम्मीदवार और Percentile भरें।");
+    return;
+  }
+
+  const candidates=Number($("candidates").value);
+  const percentile=Number($("percentile").value);
+
+  if(
+    !Number.isInteger(candidates)||
+    candidates<1||
+    percentile<0||
+    percentile>100
+  ){
+    alert("उम्मीदवारों की सही संख्या और 0 से 100 के बीच Percentile भरें।");
+    return;
+  }
+
+  const rank=Math.max(
+    1,
+    Math.round(candidates*(100-percentile)/100)+1
+  );
+
+  show($("rankResult"),"");
+
+  $("rankResult").innerHTML=
+    "<b>Estimated Rank:</b> लगभग "+
+    rank.toLocaleString("en-IN")+
+    "<br><p class='small'>यह केवल गणितीय अनुमान है, वास्तविक रैंक नहीं।</p>";
+});
+
+$("readResponseButton").addEventListener("click",async()=>{
+  const box=$("rrmMessage");
+  const file=$("responseFile").files[0];
+
+  box.textContent="";
+
+  if(!file){
+    box.textContent="कृपया HTML फ़ाइल चुनें।";
+    return;
+  }
+
+  if(!/\.(html?|htm)$/i.test(file.name)){
+    box.textContent="कृपया HTML/HTM फ़ाइल चुनें। PDF parsing अभी समर्थित नहीं है।";
+    return;
+  }
+
+  try{
+    const content=await file.text();
+    const doc=new DOMParser().parseFromString(content,"text/html");
+    const extracted=(doc.body?.innerText||"").trim();
+
+    if(!extracted){
+      box.textContent="फ़ाइल पढ़ी गई, लेकिन टेक्स्ट नहीं मिला।";
+      return;
+    }
+
+    const wrapper=document.createElement("div");
+    wrapper.style.cssText="margin-top:12px;padding:12px;background:white;border-radius:8px";
+
+    const title=document.createElement("h3");
+    title.textContent="फ़ाइल पढ़ ली गई";
+    wrapper.appendChild(title);
+
+    const detail=document.createElement("p");
+    detail.textContent=
+      "नाम: "+($("candidateName").value.trim()||"नहीं भरा")+
+      " | Roll Number: "+($("candidateRoll").value.trim()||"नहीं भरा")+
+      " | Exam: "+$("railExam").value;
+
+    wrapper.appendChild(detail);
+
+    const note=document.createElement("p");
+    note.textContent=
+      "अभी केवल टेक्स्ट preview है; score निकालने के लिए response sheet का format और official answer key पहचानना आवश्यक है।";
+
+    wrapper.appendChild(note);
+
+    const details=document.createElement("details");
+    const summary=document.createElement("summary");
+    const pre=document.createElement("pre");
+
+    summary.textContent="पढ़ा गया टेक्स्ट देखें";
+    pre.textContent=extracted.slice(0,12000);
+
+    details.append(summary,pre);
+    wrapper.appendChild(details);
+    box.appendChild(wrapper);
+
+  }catch(e){
+    box.textContent="फ़ाइल नहीं पढ़ पाया। दूसरी HTML फ़ाइल चुनकर देखें।";
+  }
+});
+
+/*
+  RESPONSE SHEET URL SCORING
+
+  यह हिस्सा Backend API से जुड़ने के लिए है।
+  जब तक सही parser और matching official answer key
+  उपलब्ध न हों, स्कोर का अनुमान नहीं लगाया जाएगा।
+*/
+
+const RRM_API_BASE = "";
+
+$("urlScoreButton").addEventListener("click",async()=>{
+  const msg=$("urlScoreMessage");
+  const result=$("urlScoreResult");
+
+  msg.textContent="";
+  result.style.display="none";
+  result.textContent="";
+
+  const url=$("responseSheetUrl").value.trim();
+
+  if(!url){
+    msg.textContent="पहले Response Sheet URL डालें।";
+    return;
+  }
+
+  try{
+    const parsed=new URL(url);
+
+    if(
+      parsed.protocol!=="https:"||
+      !/(^|\.)rrb\.digialm\.com$/i.test(parsed.hostname)
+    ){
+      msg.textContent="के
