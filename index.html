@@ -52,7 +52,7 @@ button,.btn{
   font-weight:bold;text-align:center;text-decoration:none;
   cursor:pointer
 }
-.green{background:#07834b}
+button:disabled{opacity:.6;cursor:wait}
 
 .notice{
   background:#fff7d6;border:1px solid #f0d36b;
@@ -67,11 +67,6 @@ button,.btn{
 }
 
 .small{font-size:13px;color:#64748b;line-height:1.6}
-.links a{
-  display:block;padding:10px 0;color:#075da0;
-  text-decoration:none;font-weight:bold;overflow-wrap:anywhere
-}
-
 #social .btn{
   min-height:60px;padding:18px 12px;font-size:19px;
   border-radius:12px;margin-top:14px;
@@ -168,7 +163,8 @@ footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 </select>
 
 <label for="name">4. Candidate Name *</label>
-<input id="name" type="text" placeholder="Enter your full name" autocomplete="name" required>
+<input id="name" type="text" placeholder="Enter your full name"
+autocomplete="name" required>
 
 <label for="reg">5. Registration Number *</label>
 <input id="reg" type="text" placeholder="Enter Registration Number" required>
@@ -190,27 +186,38 @@ pattern="[0-9]{4}" maxlength="4" minlength="4"
 placeholder="Enter 4-digit code" required>
 
 <small class="small">
-This field accepts a four-digit code. It is not connected to an official OTP or verification service.
+This four-digit code is not connected to an official OTP or verification service.
 </small>
+
+<hr style="margin-top:22px;border:0;border-top:1px solid #e2e8f0">
+
+<h2 style="margin-top:20px">📄 Response Sheet</h2>
 
 <label for="responseUrl">8. Response Sheet URL (Optional)</label>
 <input id="responseUrl" type="url" placeholder="https://...">
 
-<label for="file">9. Response Sheet HTML File *</label>
-<input id="file" type="file" accept=".html,.htm,text/html" required>
+<label for="responseFile">OR Upload Response Sheet HTML File</label>
+<input id="responseFile" type="file" accept=".html,.htm,text/html">
 
 <small class="small">
-Upload the downloaded candidate Response Sheet in HTML or HTM format.
+Enter the URL OR select an HTML/HTM file. You do not need to provide both.
 </small>
 
-<label for="answerFile">10. Official Answer Key HTML File *</label>
-<input id="answerFile" type="file" accept=".html,.htm,text/html" required>
+<hr style="margin-top:22px;border:0;border-top:1px solid #e2e8f0">
+
+<h2 style="margin-top:20px">✅ Official Answer Key</h2>
+
+<label for="answerUrl">9. Official Answer Key URL (Optional)</label>
+<input id="answerUrl" type="url" placeholder="https://...">
+
+<label for="answerFile">OR Upload Official Answer Key HTML File</label>
+<input id="answerFile" type="file" accept=".html,.htm,text/html">
 
 <small class="small">
-Upload the official Answer Key in HTML or HTM format. Both files must contain readable question numbers and answer information in a format the calculator can identify.
+Enter the URL OR select an HTML/HTM file. You do not need to provide both.
 </small>
 
-<button type="submit">CALCULATE SCORE</button>
+<button id="calculateButton" type="submit">CALCULATE SCORE</button>
 
 <div id="status" class="small" aria-live="polite"></div>
 <div id="result" class="result" aria-live="polite"></div>
@@ -222,31 +229,35 @@ Upload the official Answer Key in HTML or HTM format. Both files must contain re
 <h2>📌 Important Information</h2>
 
 <div class="notice">
-1. Enter the required candidate details.
+1. Fill in the required candidate details.
 
 <br><br>
 
-2. Upload your Response Sheet HTML file.
+2. For the Response Sheet, enter a URL or upload an HTML/HTM file.
 
 <br><br>
 
-3. Upload the official Answer Key HTML file for the same exam.
+3. For the Official Answer Key, enter a URL or upload an HTML/HTM file.
 
 <br><br>
 
-4. The calculator will attempt to identify question numbers and answers in both files. It will calculate a score only if it can confidently match the data.
+4. At least one source must be provided for each: Response Sheet and Official Answer Key.
 
 <br><br>
 
-5. If either file uses an unsupported format, no score will be shown. The files may need a format-specific parser.
+5. The calculator attempts to read clearly labelled question numbers and answer columns. It will not guess when it cannot identify the required data.
 
 <br><br>
 
-This website does not send your uploaded files to a server. Your details and files are processed in your browser. The four-digit code is not an official verification system.
+6. Some websites prevent URL access because of browser security, CORS or login requirements. If a URL cannot be read, download the HTML file and upload it instead.
 
 <br><br>
 
-The score calculation does not determine an official Railway rank or guarantee the final result.
+7. The result is only an answer comparison. Negative marking, deleted questions, revised keys and exam-specific scoring rules are not automatically applied.
+
+<br><br>
+
+This website does not upload your files to its own server or save candidate details to a database.
 </div>
 </section>
 
@@ -286,8 +297,8 @@ const $ = id => document.getElementById(id);
 
 $("year").textContent = new Date().getFullYear();
 
-function showStatus(text) {
-  $("status").textContent = text;
+function showStatus(message) {
+  $("status").textContent = message;
 }
 
 function escapeHTML(text) {
@@ -300,11 +311,6 @@ function escapeHTML(text) {
   }[ch]));
 }
 
-/*
-  This parser deliberately supports only clearly recognizable table layouts.
-  It does not guess answers from arbitrary page text.
-*/
-
 function normalizeText(value) {
   return String(value || "")
     .replace(/\s+/g, " ")
@@ -312,50 +318,144 @@ function normalizeText(value) {
     .toLowerCase();
 }
 
-function cleanAnswer(value) {
+function normalizeAnswer(value) {
   let answer = normalizeText(value);
 
   answer = answer
-    .replace(/^option\s*/, "")
-    .replace(/^answer\s*[:\-]?\s*/, "")
-    .replace(/^selected\s*option\s*[:\-]?\s*/, "")
-    .replace(/^correct\s*option\s*[:\-]?\s*/, "")
-    .replace(/[.)]$/, "")
+    .replace(/^option\s*[:.-]?\s*/, "")
+    .replace(/^selected\s*option\s*[:.-]?\s*/, "")
+    .replace(/^chosen\s*option\s*[:.-]?\s*/, "")
+    .replace(/^correct\s*answer\s*[:.-]?\s*/, "")
+    .replace(/^correct\s*option\s*[:.-]?\s*/, "")
+    .replace(/^answer\s*[:.-]?\s*/, "")
     .trim();
 
-  const optionMatch = answer.match(/^(?:\(?([a-d])\)?|option\s*([1-4]))$/i);
+  const optionMatch = answer.match(/^(?:\(?([a-d])\)?|([1-4]))$/i);
+
   if (optionMatch) {
     if (optionMatch[1]) return optionMatch[1].toUpperCase();
-    return String("ABCD"[Number(optionMatch[2]) - 1]);
+    return "ABCD"[Number(optionMatch[2]) - 1];
   }
 
   return answer;
 }
 
-function questionNumber(value) {
+function normalizeQuestionNumber(value) {
   const text = normalizeText(value);
-  const match = text.match(/^\s*(?:question\s*(?:no\.?|number|id)?\s*[:#\-]?\s*)?(\d{1,5})\s*$/i);
-  return match ? match[1] : null;
+  const match = text.match(
+    /^(?:question\s*(?:no\.?|number|id)?\s*[:#-]?\s*)?(\d{1,5})$/
+  );
+
+  return match ? String(Number(match[1])) : null;
 }
 
-function parseAnswerTable(fileText, mode) {
-  const doc = new DOMParser().parseFromString(fileText, "text/html");
+async function getSourceText(urlInputId, fileInputId, label) {
+  const url = $(urlInputId).value.trim();
+  const file = $(fileInputId).files[0];
+
+  if (url && file) {
+    throw new Error(
+      label + ": Please use either a URL or an uploaded file, not both."
+    );
+  }
+
+  if (!url && !file) {
+    throw new Error(
+      label + ": Please enter a URL or upload an HTML/HTM file."
+    );
+  }
+
+  if (file) {
+    if (!/\.(html|htm)$/i.test(file.name)) {
+      throw new Error(label + ": Please select an HTML or HTM file.");
+    }
+
+    const text = await file.text();
+
+    if (!text.trim()) {
+      throw new Error(label + ": The selected file is empty.");
+    }
+
+    return text;
+  }
+
+  let parsedURL;
+
+  try {
+    parsedURL = new URL(url);
+  } catch {
+    throw new Error(label + ": Please enter a valid URL.");
+  }
+
+  if (!["http:", "https:"].includes(parsedURL.protocol)) {
+    throw new Error(label + ": Only HTTP and HTTPS URLs are supported.");
+  }
+
+  try {
+    const response = await fetch(parsedURL.href, {
+      method: "GET",
+      mode: "cors",
+      credentials: "omit"
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    const contentType = response.headers.get("content-type") || "";
+
+    if (
+      contentType &&
+      !/text\/html|application\/xhtml\+xml|text\/plain/i.test(contentType)
+    ) {
+      throw new Error("The URL did not return a readable HTML/text page.");
+    }
+
+    const text = await response.text();
+
+    if (!text.trim()) {
+      throw new Error("The URL returned an empty page.");
+    }
+
+    return text;
+  } catch (error) {
+    throw new Error(
+      label +
+      ": The URL could not be read by this browser. The website may block cross-origin access (CORS), require login, or be unavailable. Download its HTML file and upload it instead."
+    );
+  }
+}
+
+/*
+ Supported structure:
+ - An HTML table with a clearly labelled question-number column.
+ - A clearly labelled selected/candidate-response column in the response sheet.
+ - A clearly labelled correct-answer column in the official key.
+
+Other layouts require a parser specifically designed for that exam's HTML.
+*/
+
+function parseAnswerTable(htmlText, mode) {
+  const doc = new DOMParser().parseFromString(htmlText, "text/html");
   const tables = Array.from(doc.querySelectorAll("table"));
 
   for (const table of tables) {
     const rows = Array.from(table.querySelectorAll("tr"));
+
     if (rows.length < 2) continue;
 
-    let headerIndex = -1;
-    let questionCol = -1;
-    let answerCol = -1;
+    let headerRow = -1;
+    let questionColumn = -1;
+    let answerColumn = -1;
 
-    for (let r = 0; r < Math.min(rows.length, 4); r++) {
+    for (let r = 0; r < Math.min(rows.length, 5); r++) {
       const cells = Array.from(rows[r].querySelectorAll("th,td"));
-      const headers = cells.map(cell => normalizeText(cell.innerText || cell.textContent));
+      const headers = cells.map(cell =>
+        normalizeText(cell.innerText || cell.textContent)
+      );
 
       const qIndex = headers.findIndex(text =>
-        /^(question\s*(no\.?|number|id)?|question\s*no\.?|question\s*id|q\.?\s*no\.?)$/.test(text)
+        /^(question\s*(no\.?|number|id)?|q\.?\s*no\.?)$/.test(text)
       );
 
       let aIndex = -1;
@@ -363,7 +463,7 @@ function parseAnswerTable(fileText, mode) {
       if (mode === "response") {
         aIndex = headers.findIndex(text =>
           /^(your\s*)?(chosen|selected|candidate|marked)\s*(option|answer)?$/.test(text) ||
-          /^(your response|candidate response|response|selected option|chosen option)$/.test(text)
+          /^(your response|candidate response|response|selected option|chosen option|your answer)$/.test(text)
         );
       } else {
         aIndex = headers.findIndex(text =>
@@ -373,59 +473,71 @@ function parseAnswerTable(fileText, mode) {
       }
 
       if (qIndex !== -1 && aIndex !== -1 && qIndex !== aIndex) {
-        headerIndex = r;
-        questionCol = qIndex;
-        answerCol = aIndex;
+        headerRow = r;
+        questionColumn = qIndex;
+        answerColumn = aIndex;
         break;
       }
     }
 
-    if (headerIndex === -1) continue;
+    if (headerRow === -1) continue;
 
     const answers = new Map();
 
-    for (let r = headerIndex + 1; r < rows.length; r++) {
+    for (let r = headerRow + 1; r < rows.length; r++) {
       const cells = Array.from(rows[r].querySelectorAll("th,td"));
-      if (cells.length <= Math.max(questionCol, answerCol)) continue;
 
-      const q = questionNumber(cells[questionCol].innerText || cells[questionCol].textContent);
-      const a = cleanAnswer(cells[answerCol].innerText || cells[answerCol].textContent);
-
-      if (!q || !a) continue;
-
-      if (answers.has(q)) {
-        return { ok: false, reason: "A file contains repeated question numbers. The score was not calculated." };
+      if (cells.length <= Math.max(questionColumn, answerColumn)) {
+        continue;
       }
 
-      answers.set(q, a);
+      const question = normalizeQuestionNumber(
+        cells[questionColumn].innerText || cells[questionColumn].textContent
+      );
+
+      const answer = normalizeAnswer(
+        cells[answerColumn].innerText || cells[answerColumn].textContent
+      );
+
+      if (!question || !answer) continue;
+
+      if (answers.has(question)) {
+        return {
+          ok: false,
+          reason: "Repeated question numbers were found. The score was not calculated."
+        };
+      }
+
+      answers.set(question, answer);
     }
 
     if (answers.size > 0) {
-      return { ok: true, answers };
+      return {ok: true, answers};
     }
   }
 
   return {
     ok: false,
     reason: mode === "response"
-      ? "The Response Sheet question-number and selected-answer columns were not recognized."
-      : "The Answer Key question-number and correct-answer columns were not recognized."
+      ? "The Response Sheet format was not recognized. A question-number column and selected-answer column could not be identified."
+      : "The Official Answer Key format was not recognized. A question-number column and correct-answer column could not be identified."
   };
 }
 
-function calculateScore(responseAnswers, keyAnswers) {
-  let matched = 0;
+function compareAnswers(responseAnswers, keyAnswers) {
   let correct = 0;
   let wrong = 0;
   let unanswered = 0;
+  let matched = 0;
 
   for (const [question, correctAnswer] of keyAnswers.entries()) {
     if (!responseAnswers.has(question)) continue;
 
     matched++;
+
     const candidateAnswer = responseAnswers.get(question);
 
-    if (!candidateAnswer || /^(not answered|not attempted|unanswered|--|-)$/i.test(candidateAnswer)) {
+    if (/^(not answered|not attempted|unanswered|--|-)$/i.test(candidateAnswer)) {
       unanswered++;
     } else if (candidateAnswer === correctAnswer) {
       correct++;
@@ -437,21 +549,23 @@ function calculateScore(responseAnswers, keyAnswers) {
   if (matched === 0) {
     return {
       ok: false,
-      reason: "The two files did not have any matching question numbers. No score was calculated."
+      reason: "No matching question numbers were found in the two files."
     };
   }
 
-  if (matched !== keyAnswers.size) {
+  if (
+    matched !== keyAnswers.size ||
+    matched !== responseAnswers.size
+  ) {
     return {
       ok: false,
-      reason: "Only some questions matched between the two files. No score was calculated because the match was incomplete."
+      reason: "The question counts do not match completely. No score was calculated."
     };
   }
 
   return {
     ok: true,
-    total: keyAnswers.size,
-    matched,
+    total: matched,
     correct,
     wrong,
     unanswered
@@ -461,8 +575,11 @@ function calculateScore(responseAnswers, keyAnswers) {
 $("candidateForm").addEventListener("submit", async function(event) {
   event.preventDefault();
 
-  $("result").style.display = "none";
-  $("result").textContent = "";
+  const button = $("calculateButton");
+  const result = $("result");
+
+  result.style.display = "none";
+  result.textContent = "";
 
   const examType = $("examType").value;
   const zone = $("zone").value;
@@ -471,9 +588,6 @@ $("candidateForm").addEventListener("submit", async function(event) {
   const reg = $("reg").value.trim();
   const category = $("category").value;
   const code = $("code").value.trim();
-  const responseUrl = $("responseUrl").value.trim();
-  const responseFile = $("file").files[0];
-  const answerFile = $("answerFile").files[0];
 
   if (!examType || !zone || !exam || !name || !reg || !category) {
     showStatus("Please complete all required candidate details.");
@@ -486,75 +600,92 @@ $("candidateForm").addEventListener("submit", async function(event) {
     return;
   }
 
-  if (!responseFile || !answerFile) {
-    showStatus("Please upload both the Response Sheet and official Answer Key HTML files.");
+  const responseUrl = $("responseUrl").value.trim();
+  const responseFile = $("responseFile").files[0];
+  const answerUrl = $("answerUrl").value.trim();
+  const answerFile = $("answerFile").files[0];
+
+  if ((!responseUrl && !responseFile) || (!answerUrl && !answerFile)) {
+    showStatus(
+      "Provide either a URL or an HTML file for BOTH the Response Sheet and Official Answer Key."
+    );
     return;
   }
 
-  if (!/\.(html|htm)$/i.test(responseFile.name) ||
-      !/\.(html|htm)$/i.test(answerFile.name)) {
-    showStatus("Both uploaded files must be HTML or HTM files.");
+  if (responseUrl && responseFile) {
+    showStatus("For the Response Sheet, use either the URL or the file, not both.");
     return;
   }
 
-  showStatus("Reading both files and checking their format...");
+  if (answerUrl && answerFile) {
+    showStatus("For the Official Answer Key, use either the URL or the file, not both.");
+    return;
+  }
+
+  button.disabled = true;
+  showStatus("Reading the Response Sheet and Official Answer Key...");
 
   try {
-    const responseHTML = await responseFile.text();
-    const answerHTML = await answerFile.text();
+    const responseHTML = await getSourceText(
+      "responseUrl",
+      "responseFile",
+      "Response Sheet"
+    );
 
-    if (!responseHTML.trim() || !answerHTML.trim()) {
-      showStatus("One of the uploaded files is empty.");
+    const answerHTML = await getSourceText(
+      "answerUrl",
+      "answerFile",
+      "Official Answer Key"
+    );
+
+    const responseData = parseAnswerTable(responseHTML, "response");
+
+    if (!responseData.ok) {
+      showStatus(responseData.reason);
       return;
     }
 
-    const responseParsed = parseAnswerTable(responseHTML, "response");
-    if (!responseParsed.ok) {
-      showStatus(responseParsed.reason + " Please check the Response Sheet format.");
+    const answerData = parseAnswerTable(answerHTML, "key");
+
+    if (!answerData.ok) {
+      showStatus(answerData.reason);
       return;
     }
 
-    const keyParsed = parseAnswerTable(answerHTML, "key");
-    if (!keyParsed.ok) {
-      showStatus(keyParsed.reason + " Please check the official Answer Key format.");
-      return;
-    }
-
-    const score = calculateScore(responseParsed.answers, keyParsed.answers);
+    const score = compareAnswers(
+      responseData.answers,
+      answerData.answers
+    );
 
     if (!score.ok) {
       showStatus(score.reason);
       return;
     }
 
-    $("result").innerHTML =
+    result.innerHTML =
       "<h3>🚂 RAILWAY RANK MITRA</h3>" +
       "<b>Exam Type:</b> " + escapeHTML(examType) + "<br>" +
       "<b>Railway Zone:</b> " + escapeHTML(zone) + "<br>" +
       "<b>Exam:</b> " + escapeHTML(exam) + "<br>" +
       "<b>Candidate Name:</b> " + escapeHTML(name) + "<br>" +
       "<b>Registration Number:</b> " + escapeHTML(reg) + "<br>" +
-      "<b>Category:</b> " + escapeHTML(category) + "<br><hr>" +
-      "<h3>📊 Score Calculation</h3>" +
-      "<b>Questions in official key:</b> " + score.total + "<br>" +
-      "<b>Questions matched:</b> " + score.matched + "<br>" +
-      "<b>Correct answers:</b> " + score.correct + "<br>" +
-      "<b>Wrong answers:</b> " + score.wrong + "<br>" +
-      "<b>Unanswered:</b> " + score.unanswered + "<br>" +
-      "<b>Raw correct count:</b> " + score.correct + "<br><br>" +
-      "<b>Response Sheet:</b> " + escapeHTML(responseFile.name) + "<br>" +
-      "<b>Official Answer Key:</b> " + escapeHTML(answerFile.name) + "<br>" +
-      (responseUrl
-        ? "<p><a href='" + escapeHTML(responseUrl) + "' target='_blank' rel='noopener noreferrer'>Open Response Sheet URL</a></p>"
-        : "") +
-      "<p><b>Important:</b> This is a raw answer comparison, not an official score. Negative marking, question cancellation, multiple correct answers and exam-specific marking rules have not been applied.</p>" +
-      "<p>Your files and details were processed in this browser and were not uploaded by this page to a server.</p>";
+      "<b>Category:</b> " + escapeHTML(category) + "<hr>" +
+      "<h3>📊 Answer Comparison</h3>" +
+      "<b>Matched Questions:</b> " + score.total + "<br>" +
+      "<b>Correct Answers:</b> " + score.correct + "<br>" +
+      "<b>Wrong Answers:</b> " + score.wrong + "<br>" +
+      "<b>Unanswered:</b> " + score.unanswered + "<br><br>" +
+      "<b>Raw Correct Count:</b> " + score.correct + "<br>" +
+      "<p><b>Important:</b> This is an answer comparison, not an official Railway score or rank. Negative marking, deleted questions, multiple correct answers and exam-specific marks have not been applied.</p>" +
+      "<p>Candidate details and uploaded file contents are processed in this browser. This page does not send them to its own server.</p>";
 
-    $("result").style.display = "block";
-    showStatus("Comparison complete. Please check the score and important notes below.");
+    result.style.display = "block";
+    showStatus("Answer comparison completed. Review the result and important notes.");
 
   } catch (error) {
-    showStatus("The files could not be read. Please upload valid HTML or HTM files.");
+    showStatus(error.message || "An unexpected error occurred.");
+  } finally {
+    button.disabled = false;
   }
 });
 </script>
