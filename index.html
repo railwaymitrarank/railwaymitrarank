@@ -7,18 +7,90 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:15px;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
+
+body{
+  margin:0;
+  padding:15px;
+  font-family:Arial,sans-serif;
+  background:#f1f5f9;
+  color:#172033;
+}
+
 .container{max-width:700px;margin:auto}
-header{background:#102b59;color:white;text-align:center;padding:20px 10px;border-radius:12px;margin-bottom:15px}
+
+header{
+  background:#102b59;
+  color:white;
+  text-align:center;
+  padding:22px 10px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
 header h1{margin:0;font-size:25px}
-.card{background:white;padding:18px;margin-bottom:15px;border-radius:12px;box-shadow:0 2px 8px #00000012}
-h2{font-size:19px;margin-top:0;color:#102b59}
-label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
-input,select,textarea{display:block;width:100%;padding:12px;margin-top:6px;border:1px solid #cbd5e1;border-radius:7px;font-size:15px;background:white}
+
+.card{
+  background:white;
+  padding:18px;
+  margin-bottom:15px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #00000012;
+}
+
+h2{font-size:19px;color:#102b59;margin-top:0}
+
+label{
+  display:block;
+  margin-top:14px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+input,textarea,select{
+  display:block;
+  width:100%;
+  min-height:46px;
+  padding:12px;
+  margin-top:7px;
+  border:1px solid #94a3b8;
+  border-radius:8px;
+  font-size:16px;
+  background-color:#ffffff;
+  color:#172033;
+}
+
+select{
+  appearance:auto;
+  -webkit-appearance:menulist;
+  cursor:pointer;
+}
+
+button{
+  width:100%;
+  border:0;
+  padding:14px;
+  margin-top:17px;
+  border-radius:8px;
+  color:white;
+  background:#1266d4;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
 textarea{min-height:120px;resize:vertical}
-button{width:100%;border:none;padding:13px;margin-top:15px;border-radius:8px;color:white;background:#1266d4;font-size:16px;font-weight:bold;cursor:pointer}
-#result{display:none;background:#e8f5e9;padding:15px;border-radius:8px;margin-top:15px;overflow-wrap:anywhere}
+
+#result{
+  display:none;
+  background:#e8f5e9;
+  padding:15px;
+  border-radius:8px;
+  margin-top:15px;
+  overflow-wrap:anywhere;
+}
+
 #status{margin-top:10px;font-size:14px;overflow-wrap:anywhere}
+
 footer{text-align:center;color:#64748b;font-size:12px;padding:12px}
 </style>
 </head>
@@ -27,108 +99,107 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:12px}
 <div class="container">
 
 <header>
-<h1>🚆 RAILWAY RANK MITRA</h1>
+  <h1>🚆 RAILWAY RANK MITRA</h1>
 </header>
 
 <section class="card">
-<h2>Candidate Details</h2>
+  <h2>Candidate Details</h2>
 
-<label for="candidateName">Candidate Name</label>
-<input id="candidateName" type="text">
+  <label for="candidateName">Candidate Name</label>
+  <input id="candidateName" type="text">
 
-<label for="rollNumber">Roll Number / Registration Number</label>
-<input id="rollNumber" type="text">
+  <label for="rollNumber">Roll Number / Registration Number</label>
+  <input id="rollNumber" type="text">
 
-<label for="examName">Select Exam</label>
-<select id="examName">
-<option value="">Select Exam</option>
-<option>RRB ALP</option>
-<option>RRB Technician</option>
-<option>RRB Group D</option>
-<option>RRB NTPC Graduate</option>
-<option>RRB NTPC Undergraduate</option>
-<option>RRB JE</option>
-<option>RRB Paramedical</option>
-<option>RRB Ministerial and Isolated</option>
-<option>GDCE ALP</option>
-<option>GDCE Technician</option>
-<option>GDCE Goods Guard / Train Manager</option>
-<option>GDCE Station Master</option>
-<option>GDCE CCTC</option>
-<option>GDCE JE</option>
-<option>LDCE ALP</option>
-<option>LDCE Technician</option>
-<option>LDCE Goods Guard / Train Manager</option>
-<option>LDCE Station Master</option>
-<option>LDCE CCTC</option>
-<option>LDCE Shunting Master</option>
-<option>Other Railway Exam</option>
-</select>
+  <label for="examName">Select Exam ▼</label>
+  <select id="examName">
+    <option value="">-- Select Exam --</option>
+    <option value="RRB ALP">RRB ALP</option>
+    <option value="RRB Technician">RRB Technician</option>
+    <option value="RRB Group D">RRB Group D</option>
+    <option value="RRB NTPC Graduate">RRB NTPC Graduate</option>
+    <option value="RRB NTPC Undergraduate">RRB NTPC Undergraduate</option>
+    <option value="RRB JE">RRB JE</option>
+    <option value="RRB Paramedical">RRB Paramedical</option>
+    <option value="GDCE ALP">GDCE ALP</option>
+    <option value="GDCE Technician">GDCE Technician</option>
+    <option value="GDCE Goods Guard / Train Manager">GDCE Goods Guard / Train Manager</option>
+    <option value="GDCE Station Master">GDCE Station Master</option>
+    <option value="GDCE CCTC">GDCE CCTC</option>
+    <option value="GDCE JE">GDCE JE</option>
+    <option value="LDCE ALP">LDCE ALP</option>
+    <option value="LDCE Technician">LDCE Technician</option>
+    <option value="LDCE Goods Guard / Train Manager">LDCE Goods Guard / Train Manager</option>
+    <option value="LDCE Station Master">LDCE Station Master</option>
+    <option value="LDCE CCTC">LDCE CCTC</option>
+    <option value="LDCE Shunting Master">LDCE Shunting Master</option>
+    <option value="Other">Other Railway Exam</option>
+  </select>
 
-<label for="zone">Select Railway Zone</label>
-<select id="zone">
-<option value="">Select Railway Zone</option>
-<option>Central Railway (CR)</option>
-<option>Eastern Railway (ER)</option>
-<option>East Central Railway (ECR)</option>
-<option>East Coast Railway (ECoR)</option>
-<option>Northern Railway (NR)</option>
-<option>North Central Railway (NCR)</option>
-<option>North Eastern Railway (NER)</option>
-<option>Northeast Frontier Railway (NFR)</option>
-<option>North Western Railway (NWR)</option>
-<option>Southern Railway (SR)</option>
-<option>South Central Railway (SCR)</option>
-<option>South Eastern Railway (SER)</option>
-<option>South East Central Railway (SECR)</option>
-<option>South Western Railway (SWR)</option>
-<option>Western Railway (WR)</option>
-<option>West Central Railway (WCR)</option>
-<option>Metro Railway Kolkata</option>
-<option>Other Railway Unit</option>
-</select>
+  <label for="zone">Select Railway Zone ▼</label>
+  <select id="zone">
+    <option value="">-- Select Railway Zone --</option>
+    <option value="CR">Central Railway (CR)</option>
+    <option value="ER">Eastern Railway (ER)</option>
+    <option value="ECR">East Central Railway (ECR)</option>
+    <option value="ECoR">East Coast Railway (ECoR)</option>
+    <option value="NR">Northern Railway (NR)</option>
+    <option value="NCR">North Central Railway (NCR)</option>
+    <option value="NER">North Eastern Railway (NER)</option>
+    <option value="NFR">Northeast Frontier Railway (NFR)</option>
+    <option value="NWR">North Western Railway (NWR)</option>
+    <option value="SR">Southern Railway (SR)</option>
+    <option value="SCR">South Central Railway (SCR)</option>
+    <option value="SER">South Eastern Railway (SER)</option>
+    <option value="SECR">South East Central Railway (SECR)</option>
+    <option value="SWR">South Western Railway (SWR)</option>
+    <option value="WR">Western Railway (WR)</option>
+    <option value="WCR">West Central Railway (WCR)</option>
+    <option value="Metro Railway Kolkata">Metro Railway Kolkata</option>
+    <option value="Other">Other Railway Unit</option>
+  </select>
 
-<label for="examDate">Exam Date</label>
-<input id="examDate" type="date">
+  <label for="examDate">Exam Date</label>
+  <input id="examDate" type="date">
 
-<label for="shift">Shift</label>
-<select id="shift">
-<option value="">Select Shift</option>
-<option>First Shift</option>
-<option>Second Shift</option>
-<option>Third Shift</option>
-<option>Fourth Shift</option>
-</select>
+  <label for="shift">Select Shift ▼</label>
+  <select id="shift">
+    <option value="">-- Select Shift --</option>
+    <option value="First Shift">First Shift</option>
+    <option value="Second Shift">Second Shift</option>
+    <option value="Third Shift">Third Shift</option>
+    <option value="Fourth Shift">Fourth Shift</option>
+  </select>
 
-<label for="category">Category</label>
-<select id="category">
-<option value="">Select Category</option>
-<option>UR</option>
-<option>OBC</option>
-<option>SC</option>
-<option>ST</option>
-<option>EWS</option>
-</select>
+  <label for="category">Select Category ▼</label>
+  <select id="category">
+    <option value="">-- Select Category --</option>
+    <option value="UR">UR</option>
+    <option value="OBC">OBC</option>
+    <option value="SC">SC</option>
+    <option value="ST">ST</option>
+    <option value="EWS">EWS</option>
+  </select>
 
-<button type="button" onclick="saveDetails()">Save Candidate Details</button>
+  <button type="button" onclick="saveDetails()">Save Candidate Details</button>
 </section>
 
 <section class="card">
-<h2>Official Answer Key</h2>
+  <h2>Official Answer Key</h2>
 
-<label for="answerFile">Upload Answer Key HTML File</label>
-<input id="answerFile" type="file" accept=".html,.htm">
+  <label for="answerFile">Upload Answer Key HTML File</label>
+  <input id="answerFile" type="file" accept=".html,.htm">
 
-<label for="answerUrl">Answer Key URL</label>
-<input id="answerUrl" type="url">
+  <label for="answerUrl">Answer Key URL</label>
+  <input id="answerUrl" type="url">
 
-<label for="candidateAnswers">Candidate Answers</label>
-<textarea id="candidateAnswers"></textarea>
+  <label for="candidateAnswers">Candidate Answers</label>
+  <textarea id="candidateAnswers"></textarea>
 
-<button type="button" onclick="calculateScore()">Calculate Score</button>
+  <button type="button" onclick="calculateScore()">Calculate Score</button>
 
-<div id="status"></div>
-<div id="result"></div>
+  <div id="status"></div>
+  <div id="result"></div>
 </section>
 
 <footer>RAILWAY RANK MITRA</footer>
@@ -139,153 +210,126 @@ const POSITIVE_MARKS = 1;
 const NEGATIVE_MARKS = 0.33;
 
 function saveDetails(){
-  const details={
-    name:document.getElementById("candidateName").value,
-    roll:document.getElementById("rollNumber").value,
-    exam:document.getElementById("examName").value,
-    zone:document.getElementById("zone").value,
-    date:document.getElementById("examDate").value,
-    shift:document.getElementById("shift").value,
-    category:document.getElementById("category").value
+  const details = {
+    name: document.getElementById("candidateName").value,
+    roll: document.getElementById("rollNumber").value,
+    exam: document.getElementById("examName").value,
+    zone: document.getElementById("zone").value,
+    date: document.getElementById("examDate").value,
+    shift: document.getElementById("shift").value,
+    category: document.getElementById("category").value
   };
 
-  localStorage.setItem("rrmCandidateDetails",JSON.stringify(details));
-  document.getElementById("status").textContent="Details saved.";
+  localStorage.setItem("rrmCandidateDetails", JSON.stringify(details));
+  document.getElementById("status").textContent = "Details saved.";
 }
 
 function parseAnswers(text){
-  const answers={};
-  const lines=text.split(/\n|,/);
-
-  for(const line of lines){
-    const match=line.trim().match(
-      /(?:Q(?:uestion)?\s*)?(\d+)\s*[-:=.)]\s*([A-E])/i
-    );
-
-    if(match){
-      answers[Number(match[1])]=match[2].toUpperCase();
-    }
-  }
+  const answers = {};
+  text.split(/\n|,/).forEach(line => {
+    const match = line.trim().match(/(?:Q(?:uestion)?\s*)?(\d+)\s*[-:=.)]\s*([A-E])/i);
+    if(match) answers[Number(match[1])] = match[2].toUpperCase();
+  });
   return answers;
 }
 
 function parseAnswerKey(html){
-  const doc=new DOMParser().parseFromString(html,"text/html");
-  const rows=Array.from(doc.querySelectorAll("tr"));
-  const key={};
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const key = {};
 
-  for(const row of rows){
-    const cells=Array.from(row.querySelectorAll("th,td"))
-      .map(cell=>cell.innerText.trim());
+  doc.querySelectorAll("tr").forEach(row => {
+    const cells = Array.from(row.querySelectorAll("th,td"))
+      .map(cell => cell.innerText.trim());
 
-    if(cells.length<2) continue;
+    if(cells.length < 2) return;
 
-    const questionCell=cells.find(value=>/^\d+$/.test(value.trim()));
-    const answerCell=cells.find(value=>/^[A-E]$/i.test(value.trim()));
+    const q = cells.find(value => /^\d+$/.test(value));
+    const a = cells.find(value => /^[A-E]$/i.test(value));
 
-    if(questionCell && answerCell){
-      key[Number(questionCell)]=answerCell.toUpperCase();
-    }else{
-      const rowText=cells.join(" ");
-      const qMatch=rowText.match(/question\s*(?:no\.?|number)?\s*[:#-]?\s*(\d+)/i);
-      const aMatch=rowText.match(/correct\s*answer\s*[:\-]?\s*([A-E])/i);
+    if(q && a) key[Number(q)] = a.toUpperCase();
+  });
 
-      if(qMatch && aMatch){
-        key[Number(qMatch[1])]=aMatch[1].toUpperCase();
-      }
-    }
-  }
   return key;
 }
 
 async function calculateScore(){
-  const status=document.getElementById("status");
-  const result=document.getElementById("result");
+  const status = document.getElementById("status");
+  const result = document.getElementById("result");
+  status.textContent = "";
+  result.style.display = "none";
 
-  status.textContent="";
-  result.style.display="none";
-  result.innerHTML="";
-
-  const candidateText=document.getElementById("candidateAnswers").value.trim();
+  const candidateText = document.getElementById("candidateAnswers").value.trim();
 
   if(!candidateText){
-    status.textContent="Answers required";
+    status.textContent = "Answers required";
     return;
   }
 
-  let html="";
-  const file=document.getElementById("answerFile").files[0];
-  const url=document.getElementById("answerUrl").value.trim();
+  const file = document.getElementById("answerFile").files[0];
+  const url = document.getElementById("answerUrl").value.trim();
+  let html = "";
 
   try{
     if(file){
-      html=await file.text();
+      html = await file.text();
     }else if(url){
-      const response=await fetch(url);
-      if(!response.ok) throw new Error("Unable to load URL");
-      html=await response.text();
+      const response = await fetch(url);
+      if(!response.ok) throw new Error();
+      html = await response.text();
     }else{
-      status.textContent="Answer key required";
+      status.textContent = "Answer key required";
       return;
     }
 
-    const correctAnswers=parseAnswerKey(html);
-    const candidateAnswers=parseAnswers(candidateText);
-    const questionNumbers=Object.keys(correctAnswers);
+    const correctAnswers = parseAnswerKey(html);
+    const candidateAnswers = parseAnswers(candidateText);
+    const questions = Object.keys(correctAnswers);
 
-    if(questionNumbers.length===0){
-      status.textContent="Answer key format not supported";
+    if(!questions.length){
+      status.textContent = "Answer key format not supported";
       return;
     }
 
-    let correct=0,wrong=0,unanswered=0;
+    let correct = 0, wrong = 0, unanswered = 0;
 
-    for(const question of questionNumbers){
-      const number=Number(question);
-      const correctOption=correctAnswers[number];
-      const selectedOption=candidateAnswers[number];
+    questions.forEach(question => {
+      const selected = candidateAnswers[Number(question)];
+      if(!selected) unanswered++;
+      else if(selected === correctAnswers[question]) correct++;
+      else wrong++;
+    });
 
-      if(!selectedOption){
-        unanswered++;
-      }else if(selectedOption===correctOption){
-        correct++;
-      }else{
-        wrong++;
-      }
-    }
+    const score = correct * POSITIVE_MARKS - wrong * NEGATIVE_MARKS;
 
-    const total=questionNumbers.length;
-    const score=(correct*POSITIVE_MARKS)-(wrong*NEGATIVE_MARKS);
-
-    result.innerHTML=`
+    result.innerHTML = `
       <h2>Score Result</h2>
-      <p><strong>Total Questions:</strong> ${total}</p>
+      <p><strong>Total Questions:</strong> ${questions.length}</p>
       <p><strong>Correct:</strong> ${correct}</p>
       <p><strong>Wrong:</strong> ${wrong}</p>
       <p><strong>Unanswered:</strong> ${unanswered}</p>
       <p><strong>Score:</strong> ${score.toFixed(2)}</p>
     `;
+    result.style.display = "block";
 
-    result.style.display="block";
   }catch(error){
-    status.textContent="Answer key unavailable";
+    status.textContent = "Answer key unavailable";
   }
 }
 
-window.addEventListener("load",function(){
-  const saved=localStorage.getItem("rrmCandidateDetails");
+window.addEventListener("load", function(){
+  const saved = localStorage.getItem("rrmCandidateDetails");
   if(!saved) return;
 
   try{
-    const details=JSON.parse(saved);
-    document.getElementById("candidateName").value=details.name||"";
-    document.getElementById("rollNumber").value=details.roll||"";
-    document.getElementById("examName").value=details.exam||"";
-    document.getElementById("zone").value=details.zone||"";
-    document.getElementById("examDate").value=details.date||"";
-    document.getElementById("shift").value=details.shift||"";
-    document.getElementById("category").value=details.category||"";
-  }catch(error){}
+    const d = JSON.parse(saved);
+    document.getElementById("candidateName").value = d.name || "";
+    document.getElementById("rollNumber").value = d.roll || "";
+    document.getElementById("examName").value = d.exam || "";
+    document.getElementById("zone").value = d.zone || "";
+    document.getElementById("examDate").value = d.date || "";
+    document.getElementById("shift").value = d.shift || "";
+    document.getElementById("category").value = d.category || "";
+  }catch(e){}
 });
 </script>
 </body>
