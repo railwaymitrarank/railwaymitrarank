@@ -5,37 +5,36 @@
 <title>RAILWAY RANK MITRA</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#172033}
-header{background:#103b83;color:white;text-align:center;padding:22px 10px}
+body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#182235}
+header{background:linear-gradient(135deg,#102b68,#0878cb);color:white;text-align:center;padding:24px 12px}
 header h1{margin:0;font-size:27px}
 header p{margin-bottom:0}
-main{max-width:760px;margin:18px auto;padding:0 12px}
-.card{background:white;padding:18px;border-radius:13px;margin-bottom:16px;box-shadow:0 3px 12px #0001}
-h2{color:#103b83;margin-top:0}
+main{max-width:760px;margin:20px auto;padding:0 12px}
+.card{background:white;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #0001}
+h2{color:#123879;margin-top:0}
 label{display:block;font-weight:bold;margin:13px 0 6px}
 input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:white}
-button{width:100%;padding:13px;border:0;border-radius:8px;color:white;background:#075fc5;font-size:16px;font-weight:bold;margin-top:14px}
+button{width:100%;padding:13px;border:0;border-radius:9px;color:white;background:#075fc5;font-size:16px;font-weight:bold;margin-top:14px}
 .save{background:#16804a}
-.info{font-size:13px;line-height:1.6;color:#536174}
+.info{font-size:13px;color:#5b6678;line-height:1.6}
 #message{margin-top:12px;color:#b91c1c;overflow-wrap:anywhere}
-#result{display:none;margin-top:15px;padding:15px;background:#e8f8ee;border-radius:9px;line-height:1.9;overflow-wrap:anywhere}
-footer{text-align:center;padding:18px;color:#64748b;font-size:13px}
+#result{display:none;background:#e8f8ee;border-radius:10px;padding:15px;margin-top:15px;line-height:1.9;overflow-wrap:anywhere}
+footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
 </style>
 </head>
-<body>
-<header>
+<body><header>
 <h1>🚆 RAILWAY RANK MITRA</h1>
 <p>Railway Exam Score Calculator</p>
 </header><main>
 <section class="card">
-<h2>👤 Candidate Details</h2><label for="candidateName">Candidate Name</label>
-<input id="candidateName" placeholder="अपना नाम लिखें">
+<h2>👤 Candidate Details</h2><label for="name">Candidate Name</label>
+<input id="name" placeholder="अपना नाम लिखें">
 
-<label for="rollNumber">Roll Number / Registration Number</label>
-<input id="rollNumber" placeholder="अपना रोल नंबर लिखें">
+<label for="roll">Roll Number / Registration Number</label>
+<input id="roll" placeholder="अपना रोल नंबर लिखें">
 
-<label for="examName">Exam Name</label>
-<select id="examName">
+<label for="exam">Exam Name</label>
+<select id="exam">
 
 <option value="">Exam चुनें</option>
 <option>RRB Group D</option>
@@ -49,8 +48,8 @@ footer{text-align:center;padding:18px;color:#64748b;font-size:13px}
 </select><label for="zone">Railway Zone</label>
 <input id="zone" placeholder="जैसे Western Railway">
 
-<label for="examDate">Exam Date</label>
-<input id="examDate" type="date">
+<label for="date">Exam Date</label>
+<input id="date" type="date">
 
 <label for="shift">Exam Shift</label>
 <select id="shift">
@@ -69,17 +68,16 @@ footer{text-align:center;padding:18px;color:#64748b;font-size:13px}
 <option>SC</option>
 <option>ST</option>
 <option>EWS</option>
-</select><hr style="margin-top:22px">
+</select><hr style="margin-top:24px">
 <h2>📄 Official Answer Key</h2><label for="answerFile">Answer Key HTML File Upload करें</label>
 <input id="answerFile" type="file" accept=".html,.htm">
 
 <label for="answerURL">या Answer Key URL डालें</label>
 <input id="answerURL" type="url" placeholder="Answer Key URL">
 
-<p class="info">अगर URL से Answer Key नहीं खुलती, तो HTML फाइल अपलोड करके देखें। Login या वेबसाइट की सुरक्षा के कारण URL काम नहीं कर सकता।</p><label for="userAnswers">अपने उत्तर लिखें</label>
+<label for="answers">अपने उत्तर लिखें</label>
 
-<textarea id="userAnswers" rows="5" placeholder="उदाहरण: 1=A, 2=C, 3=B"></textarea><p class="info">उत्तर इस फॉर्मेट में लिखें: 1=A, 2=C, 3=B</p><!-- MARKING AUTOMATIC: CORRECT +1, WRONG -0.33 --><input type="hidden" id="positiveMarks" value="1">
-<input type="hidden" id="negativeMarks" value="0.33"><button class="save" onclick="saveDetails()">Save Candidate Details</button>
+<textarea id="answers" rows="5" placeholder="उदाहरण: 1=A, 2=C, 3=B"></textarea><p class="info">उत्तर Question Number और Option के रूप में लिखें। उदाहरण: 1=A, 2=C, 3=B</p><button class="save" onclick="saveCandidate()">Save Candidate Details</button>
 <button onclick="calculateScore()">Calculate Score</button>
 
 <div id="message" role="status"></div>
@@ -89,125 +87,150 @@ footer{text-align:center;padding:18px;color:#64748b;font-size:13px}
 <p>वास्तविक Rank निकालने के लिए दूसरे उम्मीदवारों के विश्वसनीय Score Data की जरूरत होगी। केवल आपके Score से पूरी Railway Rank निश्चित नहीं की जा सकती।</p>
 </section>
 </main><footer>RAILWAY RANK MITRA</footer><script>
-const el = id => document.getElementById(id);
+/* Automatic marking settings: not displayed on the website */
+const POSITIVE_MARKS = 1;
+const NEGATIVE_MARKS = 0.33;
 
-function saveDetails(){
+const get = id => document.getElementById(id);
+
+function saveCandidate(){
   const data = {
-    candidateName:el("candidateName").value,
-    rollNumber:el("rollNumber").value,
-    examName:el("examName").value,
-    zone:el("zone").value,
-    examDate:el("examDate").value,
-    shift:el("shift").value,
-    category:el("category").value
+    name:get("name").value,
+    roll:get("roll").value,
+    exam:get("exam").value,
+    zone:get("zone").value,
+    date:get("date").value,
+    shift:get("shift").value,
+    category:get("category").value
   };
+
   try{
-    localStorage.setItem("rrmCandidate",JSON.stringify(data));
-    el("message").textContent="Candidate Details Save हो गई हैं।";
-    el("message").style.color="green";
+    localStorage.setItem("railwayRankMitraCandidate",JSON.stringify(data));
+    get("message").style.color="green";
+    get("message").textContent="Candidate Details Save हो गई हैं।";
   }catch(e){
-    el("message").textContent="Details Save नहीं हो सकीं।";
+    get("message").textContent="Details Save नहीं हो सकीं।";
   }
 }
 
-function loadDetails(){
+function loadCandidate(){
   try{
-    const data=JSON.parse(localStorage.getItem("rrmCandidate")||"{}");
-    Object.keys(data).forEach(k=>{if(el(k))el(k).value=data[k]});
+    const data=JSON.parse(localStorage.getItem("railwayRankMitraCandidate")||"{}");
+    Object.keys(data).forEach(k=>{
+      if(get(k)) get(k).value=data[k];
+    });
   }catch(e){}
 }
 
-function normalize(s){
-  return String(s||"").trim().toUpperCase().replace(/\s+/g," ");
+function normal(value){
+  return String(value||"").trim().toUpperCase().replace(/\s+/g," ");
 }
 
-function parseUserAnswers(text){
+function parseAnswers(text){
   const result={};
   text.split(/[\n,;]+/).forEach(part=>{
-    const m=part.trim().match(/^(\d+)\s*[:=\-]\s*(.+)$/);
-    if(m)result[m[1]]=normalize(m[2]);
+    const match=part.trim().match(/^(\d+)\s*[:=\-]\s*(.+)$/);
+    if(match) result[match[1]]=normal(match[2]);
   });
   return result;
 }
 
-function extractKey(html){
+function extractAnswerKey(html){
   const doc=new DOMParser().parseFromString(html,"text/html");
+
   for(const table of doc.querySelectorAll("table")){
     const rows=[...table.querySelectorAll("tr")];
-    if(rows.length<2)continue;
+    if(rows.length<2) continue;
+
     const headers=[...rows[0].querySelectorAll("th,td")]
-      .map(c=>normalize(c.textContent));
-    const qi=headers.findIndex(h=>/QUESTION.*(ID|NO|NUMBER)|^QUESTION$|^QUES$/.test(h));
-    const ai=headers.findIndex(h=>/CORRECT.*ANSWER|OFFICIAL.*ANSWER|RIGHT.*ANSWER|CORRECT.*OPTION/.test(h));
-    if(qi<0||ai<0)continue;
+      .map(cell=>normal(cell.textContent));
+
+    const qIndex=headers.findIndex(h=>/QUESTION.*(ID|NO|NUMBER)|^QUESTION$|^QUES$/.test(h));
+    const aIndex=headers.findIndex(h=>/CORRECT.*ANSWER|OFFICIAL.*ANSWER|RIGHT.*ANSWER|CORRECT.*OPTION/.test(h));
+
+    if(qIndex<0||aIndex<0) continue;
+
     const key={};
+
     rows.slice(1).forEach(row=>{
       const cells=[...row.querySelectorAll("th,td")];
-      if(!cells[qi]||!cells[ai])return;
-      const m=cells[qi].textContent.match(/\d+/);
-      if(m){
-        const answer=normalize(cells[ai].textContent);
-        if(answer)key[m[0]]=answer;
-      }
+      if(!cells[qIndex]||!cells[aIndex]) return;
+
+      const match=cells[qIndex].textContent.match(/\d+/);
+      const answer=normal(cells[aIndex].textContent);
+
+      if(match&&answer) key[match[0]]=answer;
     });
-    if(Object.keys(key).length)return key;
+
+    if(Object.keys(key).length) return key;
   }
-  throw new Error("Answer Key का फॉर्मेट नहीं पहचाना गया। असली HTML फाइल देखकर parser बदलना पड़ सकता है।");
+
+  throw new Error("Answer Key का फॉर्मेट पहचाना नहीं गया। वास्तविक HTML फाइल देखकर parser को बदलना पड़ सकता है।");
+}
+
+async function readAnswerKey(){
+  const file=get("answerFile").files[0];
+
+  if(file) return await file.text();
+
+  const url=get("answerURL").value.trim();
+
+  if(!url) throw new Error("Answer Key HTML फाइल अपलोड करें या URL डालें।");
+
+  try{
+    const response=await fetch(url);
+    if(!response.ok) throw new Error();
+    return await response.text();
+  }catch(e){
+    throw new Error("URL से Answer Key नहीं खुली। Login या browser security की समस्या हो सकती है। HTML फाइल अपलोड करके देखें।");
+  }
 }
 
 async function calculateScore(){
-  el("message").style.color="#b91c1c";
-  el("message").textContent="";
-  el("result").style.display="none";
+  get("message").style.color="#b91c1c";
+  get("message").textContent="";
+  get("result").style.display="none";
 
   try{
-    const answers=parseUserAnswers(el("userAnswers").value);
-    if(!Object.keys(answers).length){
+    const userAnswers=parseAnswers(get("answers").value);
+
+    if(!Object.keys(userAnswers).length){
       throw new Error("अपने उत्तर लिखें। उदाहरण: 1=A, 2=C, 3=B");
     }
 
-    let html="";
-    const file=el("answerFile").files[0];
-    if(file){
-      html=await file.text();
-    }else{
-      const url=el("answerURL").value.trim();
-      if(!url)throw new Error("पहले Answer Key HTML फाइल अपलोड करें या URL डालें।");
-      const response=await fetch(url);
-      if(!response.ok)throw new Error("Answer Key URL से डेटा नहीं मिला। HTML फाइल अपलोड करके देखें।");
-      html=await response.text();
-    }
+    const html=await readAnswerKey();
+    const key=extractAnswerKey(html);
 
-    const key=extractKey(html);
     let correct=0,wrong=0,unanswered=0;
-    Object.keys(key).forEach(q=>{
-      if(!answers[q])unanswered++;
-      else if(answers[q]===normalize(key[q]))correct++;
-      else wrong++;
+
+    Object.keys(key).forEach(question=>{
+      if(!userAnswers[question]){
+        unanswered++;
+      }else if(userAnswers[question]===normal(key[question])){
+        correct++;
+      }else{
+        wrong++;
+      }
     });
 
-    const positive=1;
-    const negative=0.33;
-    const score=(correct*positive)-(wrong*negative);
+    const score=(correct*POSITIVE_MARKS)-(wrong*NEGATIVE_MARKS);
 
-    el("result").innerHTML=
+    get("result").innerHTML=
       "<h3>Score Result</h3>"+
-      "कुल पहचाने गए प्रश्न: "+Object.keys(key).length+"<br>"+
+      "कुल प्रश्न: "+Object.keys(key).length+"<br>"+
       "सही उत्तर: "+correct+"<br>"+
       "गलत उत्तर: "+wrong+"<br>"+
-      "उत्तर नहीं दिए: "+unanswered+"<br>"+
-      "सही अंकों का योग: +"+correct.toFixed(2)+"<br>"+
-      "Negative Marking: −"+(wrong*negative).toFixed(2)+"<hr>"+
+      "छोड़े गए प्रश्न: "+unanswered+"<hr>"+
       "<strong>Final Score: "+score.toFixed(2)+"</strong>";
 
-    el("result").style.display="block";
-    el("message").style.color="green";
-    el("message").textContent="Score Calculate हो गया।";
-  }catch(err){
-    el("message").textContent=err.message||"Score Calculate नहीं हो सका।";
+    get("result").style.display="block";
+    get("message").style.color="green";
+    get("message").textContent="Score Calculate हो गया।";
+  }catch(error){
+    get("message").textContent=error.message||"Score Calculate नहीं हो सका।";
   }
 }
 
-loadDetails();
+loadCandidate();
 </script></body>
 </html>
