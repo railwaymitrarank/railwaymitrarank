@@ -55,15 +55,16 @@ input,textarea,select{
   border:1px solid #94a3b8;
   border-radius:8px;
   font-size:16px;
-  background-color:#ffffff;
+  background:white;
   color:#172033;
 }
 
 select{
   appearance:auto;
   -webkit-appearance:menulist;
-  cursor:pointer;
 }
+
+textarea{min-height:120px;resize:vertical}
 
 button{
   width:100%;
@@ -78,7 +79,11 @@ button{
   cursor:pointer;
 }
 
-textarea{min-height:120px;resize:vertical}
+#status{
+  margin-top:10px;
+  font-size:14px;
+  overflow-wrap:anywhere;
+}
 
 #result{
   display:none;
@@ -89,9 +94,12 @@ textarea{min-height:120px;resize:vertical}
   overflow-wrap:anywhere;
 }
 
-#status{margin-top:10px;font-size:14px;overflow-wrap:anywhere}
-
-footer{text-align:center;color:#64748b;font-size:12px;padding:12px}
+footer{
+  text-align:center;
+  color:#64748b;
+  font-size:12px;
+  padding:12px;
+}
 </style>
 </head>
 
@@ -108,95 +116,100 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:12px}
   <label for="candidateName">Candidate Name</label>
   <input id="candidateName" type="text">
 
+  <!-- Answer Key Options: Name ke turant neeche -->
+
+  <label for="answerUrl">Answer Key URL</label>
+  <input id="answerUrl" type="url">
+
+  <label for="answerFile">Upload Answer Key HTML File</label>
+  <input id="answerFile" type="file" accept=".html,.htm">
+
   <label for="rollNumber">Roll Number / Registration Number</label>
   <input id="rollNumber" type="text">
 
-  <label for="examName">Select Exam ▼</label>
+  <label for="examName">Select Exam</label>
   <select id="examName">
     <option value="">-- Select Exam --</option>
-    <option value="RRB ALP">RRB ALP</option>
-    <option value="RRB Technician">RRB Technician</option>
-    <option value="RRB Group D">RRB Group D</option>
-    <option value="RRB NTPC Graduate">RRB NTPC Graduate</option>
-    <option value="RRB NTPC Undergraduate">RRB NTPC Undergraduate</option>
-    <option value="RRB JE">RRB JE</option>
-    <option value="RRB Paramedical">RRB Paramedical</option>
-    <option value="GDCE ALP">GDCE ALP</option>
-    <option value="GDCE Technician">GDCE Technician</option>
-    <option value="GDCE Goods Guard / Train Manager">GDCE Goods Guard / Train Manager</option>
-    <option value="GDCE Station Master">GDCE Station Master</option>
-    <option value="GDCE CCTC">GDCE CCTC</option>
-    <option value="GDCE JE">GDCE JE</option>
-    <option value="LDCE ALP">LDCE ALP</option>
-    <option value="LDCE Technician">LDCE Technician</option>
-    <option value="LDCE Goods Guard / Train Manager">LDCE Goods Guard / Train Manager</option>
-    <option value="LDCE Station Master">LDCE Station Master</option>
-    <option value="LDCE CCTC">LDCE CCTC</option>
-    <option value="LDCE Shunting Master">LDCE Shunting Master</option>
-    <option value="Other">Other Railway Exam</option>
+    <option>RRB ALP</option>
+    <option>RRB Technician</option>
+    <option>RRB Group D</option>
+    <option>RRB NTPC Graduate</option>
+    <option>RRB NTPC Undergraduate</option>
+    <option>RRB JE</option>
+    <option>RRB Paramedical</option>
+    <option>GDCE ALP</option>
+    <option>GDCE Technician</option>
+    <option>GDCE Goods Guard / Train Manager</option>
+    <option>GDCE Station Master</option>
+    <option>GDCE CCTC</option>
+    <option>GDCE JE</option>
+    <option>LDCE ALP</option>
+    <option>LDCE Technician</option>
+    <option>LDCE Goods Guard / Train Manager</option>
+    <option>LDCE Station Master</option>
+    <option>LDCE CCTC</option>
+    <option>LDCE Shunting Master</option>
+    <option>Other Railway Exam</option>
   </select>
 
-  <label for="zone">Select Railway Zone ▼</label>
+  <label for="zone">Select Railway Zone</label>
   <select id="zone">
     <option value="">-- Select Railway Zone --</option>
-    <option value="CR">Central Railway (CR)</option>
-    <option value="ER">Eastern Railway (ER)</option>
-    <option value="ECR">East Central Railway (ECR)</option>
-    <option value="ECoR">East Coast Railway (ECoR)</option>
-    <option value="NR">Northern Railway (NR)</option>
-    <option value="NCR">North Central Railway (NCR)</option>
-    <option value="NER">North Eastern Railway (NER)</option>
-    <option value="NFR">Northeast Frontier Railway (NFR)</option>
-    <option value="NWR">North Western Railway (NWR)</option>
-    <option value="SR">Southern Railway (SR)</option>
-    <option value="SCR">South Central Railway (SCR)</option>
-    <option value="SER">South Eastern Railway (SER)</option>
-    <option value="SECR">South East Central Railway (SECR)</option>
-    <option value="SWR">South Western Railway (SWR)</option>
-    <option value="WR">Western Railway (WR)</option>
-    <option value="WCR">West Central Railway (WCR)</option>
-    <option value="Metro Railway Kolkata">Metro Railway Kolkata</option>
-    <option value="Other">Other Railway Unit</option>
+    <option>Central Railway (CR)</option>
+    <option>Eastern Railway (ER)</option>
+    <option>East Central Railway (ECR)</option>
+    <option>East Coast Railway (ECoR)</option>
+    <option>Northern Railway (NR)</option>
+    <option>North Central Railway (NCR)</option>
+    <option>North Eastern Railway (NER)</option>
+    <option>Northeast Frontier Railway (NFR)</option>
+    <option>North Western Railway (NWR)</option>
+    <option>Southern Railway (SR)</option>
+    <option>South Central Railway (SCR)</option>
+    <option>South Eastern Railway (SER)</option>
+    <option>South East Central Railway (SECR)</option>
+    <option>South Western Railway (SWR)</option>
+    <option>Western Railway (WR)</option>
+    <option>West Central Railway (WCR)</option>
+    <option>Metro Railway Kolkata</option>
+    <option>Other Railway Unit</option>
   </select>
 
   <label for="examDate">Exam Date</label>
   <input id="examDate" type="date">
 
-  <label for="shift">Select Shift ▼</label>
+  <label for="shift">Select Shift</label>
   <select id="shift">
     <option value="">-- Select Shift --</option>
-    <option value="First Shift">First Shift</option>
-    <option value="Second Shift">Second Shift</option>
-    <option value="Third Shift">Third Shift</option>
-    <option value="Fourth Shift">Fourth Shift</option>
+    <option>First Shift</option>
+    <option>Second Shift</option>
+    <option>Third Shift</option>
+    <option>Fourth Shift</option>
   </select>
 
-  <label for="category">Select Category ▼</label>
+  <label for="category">Select Category</label>
   <select id="category">
     <option value="">-- Select Category --</option>
-    <option value="UR">UR</option>
-    <option value="OBC">OBC</option>
-    <option value="SC">SC</option>
-    <option value="ST">ST</option>
-    <option value="EWS">EWS</option>
+    <option>UR</option>
+    <option>OBC</option>
+    <option>SC</option>
+    <option>ST</option>
+    <option>EWS</option>
   </select>
 
-  <button type="button" onclick="saveDetails()">Save Candidate Details</button>
+  <button type="button" onclick="saveDetails()">
+    Save Candidate Details
+  </button>
 </section>
 
 <section class="card">
-  <h2>Official Answer Key</h2>
+  <h2>Candidate Answers</h2>
 
-  <label for="answerFile">Upload Answer Key HTML File</label>
-  <input id="answerFile" type="file" accept=".html,.htm">
-
-  <label for="answerUrl">Answer Key URL</label>
-  <input id="answerUrl" type="url">
-
-  <label for="candidateAnswers">Candidate Answers</label>
   <textarea id="candidateAnswers"></textarea>
 
-  <button type="button" onclick="calculateScore()">Calculate Score</button>
+  <button type="button" onclick="calculateScore()">
+    Calculate Score
+  </button>
 
   <div id="status"></div>
   <div id="result"></div>
@@ -209,7 +222,25 @@ footer{text-align:center;color:#64748b;font-size:12px;padding:12px}
 const POSITIVE_MARKS = 1;
 const NEGATIVE_MARKS = 0.33;
 
+function validateAnswerKeyChoice(){
+  const url = document.getElementById("answerUrl").value.trim();
+  const file = document.getElementById("answerFile").files[0];
+
+  if(Boolean(url) === Boolean(file)){
+    document.getElementById("status").textContent =
+      "Answer Key URL ya HTML file mein se koi ek chunein.";
+    return false;
+  }
+
+  return true;
+}
+
 function saveDetails(){
+  const status = document.getElementById("status");
+  status.textContent = "";
+
+  if(!validateAnswerKeyChoice()) return;
+
   const details = {
     name: document.getElementById("candidateName").value,
     roll: document.getElementById("rollNumber").value,
@@ -217,24 +248,36 @@ function saveDetails(){
     zone: document.getElementById("zone").value,
     date: document.getElementById("examDate").value,
     shift: document.getElementById("shift").value,
-    category: document.getElementById("category").value
+    category: document.getElementById("category").value,
+    answerUrl: document.getElementById("answerUrl").value.trim()
   };
 
-  localStorage.setItem("rrmCandidateDetails", JSON.stringify(details));
-  document.getElementById("status").textContent = "Details saved.";
+  localStorage.setItem(
+    "rrmCandidateDetails",
+    JSON.stringify(details)
+  );
+
+  status.textContent = "Details saved.";
 }
 
 function parseAnswers(text){
   const answers = {};
+
   text.split(/\n|,/).forEach(line => {
-    const match = line.trim().match(/(?:Q(?:uestion)?\s*)?(\d+)\s*[-:=.)]\s*([A-E])/i);
-    if(match) answers[Number(match[1])] = match[2].toUpperCase();
+    const match = line.trim().match(
+      /(?:Q(?:uestion)?\s*)?(\d+)\s*[-:=.)]\s*([A-E])/i
+    );
+
+    if(match){
+      answers[Number(match[1])] = match[2].toUpperCase();
+    }
   });
+
   return answers;
 }
 
 function parseAnswerKey(html){
-  const doc = new DOMParser().parseFromString(html, "text/html");
+  const doc = new DOMParser().parseFromString(html,"text/html");
   const key = {};
 
   doc.querySelectorAll("tr").forEach(row => {
@@ -246,7 +289,9 @@ function parseAnswerKey(html){
     const q = cells.find(value => /^\d+$/.test(value));
     const a = cells.find(value => /^[A-E]$/i.test(value));
 
-    if(q && a) key[Number(q)] = a.toUpperCase();
+    if(q && a){
+      key[Number(q)] = a.toUpperCase();
+    }
   });
 
   return key;
@@ -255,10 +300,15 @@ function parseAnswerKey(html){
 async function calculateScore(){
   const status = document.getElementById("status");
   const result = document.getElementById("result");
+
   status.textContent = "";
   result.style.display = "none";
+  result.innerHTML = "";
 
-  const candidateText = document.getElementById("candidateAnswers").value.trim();
+  if(!validateAnswerKeyChoice()) return;
+
+  const candidateText =
+    document.getElementById("candidateAnswers").value.trim();
 
   if(!candidateText){
     status.textContent = "Answers required";
@@ -267,39 +317,47 @@ async function calculateScore(){
 
   const file = document.getElementById("answerFile").files[0];
   const url = document.getElementById("answerUrl").value.trim();
-  let html = "";
 
   try{
+    let html = "";
+
     if(file){
       html = await file.text();
-    }else if(url){
-      const response = await fetch(url);
-      if(!response.ok) throw new Error();
-      html = await response.text();
     }else{
-      status.textContent = "Answer key required";
-      return;
+      const response = await fetch(url);
+
+      if(!response.ok) throw new Error("Unable to load URL");
+
+      html = await response.text();
     }
 
     const correctAnswers = parseAnswerKey(html);
     const candidateAnswers = parseAnswers(candidateText);
     const questions = Object.keys(correctAnswers);
 
-    if(!questions.length){
+    if(questions.length === 0){
       status.textContent = "Answer key format not supported";
       return;
     }
 
-    let correct = 0, wrong = 0, unanswered = 0;
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
 
     questions.forEach(question => {
       const selected = candidateAnswers[Number(question)];
-      if(!selected) unanswered++;
-      else if(selected === correctAnswers[question]) correct++;
-      else wrong++;
+
+      if(!selected){
+        unanswered++;
+      }else if(selected === correctAnswers[question]){
+        correct++;
+      }else{
+        wrong++;
+      }
     });
 
-    const score = correct * POSITIVE_MARKS - wrong * NEGATIVE_MARKS;
+    const score =
+      correct * POSITIVE_MARKS - wrong * NEGATIVE_MARKS;
 
     result.innerHTML = `
       <h2>Score Result</h2>
@@ -309,6 +367,7 @@ async function calculateScore(){
       <p><strong>Unanswered:</strong> ${unanswered}</p>
       <p><strong>Score:</strong> ${score.toFixed(2)}</p>
     `;
+
     result.style.display = "block";
 
   }catch(error){
@@ -316,12 +375,14 @@ async function calculateScore(){
   }
 }
 
-window.addEventListener("load", function(){
+window.addEventListener("load",function(){
   const saved = localStorage.getItem("rrmCandidateDetails");
+
   if(!saved) return;
 
   try{
     const d = JSON.parse(saved);
+
     document.getElementById("candidateName").value = d.name || "";
     document.getElementById("rollNumber").value = d.roll || "";
     document.getElementById("examName").value = d.exam || "";
@@ -329,7 +390,8 @@ window.addEventListener("load", function(){
     document.getElementById("examDate").value = d.date || "";
     document.getElementById("shift").value = d.shift || "";
     document.getElementById("category").value = d.category || "";
-  }catch(e){}
+    document.getElementById("answerUrl").value = d.answerUrl || "";
+  }catch(error){}
 });
 </script>
 </body>
