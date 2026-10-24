@@ -1,17 +1,27 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#1457c5">
-<title>Railway Rank Mitra</title>
+<title>Railway Rank Mitra | Rajat Kumar</title>
 
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172554}
-header{background:linear-gradient(135deg,#082f80,#1769d2);color:white;text-align:center;padding:25px 12px}
-header h1{margin:0;font-size:27px}
-header p{margin:8px 0 0;font-size:14px}
+header{background:linear-gradient(135deg,#082f80,#1769d2);color:white;padding:15px 12px}
+.topbar{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{width:74px;height:74px;flex-shrink:0;border:3px solid #fbbf24;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;position:relative;color:#123b86}
+.logo svg{width:66px;height:66px}
+.brand-text h1{font-size:clamp(19px,4vw,28px);margin:0;font-weight:900}
+.brand-text p{margin:5px 0 0;font-size:13px;line-height:1.4}
+.brand-text .name{color:#ffe082;font-weight:bold;letter-spacing:1px}
+.social{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.social a{display:block;text-align:center;text-decoration:none;font-size:13px;font-weight:bold;padding:10px 12px;border-radius:9px;color:white;white-space:nowrap}
+.youtube{background:#e62117}
+.telegram{background:#0088cc}
+.tagline{text-align:center;font-size:13px;margin:14px 0 0}
 nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:white}
 nav a{background:#e0eaff;color:#123b86;text-decoration:none;padding:9px 12px;border-radius:20px;font-weight:bold;font-size:13px}
 main{max-width:760px;margin:auto;padding:14px}
@@ -26,43 +36,96 @@ button,.btn{display:block;width:100%;border:0;padding:14px;margin-top:16px;borde
 .small{font-size:13px;color:#64748b;line-height:1.6}
 .links a{display:block;padding:10px 0;color:#075da0;text-decoration:none;font-weight:bold;overflow-wrap:anywhere}
 footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
-@media print{nav,button,.no-print{display:none!important}body{background:white}.card{box-shadow:none;border:1px solid #ddd}}
+@media(max-width:520px){
+ .topbar{align-items:flex-start}
+ .brand{gap:8px}
+ .logo{width:54px;height:54px}
+ .logo svg{width:48px;height:48px}
+ .brand-text h1{font-size:17px}
+ .brand-text p{font-size:11px}
+ .social a{font-size:11px;padding:9px 8px}
+}
+@media print{nav,button,.no-print,.social{display:none!important}body{background:white}.card{box-shadow:none;border:1px solid #ddd}}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🚂 RAILWAY RANK MITRA</h1>
-<p>Railway Exam Response Sheet & Scorecard</p>
-<p>आपकी Railway Exam तैयारी का साथी</p>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo" aria-label="Railway-inspired logo with 18 stars">
+        <svg viewBox="0 0 100 100" role="img" aria-label="Blue railway emblem with 18 stars">
+          <circle cx="50" cy="50" r="45" fill="#fff" stroke="#123b86" stroke-width="2"/>
+          <defs>
+            <path id="starArc" d="M 50,11 L 52,17 L 58,17 L 53,21 L 55,27 L 50,23 L 45,27 L 47,21 L 42,17 L 48,17 Z"/>
+          </defs>
+          <g fill="#123b86">
+            <use href="#starArc" transform="rotate(0 50 50)"/>
+            <use href="#starArc" transform="rotate(20 50 50)"/>
+            <use href="#starArc" transform="rotate(40 50 50)"/>
+            <use href="#starArc" transform="rotate(60 50 50)"/>
+            <use href="#starArc" transform="rotate(80 50 50)"/>
+            <use href="#starArc" transform="rotate(100 50 50)"/>
+            <use href="#starArc" transform="rotate(120 50 50)"/>
+            <use href="#starArc" transform="rotate(140 50 50)"/>
+            <use href="#starArc" transform="rotate(160 50 50)"/>
+            <use href="#starArc" transform="rotate(180 50 50)"/>
+            <use href="#starArc" transform="rotate(200 50 50)"/>
+            <use href="#starArc" transform="rotate(220 50 50)"/>
+            <use href="#starArc" transform="rotate(240 50 50)"/>
+            <use href="#starArc" transform="rotate(260 50 50)"/>
+            <use href="#starArc" transform="rotate(280 50 50)"/>
+            <use href="#starArc" transform="rotate(300 50 50)"/>
+            <use href="#starArc" transform="rotate(320 50 50)"/>
+            <use href="#starArc" transform="rotate(340 50 50)"/>
+          </g>
+          <circle cx="50" cy="50" r="24" fill="#1457c5" stroke="#fbbf24" stroke-width="2"/>
+          <path d="M34 57 L66 57 M38 52 L62 52 M42 47 L58 47 M39 61 L61 61 M43 61 L38 69 M57 61 L62 69 M40 42 L60 42" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <text x="50" y="37" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff">RAIL</text>
+        </svg>
+      </div>
+
+      <div class="brand-text">
+        <h1>RAILWAY RANK MITRA</h1>
+        <p class="name">BY RAJAT KUMAR</p>
+        <p>Railway Exam Response Sheet &amp; Scorecard</p>
+      </div>
+    </div>
+
+    <div class="social">
+      <a class="youtube" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶ YouTube</a>
+      <a class="telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">✈ Telegram</a>
+    </div>
+  </div>
+  <p class="tagline">Your Companion for Railway Exam Preparation</p>
 </header>
 
 <nav>
-<a href="#candidate">Candidate Details</a>
-<a href="#instructions">Instructions</a>
-<a href="#social">YouTube / Telegram</a>
+  <a href="#candidate">Candidate Details</a>
+  <a href="#instructions">Instructions</a>
+  <a href="#social">YouTube / Telegram</a>
 </nav>
 
 <main>
 
 <section class="card" id="candidate">
 <h2>📝 Candidate Details</h2>
-<p>अपनी जानकारी नीचे दिए गए क्रम में भरें।</p>
+<p>Enter your details in the form below.</p>
 
 <form id="candidateForm">
 
-<label for="examType">1. Exam Type चुनें *</label>
+<label for="examType">1. Select Exam Type *</label>
 <select id="examType" required>
-<option value="">-- Exam Type चुनें --</option>
+<option value="">-- Select Exam Type --</option>
 <option value="RRB All Exam">RRB All Exam</option>
 <option value="GDCE">GDCE</option>
 <option value="LDCE">LDCE</option>
 </select>
 
-<label for="zone">2. Railway Zone चुनें *</label>
+<label for="zone">2. Select Railway Zone *</label>
 <select id="zone" required>
-<option value="">-- Railway Zone चुनें --</option>
+<option value="">-- Select Railway Zone --</option>
 <option>Central Railway</option>
 <option>Eastern Railway</option>
 <option>East Central Railway</option>
@@ -82,9 +145,9 @@ footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 <option>Other Railway Zone</option>
 </select>
 
-<label for="exam">3. Exam चुनें *</label>
+<label for="exam">3. Select Exam *</label>
 <select id="exam" required>
-<option value="">-- अपना Exam चुनें --</option>
+<option value="">-- Select Your Exam --</option>
 <option>Assistant Loco Pilot (ALP)</option>
 <option>Technician</option>
 <option>Group D</option>
@@ -99,14 +162,14 @@ footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 </select>
 
 <label for="name">4. Candidate Name *</label>
-<input id="name" type="text" placeholder="अपना पूरा नाम लिखें" autocomplete="name" required>
+<input id="name" type="text" placeholder="Enter your full name" autocomplete="name" required>
 
 <label for="reg">5. Registration Number *</label>
-<input id="reg" type="text" placeholder="Registration Number लिखें" required>
+<input id="reg" type="text" placeholder="Enter registration number" required>
 
-<label for="category">6. Category चुनें *</label>
+<label for="category">6. Select Category *</label>
 <select id="category" required>
-<option value="">-- अपनी Category चुनें --</option>
+<option value="">-- Select Your Category --</option>
 <option value="UR">UR / General</option>
 <option value="OBC">OBC</option>
 <option value="SC">SC</option>
@@ -115,16 +178,16 @@ footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 <option value="Other">Other</option>
 </select>
 
-<label for="code">7. 4 Digit Code *</label>
-<input id="code" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" minlength="4" placeholder="4 अंकों का Code डालें" required>
-<small class="small">यह फ़ील्ड चार अंकों के कोड के लिए है। यह अभी किसी आधिकारिक OTP या सत्यापन सेवा से जुड़ी नहीं है।</small>
+<label for="code">7. Four-Digit Code *</label>
+<input id="code" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" minlength="4" placeholder="Enter 4-digit code" required>
+<small class="small">This field accepts a four-digit code. It is not connected to an official OTP or verification service.</small>
 
-<label for="responseUrl">8. Response Sheet URL (यदि उपलब्ध हो)</label>
+<label for="responseUrl">8. Response Sheet URL (Optional)</label>
 <input id="responseUrl" type="url" placeholder="https://...">
 
-<label for="file">9. Response Sheet HTML File (यदि उपलब्ध हो)</label>
+<label for="file">9. Response Sheet HTML File (Optional)</label>
 <input id="file" type="file" accept=".html,.htm,text/html">
-<small class="small">केवल डाउनलोड की गई HTML या HTM फाइल। PDF यहाँ समर्थित नहीं है।</small>
+<small class="small">Only downloaded HTML or HTM files are supported here. PDF files are not supported.</small>
 
 <button type="submit">CLICK HERE FOR SCORE</button>
 
@@ -135,19 +198,21 @@ footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 </section>
 
 <section class="card" id="instructions">
-<h2>📌 जरूरी जानकारी</h2>
+<h2>📌 Important Information</h2>
 <div class="notice">
-यह फ़ॉर्म आपकी Candidate Details लेता है। अभी बटन दबाने पर आपकी भरी हुई जानकारी दिखाई जाएगी। सही Score निकालने के लिए संबंधित Response Sheet और Official Answer Key का मिलान करने वाला सिस्टम अलग से जोड़ना होगा।
+This form collects your candidate details. When you click the button, the information you entered will be displayed on this page.
 <br><br>
-यह फ़ॉर्म अभी डेटा किसी सर्वर पर सेव नहीं करता और न ही वास्तविक स्कोर या Rank की गणना करता है।
+To calculate an actual score, the system must compare your Response Sheet with the official Answer Key. That functionality is not connected yet.
+<br><br>
+This form does not save your information to a server and does not currently calculate your actual score or rank.
 </div>
 </section>
 
 <section class="card" id="social">
-<h2>📢 Railway Success Point से जुड़ें</h2>
-<p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
-<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶️ YouTube Channel</a>
-<a class="btn green" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">✈️ Telegram Channel</a>
+<h2>📢 Connect with Railway Success Point</h2>
+<p>Visit our channels for railway exam updates, answer key solutions and exam preparation.</p>
+<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶️ Visit YouTube Channel</a>
+<a class="btn green" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">✈️ Join Telegram Channel</a>
 </section>
 
 </main>
@@ -155,7 +220,7 @@ footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 <footer>
 <strong>RAILWAY RANK MITRA</strong>
 <p>Powered by Railway Success Point 🚂</p>
-<p>यह स्वतंत्र वेबसाइट है, आधिकारिक Railway वेबसाइट नहीं।</p>
+<p>This is an independent website and is not an official Railway website.</p>
 <p>© <span id="year"></span> All Rights Reserved</p>
 </footer>
 
@@ -194,12 +259,12 @@ $("candidateForm").addEventListener("submit", async function(event) {
   const file = $("file").files[0];
 
   if (!examType || !zone || !exam || !name || !reg || !category) {
-    showStatus("कृपया सभी जरूरी Candidate Details भरें।");
+    showStatus("Please complete all required candidate details.");
     return;
   }
 
   if (!/^[0-9]{4}$/.test(code)) {
-    showStatus("कृपया सही 4 Digit Code भरें।");
+    showStatus("Please enter a valid four-digit code.");
     $("code").focus();
     return;
   }
@@ -208,7 +273,7 @@ $("candidateForm").addEventListener("submit", async function(event) {
 
   if (file) {
     if (!/\.(html|htm)$/i.test(file.name)) {
-      showStatus("कृपया HTML या HTM फाइल चुनें।");
+      showStatus("Please select an HTML or HTM file.");
       return;
     }
 
@@ -218,11 +283,11 @@ $("candidateForm").addEventListener("submit", async function(event) {
       responseText = (doc.body?.innerText || "").trim();
 
       if (!responseText) {
-        showStatus("फाइल में पढ़ने योग्य टेक्स्ट नहीं मिला।");
+        showStatus("No readable text was found in the selected file.");
         return;
       }
     } catch (error) {
-      showStatus("HTML फाइल पढ़ने में समस्या आई।");
+      showStatus("There was a problem reading the HTML file.");
       return;
     }
   }
@@ -236,16 +301,16 @@ $("candidateForm").addEventListener("submit", async function(event) {
     "<b>Candidate Name:</b> " + escapeHTML(name) + "<br>" +
     "<b>Registration Number:</b> " + escapeHTML(reg) + "<br>" +
     "<b>Category:</b> " + escapeHTML(category) + "<br>" +
-    "<p><b>Score:</b> अभी गणना नहीं हुई है। Official Answer Key से मिलान आवश्यक है।</p>" +
+    "<p><b>Score:</b> Not calculated yet. The official Answer Key must be matched with the Response Sheet.</p>" +
     (responseUrl
-      ? "<p><a href='" + escapeHTML(responseUrl) + "' target='_blank' rel='noopener noreferrer'>Response Sheet URL खोलें</a></p>"
+      ? "<p><a href='" + escapeHTML(responseUrl) + "' target='_blank' rel='noopener noreferrer'>Open Response Sheet URL</a></p>"
       : "") +
     (file && responseText
-      ? "<p><b>HTML File:</b> " + escapeHTML(file.name) + " पढ़ ली गई।</p>"
+      ? "<p><b>HTML File:</b> " + escapeHTML(file.name) + " was read successfully.</p>"
       : "") +
-    "<p>यह विवरण अभी केवल इसी पेज पर दिख रहा है; सर्वर पर सेव नहीं हुआ है।</p>";
+    "<p>This information is displayed on this page only and has not been saved to a server.</p>";
 
-  showStatus("Candidate Details दिखाई जा रही हैं। अभी वास्तविक Score Calculate नहीं हुआ है।");
+  showStatus("Candidate details displayed. The actual score has not been calculated.");
 });
 </script>
 
