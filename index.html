@@ -3,234 +3,609 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Railway Rank Mitra | Rajat Kumar</title>
+<meta name="theme-color" content="#1457c5">
+<title>Railway Rank Mitra</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#eef3fa;color:#172033;font-family:Arial,sans-serif}
-header{background:linear-gradient(135deg,#092d63,#087dcc);color:white;text-align:center;padding:30px 12px}
-header h1{font-size:clamp(27px,6vw,40px);margin:0;font-weight:900;letter-spacing:1px}
-header h2{font-size:20px;margin:10px 0 5px;color:#fff}
-header p{margin:8px 0 0;font-size:14px}
-.container{max-width:650px;margin:18px auto;padding:0 12px}
-.card{background:#fff;padding:18px;margin-bottom:16px;border-radius:14px;box-shadow:0 3px 12px #00000012}
-h3{font-size:20px;color:#0a3974;margin:0 0 16px}
-label{display:block;font-weight:bold;font-size:14px;margin:13px 0 6px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;color:#172033}
-.exam-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.exam-option{display:block;margin:0;padding:13px 3px;border:2px solid #cbd5e1;border-radius:10px;text-align:center;cursor:pointer;font-weight:bold;font-size:14px}
-.exam-option input{width:auto;margin:0 0 8px;display:block;margin-left:auto;margin-right:auto;accent-color:#087dcc}
-.exam-option:has(input:checked){border-color:#087dcc;background:#e8f4ff;color:#075ca0}
-button,.btn{width:100%;display:block;padding:14px;margin-top:13px;border:0;border-radius:9px;text-align:center;text-decoration:none;font-size:16px;font-weight:bold;cursor:pointer}
-.primary{background:#087dcc;color:#fff}
-.telegram{background:#168bd2;color:#fff}
-.secondary{background:#e7edf5;color:#17365d}
-.small{font-size:13px;line-height:1.6;color:#64748b}
-.result{padding:14px;background:#f1f6fd;border-radius:9px;line-height:1.8;overflow-wrap:anywhere}
-#scorecard{display:none}
-footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
-@media(max-width:360px){header h1{font-size:25px}.card{padding:14px}.exam-option{font-size:12px}}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172554}
+header{background:linear-gradient(135deg,#082f80,#1769d2);color:white;text-align:center;padding:25px 12px}
+header h1{margin:0;font-size:clamp(25px,6vw,36px)}
+header p{margin:9px 0 0;font-size:15px;font-weight:bold;letter-spacing:2px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
+nav a{text-decoration:none;background:#e0eaff;color:#123b86;padding:10px 12px;border-radius:20px;font-weight:bold;font-size:13px}
+.container{max-width:750px;margin:auto;padding:14px}
+.card{background:white;padding:18px;margin:15px 0;border-radius:16px;box-shadow:0 4px 15px #152c5012}
+h2{margin-top:0;color:#123b86;font-size:21px}
+label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
+input,select{width:100%;padding:12px;margin-top:6px;border:1px solid #cbd5e1;border-radius:9px;font-size:16px;background:white}
+button,.btn{display:block;width:100%;border:0;padding:13px;margin-top:14px;border-radius:10px;background:#1457c5;color:white;font-size:16px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+.green{background:#07834b}
+.orange{background:#ea7808}
+.result{display:none;background:#e5f8ed;border:1px solid #86d6a5;padding:15px;border-radius:10px;margin-top:15px;line-height:1.8;overflow-wrap:anywhere}
+.exam-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.exam-list button{margin:0;background:#e6efff;color:#123b86}
+footer{text-align:center;padding:22px;color:#52617b;font-size:13px;line-height:1.7}
+.small{font-size:13px;color:#64748b;line-height:1.6}
+.notice{background:#fff7d6;border:1px solid #f0d36b;border-radius:10px;padding:12px;color:#684d00;font-size:13px;line-height:1.6}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}
+.social-card{text-align:center;background:linear-gradient(135deg,#102f75,#1769d2);color:white}
+.social-card h2{color:white}
+.social-card p{line-height:1.7}
+.social-btn{display:flex;align-items:center;justify-content:center;gap:12px;max-width:380px;min-height:52px;margin:14px auto;border-radius:12px;color:white;text-decoration:none;font-size:16px;font-weight:bold}
+.youtube-btn{background:#ff0000}
+.telegram-btn{background:#229ed9}
+.social-icon{font-size:24px}
+@media(max-width:400px){.card{padding:14px}}
+@media print{
+nav,button,.no-print,#social,#adminDashboard,#gdce-ldce-calculator{display:none!important}
+body{background:white}
+.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<h1>🚆 RAILWAY RANK MITRA</h1>
-<h2>BY RAJAT KUMAR</h2>
-<p>RAILWAY EXAM SCORE &amp; RANK PORTAL</p>
+<h1>RAILWAY RANK MITRA</h1>
+<p>BY RAJAT KUMAR</p>
 </header>
+
+<nav>
+<a href="#calculator">Calculator</a>
+<a href="#scorecard">Scorecard</a>
+<a href="#rank">Rank Predictor</a>
+<a href="#gdce-ldce-calculator">GDCE / LDCE</a>
+<a href="#social">YouTube / Telegram</a>
+<a href="#adminDashboard">Admin</a>
+</nav>
 
 <main class="container">
 
-<section class="card">
-<h3>1. Select Exam Category</h3>
-<div class="exam-grid">
-<label class="exam-option">
-<input type="radio" name="examType" value="RRB" checked>
-RRB EXAM
-</label>
-<label class="exam-option">
-<input type="radio" name="examType" value="GDCE">
-GDCE EXAM
-</label>
-<label class="exam-option">
-<input type="radio" name="examType" value="LDCE">
-LDCE EXAM
-</label>
-</div>
+<section class="card" id="examSelection">
+<h2>Select Your Exam Category</h2>
 
-<label for="examName">Select Your Exam</label>
-<select id="examName" required>
-<option value="">-- Select Exam --</option>
+<label for="category">Exam Category</label>
+<select id="category">
+<option value="RRB">RRB EXAM</option>
+<option value="GDCE">GDCE EXAM</option>
+<option value="LDCE">LDCE EXAM</option>
 </select>
 
-<label for="railwayZone">Railway Zone (Optional)</label>
-<select id="railwayZone">
-<option value="">-- Select Railway Zone --</option>
+<label for="exam">Select Your Exam</label>
+<select id="exam"></select>
+
+<label for="zone">Select Railway Zone</label>
+<select id="zone">
+<option value="">Select Railway Zone</option>
+<option>Northern Railway</option>
+<option>North Western Railway</option>
+<option>Western Railway</option>
 <option>Central Railway</option>
 <option>Eastern Railway</option>
 <option>East Central Railway</option>
 <option>East Coast Railway</option>
-<option>Northern Railway</option>
 <option>North Central Railway</option>
 <option>North Eastern Railway</option>
 <option>Northeast Frontier Railway</option>
-<option>North Western Railway</option>
-<option>Southern Railway</option>
 <option>South Central Railway</option>
 <option>South Eastern Railway</option>
 <option>South East Central Railway</option>
 <option>South Western Railway</option>
-<option>Western Railway</option>
+<option>Southern Railway</option>
 <option>West Central Railway</option>
+<option>Other</option>
 </select>
+
+<p id="examName" class="small">Select your exam to continue.</p>
 </section>
 
-<section class="card">
-<h3>2. Candidate Details &amp; Response Sheet</h3>
-<form id="candidateForm">
-<label for="candidateName">Candidate Name *</label>
-<input id="candidateName" type="text" required placeholder="Enter candidate name">
+<section class="card" id="calculator">
+<h2>Answer Key Score Calculator</h2>
 
-<label for="rollNumber">Roll Number *</label>
-<input id="rollNumber" type="text" required placeholder="Enter roll number">
+<label for="total">Total Questions</label>
+<input type="number" id="total" placeholder="Example: 100" min="1" step="1">
 
-<label for="registrationNumber">Registration Number *</label>
-<input id="registrationNumber" type="text" required placeholder="Enter registration number">
+<label for="correct">Correct Answers</label>
+<input type="number" id="correct" placeholder="Enter correct answers" min="0" step="1">
 
-<label for="dob">Date of Birth *</label>
-<input id="dob" type="date" required>
+<label for="wrong">Wrong Answers</label>
+<input type="number" id="wrong" placeholder="Enter wrong answers" min="0" step="1">
 
-<label for="responseUrl">Response Sheet URL</label>
-<input id="responseUrl" type="url" placeholder="Paste response sheet link">
+<label for="marks">Marks Per Correct Answer</label>
+<input type="number" id="marks" value="1" min="0" step="0.01">
 
-<label for="responseFile">Or Upload Response Sheet File</label>
-<input id="responseFile" type="file" accept=".html,.htm,.pdf,.txt">
+<label for="negative">Negative Marking Per Wrong Answer</label>
+<select id="negative">
+<option value="0">No Negative Marking</option>
+<option value="0.3333333333" selected>1/3 Mark</option>
+<option value="0.25">0.25 Mark</option>
+<option value="0.33">0.33 Mark</option>
+<option value="0.5">0.50 Mark</option>
+<option value="1">1 Mark</option>
+</select>
 
-<p class="small">A valid answer key and response-sheet processing system are required to calculate your actual score and rank.</p>
-
-<button class="primary" type="submit">CALCULATE SCORE / RANK</button>
-</form>
+<button type="button" id="calculateButton">CALCULATE SCORE</button>
+<div class="result" id="calcResult" aria-live="polite"></div>
 </section>
 
 <section class="card" id="scorecard">
-<h3>3. Your Scorecard</h3>
-<div id="scoreResult" class="result" aria-live="polite"></div>
-<button class="secondary" type="button" id="editDetails">EDIT CANDIDATE DETAILS</button>
+<h2>Candidate Details & Scorecard</h2>
+
+<label for="studentName">Candidate Name</label>
+<input id="studentName" placeholder="Enter your name">
+
+<label for="roll">Roll Number</label>
+<input id="roll" placeholder="Enter your roll number">
+
+<label for="registration">Registration Number</label>
+<input id="registration" placeholder="Enter registration number">
+
+<button type="button" class="green" id="scorecardButton">GENERATE SCORECARD</button>
+<div class="result" id="scoreResult" aria-live="polite"></div>
+
+<button type="button" class="orange no-print" id="printButton">PRINT / SAVE AS PDF</button>
 </section>
 
-<section class="card">
-<h3>4. Telegram &amp; Scorecard</h3>
-<p>Join Railway Success Point on Telegram for study materials and exam updates.</p>
+<section class="card" id="rank">
+<h2>Rank Predictor</h2>
+<p class="small">This is a mathematical estimate only. Actual rank depends on official results and other candidates' scores.</p>
 
-<a class="btn telegram" id="telegramLink" href="https://t.me/" target="_blank" rel="noopener noreferrer">JOIN TELEGRAM</a>
+<label for="candidates">Estimated Total Candidates</label>
+<input type="number" id="candidates" placeholder="Example: 100000" min="1" step="1">
 
-<p class="small">After visiting Telegram, return to this website and click View Scorecard. This button does not verify Telegram membership.</p>
+<label for="percentile">Estimated Percentile (%)</label>
+<input type="number" id="percentile" placeholder="Example: 90" min="0" max="100" step="0.01">
 
-<button type="button" class="secondary" id="viewScorecard">VIEW SCORECARD</button>
+<button type="button" id="rankButton">ESTIMATE RANK</button>
+<div class="result" id="rankResult" aria-live="polite"></div>
+</section>
+
+<section class="card" id="gdce-ldce-calculator">
+<h2>GDCE / LDCE Response Sheet Helper</h2>
+
+<p class="notice">
+This section can preview the text in an HTML response sheet.
+Automatic answer matching and actual score calculation are not yet implemented.
+PDF response-sheet parsing is not supported in this version.
+</p>
+
+<label for="candidateName">Candidate Name</label>
+<input id="candidateName" placeholder="Enter candidate name">
+
+<label for="candidateRoll">Roll Number</label>
+<input id="candidateRoll" placeholder="Enter roll number">
+
+<label for="railExam">Select Exam</label>
+<select id="railExam">
+<option>GDCE</option>
+<option>LDCE</option>
+<option>ALP</option>
+<option>Technician</option>
+<option>Group D</option>
+<option>NTPC</option>
+<option>Other Railway Exam</option>
+</select>
+
+<label for="responseUrl">Response Sheet URL</label>
+<input type="url" id="responseUrl" placeholder="Paste response sheet link">
+
+<button type="button" id="openResponseButton">OPEN RESPONSE SHEET</button>
+
+<label for="responseFile">Select HTML Response Sheet File</label>
+<input type="file" id="responseFile" accept=".html,.htm,text/html">
+
+<button type="button" id="readResponseButton">READ HTML FILE</button>
+<div id="rrmMessage" class="small" aria-live="polite"></div>
+</section>
+
+<!-- YOUTUBE AND TELEGRAM LINKS -->
+
+<section class="card social-card" id="social">
+<h2>JOIN RAILWAY SUCCESS POINT</h2>
+
+<p>
+Get Railway Exam Updates, Answer Key Solutions,
+Study Material and Preparation Videos.
+</p>
+
+<a class="social-btn youtube-btn"
+href="https://www.youtube.com/@RailwaySuccessPoint"
+target="_blank" rel="noopener noreferrer">
+<span class="social-icon" aria-hidden="true">▶</span>
+SUBSCRIBE ON YOUTUBE
+</a>
+
+<a class="social-btn telegram-btn"
+href="https://t.me/railwaysuccespoint"
+target="_blank" rel="noopener noreferrer">
+<span class="social-icon" aria-hidden="true">✈</span>
+JOIN TELEGRAM
+</a>
+
+<p class="small" style="color:white">
+Support Railway Success Point for your Railway Exam preparation.
+</p>
+</section>
+
+<section class="card" id="adminDashboard">
+<h2>Railway Rank Mitra Admin</h2>
+<p class="small">
+This login uses Firebase Authentication. Candidate records are not displayed by this version.
+</p>
+
+<label for="adminEmail">Admin Email</label>
+<input id="adminEmail" type="email" autocomplete="username" placeholder="Admin email">
+
+<label for="adminPassword">Password</label>
+<input id="adminPassword" type="password" autocomplete="current-password" placeholder="Admin password">
+
+<button type="button" id="adminLoginButton">ADMIN LOGIN</button>
+<button type="button" id="adminLogoutButton" class="orange" hidden>LOGOUT</button>
+
+<p id="adminStatus" class="small" aria-live="polite">Not logged in.</p>
+<div id="adminRecords" class="small"></div>
 </section>
 
 </main>
 
 <footer>
-RAILWAY RANK MITRA | BY RAJAT KUMAR<br>
-Score and rank require verified answer-key and candidate-score data.
+<strong>RAILWAY RANK MITRA</strong>
+<p>BY RAJAT KUMAR</p>
+<p>Prepare Smart • Practice Better • Aim Higher</p>
+<p>This is an independent preparation tool, not an official Railway website.</p>
 </footer>
 
 <script>
-(function(){
-  const examTypeInputs = document.querySelectorAll('input[name="examType"]');
-  const examName = document.getElementById('examName');
-  const form = document.getElementById('candidateForm');
-  const scorecard = document.getElementById('scorecard');
-  const scoreResult = document.getElementById('scoreResult');
+"use strict";
 
-  const options = {
-    RRB: ['Assistant Loco Pilot (ALP)','Technician','NTPC Graduate','NTPC Undergraduate','Group D','Junior Engineer (JE)','Other RRB Exam'],
-    GDCE: ['ALP','Technician','Junior Engineer (JE)','Goods Guard / Train Manager','Station Master','CCTC','Other GDCE Exam'],
-    LDCE: ['ALP','Technician','Goods Guard / Train Manager','Station Master','CCTC','Shunting Master','Other LDCE Exam']
-  };
+const $ = id => document.getElementById(id);
 
-  function updateExams(){
-    const selected = document.querySelector('input[name="examType"]:checked').value;
-    examName.replaceChildren();
+let selectedExam = "";
+let currentScore = null;
+let currentCorrect = 0;
+let currentWrong = 0;
+let currentTotal = 0;
 
-    const first = document.createElement('option');
-    first.value = '';
-    first.textContent = '-- Select Your Exam --';
-    examName.appendChild(first);
+const examOptions = {
+RRB: [
+"RRB Group D",
+"RRB ALP",
+"RRB Technician",
+"RRB NTPC Undergraduate",
+"RRB NTPC Graduate",
+"RRB JE",
+"Other RRB Exam"
+],
+GDCE: [
+"GDCE ALP",
+"GDCE Technician",
+"GDCE Station Master",
+"GDCE Goods Guard / Train Manager",
+"GDCE CCTC",
+"GDCE JE",
+"Other GDCE Exam"
+],
+LDCE: [
+"LDCE ALP",
+"LDCE Technician",
+"LDCE Station Master",
+"LDCE Goods Guard / Train Manager",
+"LDCE Shunting Master",
+"LDCE CCTC",
+"Other LDCE Exam"
+]
+};
 
-    options[selected].forEach(function(name){
-      const option = document.createElement('option');
-      option.value = name;
-      option.textContent = name;
-      examName.appendChild(option);
-    });
-  }
+function updateExamOptions() {
+const category = $("category").value;
+const select = $("exam");
+select.innerHTML = "";
 
-  examTypeInputs.forEach(function(input){
-    input.addEventListener('change', updateExams);
-  });
+examOptions[category].forEach(name => {
+const option = document.createElement("option");
+option.value = name;
+option.textContent = name;
+select.appendChild(option);
+});
 
-  function escapeHTML(value){
-    return String(value).replace(/[&<>"']/g,function(ch){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
-    });
-  }
+updateSelectedExam();
+}
 
-  function showScorecard(){
-    if(!form.reportValidity()) return;
+function updateSelectedExam() {
+selectedExam = $("exam").value;
+$("examName").textContent =
+"Category: " + $("category").value +
+" | Exam: " + selectedExam;
+}
 
-    const selectedType = document.querySelector('input[name="examType"]:checked').value;
-    const selectedExam = examName.value;
-    const url = document.getElementById('responseUrl').value.trim();
-    const file = document.getElementById('responseFile').files[0];
+$("category").addEventListener("change", updateExamOptions);
+$("exam").addEventListener("change", updateSelectedExam);
 
-    if(!selectedExam){
-      alert('Please select your exam.');
-      examName.focus();
-      return;
-    }
+function escapeHTML(value) {
+return String(value).replace(/[&<>"']/g, ch => ({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[ch]));
+}
 
-    if(!url && !file){
-      alert('Please enter a Response Sheet URL or select a file.');
-      return;
-    }
+function showResult(element, html) {
+element.innerHTML = html;
+element.style.display = "block";
+}
 
-    const name = document.getElementById('candidateName').value.trim();
-    const roll = document.getElementById('rollNumber').value.trim();
-    const registration = document.getElementById('registrationNumber').value.trim();
-    const zone = document.getElementById('railwayZone').value || 'Not selected';
+$("calculateButton").addEventListener("click", () => {
+if (
+$("total").value === "" ||
+$("correct").value === "" ||
+$("wrong").value === "" ||
+$("marks").value === ""
+) {
+alert("Please fill in all calculator fields.");
+return;
+}
 
-    scoreResult.innerHTML =
-      '<strong>Candidate Name:</strong> ' + escapeHTML(name) + '<br>' +
-      '<strong>Roll Number:</strong> ' + escapeHTML(roll) + '<br>' +
-      '<strong>Registration Number:</strong> ' + escapeHTML(registration) + '<br>' +
-      '<strong>Exam Category:</strong> ' + escapeHTML(selectedType) + '<br>' +
-      '<strong>Exam:</strong> ' + escapeHTML(selectedExam) + '<br>' +
-      '<strong>Railway Zone:</strong> ' + escapeHTML(zone) + '<br>' +
-      '<strong>Response Sheet:</strong> ' + escapeHTML(url ? 'URL provided' : file.name) +
-      '<hr><strong>Score:</strong> Not calculated yet<br>' +
-      '<strong>Rank:</strong> Not available yet<br><br>' +
-      'The response sheet must be processed and matched with the verified answer key before an actual score and rank can be displayed.';
+const total = Number($("total").value);
+const correct = Number($("correct").value);
+const wrong = Number($("wrong").value);
+const marks = Number($("marks").value);
+const negative = Number($("negative").value);
 
-    scorecard.style.display = 'block';
-    scorecard.scrollIntoView({behavior:'smooth',block:'start'});
-  }
+if (
+!Number.isInteger(total) ||
+!Number.isInteger(correct) ||
+!Number.isInteger(wrong) ||
+total < 1 || correct < 0 || wrong < 0 ||
+marks < 0 || correct + wrong > total
+) {
+alert("Please enter valid question and answer counts.");
+return;
+}
 
-  form.addEventListener('submit',function(event){
-    event.preventDefault();
-    showScorecard();
-  });
+currentTotal = total;
+currentCorrect = correct;
+currentWrong = wrong;
+currentScore = correct * marks - wrong * negative;
 
-  document.getElementById('viewScorecard').addEventListener('click',showScorecard);
+showResult($("calcResult"), `
+<b>Exam:</b> ${escapeHTML(selectedExam)}<br>
+<b>Total Questions:</b> ${total}<br>
+<b>Correct Answers:</b> ${correct}<br>
+<b>Wrong Answers:</b> ${wrong}<br>
+<b>Unattempted:</b> ${total - correct - wrong}<br>
+<b>Final Score:</b> ${currentScore.toFixed(2)}
+`);
+});
 
-  document.getElementById('editDetails').addEventListener('click',function(){
-    document.getElementById('candidateName').focus();
-    form.scrollIntoView({behavior:'smooth',block:'start'});
-  });
+$("scorecardButton").addEventListener("click", () => {
+if (currentScore === null) {
+alert("Please calculate your score first.");
+return;
+}
 
-  updateExams();
-})();
+const name = $("studentName").value.trim() || "Not Provided";
+const roll = $("roll").value.trim() || "Not Provided";
+const registration = $("registration").value.trim() || "Not Provided";
+const zone = $("zone").value || "Not Selected";
+
+showResult($("scoreResult"), `
+<h3>RAILWAY RANK MITRA SCORECARD</h3>
+<b>Exam:</b> ${escapeHTML(selectedExam)}<br>
+<b>Railway Zone:</b> ${escapeHTML(zone)}<br>
+<b>Candidate Name:</b> ${escapeHTML(name)}<br>
+<b>Roll Number:</b> ${escapeHTML(roll)}<br>
+<b>Registration Number:</b> ${escapeHTML(registration)}<br>
+<b>Total Questions:</b> ${currentTotal}<br>
+<b>Correct Answers:</b> ${currentCorrect}<br>
+<b>Wrong Answers:</b> ${currentWrong}<br>
+<b>Calculated Score:</b> ${currentScore.toFixed(2)}
+<p class="small">This is a self-calculated score, not an official scorecard or actual rank.</p>
+`);
+});
+
+$("printButton").addEventListener("click", () => {
+if (currentScore === null) {
+alert("Please calculate your score first.");
+return;
+}
+window.print();
+});
+
+$("rankButton").addEventListener("click", () => {
+if ($("candidates").value === "" || $("percentile").value === "") {
+alert("Please enter the estimated candidates and percentile.");
+return;
+}
+
+const candidates = Number($("candidates").value);
+const percentile = Number($("percentile").value);
+
+if (
+!Number.isInteger(candidates) || candidates < 1 ||
+percentile < 0 || percentile > 100
+) {
+alert("Please enter valid rank predictor values.");
+return;
+}
+
+const rank = Math.max(
+1,
+Math.round(candidates * (100 - percentile) / 100) + 1
+);
+
+showResult($("rankResult"), `
+<b>Estimated Rank:</b> ${rank.toLocaleString("en-IN")}
+<p class="small">This is a mathematical estimate, not an official rank.</p>
+`);
+});
+
+$("openResponseButton").addEventListener("click", () => {
+const url = $("responseUrl").value.trim();
+
+if (!url) {
+alert("Please paste your response sheet URL.");
+return;
+}
+
+try {
+const parsed = new URL(url);
+if (!["https:", "http:"].includes(parsed.protocol)) {
+alert("Please enter a valid HTTP or HTTPS URL.");
+return;
+}
+window.open(parsed.href, "_blank", "noopener,noreferrer");
+} catch {
+alert("Please enter a valid response sheet URL.");
+}
+});
+
+$("readResponseButton").addEventListener("click", async () => {
+const box = $("rrmMessage");
+const file = $("responseFile").files[0];
+box.textContent = "";
+
+if (!file) {
+box.textContent = "Please select an HTML response sheet file.";
+return;
+}
+
+if (!/\.html?$/i.test(file.name)) {
+box.textContent = "Only HTML files are supported in this version.";
+return;
+}
+
+try {
+const content = await file.text();
+const doc = new DOMParser().parseFromString(content, "text/html");
+const extracted = (doc.body?.innerText || "").trim();
+
+if (!extracted) {
+box.textContent = "No readable text was found in the file.";
+return;
+}
+
+const wrapper = document.createElement("div");
+wrapper.style.cssText =
+"margin-top:12px;padding:12px;background:white;border-radius:8px";
+
+const title = document.createElement("h3");
+title.textContent = "Response Sheet Preview";
+wrapper.appendChild(title);
+
+const note = document.createElement("p");
+note.textContent =
+"Text preview only. Automatic answer matching and score calculation are not implemented.";
+wrapper.appendChild(note);
+
+const details = document.createElement("details");
+const summary = document.createElement("summary");
+summary.textContent = "View Extracted Text";
+
+const pre = document.createElement("pre");
+pre.textContent = extracted.slice(0, 12000);
+
+details.append(summary, pre);
+wrapper.appendChild(details);
+box.appendChild(wrapper);
+
+} catch (error) {
+box.textContent = "Unable to read this file.";
+}
+});
+</script>
+
+<!-- Firebase Admin Login -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+apiKey: "AIzaSyDLt4ZogCPO5wdfpSLS2PFrnswjAobjcQk",
+authDomain: "railway-rank-mitra.firebaseapp.com",
+projectId: "railway-rank-mitra",
+storageBucket: "railway-rank-mitra.firebasestorage.app",
+messagingSenderId: "317125681510",
+appId: "1:317125681510:web:7de168876275f5c0bfa8a7"
+};
+
+let auth = null;
+let db = null;
+
+try {
+if (window.firebase) {
+if (!firebase.apps.length) {
+firebase.initializeApp(firebaseConfig);
+}
+auth = firebase.auth();
+db = firebase.firestore();
+}
+} catch (error) {
+console.error("Firebase initialization failed.");
+}
+
+$("adminLoginButton").addEventListener("click", async () => {
+const status = $("adminStatus");
+const login = $("adminLoginButton");
+const email = $("adminEmail").value.trim();
+const password = $("adminPassword").value;
+
+if (!auth || !db) {
+status.textContent = "Firebase is unavailable. Check your internet connection.";
+return;
+}
+
+if (!email || !password) {
+status.textContent = "Please enter your admin email and password.";
+return;
+}
+
+login.disabled = true;
+status.textContent = "Signing in...";
+
+try {
+await auth.signInWithEmailAndPassword(email, password);
+
+$("adminPassword").value = "";
+$("adminLogoutButton").hidden = false;
+$("adminEmail").hidden = true;
+$("adminPassword").hidden = true;
+login.hidden = true;
+
+status.textContent = "Login successful.";
+$("adminRecords").textContent =
+"Candidate records are not configured in this version.";
+
+} catch (error) {
+status.textContent =
+"Login failed. Check your credentials and Firebase Authentication settings.";
+} finally {
+login.disabled = false;
+}
+});
+
+$("adminLogoutButton").addEventListener("click", async () => {
+try {
+if (auth) await auth.signOut();
+
+$("adminRecords").textContent = "";
+$("adminStatus").textContent = "You are logged out.";
+$("adminEmail").hidden = false;
+$("adminPassword").hidden = false;
+$("adminLoginButton").hidden = false;
+$("adminLogoutButton").hidden = true;
+
+} catch (error) {
+$("adminStatus").textContent = "Logout failed.";
+}
+});
+
+updateExamOptions();
 </script>
 
 </body>
