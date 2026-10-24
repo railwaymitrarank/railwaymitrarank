@@ -2,230 +2,132 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Railway Rank Mitra</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAILWAY RANK MITRA</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f4fa;
-  color: #172033;
-}
-
-header {
-  background: #102d59;
-  color: white;
-  text-align: center;
-  padding: 25px 12px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 27px;
-}
-
-header p {
-  margin-bottom: 0;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 5px;
-  background: white;
-  flex-wrap: wrap;
-}
-
-nav button {
-  background: #1759a8;
-  color: white;
-  border: 0;
-  border-radius: 7px;
-  padding: 12px 16px;
-  font-size: 15px;
-}
-
-main {
-  max-width: 650px;
-  margin: 20px auto;
-  padding: 12px;
-}
-
-.card {
-  background: white;
-  border-radius: 13px;
-  padding: 20px;
-  margin-bottom: 18px;
-  box-shadow: 0 3px 12px #00000010;
-}
-
-h2 {
-  color: #123e78;
-  margin-top: 0;
-}
-
-label {
-  display: block;
-  margin-top: 14px;
-  font-weight: bold;
-}
-
-input, select {
-  width: 100%;
-  padding: 13px;
-  margin-top: 6px;
-  border: 1px solid #b8c5d6;
-  border-radius: 7px;
-  font-size: 16px;
-}
-
-.primary {
-  width: 100%;
-  background: #087b43;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 14px;
-  margin-top: 18px;
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.result {
-  display: none;
-  background: #e6f8ed;
-  border: 1px solid #a6dfb8;
-  padding: 16px;
-  border-radius: 9px;
-  margin-top: 18px;
-}
-
-.score {
-  font-size: 32px;
-  font-weight: bold;
-  color: #087b43;
-}
-
-.notice {
-  color: #805100;
-  background: #fff5d9;
-  padding: 12px;
-  border-radius: 8px;
-  line-height: 1.6;
-}
-
-footer {
-  background: #102d59;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 25px;
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5fb;color:#172033}
+header{background:linear-gradient(135deg,#102d59,#1769aa);color:white;text-align:center;padding:28px 12px}
+header h1{font-size:27px;margin:0 0 8px}
+header p{margin:0;font-size:14px}
+nav{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:12px;background:white}
+button{cursor:pointer;border:0;border-radius:8px;padding:12px 16px;font-size:15px}
+nav button{background:#e4edfa;color:#143b70;font-weight:bold}
+nav button:focus,nav button:hover{background:#1769aa;color:white}
+main{max-width:700px;margin:20px auto;padding:0 12px}
+.card{background:white;border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 4px 14px #152b4a12}
+h2{margin-top:0;color:#123e78}
+label{display:block;margin-top:14px;font-weight:bold;font-size:14px}
+input,select{width:100%;padding:13px;margin-top:6px;border:1px solid #c7d2e1;border-radius:8px;font-size:16px;background:white}
+.primary{width:100%;background:#087b43;color:white;font-weight:bold;margin-top:20px;padding:14px}
+.secondary{background:#1769aa;color:white}
+.result{display:none;background:#e8f8ee;border:1px solid #a8dfba;padding:16px;border-radius:10px;margin-top:18px}
+.score{font-size:34px;font-weight:bold;color:#087b43}
+.muted{color:#64748b;line-height:1.6;font-size:14px}
+.notice{background:#fff5d9;padding:13px;border-radius:9px;line-height:1.6}
+.stat{display:inline-block;background:#edf4ff;padding:10px;border-radius:8px;margin:4px 2px;font-size:14px}
+footer{text-align:center;background:#102d59;color:white;padding:22px 12px;margin-top:25px}
+.page{display:none}
+.page.active{display:block}
 </style>
 </head>
-
 <body>
-
 <header>
   <h1>🚆 RAILWAY RANK MITRA</h1>
   <p>Railway Exam Score Calculator & Rank Platform</p>
 </header>
 
-<nav>
-  <button onclick="showSection('calculator')">Score Calculator</button>
-  <button onclick="showSection('rank')">Rank List</button>
-  <button onclick="showSection('about')">About</button>
+<nav aria-label="मुख्य मेनू">
+  <button type="button" data-page="home">🏠 Home</button>
+  <button type="button" data-page="calculator">📊 Score Calculator</button>
+  <button type="button" data-page="rank">🏆 Rank List</button>
+  <button type="button" data-page="about">ℹ️ About</button>
 </nav>
 
 <main>
-
-<section class="card" id="calculator">
-  <h2>📊 Exam Score Calculator</h2>
-
-  <label for="exam">Exam चुनें</label>
-  <select id="exam">
-    <option>RRB Group D</option>
-    <option>RRB ALP</option>
-    <option>RRB Technician</option>
-    <option>RRB NTPC</option>
-    <option>GDCE / LDCE</option>
-    <option>Other Railway Exam</option>
-  </select>
-
-  <label for="total">कुल प्रश्न</label>
-  <input id="total" type="number" min="1" max="500"
-         value="100">
-
-  <label for="correct">सही प्रश्न</label>
-  <input id="correct" type="number" min="0"
-         placeholder="सही प्रश्नों की संख्या">
-
-  <label for="wrong">गलत प्रश्न</label>
-  <input id="wrong" type="number" min="0"
-         placeholder="गलत प्रश्नों की संख्या">
-
-  <label for="marks">प्रत्येक सही उत्तर के अंक</label>
-  <input id="marks" type="number" min="0.01"
-         max="10" step="0.01" value="1">
-
-  <label for="negative">प्रत्येक गलत उत्तर की नेगेटिव मार्किंग</label>
-  <select id="negative">
-    <option value="0">0 अंक</option>
-    <option value="0.25">1/4 अंक</option>
-    <option value="0.3333333333" selected>1/3 अंक</option>
-    <option value="0.5">1/2 अंक</option>
-  </select>
-
-  <button class="primary" onclick="calculateScore()">
-    मेरा Score निकालें
-  </button>
-
-  <div class="result" id="result" aria-live="polite">
-    <p>आपका प्राप्त स्कोर</p>
-    <div class="score" id="score">0</div>
-    <p id="details"></p>
+<section class="page active" id="home">
+  <div class="card">
+    <h2>आपका स्वागत है! 🎯</h2>
+    <p>Railway परीक्षाओं की तैयारी के लिए आपका साथी।</p>
+    <div class="stat">📊 Score Calculator</div>
+    <div class="stat">🏆 Rank Platform</div>
+    <div class="stat">📱 Mobile Friendly</div>
+    <button class="primary" type="button" data-goto="calculator">अपना Score निकालें</button>
+  </div>
+  <div class="card">
+    <h2>📚 उपलब्ध परीक्षाएँ</h2>
+    <p>RRB Group D · ALP · Technician · NTPC · GDCE / LDCE</p>
+    <p class="muted">अपने पेपर के नियमों के अनुसार सही अंक और नेगेटिव मार्किंग चुनें।</p>
   </div>
 </section>
 
-<section class="card" id="rank" style="display:none">
-  <h2>🏆 Railway Rank List</h2>
+<section class="page" id="calculator">
+  <div class="card">
+    <h2>📊 Exam Score Calculator</h2>
+    <label for="exam">Exam चुनें</label>
+    <select id="exam">
+      <option>RRB Group D</option>
+      <option>RRB ALP</option>
+      <option>RRB Technician</option>
+      <option>RRB NTPC</option>
+      <option>GDCE / LDCE</option>
+      <option>Other Railway Exam</option>
+    </select>
 
-  <div class="notice">
-    अभी लाइव रैंक सर्वर कनेक्ट नहीं है। इसलिए यहाँ दूसरे
-    विद्यार्थियों की वास्तविक रैंक उपलब्ध नहीं है।
-    साझा Rank List चालू करने के लिए सुरक्षित सर्वर और
-    डेटाबेस जोड़ना आवश्यक है।
+    <label for="total">कुल प्रश्न</label>
+    <input id="total" type="number" min="1" max="500" value="100">
+
+    <label for="correct">सही प्रश्न</label>
+    <input id="correct" type="number" min="0" max="500" value="0">
+
+    <label for="wrong">गलत प्रश्न</label>
+    <input id="wrong" type="number" min="0" max="500" value="0">
+
+    <label for="marks">प्रत्येक सही उत्तर के अंक</label>
+    <input id="marks" type="number" min="0.01" max="10" step="0.01" value="1">
+
+    <label for="negative">प्रत्येक गलत उत्तर की कटौती</label>
+    <select id="negative">
+      <option value="0">कोई कटौती नहीं</option>
+      <option value="0.25">0.25 अंक</option>
+      <option value="0.3333333333" selected>1/3 अंक</option>
+      <option value="0.5">0.5 अंक</option>
+    </select>
+
+    <button class="primary" type="button" id="calculate">मेरा Score निकालें</button>
+
+    <div class="result" id="result" aria-live="polite">
+      <p>आपका अनुमानित स्कोर</p>
+      <div class="score" id="score">0.00</div>
+      <p id="details"></p>
+      <p class="muted">यह गणना आपके भरे हुए आँकड़ों पर आधारित है। आधिकारिक स्कोर के लिए संबंधित परीक्षा के नियम देखें।</p>
+    </div>
   </div>
-
-  <p>आपका Score Calculator अभी इस्तेमाल किया जा सकता है।</p>
-
-  <button class="primary"
-          onclick="showSection('calculator')">
-    Score Calculator खोलें
-  </button>
 </section>
 
-<section class="card" id="about" style="display:none">
-  <h2>ℹ️ Railway Rank Mitra</h2>
-  <p>
-    Railway Rank Mitra रेलवे परीक्षाओं की तैयारी करने वाले
-    विद्यार्थियों के लिए बनाया जा रहा प्लेटफॉर्म है।
-  </p>
-  <p>मुख्य सुविधाएँ:</p>
-  <ul>
-    <li>Exam Score Calculator</li>
-    <li>GDCE और LDCE परीक्षाओं की तैयारी</li>
-    <li>भविष्य में साझा Rank List</li>
-    <li>Railway Exam Updates</li>
-  </ul>
+<section class="page" id="rank">
+  <div class="card">
+    <h2>🏆 Common Rank List</h2>
+    <div class="notice">
+      साझा Rank List अभी चालू नहीं है। सभी विद्यार्थियों के स्कोर इकट्ठा करने और एक ही रैंक सूची दिखाने के लिए सुरक्षित डेटाबेस कनेक्शन जोड़ना आवश्यक है।
+    </div>
+    <p class="muted">अभी इस पेज पर कोई वास्तविक विद्यार्थी रैंक या रैंकिंग डेटा नहीं दिखाया जा रहा है।</p>
+    <button class="secondary" type="button" data-goto="calculator">Score Calculator खोलें</button>
+  </div>
 </section>
 
+<section class="page" id="about">
+  <div class="card">
+    <h2>ℹ️ Railway Rank Mitra के बारे में</h2>
+    <p>रेलवे परीक्षा की तैयारी करने वाले विद्यार्थियों के लिए बनाया गया प्लेटफॉर्म।</p>
+    <ul>
+      <li>Score Calculator</li>
+      <li>RRB परीक्षाओं के लिए सहायता</li>
+      <li>भविष्य में साझा Rank List</li>
+    </ul>
+    <p class="muted">RAILWAY SUCCESS POINT</p>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -234,49 +136,56 @@ footer {
 </footer>
 
 <script>
-function showSection(id) {
-  ["calculator", "rank", "about"].forEach(function(section) {
-    document.getElementById(section).style.display =
-      section === id ? "block" : "none";
-  });
-
-  window.scrollTo({top: 0, behavior: "smooth"});
-}
-
-function calculateScore() {
-  const total = Number(document.getElementById("total").value);
-  const correct = Number(document.getElementById("correct").value);
-  const wrong = Number(document.getElementById("wrong").value);
-  const marks = Number(document.getElementById("marks").value);
-  const negative = Number(document.getElementById("negative").value);
-
-  if (
-    !Number.isInteger(total) || total < 1 || total > 500 ||
-    !Number.isInteger(correct) || correct < 0 ||
-    !Number.isInteger(wrong) || wrong < 0 ||
-    correct + wrong > total ||
-    !Number.isFinite(marks) || marks <= 0
-  ) {
-    alert("कृपया कुल प्रश्न, सही और गलत उत्तर सही भरें।");
-    return;
+(function(){
+  function openPage(id){
+    document.querySelectorAll(".page").forEach(function(section){
+      section.classList.toggle("active", section.id === id);
+    });
+    window.scrollTo({top:0,behavior:"smooth"});
   }
 
-  const unattempted = total - correct - wrong;
-  const score = correct * marks - wrong * negative;
-  const maximum = total * marks;
+  document.querySelectorAll("[data-page]").forEach(function(button){
+    button.addEventListener("click",function(){
+      openPage(button.getAttribute("data-page"));
+    });
+  });
 
-  document.getElementById("score").textContent =
-    score.toFixed(2);
+  document.querySelectorAll("[data-goto]").forEach(function(button){
+    button.addEventListener("click",function(){
+      openPage(button.getAttribute("data-goto"));
+    });
+  });
 
-  document.getElementById("details").textContent =
-    "सही: " + correct +
-    " | गलत: " + wrong +
-    " | छोड़े: " + unattempted +
-    " | अधिकतम अंक: " + maximum.toFixed(2);
+  document.getElementById("calculate").addEventListener("click",function(){
+    var total = Number(document.getElementById("total").value);
+    var correct = Number(document.getElementById("correct").value);
+    var wrong = Number(document.getElementById("wrong").value);
+    var marks = Number(document.getElementById("marks").value);
+    var negative = Number(document.getElementById("negative").value);
 
-  document.getElementById("result").style.display = "block";
-}
+    if(!Number.isInteger(total) || total < 1 || total > 500 ||
+       !Number.isInteger(correct) || correct < 0 ||
+       !Number.isInteger(wrong) || wrong < 0 ||
+       correct + wrong > total ||
+       !Number.isFinite(marks) || marks <= 0){
+      alert("कृपया कुल प्रश्न, सही और गलत उत्तर जाँचें। सही और गलत का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।");
+      return;
+    }
+
+    var unattempted = total - correct - wrong;
+    var score = correct * marks - wrong * negative;
+    var maximum = total * marks;
+
+    document.getElementById("score").textContent = score.toFixed(2);
+    document.getElementById("details").textContent =
+      "सही: " + correct +
+      " | गलत: " + wrong +
+      " | छोड़े: " + unattempted +
+      " | अधिकतम अंक: " + maximum.toFixed(2);
+
+    document.getElementById("result").style.display = "block";
+  });
+})();
 </script>
-
 </body>
 </html>
