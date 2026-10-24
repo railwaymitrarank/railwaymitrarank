@@ -8,75 +8,29 @@
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#eef3ff;
- color:#172554
-}
-header{
- background:linear-gradient(135deg,#082f80,#1769d2);
- color:white;text-align:center;padding:25px 12px
-}
-h1{margin:0;font-size:27px}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3ff;color:#172554}
+header{background:linear-gradient(135deg,#082f80,#1769d2);color:white;text-align:center;padding:25px 12px}
+header h1{margin:0;font-size:27px}
 header p{margin:8px 0 0;font-size:14px}
-nav{
- display:flex;flex-wrap:wrap;justify-content:center;
- gap:8px;padding:12px;background:white
-}
-nav a{
- background:#e0eaff;color:#123b86;
- text-decoration:none;padding:9px 12px;
- border-radius:20px;font-weight:bold;font-size:13px
-}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:white}
+nav a{background:#e0eaff;color:#123b86;text-decoration:none;padding:9px 12px;border-radius:20px;font-weight:bold;font-size:13px}
 main{max-width:760px;margin:auto;padding:14px}
-.card{
- background:white;padding:18px;margin:15px 0;
- border-radius:16px;box-shadow:0 4px 15px #152c5012
-}
+.card{background:white;padding:18px;margin:15px 0;border-radius:16px;box-shadow:0 4px 15px #152c5012}
 h2{margin-top:0;color:#123b86;font-size:21px}
-label{
- display:block;margin-top:12px;
- font-weight:bold;font-size:14px
-}
-input,select{
- width:100%;padding:12px;margin-top:6px;
- border:1px solid #cbd5e1;border-radius:9px;
- font-size:16px;background:white
-}
-button,.btn{
- display:block;width:100%;border:0;padding:13px;
- margin-top:14px;border-radius:10px;
- background:#1457c5;color:white;font-size:16px;
- font-weight:bold;text-align:center;
- text-decoration:none;cursor:pointer
-}
-button:disabled{opacity:.6}
+label{display:block;margin-top:12px;font-weight:bold;font-size:14px}
+input,select{width:100%;padding:12px;margin-top:6px;border:1px solid #cbd5e1;border-radius:9px;font-size:16px;background:white}
+button,.btn{display:block;width:100%;border:0;padding:13px;margin-top:14px;border-radius:10px;background:#1457c5;color:white;font-size:16px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
 .green{background:#07834b}
-.notice{
- background:#fff7d6;border:1px solid #f0d36b;
- border-radius:10px;padding:12px;color:#684d00;
- font-size:13px;line-height:1.6
-}
-.result{
- display:none;background:#e5f8ed;
- border:1px solid #86d6a5;padding:15px;
- border-radius:10px;margin-top:15px;
- line-height:1.8;overflow-wrap:anywhere
-}
+.notice{background:#fff7d6;border:1px solid #f0d36b;border-radius:10px;padding:12px;color:#684d00;font-size:13px;line-height:1.6}
+.result{display:none;background:#e5f8ed;border:1px solid #86d6a5;padding:15px;border-radius:10px;margin-top:15px;line-height:1.8;overflow-wrap:anywhere}
 .small{font-size:13px;color:#64748b;line-height:1.6}
-.grid{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:10px
-}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.or-divider{text-align:center;margin:20px 0;font-weight:bold;color:#1457c5}
 footer{text-align:center;padding:22px;color:#52617b;font-size:13px}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}
 @media(max-width:480px){.grid{grid-template-columns:1fr}}
-@media print{
- nav,button,.no-print{display:none!important}
- body{background:white}
- .card{box-shadow:none;border:1px solid #ddd}
-}
+@media print{nav,button,.no-print{display:none!important}body{background:white}.card{box-shadow:none;border:1px solid #ddd}}
 </style>
 </head>
 
@@ -98,14 +52,12 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:300px;overflow:auto}
 <h2>📄 अपना Railway Scorecard देखें</h2>
 
 <p class="notice">
-Response Sheet URL पढ़ने की कोशिश की जाएगी।
-कुछ Railway लिंक लॉगिन या सेशन से खुलते हैं।
-सही स्कोर निकालने के लिए Candidate के उत्तरों और
-Official Answer Key का मिलान करना जरूरी है।
+अपनी परीक्षा चुनें और Candidate Details भरें। फिर Response Sheet URL डालें या OR के नीचे HTML फ़ाइल चुनें। सही स्कोर निकालने के लिए Response Sheet और Official Answer Key का मिलान करना जरूरी है।
 </p>
 
-<label for="exam">परीक्षा चुनें</label>
-<select id="exam">
+<label for="exam">RRB / Railway Exam चुनें</label>
+<select id="exam" required>
+<option value="">-- अपना Exam चुनें --</option>
 <option>RRB Group D</option>
 <option>RRB ALP</option>
 <option>RRB Technician</option>
@@ -130,23 +82,18 @@ Official Answer Key का मिलान करना जरूरी है�
 <label for="reg">Registration Number</label>
 <input id="reg" placeholder="Registration Number">
 
-<label for="url">Response Sheet का URL</label>
+<label for="url">Response Sheet का URL डालें</label>
 <input id="url" type="url" placeholder="https://...">
 
-<label for="keyurl">Official Answer Key URL (यदि अलग हो)</label>
-<input id="keyurl" type="url" placeholder="https://...">
+<button id="check" type="button">URL से Response Sheet खोलें</button>
 
-<button id="check" type="button">
-Response Sheet URL पढ़ें
-</button>
+<div class="or-divider">━━━━━━━━━━ OR ━━━━━━━━━━</div>
 
-<label for="file">
-अगर URL न खुले तो डाउनलोड की हुई Response Sheet HTML फ़ाइल चुनें
-</label>
+<label for="file">Response Sheet की HTML फ़ाइल चुनें</label>
 <input id="file" type="file" accept=".html,.htm,text/html">
 
 <button id="readFile" type="button" class="green">
-HTML फ़ाइल पढ़ें
+फ़ाइल से Response Sheet खोलें
 </button>
 
 <div id="status" class="small" aria-live="polite"></div>
@@ -159,18 +106,13 @@ Scorecard Print / PDF में Save करें
 
 <section class="card" id="social">
 <h2>📢 Railway Success Point से जुड़ें</h2>
-
 <p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
 
-<a class="btn"
-href="https://www.youtube.com/@RailwaySuccessPoint"
-target="_blank" rel="noopener noreferrer">
+<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">
 ▶️ YouTube Channel
 </a>
 
-<a class="btn green"
-href="https://t.me/railwaysuccespoint"
-target="_blank" rel="noopener noreferrer">
+<a class="btn green" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">
 ✈️ Telegram Channel
 </a>
 </section>
@@ -189,130 +131,137 @@ target="_blank" rel="noopener noreferrer">
 const $ = id => document.getElementById(id);
 
 function showStatus(message){
- $("status").textContent = message;
+  $("status").textContent = message;
 }
 
 function escapeHTML(value){
- return String(value).replace(/[&<>"']/g, ch => ({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
- }[ch]));
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  }[ch]));
 }
 
 function extractText(html){
- const doc = new DOMParser().parseFromString(html,"text/html");
- return (doc.body?.innerText || "").trim();
+  const doc = new DOMParser().parseFromString(html,"text/html");
+  return (doc.body?.innerText || "").trim();
 }
 
 function showResponse(source,text){
- const name = $("name").value.trim() || "नहीं भरा";
- const roll = $("roll").value.trim() || "नहीं भरा";
- const reg = $("reg").value.trim() || "नहीं भरा";
- const exam = $("exam").value;
+  if(!$("exam").value){
+    showStatus("पहले अपना RRB / Railway Exam चुनें।");
+    return;
+  }
 
- $("result").style.display = "block";
+  const name = $("name").value.trim() || "नहीं भरा";
+  const roll = $("roll").value.trim() || "नहीं भरा";
+  const reg = $("reg").value.trim() || "नहीं भरा";
 
- $("result").innerHTML =
-  "<h3>🚂 RAILWAY RANK MITRA</h3>" +
-  "<b>परीक्षा:</b> " + escapeHTML(exam) + "<br>" +
-  "<b>Candidate:</b> " + escapeHTML(name) + "<br>" +
-  "<b>Roll Number:</b> " + escapeHTML(roll) + "<br>" +
-  "<b>Registration Number:</b> " + escapeHTML(reg) + "<br>" +
-  "<b>पढ़ी गई फ़ाइल/URL:</b> " + escapeHTML(source) +
-  "<p><b>Response Sheet का टेक्स्ट पढ़ लिया गया है।</b></p>" +
-  "<p>अभी सही और गलत उत्तरों का मिलान करके Score अपने-आप नहीं निकाला गया है। इसके लिए Response Sheet के प्रश्नों, Candidate के उत्तरों और Official Answer Key को पहचानने वाला सिस्टम बनाना बाकी है।</p>" +
-  "<details><summary>Response Sheet का टेक्स्ट देखें</summary>" +
-  "<pre>" + escapeHTML(text.slice(0,5000)) + "</pre></details>";
+  $("result").style.display = "block";
+
+  $("result").innerHTML =
+    "<h3>🚂 RAILWAY RANK MITRA</h3>" +
+    "<b>परीक्षा:</b> " + escapeHTML($("exam").value) + "<br>" +
+    "<b>Candidate:</b> " + escapeHTML(name) + "<br>" +
+    "<b>Roll Number:</b> " + escapeHTML(roll) + "<br>" +
+    "<b>Registration Number:</b> " + escapeHTML(reg) + "<br>" +
+    "<b>Response Sheet:</b> " + escapeHTML(source) +
+    "<p><b>Response Sheet का टेक्स्ट पढ़ लिया गया है।</b></p>" +
+    "<p>अभी सही और गलत उत्तरों का मिलान करके स्कोर अपने-आप नहीं निकाला गया है। इसके लिए प्रश्नों, Candidate के चुने उत्तरों और Official Answer Key को पहचानकर मिलाना जरूरी है।</p>" +
+    "<details><summary>Response Sheet का टेक्स्ट देखें</summary>" +
+    "<pre>" + escapeHTML(text.slice(0,5000)) + "</pre></details>";
 }
 
-$("check").addEventListener("click", async function(){
- const url = $("url").value.trim();
-
- if(!url){
-  showStatus("पहले Response Sheet का URL भरें।");
-  return;
- }
-
- try{
-  new URL(url);
- }catch(e){
-  showStatus("कृपया सही URL डालें।");
-  return;
- }
-
- this.disabled = true;
- showStatus("URL खोलने की कोशिश हो रही है...");
-
- try{
-  const response = await fetch(url,{
-   method:"GET",
-   mode:"cors",
-   credentials:"omit"
-  });
-
-  if(!response.ok){
-   throw new Error("URL नहीं खुला");
+$("check").addEventListener("click",async function(){
+  if(!$("exam").value){
+    showStatus("पहले अपना RRB / Railway Exam चुनें।");
+    return;
   }
 
-  const html = await response.text();
-  const text = extractText(html);
+  const url = $("url").value.trim();
 
-  if(!text){
-   throw new Error("टेक्स्ट नहीं मिला");
+  if(!url){
+    showStatus("पहले Response Sheet का URL डालें।");
+    return;
   }
 
-  showResponse(url,text);
-  showStatus("URL से टेक्स्ट पढ़ लिया गया।");
+  try{
+    new URL(url);
+  }catch(e){
+    showStatus("कृपया सही URL डालें।");
+    return;
+  }
 
- }catch(error){
-  showStatus(
-   "URL ब्राउज़र से नहीं पढ़ा जा सका। Railway वेबसाइट लॉगिन, सेशन या सुरक्षा के कारण रोक सकती है। Response Sheet डाउनलोड करके नीचे HTML फ़ाइल चुनें। अपना पासवर्ड या OTP यहाँ न डालें।"
-  );
- }finally{
-  this.disabled = false;
- }
+  this.disabled = true;
+  showStatus("URL खोलने की कोशिश हो रही है...");
+
+  try{
+    const response = await fetch(url,{
+      method:"GET",
+      mode:"cors",
+      credentials:"omit"
+    });
+
+    if(!response.ok) throw new Error("URL नहीं खुला");
+
+    const html = await response.text();
+    const text = extractText(html);
+
+    if(!text) throw new Error("टेक्स्ट नहीं मिला");
+
+    showResponse(url,text);
+    showStatus("URL से टेक्स्ट पढ़ लिया गया।");
+
+  }catch(error){
+    showStatus("URL नहीं खुल सका। Railway वेबसाइट लॉगिन, सेशन या सुरक्षा के कारण इसे रोक सकती है। नीचे HTML फ़ाइल चुनकर कोशिश करें। अपना पासवर्ड या OTP यहाँ न डालें।");
+  }finally{
+    this.disabled = false;
+  }
 });
 
 $("readFile").addEventListener("click",async function(){
- const file = $("file").files[0];
-
- if(!file){
-  showStatus("पहले Response Sheet की HTML फ़ाइल चुनें।");
-  return;
- }
-
- if(!/\.html?$/i.test(file.name)){
-  showStatus("अभी केवल HTML फ़ाइल पढ़ी जा सकती है।");
-  return;
- }
-
- try{
-  const html = await file.text();
-  const text = extractText(html);
-
-  if(!text){
-   showStatus("फ़ाइल में पढ़ने योग्य टेक्स्ट नहीं मिला।");
-   return;
+  if(!$("exam").value){
+    showStatus("पहले अपना RRB / Railway Exam चुनें।");
+    return;
   }
 
-  showResponse(file.name,text);
-  showStatus("HTML फ़ाइल पढ़ ली गई।");
+  const file = $("file").files[0];
 
- }catch(error){
-  showStatus("फ़ाइल नहीं पढ़ पाए। दूसरी HTML फ़ाइल आज़माएँ।");
- }
+  if(!file){
+    showStatus("पहले Response Sheet की HTML फ़ाइल चुनें।");
+    return;
+  }
+
+  if(!/\.html?$/i.test(file.name)){
+    showStatus("अभी केवल HTML फ़ाइल पढ़ी जा सकती है।");
+    return;
+  }
+
+  try{
+    const html = await file.text();
+    const text = extractText(html);
+
+    if(!text){
+      showStatus("फ़ाइल में पढ़ने योग्य टेक्स्ट नहीं मिला।");
+      return;
+    }
+
+    showResponse(file.name,text);
+    showStatus("HTML फ़ाइल पढ़ ली गई।");
+
+  }catch(error){
+    showStatus("फ़ाइल नहीं पढ़ पाए। दूसरी HTML फ़ाइल आज़माएँ।");
+  }
 });
 
 $("print").addEventListener("click",function(){
- if($("result").style.display !== "block"){
-  showStatus("पहले Response Sheet URL या फ़ाइल पढ़ें।");
-  return;
- }
-
- window.print();
+  if($("result").style.display !== "block"){
+    showStatus("पहले Response Sheet URL या HTML फ़ाइल पढ़ें।");
+    return;
+  }
+  window.print();
 });
 </script>
 
