@@ -40,7 +40,7 @@ body{background:white}
 
 <header>
 <h1>🚂 RAILWAY RANK MITRA</h1>
-<p>Railway Exam Answer Key Calculator &amp; Rank Predictor</p>
+<p>Railway Exam Answer Key Calculator & Rank Predictor</p>
 </header>
 
 <nav>
@@ -108,45 +108,15 @@ body{background:white}
 <label for="roll">Roll Number (वैकल्पिक)</label>
 <input id="roll" placeholder="अपना Roll Number लिखें">
 
-<button type="button" class="green" id="scorecardButton">
-Click Here — Candidate Details &amp; Scorecard
-</button>
-
+<button type="button" class="green" id="scorecardButton">Generate Scorecard</button>
 <div class="result" id="scoreResult"></div>
 
-<div id="telegramScoreLock" class="no-print">
-<p class="small">
-Scorecard डाउनलोड करने के लिए पहले Telegram Channel खोलें।
-वापस आकर “मैंने Telegram Join कर लिया” दबाएँ।
-</p>
-
-<a class="btn green"
-id="joinTelegramForScore"
-href="https://t.me/railwaysuccespointchannel"
-target="_blank"
-rel="noopener noreferrer">
-✈️ JOIN TELEGRAM CHANNEL
-</a>
-
-<button type="button" id="confirmTelegramJoin" class="orange">
-मैंने Telegram Join कर लिया
-</button>
-
-<p id="telegramGateMessage" class="small" aria-live="polite">
-Scorecard download अभी locked है।
-</p>
-</div>
-
-<button type="button" class="orange no-print" id="printButton" disabled>
-Download / Print Scorecard (PDF)
-</button>
+<button type="button" class="orange no-print" id="printButton">Print / Save PDF</button>
 </section>
 
 <section class="card" id="rank">
 <h2>🏆 Rank Predictor</h2>
-<p class="small">
-यह केवल गणितीय अनुमान है। वास्तविक रैंक आधिकारिक परिणाम और सभी उम्मीदवारों के प्रदर्शन पर निर्भर करेगी।
-</p>
+<p class="small">यह केवल गणितीय अनुमान है। वास्तविक रैंक आधिकारिक परिणाम और सभी उम्मीदवारों के प्रदर्शन पर निर्भर करेगी।</p>
 
 <label for="candidates">कुल उम्मीदवार (अनुमानित)</label>
 <input type="number" id="candidates" placeholder="जैसे 100000" min="1" step="1">
@@ -195,55 +165,34 @@ PDF parsing और अलग-अलग response-sheet formats का support अ
 <h2>📢 Railway Success Point से जुड़ें</h2>
 <p>Railway Exam Updates, Answer Key Solutions और तैयारी के लिए हमारे चैनल पर जाएँ।</p>
 
-<a class="btn"
-href="https://www.youtube.com/@RailwaySuccessPoint"
-target="_blank" rel="noopener noreferrer">
-▶️ YouTube Channel
-</a>
-
-<a class="btn green"
-href="https://t.me/railwaysuccespointchannel"
-target="_blank" rel="noopener noreferrer">
-✈️ Telegram Channel
-</a>
+<a class="btn" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶️ YouTube Channel</a>
+<a class="btn green" href="https://t.me/railwaysuccespointchannel" target="_blank" rel="noopener noreferrer">✈️ Telegram Channel</a>
 </section>
 
 <section class="card">
 <h2>🔒 Scorecard Unlock</h2>
 <p>Telegram Channel खोलने के लिए नीचे क्लिक करें।</p>
-
-<a class="btn"
-href="https://t.me/railwaysuccespointchannel"
-target="_blank" rel="noopener noreferrer">
-📢 JOIN TELEGRAM CHANNEL
-</a>
-
-<p class="small">
-नोट: वेबसाइट Telegram membership verify नहीं करती। यह लिंक केवल चैनल खोलता है।
-</p>
+<a class="btn" href="https://t.me/railwaysuccespointchannel" target="_blank" rel="noopener noreferrer">📢 JOIN TELEGRAM CHANNEL</a>
+<p class="small">नोट: वेबसाइट Telegram membership verify नहीं करती। यह लिंक केवल चैनल खोलता है।</p>
 </section>
 
 <section class="card" id="adminDashboard">
 <h2>🔐 Railway Rank Mitra Admin</h2>
-
 <p class="small">
 यह login केवल Firebase Authentication से admin account में प्रवेश करता है।
 Candidate records/CSV तभी उपलब्ध होंगे जब सुरक्षित Firestore database और rules अलग से configure किए जाएँ।
 </p>
 
 <label for="adminEmail">Admin Email</label>
-<input id="adminEmail" type="email" autocomplete="username" placeholder="अपना Admin email लिखें">
+<input type="email" id="adminEmail" autocomplete="username" placeholder="अपना Admin email लिखें">
 
 <label for="adminPassword">Password</label>
-<input id="adminPassword" type="password" autocomplete="current-password" placeholder="अपना Password यहाँ वेबसाइट पर लिखें">
+<input type="password" id="adminPassword" autocomplete="current-password" placeholder="अपना Password यहाँ वेबसाइट पर लिखें">
 
 <button type="button" id="adminLoginButton">Admin Login</button>
 <button type="button" id="adminLogoutButton" class="orange" hidden>Logout</button>
 
-<p id="adminStatus" role="status" aria-live="polite" class="small">
-अभी Login नहीं किया गया है।
-</p>
-
+<p id="adminStatus" role="status" aria-live="polite" class="small">अभी Login नहीं किया गया है।</p>
 <div id="adminRecords" class="small"></div>
 </section>
 
@@ -272,21 +221,11 @@ const show = (el, html) => {
   el.innerHTML = html;
 };
 
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, ch => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  }[ch]));
-}
-
 document.querySelectorAll("[data-exam]").forEach(btn => {
   btn.addEventListener("click", () => {
     selectedExam = btn.dataset.exam;
     $("examName").textContent = "Selected Exam: " + selectedExam;
-    $("calculator").scrollIntoView({behavior: "smooth"});
+    $("calculator").scrollIntoView({behavior:"smooth"});
   });
 });
 
@@ -334,6 +273,17 @@ $("calculateButton").addEventListener("click", () => {
     "<br><b>Final Score:</b> " + currentScore.toFixed(2);
 });
 
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, ch => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[ch]));
+}
+
+/* UPDATED SCORECARD: Candidate Details के नीचे Score Board */
 $("scorecardButton").addEventListener("click", () => {
   if (currentScore === null) {
     alert("पहले Answer Key Calculator में Calculate Score करें।");
@@ -342,36 +292,32 @@ $("scorecardButton").addEventListener("click", () => {
 
   const name = $("studentName").value.trim() || "Not Provided";
   const roll = $("roll").value.trim() || "Not Provided";
+  const unattempted = currentTotal - currentCorrect - currentWrong;
 
   show($("scoreResult"), "");
 
   $("scoreResult").innerHTML =
     "<h3>🚂 RAILWAY RANK MITRA SCORECARD</h3>" +
-    "<b>Candidate Details</b><br>" +
-    "<b>Exam:</b> " + escapeHTML(selectedExam) + "<br>" +
-    "<b>Name:</b> " + escapeHTML(name) + "<br>" +
-    "<b>Roll Number:</b> " + escapeHTML(roll) +
-    "<hr><b>Score Board</b><br>" +
-    "<b>Total Questions:</b> " + currentTotal + "<br>" +
-    "<b>Correct Answers:</b> " + currentCorrect + "<br>" +
-    "<b>Wrong Answers:</b> " + currentWrong + "<br>" +
-    "<b>Unattempted:</b> " + (currentTotal - currentCorrect - currentWrong) + "<br>" +
-    "<b>Calculated Score:</b> " + currentScore.toFixed(2) +
-    "<p class='small'>यह स्कोर आपके द्वारा दर्ज जानकारी पर आधारित है, आधिकारिक स्कोरकार्ड नहीं।</p>";
-});
 
-$("confirmTelegramJoin").addEventListener("click", () => {
-  $("printButton").disabled = false;
-  $("telegramGateMessage").textContent =
-    "Download button unlock हो गया है। ध्यान दें: वेबसाइट Telegram membership को अपने-आप verify नहीं कर सकती।";
+    "<h3>👤 Candidate Details</h3>" +
+    "<b>Name:</b> " + escapeHTML(name) +
+    "<br><b>Roll Number:</b> " + escapeHTML(roll) +
+    "<br><b>Exam:</b> " + escapeHTML(selectedExam) +
+
+    "<hr>" +
+
+    "<h3>📊 Candidate Score Board</h3>" +
+    "<b>Total Questions:</b> " + currentTotal +
+    "<br><b>Correct Answers:</b> " + currentCorrect +
+    "<br><b>Wrong Answers:</b> " + currentWrong +
+    "<br><b>Unattempted:</b> " + unattempted +
+
+    "<h3>🏆 Final Score: " + currentScore.toFixed(2) + "</h3>" +
+
+    "<p class='small'>यह स्कोर Calculator में दर्ज जानकारी पर आधारित है, आधिकारिक स्कोरकार्ड नहीं।</p>";
 });
 
 $("printButton").addEventListener("click", () => {
-  if ($("printButton").disabled) {
-    alert("पहले Telegram Join करें।");
-    return;
-  }
-
   window.print();
 });
 
@@ -442,15 +388,39 @@ $("readResponseButton").addEventListener("click", async () => {
     wrapper.appendChild(title);
 
     const detail = document.createElement("p");
-    detail.textContent =
-      "नाम: " + ($("candidateName").value.trim() || "नहीं भरा") +
-      " | Roll Number: " + ($("candidateRoll").value.trim() || "नहीं भरा") +
-      " | Exam: " + $("railExam").value;
+    detail.innerHTML =
+      "<b>Candidate Details</b><br>" +
+      "नाम: " + escapeHTML($("candidateName").value.trim() || "नहीं भरा") +
+      "<br>Roll Number: " + escapeHTML($("candidateRoll").value.trim() || "नहीं भरा") +
+      "<br>Exam: " + escapeHTML($("railExam").value);
+
     wrapper.appendChild(detail);
+
+    const scoreBoard = document.createElement("div");
+    scoreBoard.style.cssText =
+      "margin-top:12px;padding:12px;border:1px solid #86d6a5;border-radius:8px;background:#e5f8ed";
+
+    if (currentScore !== null) {
+      scoreBoard.innerHTML =
+        "<h3>📊 Score Board</h3>" +
+        "<b>Total Questions:</b> " + currentTotal +
+        "<br><b>Correct Answers:</b> " + currentCorrect +
+        "<br><b>Wrong Answers:</b> " + currentWrong +
+        "<br><b>Unattempted:</b> " + (currentTotal - currentCorrect - currentWrong) +
+        "<br><b>Score:</b> " + currentScore.toFixed(2) +
+        "<p class='small'>यह Calculator में दर्ज उत्तरों के आधार पर निकला स्कोर है। यह response sheet से अपने-आप निकला आधिकारिक स्कोर नहीं है।</p>";
+    } else {
+      scoreBoard.innerHTML =
+        "<h3>📊 Score Board</h3>" +
+        "<p>अभी स्कोर उपलब्ध नहीं है। पहले Answer Key Calculator में Total, Correct, Wrong और Marks भरकर <b>Calculate Score</b> दबाएँ। उसके बाद यहाँ Candidate Details के नीचे स्कोर दिखाई देगा।</p>";
+    }
+
+    wrapper.appendChild(scoreBoard);
 
     const note = document.createElement("p");
     note.textContent =
-      "अभी केवल टेक्स्ट preview है; score निकालने के लिए response sheet का format और official answer key पहचानना आवश्यक है।";
+      "Response sheet का टेक्स्ट अभी केवल preview किया जा रहा है। आधिकारिक answer key से मिलान किए बिना response sheet का स्कोर अपने-आप नहीं निकाला गया है।";
+
     wrapper.appendChild(note);
 
     const details = document.createElement("details");
@@ -489,9 +459,7 @@ let db = null;
 
 try {
   if (window.firebase) {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     auth = firebase.auth();
     db = firebase.firestore();
   }
@@ -506,8 +474,7 @@ $("adminLoginButton").addEventListener("click", async () => {
   const password = $("adminPassword").value;
 
   if (!auth || !db) {
-    status.textContent =
-      "Firebase उपलब्ध नहीं है। इंटरनेट कनेक्शन जाँचें और पेज refresh करें।";
+    status.textContent = "Firebase उपलब्ध नहीं है। इंटरनेट कनेक्शन जाँचें और पेज refresh करें।";
     return;
   }
 
@@ -529,7 +496,6 @@ $("adminLoginButton").addEventListener("click", async () => {
     login.hidden = true;
 
     status.textContent = "Login सफल।";
-
     $("adminRecords").textContent =
       "अभी Candidate Details या CSV उपलब्ध नहीं हैं। Firestore में records और सुरक्षित rules configure करना बाकी है।";
 
@@ -543,9 +509,7 @@ $("adminLoginButton").addEventListener("click", async () => {
 
 $("adminLogoutButton").addEventListener("click", async () => {
   try {
-    if (auth) {
-      await auth.signOut();
-    }
+    if (auth) await auth.signOut();
 
     $("adminRecords").textContent = "";
     $("adminStatus").textContent = "आप Logout हो गए हैं।";
