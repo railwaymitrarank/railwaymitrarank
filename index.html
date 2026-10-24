@@ -2,290 +2,369 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Railway Rank Mitra</title>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
-header{background:linear-gradient(135deg,#082f66,#0759a8);color:white;text-align:center;padding:24px 12px}
+header{background:#083b78;color:white;text-align:center;padding:22px 10px}
 header h1{margin:0;font-size:27px}
-header p{margin:8px 0 0}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
-button,.btn{border:0;border-radius:8px;padding:11px 14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
-nav button{background:#e0edff;color:#073d7b}
-nav button.active{background:#0759a8;color:white}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;background:white;padding:12px;position:sticky;top:0}
+button,.btn{padding:11px 14px;border:0;border-radius:7px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+nav button{background:#e0edff;color:#083b78}
+nav button.active,.primary{background:#0759a8;color:white}
 .container{max-width:900px;margin:18px auto;padding:0 12px}
-.card{background:white;border-radius:13px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #0000000c}
-h2{font-size:21px;color:#0759a8;margin-top:0}
-h3{font-size:17px}
+.card{background:white;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 2px 10px #0001}
+h2{color:#0759a8;font-size:21px;margin-top:0}
 label{display:block;font-weight:bold;margin:12px 0 5px}
-input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:7px;font-size:15px;background:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px 14px}
-.primary{background:#0759a8;color:white}
+input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:7px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
 .green{background:#128044;color:white}
-.orange{background:#ed8b00;color:white}
-.red{background:#b42318;color:white}
-.social{display:flex;flex-wrap:wrap;gap:9px}
-.social a{flex:1;min-width:140px;color:white}
-.youtube{background:#d91f26}
-.telegram{background:#168bd2}
-.group{background:#087b64}
-.note{background:#fff7d6;border-left:4px solid #e6a700;padding:11px;border-radius:5px;font-size:14px;line-height:1.5}
-.result{background:#e9f8ef;border-radius:8px;padding:13px;margin-top:12px;line-height:1.7}
+.telegram{background:#168bd2;color:white}
+.youtube{background:#d91f26;color:white}
+.group{background:#087b64;color:white}
+.social{display:flex;flex-wrap:wrap;gap:8px}
+.social a{flex:1;text-align:center;min-width:140px}
+.note{background:#fff7d6;padding:11px;border-left:4px solid #e6a700;line-height:1.5}
+.result{background:#e9f8ef;padding:15px;border-radius:8px;margin-top:15px}
 .hidden{display:none!important}
-footer{text-align:center;padding:20px;background:#082f66;color:white;margin-top:25px}
-@media print{nav,.social,.no-print,header p{display:none!important}body{background:white}.card{box-shadow:none}}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+td,th{border:1px solid #cbd5e1;padding:9px;text-align:left}
+footer{text-align:center;background:#083b78;color:white;padding:20px}
+@media print{
+ nav,.social,.no-print,header p{display:none!important}
+ body{background:white}
+ .card{box-shadow:none}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>🚆 RAILWAY RANK MITRA</h1>
-  <p>Railway Exams • Rank Predictor • Score Card</p>
+<h1>🚆 RAILWAY RANK MITRA</h1>
+<p>Rank Predictor | Answer Key Calculator | Score Card</p>
 </header>
 
 <nav>
-  <button class="active" onclick="showPage('rrb',this)">RRB + GDCE</button>
-  <button onclick="showPage('ldce',this)">LDCE EXAMS</button>
-  <button onclick="showPage('rank',this)">Rank Predictor</button>
+<button class="active" onclick="page('rrb',this)">RRB + GDCE</button>
+<button onclick="page('ldce',this)">LDCE Exams</button>
+<button onclick="page('rank',this)">Rank Predictor</button>
 </nav>
 
 <div class="container">
 
-<section id="rrb" class="page">
-  <div class="card">
-    <h2>RRB ALL EXAMS + GDCE</h2>
-    <p>Candidate Details</p>
-    <form id="rrbForm">
-      <label>Response Sheet / Result URL</label>
-      <input id="responseUrl" type="url" placeholder="यहाँ Response Sheet का URL डालें">
+<!-- RRB SECTION -->
+<section id="rrb" class="section">
+<div class="card">
+<h2>RRB ALL EXAMS + GDCE</h2>
 
-      <div class="grid">
-        <div><label>Exam Type</label>
-          <select id="examType">
-            <option>RRB All Exams</option><option>GDCE</option>
-            <option>ALP</option><option>Technician</option>
-            <option>Group D</option><option>NTPC Graduate</option>
-            <option>NTPC Undergraduate</option><option>JE</option>
-          </select>
-        </div>
-        <div><label>Railway Zone</label>
-          <select id="zone">
-            <option value="">Select Zone</option>
-            <option>Central Railway</option><option>Eastern Railway</option>
-            <option>East Central Railway</option><option>East Coast Railway</option>
-            <option>Northern Railway</option><option>North Central Railway</option>
-            <option>North Eastern Railway</option><option>Northeast Frontier Railway</option>
-            <option>North Western Railway</option><option>Southern Railway</option>
-            <option>South Central Railway</option><option>South Eastern Railway</option>
-            <option>South East Central Railway</option><option>South Western Railway</option>
-            <option>Western Railway</option><option>Metro Railway</option>
-          </select>
-        </div>
-        <div><label>Exam Post</label>
-          <input id="post" placeholder="ALP / Technician / NTPC / अन्य">
-        </div>
-        <div><label>Exam Date</label><input id="examDate" type="date"></div>
-        <div><label>Shift</label>
-          <select id="shift"><option value="">Select Shift</option>
-            <option>First Shift</option><option>Second Shift</option><option>Third Shift</option>
-          </select>
-        </div>
-        <div><label>Category</label>
-          <select id="category"><option value="">Select Category</option>
-            <option>UR</option><option>OBC</option><option>SC</option>
-            <option>ST</option><option>EWS</option>
-          </select>
-        </div>
-        <div><label>Candidate Name</label><input id="candidateName" placeholder="Candidate Name"></div>
-        <div><label>Registration Number</label><input id="regNo" placeholder="Registration Number"></div>
-      </div>
-      <br><button class="primary" type="submit">Save Candidate Details</button>
-    </form>
-    <div id="rrbResult" class="result hidden"></div>
-    <p class="note">महत्वपूर्ण: केवल URL डालने से वेबसाइट अपने-आप RRB की Response Sheet नहीं पढ़ सकती। वास्तविक स्कोर के लिए Response Sheet और Official Answer Key का पढ़ने योग्य डेटा आवश्यक है।</p>
-  </div>
+<label>Response Sheet URL (वैकल्पिक)</label>
+<input id="responseURL" type="url" placeholder="Response Sheet का URL">
+
+<div class="grid">
+<div><label>Exam Type</label>
+<select id="examType">
+<option>RRB All Exams</option>
+<option>GDCE</option>
+<option>ALP</option>
+<option>Technician</option>
+<option>Group D</option>
+<option>NTPC Graduate</option>
+<option>NTPC Undergraduate</option>
+<option>JE</option>
+</select></div>
+
+<div><label>Railway Zone</label>
+<select id="zone">
+<option value="">Select Zone</option>
+<option>Central Railway</option>
+<option>Eastern Railway</option>
+<option>East Central Railway</option>
+<option>East Coast Railway</option>
+<option>Northern Railway</option>
+<option>North Central Railway</option>
+<option>North Eastern Railway</option>
+<option>Northeast Frontier Railway</option>
+<option>North Western Railway</option>
+<option>Southern Railway</option>
+<option>South Central Railway</option>
+<option>South Eastern Railway</option>
+<option>South East Central Railway</option>
+<option>South Western Railway</option>
+<option>Western Railway</option>
+</select></div>
+
+<div><label>Exam Post</label><input id="post" placeholder="ALP / Technician / NTPC"></div>
+<div><label>Exam Date</label><input id="examDate" type="date"></div>
+<div><label>Shift</label>
+<select id="shift">
+<option>First Shift</option><option>Second Shift</option><option>Third Shift</option>
+</select></div>
+<div><label>Category</label>
+<select id="category">
+<option>UR</option><option>OBC</option><option>SC</option><option>ST</option><option>EWS</option>
+</select></div>
+<div><label>Candidate Name</label><input id="candidateName"></div>
+<div><label>Registration Number</label><input id="regNo"></div>
+</div>
+
+<p class="note">
+केवल URL डालने से Response Sheet अपने-आप नहीं पढ़ी जा सकती।
+वास्तविक स्कोर के लिए नीचे LDCE Calculator में दोनों पढ़ने योग्य डेटा फ़ाइलें अपलोड करें।
+</p>
+</div>
 </section>
 
-<section id="ldce" class="page hidden">
-  <div class="card">
-    <h2>LDCE EXAMS — Score Calculator</h2>
-    <div class="grid">
-      <div><label>Candidate Name</label><input id="ldceName" placeholder="Candidate Name"></div>
-      <div><label>Zone</label><input id="ldceZone" placeholder="Railway Zone"></div>
-      <div><label>Division</label><input id="division" placeholder="Division"></div>
-      <div><label>Exam / Post</label><input id="ldcePost" placeholder="Goods Guard / SM / CCTC"></div>
-      <div><label>Category</label>
-        <select id="ldceCategory"><option>UR</option><option>OBC</option><option>SC</option><option>ST</option><option>EWS</option></select>
-      </div>
-      <div><label>4-Digit Code (यदि लागू हो)</label><input id="code4" inputmode="numeric" maxlength="4" placeholder="0000"></div>
-    </div>
+<!-- LDCE CALCULATOR -->
+<section id="ldce" class="section hidden">
+<div class="card">
+<h2>LDCE / Answer Key Score Calculator</h2>
 
-    <label>Official Answer Key / Question Data (JSON या CSV)</label>
-    <input id="keyFile" type="file" accept=".json,.csv">
+<div class="grid">
+<div><label>Candidate Name</label><input id="ldceName"></div>
+<div><label>Zone</label><input id="ldceZone"></div>
+<div><label>Division</label><input id="division"></div>
+<div><label>Exam / Post</label><input id="ldcePost"></div>
+</div>
 
-    <label>Candidate Answer Sheet (JSON या CSV)</label>
-    <input id="candidateFile" type="file" accept=".json,.csv">
+<label>Official Answer Key (JSON या CSV)</label>
+<input id="keyFile" type="file" accept=".json,.csv">
 
-    <p class="note">JSON में प्रत्येक प्रश्न का ID और सही उत्तर होना चाहिए। उदाहरण: [{"id":"1","correctAnswer":"A","candidateAnswer":"A"}]. यदि डेटा अधूरा है, तो स्कोर नहीं दिखाया जाएगा। CSV में कम-से-कम id, correctAnswer और candidateAnswer कॉलम रखें।</p>
+<label>Candidate Response Sheet (JSON या CSV)</label>
+<input id="candidateFile" type="file" accept=".json,.csv">
 
-    <button class="primary" onclick="calculateLDCE()">SHOW SCORE</button>
-    <div id="ldceResult" class="result hidden"></div>
-    <div id="joinBeforeDownload" class="card hidden">
-      <h3>📢 Score Card से पहले Telegram Channel Join करें</h3>
-      <p>Score Card प्रिंट या PDF के रूप में सेव करने से पहले हमारे Telegram Channel को खोलें।</p>
-      <a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈️ JOIN TELEGRAM CHANNEL</a>
-      <p style="font-size:13px">नोट: वेबसाइट यह सत्यापित नहीं कर सकती कि आपने चैनल जॉइन किया है या नहीं।</p>
-      <button class="green" onclick="window.print()">⬇️ DOWNLOAD / SAVE SCORE CARD</button>
-    </div>
-  </div>
+<div class="grid">
+<div><label>सही उत्तर का अंक</label><input id="positive" type="number" value="1" step="0.01"></div>
+<div><label>गलत उत्तर की कटौती</label><input id="negative" type="number" value="0.33" step="0.01"></div>
+</div>
+
+<p class="note">
+दोनों फ़ाइलों में प्रश्नों की समान ID होनी चाहिए। JSON में उदाहरण:
+<br><br>
+Official Key: [{"id":"1","correctAnswer":"A"},{"id":"2","correctAnswer":"C"}]
+<br><br>
+Response Sheet: [{"id":"1","candidateAnswer":"A"},{"id":"2","candidateAnswer":"B"}]
+<br><br>
+CSV में कॉलम रखें: id,correctAnswer और id,candidateAnswer।
+</p>
+
+<button class="primary" onclick="calculate()">CALCULATE ANSWER KEY</button>
+
+<div id="error" class="note hidden"></div>
+<div id="score" class="result hidden"></div>
+
+<div id="downloadArea" class="hidden no-print">
+<h3>Score Card डाउनलोड करने से पहले Telegram Join करें</h3>
+<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">
+✈ JOIN TELEGRAM CHANNEL
+</a>
+<br><br>
+<button class="green" onclick="window.print()">⬇ DOWNLOAD / SAVE AS PDF</button>
+</div>
+</div>
 </section>
 
-<section id="rank" class="page hidden">
-  <div class="card">
-    <h2>🎯 Railway Rank Predictor</h2>
-    <p>अपनी अनुमानित रैंक निकालने के लिए जानकारी भरें।</p>
-    <label>आपके Marks (अनुमानित)</label>
-    <input id="rankMarks" type="number" min="0" placeholder="जैसे 75">
-    <label>कुल Candidates की संख्या</label>
-    <input id="totalCandidates" type="number" min="1" placeholder="जैसे 100000">
-    <label>आपका अनुमानित Percentile (यदि पता है)</label>
-    <input id="percentile" type="number" min="0" max="100" step="0.01" placeholder="जैसे 95.5">
-    <button class="primary" onclick="predictRank()">ESTIMATE RANK</button>
-    <div id="rankResult" class="result hidden"></div>
-    <p class="note">यह अनुमान है, आधिकारिक RRB रैंक नहीं। अनुमानित रैंक percentile और candidates की संख्या पर आधारित होगी। Marks अकेले सही रैंक बताने के लिए पर्याप्त नहीं हैं।</p>
-  </div>
+<!-- RANK PREDICTOR -->
+<section id="rank" class="section hidden">
+<div class="card">
+<h2>🎯 Rank Predictor</h2>
+
+<label>आपके Marks</label>
+<input id="marks" type="number" min="0" placeholder="जैसे 75">
+
+<label>Total Candidates</label>
+<input id="totalCandidates" type="number" min="1" placeholder="जैसे 100000">
+
+<label>अनुमानित Percentile</label>
+<input id="percentile" type="number" min="0" max="100" step="0.01" placeholder="जैसे 95.5">
+
+<button class="primary" onclick="predict()">ESTIMATE RANK</button>
+<div id="rankResult" class="result hidden"></div>
+
+<p class="note">यह अनुमानित रैंक है, आधिकारिक RRB Rank नहीं।</p>
+</div>
 </section>
 
-<section class="card">
-  <h2>🔔 Railway Success Point से जुड़ें</h2>
-  <div class="social">
-    <a class="btn youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">▶ YouTube Channel</a>
-    <a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Telegram Channel</a>
-    <a class="btn group" href="https://t.me/" target="_blank" rel="noopener">👥 Telegram Group</a>
-  </div>
-  <p class="note">YouTube और Telegram के लिंक उदाहरण हैं। इन्हें अपने वास्तविक Railway Success Point चैनल और ग्रुप के लिंक से बदलें।</p>
-</section>
+<!-- SOCIAL LINKS -->
+<div class="card">
+<h2>Railway Success Point से जुड़ें</h2>
+<div class="social">
+<a class="btn youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">▶ YouTube Channel</a>
+<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Telegram Channel</a>
+<a class="btn group" href="https://t.me/" target="_blank" rel="noopener">👥 Telegram Group</a>
+</div>
+<p class="note">YouTube और Telegram के लिंक को अपने वास्तविक चैनल/ग्रुप लिंक से बदलें।</p>
+</div>
+
 </div>
 
 <footer>
-  <strong>RAILWAY RANK MITRA</strong>
-  <p>Railway Exam Preparation & Candidate Tools</p>
+<strong>RAILWAY RANK MITRA</strong>
+<p>Railway Exam Preparation & Candidate Tools</p>
 </footer>
 
 <script>
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+function page(id,btn){
+ document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.getElementById('rrbForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  const details=[
-    ['Candidate Name',document.getElementById('candidateName').value],
-    ['Registration Number',document.getElementById('regNo').value],
-    ['Exam Type',document.getElementById('examType').value],
-    ['Zone',document.getElementById('zone').value],
-    ['Post',document.getElementById('post').value],
-    ['Exam Date',document.getElementById('examDate').value],
-    ['Shift',document.getElementById('shift').value],
-    ['Category',document.getElementById('category').value],
-    ['Response URL',document.getElementById('responseUrl').value]
-  ];
-  const out=document.getElementById('rrbResult');
-  out.innerHTML='<h3>Candidate Details Saved on This Page</h3>'+details.map(x=>'<p><b>'+escapeHTML(x[0])+':</b> '+escapeHTML(x[1]||'Not provided')+'</p>').join('')+
-  '<p><b>Score:</b> उपलब्ध डेटा से सत्यापन किए बिना स्कोर नहीं निकाला गया।</p>';
-  out.classList.remove('hidden');
-});
-
-function escapeHTML(s){
-  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function escapeHTML(v){
+ return String(v??'').replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ })[c]);
 }
 
-function predictRank(){
-  const total=Number(document.getElementById('totalCandidates').value);
-  const pct=document.getElementById('percentile').value;
-  const marks=document.getElementById('rankMarks').value;
-  const out=document.getElementById('rankResult');
-  if(!total||total<1){alert('कुल Candidates की संख्या भरें।');return;}
-  if(pct===''||Number(pct)<0||Number(pct)>100){
-    out.innerHTML='कृपया अपना अनुमानित Percentile 0 से 100 के बीच भरें। केवल Marks से रैंक का विश्वसनीय अनुमान नहीं निकाला जा सकता।';
-  }else{
-    const rank=Math.max(1,Math.ceil(total*(1-Number(pct)/100)));
-    out.innerHTML='<h3>Estimated Rank</h3><p><b>Marks:</b> '+escapeHTML(marks||'नहीं दिए')+'</p><p><b>Percentile:</b> '+Number(pct)+'%</p><p><b>अनुमानित Rank:</b> '+rank.toLocaleString('en-IN')+'</p><p>यह गणितीय अनुमान है, आधिकारिक रैंक नहीं।</p>';
-  }
-  out.classList.remove('hidden');
+async function readFile(file,type){
+ if(!file)throw Error('Official Answer Key और Candidate Response Sheet दोनों अपलोड करें।');
+
+ const txt=await file.text();
+
+ if(file.name.toLowerCase().endsWith('.json')){
+  const obj=JSON.parse(txt);
+  if(Array.isArray(obj))return obj;
+  if(Array.isArray(obj.questions))return obj.questions;
+  throw Error(file.name+' में JSON प्रश्नों की सूची नहीं मिली।');
+ }
+
+ const lines=txt.trim().split(/\r?\n/);
+ if(lines.length<2)throw Error(file.name+' खाली है या उसमें डेटा नहीं है।');
+
+ function parseLine(line){
+  return line.match(/("([^"]|"")*"|[^,]*)(,|$)/g)
+   .map(x=>x.replace(/,$/,'').trim().replace(/^"|"$/g,'').replace(/""/g,'"'));
+ }
+
+ const headers=parseLine(lines[0]).map(x=>x.trim());
+ return lines.slice(1).filter(x=>x.trim()).map(line=>{
+  const vals=parseLine(line);
+  const row={};
+  headers.forEach((h,i)=>row[h]=vals[i]??'');
+  return row;
+ });
 }
 
-async function readData(file){
-  if(!file)throw new Error('दोनों डेटा फ़ाइलें अपलोड करें।');
-  const text=await file.text();
-  if(file.name.toLowerCase().endsWith('.json')){
-    const data=JSON.parse(text);
-    if(!Array.isArray(data))throw new Error(file.name+' में JSON array होना चाहिए।');
-    return data;
-  }
-  const lines=text.trim().split(/\r?\n/);
-  if(lines.length<2)throw new Error(file.name+' में डेटा नहीं है।');
-  const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
-  return lines.slice(1).filter(Boolean).map(line=>{
-    const vals=line.split(',').map(v=>v.trim().replace(/^"|"$/g,''));
-    const row={};headers.forEach((h,i)=>row[h]=vals[i]??'');return row;
+function getField(row,names){
+ for(const n of names){
+  if(row[n]!==undefined && row[n]!==null && String(row[n]).trim()!=='')
+   return String(row[n]).trim();
+ }
+ return '';
+}
+
+async function calculate(){
+ const err=document.getElementById('error');
+ const out=document.getElementById('score');
+ const dl=document.getElementById('downloadArea');
+
+ err.classList.add('hidden');
+ out.classList.add('hidden');
+ dl.classList.add('hidden');
+
+ try{
+  const keyRows=await readFile(document.getElementById('keyFile').files[0],'key');
+  const responseRows=await readFile(document.getElementById('candidateFile').files[0],'response');
+
+  const keyMap=new Map();
+  const answerMap=new Map();
+
+  keyRows.forEach(r=>{
+   const id=getField(r,['id','ID','questionId','question_id','QuestionID']);
+   const ans=getField(r,['correctAnswer','correct_answer','answerKey','answer','Correct Answer']);
+   if(id && ans)keyMap.set(id,ans.toUpperCase());
   });
+
+  responseRows.forEach(r=>{
+   const id=getField(r,['id','ID','questionId','question_id','QuestionID']);
+   const ans=getField(r,['candidateAnswer','candidate_answer','selectedAnswer','response','answer','Candidate Answer']);
+   if(id)answerMap.set(id,ans.toUpperCase());
+  });
+
+  if(!keyMap.size)throw Error('Official Answer Key में प्रश्न ID और सही उत्तर नहीं मिले।');
+  if(!answerMap.size)throw Error('Candidate Response Sheet में प्रश्न ID और आपके उत्तर नहीं मिले।');
+
+  const missing=[...keyMap.keys()].filter(id=>!answerMap.has(id));
+  if(missing.length){
+   throw Error('Response Sheet में '+missing.length+' प्रश्नों का डेटा नहीं मिला। गलत स्कोर दिखाने के बजाय गणना रोक दी गई।');
+  }
+
+  let correct=0,wrong=0,unattempted=0;
+  for(const [id,key] of keyMap){
+   const ans=answerMap.get(id);
+   if(!ans || ans==='-' || ans==='N/A')unattempted++;
+   else if(ans===key)correct++;
+   else wrong++;
+  }
+
+  const total=keyMap.size;
+  const attempted=correct+wrong;
+  const positive=Number(document.getElementById('positive').value);
+  const negative=Number(document.getElementById('negative').value);
+
+  if(!Number.isFinite(positive)||!Number.isFinite(negative)||positive<0||negative<0)
+   throw Error('अंक और कटौती के मान सही भरें।');
+
+  const marks=correct*positive-wrong*negative;
+  const maxMarks=total*positive;
+  const percentage=maxMarks>0?(marks/maxMarks)*100:0;
+  const accuracy=attempted>0?(correct/attempted)*100:0;
+
+  out.innerHTML=`
+   <h2>RAILWAY RANK MITRA — SCORE CARD</h2>
+   <p><b>Candidate Name:</b> ${escapeHTML(document.getElementById('ldceName').value||document.getElementById('candidateName').value||'—')}</p>
+   <p><b>Zone:</b> ${escapeHTML(document.getElementById('ldceZone').value||document.getElementById('zone').value||'—')}</p>
+   <p><b>Division:</b> ${escapeHTML(document.getElementById('division').value||'—')}</p>
+   <p><b>Exam / Post:</b> ${escapeHTML(document.getElementById('ldcePost').value||document.getElementById('post').value||'—')}</p>
+   <table>
+   <tr><th>विवरण</th><th>परिणाम</th></tr>
+   <tr><td>Total Questions</td><td>${total}</td></tr>
+   <tr><td>Attempted</td><td>${attempted}</td></tr>
+   <tr><td>Correct Answers</td><td>${correct}</td></tr>
+   <tr><td>Wrong Answers</td><td>${wrong}</td></tr>
+   <tr><td>Unattempted</td><td>${unattempted}</td></tr>
+   <tr><td>Total Marks</td><td>${marks.toFixed(2)} / ${maxMarks.toFixed(2)}</td></tr>
+   <tr><td>Percentage</td><td>${percentage.toFixed(2)}%</td></tr>
+   <tr><td>Accuracy</td><td>${accuracy.toFixed(2)}%</td></tr>
+   </table>
+   <p class="note">गणना अपलोड की गई फ़ाइलों पर आधारित है। Negative marking आपके द्वारा चुने गए मान के अनुसार लागू की गई है। यह आधिकारिक RRB परिणाम नहीं है।</p>
+  `;
+
+  out.classList.remove('hidden');
+  dl.classList.remove('hidden');
+
+ }catch(e){
+  err.textContent='Calculation नहीं हो पाई: '+e.message;
+  err.classList.remove('hidden');
+ }
 }
 
-async function calculateLDCE(){
-  const out=document.getElementById('ldceResult');
-  const gate=document.getElementById('joinBeforeDownload');
-  out.classList.remove('hidden');gate.classList.add('hidden');
-  out.textContent='डेटा जाँचा जा रहा है…';
-  try{
-    const keyRows=await readData(document.getElementById('keyFile').files[0]);
-    const candidateRows=await readData(document.getElementById('candidateFile').files[0]);
-    const keys=new Map();
-    keyRows.forEach(r=>{
-      const id=String(r.id??r.ID??r.questionId??'').trim();
-      const ans=String(r.correctAnswer??r.correct_answer??'').trim();
-      if(id&&ans)keys.set(id,ans.toUpperCase());
-    });
-    const answers=new Map();
-    candidateRows.forEach(r=>{
-      const id=String(r.id??r.ID??r.questionId??'').trim();
-      const ans=String(r.candidateAnswer??r.candidate_answer??r.answer??'').trim();
-      if(id)answers.set(id,ans.toUpperCase());
-    });
-    if(!keys.size||!answers.size)throw new Error('प्रश्न ID और सही/उम्मीदवार उत्तरों का डेटा पढ़ा नहीं जा सका।');
-    for(const id of keys.keys()){
-      if(!answers.has(id))throw new Error('Candidate Answer Sheet अधूरी है। प्रश्न '+id+' का उत्तर उपलब्ध नहीं है। स्कोर नहीं निकाला गया।');
-    }
-    let correct=0,wrong=0,unattempted=0;
-    for(const [id,key] of keys){
-      const ans=answers.get(id);
-      if(!ans)unattempted++;
-      else if(ans===key)correct++;
-      else wrong++;
-    }
-    const total=keys.size;
-    const negative=0.33;
-    const score=correct-(wrong*negative);
-    const attempted=correct+wrong;
-    const accuracy=attempted?(correct/attempted*100):0;
-    out.innerHTML='<h3>Score Card</h3>'+
-      '<p><b>Name:</b> '+escapeHTML(document.getElementById('ldceName').value||'—')+'</p>'+
-      '<p><b>Zone / Division:</b> '+escapeHTML(document.getElementById('ldceZone').value||'—')+' / '+escapeHTML(document.getElementById('division').value||'—')+'</p>'+
-      '<p><b>Exam:</b> '+escapeHTML(document.getElementById('ldcePost').value||'—')+'</p>'+
-      '<p>Total Questions: '+total+'</p><p>Correct: '+correct+'</p><p>Wrong: '+wrong+'</p>'+
-      '<p>Unattempted: '+unattempted+'</p><p>Total Score (1 mark, −0.33 assumed): '+score.toFixed(2)+'</p>'+
-      '<p>Accuracy: '+accuracy.toFixed(2)+'%</p>'+
-      '<p><b>नोट:</b> स्कोर में प्रति प्रश्न 1 अंक और गलत उत्तर पर 0.33 नकारात्मक अंक माना गया है। अपने परीक्षा के आधिकारिक नियम अवश्य जाँचें।</p>';
-    gate.classList.remove('hidden');
-  }catch(err){
-    out.textContent='Score नहीं निकाला गया: '+err.message+' दोनों फ़ाइलों में सही और पढ़ने योग्य डेटा सुनिश्चित करें।';
-  }
+function predict(){
+ const total=Number(document.getElementById('totalCandidates').value);
+ const pct=document.getElementById('percentile').value;
+ const out=document.getElementById('rankResult');
+
+ if(!total||total<1){
+  alert('Total Candidates भरें।');
+  return;
+ }
+ if(pct===''||Number(pct)<0||Number(pct)>100){
+  alert('0 से 100 के बीच Percentile भरें।');
+  return;
+ }
+
+ const rank=Math.max(1,Math.ceil(total*(1-Number(pct)/100)));
+ out.innerHTML='<h3>Estimated Rank: '+rank.toLocaleString('en-IN')+'</h3>'+
+ '<p>Marks: '+escapeHTML(document.getElementById('marks').value||'—')+'</p>'+
+ '<p>Percentile: '+Number(pct)+'%</p>'+
+ '<p>यह अनुमान है, आधिकारिक रैंक नहीं।</p>';
+ out.classList.remove('hidden');
 }
 </script>
+
 </body>
 </html>
