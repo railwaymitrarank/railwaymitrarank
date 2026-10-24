@@ -7,66 +7,24 @@
 
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#eef3f9;
-  color:#172033
-}
-header{
-  background:linear-gradient(135deg,#092e70,#0879c9);
-  color:white;
-  text-align:center;
-  padding:24px 12px
-}
-header h1{margin:0;font-size:27px}
-header p{margin:8px 0 0}
-.container{max-width:760px;margin:18px auto;padding:12px}
-.card{
-  background:white;
-  padding:18px;
-  margin-bottom:16px;
-  border-radius:14px;
-  box-shadow:0 3px 12px #00000012
-}
+body{margin:0;font-family:Arial,sans-serif;background:#eef3fa;color:#172033}
+header{background:linear-gradient(135deg,#092e70,#0879c9);color:white;text-align:center;padding:25px 12px}
+header h1{font-size:27px;margin:0}
+header p{margin:9px 0 0}
+.container{max-width:760px;margin:auto;padding:14px}
+.card{background:white;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #00000012}
 h2{font-size:20px;color:#0759a5;margin-top:0}
 label{display:block;font-weight:bold;margin:13px 0 6px}
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccd5e0;
-  border-radius:8px;
-  font-size:16px;
-  background:white
-}
-textarea{min-height:115px;resize:vertical}
-button{
-  width:100%;
-  border:0;
-  border-radius:9px;
-  padding:13px;
-  margin-top:14px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#0879c9;
-  color:white
-}
+input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff}
+textarea{min-height:130px}
+button{width:100%;padding:14px;border:0;border-radius:9px;background:#0879c9;color:white;font-weight:bold;font-size:16px;margin-top:14px}
 button:active{opacity:.8}
-.secondary{background:#168348}
-.note{font-size:13px;color:#58677b;line-height:1.5}
-#result{
-  display:none;
-  background:#e8f8ed;
-  border:1px solid #a8dfb7;
-  border-radius:12px;
-  padding:16px;
-  margin-top:15px
-}
-.score{font-size:34px;font-weight:bold;color:#08783d}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-.stat{background:white;padding:12px;border-radius:9px;text-align:center}
+#result{display:none;background:#e8f8ed;border:1px solid #a8dfb7;padding:15px;border-radius:10px;margin-top:15px}
+.score{font-size:32px;color:#08783d;font-weight:bold}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:white;padding:12px;border-radius:8px;text-align:center}
 .stat strong{display:block;font-size:22px;margin-top:5px}
+.small{font-size:13px;color:#58677b;line-height:1.5}
 footer{text-align:center;padding:20px;color:#58677b;font-size:13px}
 </style>
 </head>
@@ -74,263 +32,225 @@ footer{text-align:center;padding:20px;color:#58677b;font-size:13px}
 <body>
 
 <header>
-  <h1>🚆 RAILWAY RANK MITRA</h1>
-  <p>Apna Score Calculate Karein</p>
-  <p>RRB • ALP • Technician • Group D • NTPC • GDCE • LDCE</p>
+<h1>🚆 RAILWAY RANK MITRA</h1>
+<p>Railway Exam Score Calculator</p>
+<p>ALP • Technician • Group D • NTPC • JE • GDCE • LDCE</p>
 </header>
 
-<div class="container">
+<main class="container">
 
-  <section class="card">
-    <h2>👤 Candidate Details</h2>
+<section class="card">
+<h2>👤 Candidate Details</h2>
 
-    <label>Candidate Name</label>
-    <input id="candidateName" type="text" placeholder="Apna naam likhein">
+<label>Candidate Name</label>
+<input id="name" placeholder="Apna naam likhein">
 
-    <label>Roll Number / Registration Number</label>
-    <input id="rollNumber" type="text" placeholder="Apna roll number likhein">
+<label>Roll Number / Registration Number</label>
+<input id="roll" placeholder="Apna roll number likhein">
 
-    <label>Exam Select Karein</label>
-    <select id="exam">
-      <option value="">Exam select karein</option>
-      <option>RRB ALP</option>
-      <option>RRB Technician</option>
-      <option>RRB Group D</option>
-      <option>RRB NTPC Graduate</option>
-      <option>RRB NTPC Undergraduate</option>
-      <option>RRB JE</option>
-      <option>GDCE</option>
-      <option>LDCE</option>
-      <option>Other Railway Exam</option>
-    </select>
+<label>Exam</label>
+<select id="exam">
+<option value="">Exam select karein</option>
+<option>RRB ALP</option>
+<option>RRB Technician</option>
+<option>RRB Group D</option>
+<option>RRB NTPC Graduate</option>
+<option>RRB NTPC Undergraduate</option>
+<option>RRB JE</option>
+<option>GDCE</option>
+<option>LDCE</option>
+<option>Other Railway Exam</option>
+</select>
 
-    <label>Railway Zone</label>
-    <select id="zone">
-      <option value="">Zone select karein</option>
-      <option>Central Railway</option>
-      <option>Eastern Railway</option>
-      <option>East Central Railway</option>
-      <option>East Coast Railway</option>
-      <option>North Central Railway</option>
-      <option>North Eastern Railway</option>
-      <option>Northeast Frontier Railway</option>
-      <option>Northern Railway</option>
-      <option>North Western Railway</option>
-      <option>South Central Railway</option>
-      <option>South Eastern Railway</option>
-      <option>South East Central Railway</option>
-      <option>Southern Railway</option>
-      <option>South Western Railway</option>
-      <option>West Central Railway</option>
-      <option>Western Railway</option>
-      <option>Other</option>
-    </select>
+<label>Railway Zone</label>
+<select id="zone">
+<option value="">Zone select karein</option>
+<option>Central Railway</option>
+<option>Eastern Railway</option>
+<option>East Central Railway</option>
+<option>East Coast Railway</option>
+<option>North Central Railway</option>
+<option>North Eastern Railway</option>
+<option>Northeast Frontier Railway</option>
+<option>Northern Railway</option>
+<option>North Western Railway</option>
+<option>South Central Railway</option>
+<option>South Eastern Railway</option>
+<option>South East Central Railway</option>
+<option>Southern Railway</option>
+<option>South Western Railway</option>
+<option>West Central Railway</option>
+<option>Western Railway</option>
+</select>
 
-    <label>Exam Date</label>
-    <input id="examDate" type="date">
+<label>Exam Date</label>
+<input id="date" type="date">
 
-    <label>Shift</label>
-    <select id="shift">
-      <option value="">Shift select karein</option>
-      <option>First Shift</option>
-      <option>Second Shift</option>
-      <option>Third Shift</option>
-      <option>Other</option>
-    </select>
+<label>Shift</label>
+<select id="shift">
+<option value="">Shift select karein</option>
+<option>First Shift</option>
+<option>Second Shift</option>
+<option>Third Shift</option>
+</select>
 
-    <label>Category</label>
-    <select id="category">
-      <option value="">Category select karein</option>
-      <option>UR</option>
-      <option>OBC</option>
-      <option>SC</option>
-      <option>ST</option>
-      <option>EWS</option>
-    </select>
-  </section>
+<label>Category</label>
+<select id="category">
+<option value="">Category select karein</option>
+<option>UR</option>
+<option>OBC</option>
+<option>SC</option>
+<option>ST</option>
+<option>EWS</option>
+</select>
+</section>
 
-  <section class="card">
-    <h2>📄 Answer Key</h2>
+<section class="card">
+<h2>📄 Answer Key & Candidate Answers</h2>
 
-    <label>Answer Key HTML File Upload Karein</label>
-    <input id="answerFile" type="file" accept=".html,.htm,text/html">
+<label>Official Answer Key HTML File</label>
+<input id="keyFile" type="file" accept=".html,.htm,text/html">
 
-    <p class="note">
-      Official answer key page ko HTML file ke roop mein save karke upload karein.
-      PDF ya screenshot ko is calculator mein seedhe parse nahi kiya ja sakta.
-    </p>
+<p class="small">Answer key ka HTML file upload karein. PDF ya screenshot ko yeh calculator seedhe read nahi kar sakta.</p>
 
-    <label>Candidate Answers</label>
-    <textarea id="candidateAnswers"
-      placeholder="Is format mein answers likhein:
+<label>Apne Answers Likhein</label>
+<textarea id="answers" placeholder="Har line par ek answer likhein:
 1=A
 2=C
 3=B
 4=D"></textarea>
 
-    <p class="note">
-      Candidate Answers mein har line par question number aur aapka answer likhein.
-      Calculator tabhi sahi result dega jab uploaded HTML mein question number aur
-      correct answer pehchaan mein aa sake.
-    </p>
+<p class="small">Answer format: Question number = Option. Jaise 1=A, 2=C.</p>
 
-    <button class="secondary" onclick="calculateScore()">
-      CALCULATE MY SCORE
-    </button>
+<label>Correct Answer ke Marks</label>
+<input id="positive" type="number" value="1" step="0.01">
 
-    <div id="result" aria-live="polite"></div>
-  </section>
+<label>Wrong Answer ki Negative Marking</label>
+<input id="negative" type="number" value="0.33" step="0.01">
 
-  <section class="card">
-    <h2>🏆 Railway Rank Mitra</h2>
-    <p>
-      Yahan abhi aapka local score calculate hoga. Sabhi candidates ki common
-      rank list dikhane ke liye secure database connection aur rank calculation
-      setup karna zaroori hai.
-    </p>
-    <p class="note">
-      Is page par abhi koi official rank, cutoff ya selection prediction
-      generate nahi hota.
-    </p>
-  </section>
+<button onclick="calculate()">CALCULATE SCORE</button>
 
-</div>
+<div id="result" aria-live="polite"></div>
+</section>
+
+<section class="card">
+<h2>🏆 Rank Mitra</h2>
+<p>Yahan abhi score calculate hoga. Sabhi candidates ki common rank list ke liye secure database connection setup karna hoga.</p>
+<p class="small">Abhi website official rank ya selection guarantee nahi deti.</p>
+</section>
+
+</main>
 
 <footer>
-  <strong>RAILWAY RANK MITRA</strong><br>
-  Railway Exam Score Calculator
+<strong>RAILWAY RANK MITRA</strong><br>
+Made for Railway Exam Aspirants
 </footer>
 
 <script>
-function parseCandidateAnswers(text){
-  const answers = {};
-  const lines = text.split(/\n|,/);
-
-  for(const line of lines){
-    const match = line.trim().match(/^(\d+)\s*[:=\-]\s*([A-E])$/i);
-    if(match){
-      answers[Number(match[1])] = match[2].toUpperCase();
-    }
-  }
-  return answers;
-}
-
-function extractAnswerKey(html){
-  const doc = new DOMParser().parseFromString(html,"text/html");
-  const answers = {};
-
-  // Try to find table rows containing a question number and an answer.
-  for(const row of doc.querySelectorAll("tr")){
-    const cells = Array.from(row.querySelectorAll("th,td"))
-      .map(cell => cell.innerText.trim());
-
-    if(cells.length < 2) continue;
-
-    const questionCell = cells.find(text => /^\d+$/.test(text));
-    if(!questionCell) continue;
-
-    const answerCell = cells.find(text =>
-      /^(option\s*)?[A-E]$/i.test(text.trim())
-    );
-
-    if(answerCell){
-      const match = answerCell.match(/[A-E]/i);
-      if(match) answers[Number(questionCell)] = match[0].toUpperCase();
-    }
-  }
-
-  return answers;
-}
-
-async function calculateScore(){
-  const name = document.getElementById("candidateName").value.trim();
-  const roll = document.getElementById("rollNumber").value.trim();
-  const exam = document.getElementById("exam").value;
-  const file = document.getElementById("answerFile").files[0];
-  const answerText = document.getElementById("candidateAnswers").value;
-  const result = document.getElementById("result");
-
-  if(!name || !roll || !exam){
-    alert("Candidate Name, Roll Number aur Exam bharna zaroori hai.");
-    return;
-  }
-
-  if(!file){
-    alert("Pehle Answer Key ki HTML file upload karein.");
-    return;
-  }
-
-  if(!answerText.trim()){
-    alert("Apne answers enter karein.");
-    return;
-  }
-
-  result.style.display = "block";
-  result.innerHTML = "Answer key check ho rahi hai...";
-
-  try{
-    const html = await file.text();
-    const key = extractAnswerKey(html);
-    const candidate = parseCandidateAnswers(answerText);
-
-    const keyQuestions = Object.keys(key);
-    if(keyQuestions.length === 0){
-      result.innerHTML =
-        "<strong>Answer key read nahi ho paayi.</strong><br>" +
-        "Uploaded HTML ka format is calculator ke saath match nahi kar raha. " +
-        "Official answer key ke question/answer table ko check karna hoga.";
-      return;
-    }
-
-    let correct = 0;
-    let wrong = 0;
-    let unanswered = 0;
-
-    for(const question of keyQuestions){
-      const q = Number(question);
-      if(!candidate[q]){
-        unanswered++;
-      }else if(candidate[q] === key[q]){
-        correct++;
-      }else{
-        wrong++;
-      }
-    }
-
-    const score = correct - wrong * 0.33;
-
-    result.innerHTML = `
-      <h2>Score Result</h2>
-      <p>Candidate: <strong>${escapeHTML(name)}</strong></p>
-      <p>Roll Number: <strong>${escapeHTML(roll)}</strong></p>
-      <p>Exam: <strong>${escapeHTML(exam)}</strong></p>
-      <div class="score">${score.toFixed(2)} Marks</div>
-      <div class="stats">
-        <div class="stat">Correct<strong>${correct}</strong></div>
-        <div class="stat">Wrong<strong>${wrong}</strong></div>
-        <div class="stat">Unanswered<strong>${unanswered}</strong></div>
-        <div class="stat">Key Questions<strong>${keyQuestions.length}</strong></div>
-      </div>
-      <p class="note">
-        Calculation: +1 for correct and -0.33 for wrong answers.
-        Actual exam marking scheme alag ho to result bhi alag ho sakta hai.
-        Yeh official result ya rank nahi hai.
-      </p>
-    `;
-  }catch(error){
-    result.innerHTML =
-      "Answer key process nahi ho paayi. Sahi HTML file upload karke dobara try karein.";
-  }
-}
-
 function escapeHTML(value){
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  })[char]);
+ return String(value).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+ });
+}
+
+function parseCandidate(text){
+ const result={};
+ text.split(/[\n,;]+/).forEach(function(line){
+  const m=line.trim().match(/^(\d+)\s*[:=\-]\s*([A-E])$/i);
+  if(m) result[Number(m[1])]=m[2].toUpperCase();
+ });
+ return result;
+}
+
+function parseKey(html){
+ const doc=new DOMParser().parseFromString(html,"text/html");
+ const key={};
+
+ doc.querySelectorAll("tr").forEach(function(row){
+  const cells=Array.from(row.querySelectorAll("th,td"))
+   .map(function(cell){return cell.innerText.trim();});
+
+  if(cells.length<2)return;
+
+  const q=cells.find(function(v){return /^\d+$/.test(v);});
+  if(!q)return;
+
+  const a=cells.find(function(v){
+   return /^(option\s*)?[A-E]$/i.test(v.trim());
+  });
+
+  if(a){
+   const m=a.match(/[A-E]/i);
+   if(m)key[Number(q)]=m[0].toUpperCase();
+  }
+ });
+ return key;
+}
+
+async function calculate(){
+ const name=document.getElementById("name").value.trim();
+ const roll=document.getElementById("roll").value.trim();
+ const exam=document.getElementById("exam").value;
+ const file=document.getElementById("keyFile").files[0];
+ const text=document.getElementById("answers").value;
+ const box=document.getElementById("result");
+
+ if(!name||!roll||!exam){
+  alert("Candidate Name, Roll Number aur Exam bharna zaroori hai.");
+  return;
+ }
+ if(!file){
+  alert("Pehle Answer Key HTML file upload karein.");
+  return;
+ }
+ if(!text.trim()){
+  alert("Apne answers likhein.");
+  return;
+ }
+
+ box.style.display="block";
+ box.innerHTML="Answer key check ho rahi hai...";
+
+ try{
+  const html=await file.text();
+  const key=parseKey(html);
+  const candidate=parseCandidate(text);
+  const questions=Object.keys(key);
+
+  if(!questions.length){
+   box.innerHTML="<strong>Answer key read nahi ho paayi.</strong><br>HTML file ka format supported nahi hai. Answer key ke table ka format check karna hoga.";
+   return;
+  }
+
+  let correct=0,wrong=0,unanswered=0;
+  const positive=Number(document.getElementById("positive").value);
+  const negative=Number(document.getElementById("negative").value);
+
+  for(const qText of questions){
+   const q=Number(qText);
+   if(!candidate[q]) unanswered++;
+   else if(candidate[q]===key[q]) correct++;
+   else wrong++;
+  }
+
+  const score=correct*positive-wrong*negative;
+
+  box.innerHTML=
+   "<h2>Score Result</h2>"+
+   "<p>Candidate: <strong>"+escapeHTML(name)+"</strong></p>"+
+   "<p>Roll Number: <strong>"+escapeHTML(roll)+"</strong></p>"+
+   "<p>Exam: <strong>"+escapeHTML(exam)+"</strong></p>"+
+   '<div class="score">'+score.toFixed(2)+" Marks</div>"+
+   '<div class="grid">'+
+   '<div class="stat">Correct<strong>'+correct+"</strong></div>"+
+   '<div class="stat">Wrong<strong>'+wrong+"</strong></div>"+
+   '<div class="stat">Unanswered<strong>'+unanswered+"</strong></div>"+
+   '<div class="stat">Key Questions<strong>'+questions.length+"</strong></div>"+
+   "</div>"+
+   '<p class="small">Yeh result uploaded HTML mein pehchane gaye answers par based hai. Actual exam marking scheme alag ho sakti hai. Yeh official result ya common rank nahi hai.</p>';
+ }catch(e){
+  box.innerHTML="Answer key process nahi ho paayi. HTML file dobara check karein.";
+ }
 }
 </script>
 
