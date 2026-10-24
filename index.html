@@ -1,62 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Railway Rank Mitra</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef3f9;color:#172033}
-header{background:linear-gradient(135deg,#082c63,#0878c9);color:white;text-align:center;padding:25px 12px}
-header h1{margin:0;font-size:27px}
+body{margin:0;background:#eef3fa;color:#172033;font-family:Arial,sans-serif}
+header{background:linear-gradient(135deg,#092d63,#087dcc);color:#fff;text-align:center;padding:25px 12px}
+header h1{font-size:27px;margin:0}
 header p{margin:8px 0 0}
 .container{max-width:650px;margin:18px auto;padding:0 12px}
-.card{background:white;padding:18px;margin-bottom:16px;border-radius:14px;box-shadow:0 3px 12px #00000012}
-h2{font-size:20px;margin:0 0 14px;color:#083b79}
+.card{background:#fff;padding:18px;margin-bottom:16px;border-radius:14px;box-shadow:0 3px 12px #00000012}
+h2{font-size:20px;color:#0a3974;margin:0 0 16px}
+label{display:block;font-weight:bold;font-size:14px;margin:13px 0 6px}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:#fff;color:#172033}
 .exam-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.exam-option{border:2px solid #d7e1ef;border-radius:10px;padding:14px 4px;text-align:center;cursor:pointer;font-weight:bold;background:white}
-.exam-option input{display:block;margin:0 auto 8px;accent-color:#0878c9}
-.exam-option:has(input:checked){border-color:#0878c9;background:#eaf5ff;color:#075ca0}
-label{display:block;font-weight:bold;font-size:14px;margin:12px 0 6px}
-input[type=text],input[type=date],input[type=url],input[type=file],select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}
-button,.btn{width:100%;display:block;border:0;border-radius:9px;padding:14px;margin-top:12px;font-size:16px;font-weight:bold;cursor:pointer;text-align:center;text-decoration:none}
-.primary{background:#0878c9;color:white}
-.telegram{background:#168bd2;color:white}
-.secondary{background:#e6edf6;color:#15365e}
-.note{font-size:13px;color:#64748b;line-height:1.5}
+.exam-option{display:block;margin:0;padding:13px 3px;border:2px solid #cbd5e1;border-radius:10px;text-align:center;cursor:pointer;font-weight:bold;font-size:14px}
+.exam-option input{width:auto;margin:0 0 8px;display:block;margin-left:auto;margin-right:auto;accent-color:#087dcc}
+.exam-option:has(input:checked){border-color:#087dcc;background:#e8f4ff;color:#075ca0}
+button,.btn{width:100%;display:block;padding:14px;margin-top:13px;border:0;border-radius:9px;text-align:center;text-decoration:none;font-size:16px;font-weight:bold;cursor:pointer}
+.primary{background:#087dcc;color:#fff}
+.telegram{background:#168bd2;color:#fff}
+.secondary{background:#e7edf5;color:#17365d}
+.small{font-size:13px;line-height:1.6;color:#64748b}
+.result{padding:14px;background:#f1f6fd;border-radius:9px;line-height:1.8;overflow-wrap:anywhere}
 #scorecard{display:none}
-.result{background:#eaf8ef;padding:14px;border-radius:10px;line-height:1.7}
-footer{text-align:center;color:#64748b;padding:18px;font-size:13px}
-@media(max-width:360px){header h1{font-size:23px}.card{padding:14px}.exam-option{font-size:13px}}
+footer{text-align:center;padding:20px;color:#64748b;font-size:13px}
+@media(max-width:360px){header h1{font-size:22px}.card{padding:14px}.exam-option{font-size:12px}}
 </style>
 </head>
-<body>
 
+<body>
 <header>
 <h1>🚆 RAILWAY RANK MITRA</h1>
-<p>Exam Score & Rank Portal</p>
+<p>Railway Exam Score & Rank Portal</p>
 </header>
 
 <main class="container">
 
 <section class="card">
-<h2>1. Select Exam</h2>
+<h2>1. अपना Exam चुनें</h2>
+
 <div class="exam-grid">
 <label class="exam-option">
-<input type="radio" name="exam" value="RRB" checked>
+<input type="radio" name="examType" value="RRB" checked>
 RRB EXAM
 </label>
+
 <label class="exam-option">
-<input type="radio" name="exam" value="GDCE">
+<input type="radio" name="examType" value="GDCE">
 GDCE EXAM
 </label>
+
 <label class="exam-option">
-<input type="radio" name="exam" value="LDCE">
+<input type="radio" name="examType" value="LDCE">
 LDCE EXAM
 </label>
 </div>
-<label for="examName">Exam Name / Notification</label>
-<input id="examName" type="text" placeholder="e.g. RRB ALP 2026">
+
+<label for="examName">कौन-सा Exam है?</label>
+<select id="examName" required>
+<option value="">-- Exam चुनें --</option>
+</select>
+
+<label for="railwayZone">Railway Zone (वैकल्पिक)</label>
+<select id="railwayZone">
+<option value="">-- Zone चुनें --</option>
+<option>Central Railway</option>
+<option>Eastern Railway</option>
+<option>East Central Railway</option>
+<option>East Coast Railway</option>
+<option>Northern Railway</option>
+<option>North Central Railway</option>
+<option>North Eastern Railway</option>
+<option>Northeast Frontier Railway</option>
+<option>North Western Railway</option>
+<option>Southern Railway</option>
+<option>South Central Railway</option>
+<option>South Eastern Railway</option>
+<option>South East Central Railway</option>
+<option>South Western Railway</option>
+<option>Western Railway</option>
+<option>West Central Railway</option>
+</select>
 </section>
 
 <section class="card">
@@ -64,98 +92,175 @@ LDCE EXAM
 
 <form id="candidateForm">
 <label for="candidateName">Candidate Name *</label>
-<input id="candidateName" type="text" required placeholder="Enter your name">
+<input id="candidateName" type="text" required placeholder="अपना नाम लिखें">
 
 <label for="rollNumber">Roll Number *</label>
-<input id="rollNumber" type="text" required placeholder="Enter roll number">
+<input id="rollNumber" type="text" required placeholder="Roll Number लिखें">
 
 <label for="registrationNumber">Registration Number *</label>
-<input id="registrationNumber" type="text" required placeholder="Enter registration number">
+<input id="registrationNumber" type="text" required placeholder="Registration Number लिखें">
 
 <label for="dob">Date of Birth *</label>
 <input id="dob" type="date" required>
 
 <label for="responseUrl">Response Sheet URL</label>
-<input id="responseUrl" type="url" placeholder="Paste response sheet link">
+<input id="responseUrl" type="url" placeholder="Response Sheet का लिंक डालें">
 
-<label for="responseFile">OR Select Response Sheet File</label>
+<label for="responseFile">या Response Sheet फ़ाइल चुनें</label>
 <input id="responseFile" type="file" accept=".html,.htm,.pdf,.txt">
 
-<p class="note">Note: Link या फ़ाइल चुनें। यह शुरुआती संस्करण फ़ाइल से अपने आप उत्तर पढ़कर स्कोर नहीं निकालता। सही Answer Key और स्कोरिंग सिस्टम जोड़ना बाकी है।</p>
+<p class="small">
+Response Sheet का लिंक या फ़ाइल दें। वास्तविक स्कोर निकालने के लिए संबंधित परीक्षा की Answer Key और सही प्रश्न-मिलान सिस्टम आवश्यक है।
+</p>
 
-<button type="submit" class="primary">CALCULATE SCORE / RANK</button>
+<button class="primary" type="submit">CALCULATE SCORE / RANK</button>
 </form>
 </section>
 
 <section class="card" id="scorecard">
-<h2>3. Your Scorecard</h2>
-<div class="result" id="scoreMessage" aria-live="polite"></div>
-<button type="button" class="secondary" id="editButton">Edit Candidate Details</button>
+<h2>3. आपका Scorecard</h2>
+<div id="scoreResult" class="result" aria-live="polite"></div>
+<button class="secondary" type="button" id="editDetails">Candidate Details बदलें</button>
 </section>
 
 <section class="card">
-<h2>4. Join Telegram</h2>
-<p>Railway Success Point के अपडेट और PDF के लिए Telegram चैनल जॉइन करें।</p>
-<a class="btn telegram" id="telegramButton" href="https://t.me/" target="_blank" rel="noopener noreferrer">JOIN TELEGRAM</a>
-<p class="note">Telegram पर जॉइन करने के बाद इस वेबसाइट पर वापस आएँ और View Scorecard दबाएँ। यह बटन Telegram जॉइन की पुष्टि नहीं करता।</p>
-<button type="button" class="secondary" id="viewButton">VIEW SCORECARD</button>
+<h2>4. Telegram & Scorecard</h2>
+<p>Railway Success Point के PDF और परीक्षा अपडेट के लिए Telegram जॉइन करें।</p>
+
+<a class="btn telegram" id="telegramLink"
+href="https://t.me/" target="_blank" rel="noopener noreferrer">
+JOIN TELEGRAM
+</a>
+
+<p class="small">
+Telegram पर जाने के बाद वापस इस वेबसाइट पर आएँ। फिर नीचे View Scorecard पर क्लिक करें। यह बटन Telegram जॉइन की पुष्टि नहीं करता।
+</p>
+
+<button type="button" class="secondary" id="viewScorecard">VIEW SCORECARD</button>
 </section>
 
 </main>
 
 <footer>
-RAILWAY RANK MITRA • Score and rank depend on verified answer-key data.
+RAILWAY RANK MITRA<br>
+Score and rank require verified answer-key and candidate-score data.
 </footer>
 
 <script>
 (function(){
+  const examTypeInputs = document.querySelectorAll('input[name="examType"]');
+  const examName = document.getElementById('examName');
   const form = document.getElementById('candidateForm');
   const scorecard = document.getElementById('scorecard');
-  const scoreMessage = document.getElementById('scoreMessage');
-  const viewButton = document.getElementById('viewButton');
-  const editButton = document.getElementById('editButton');
+  const scoreResult = document.getElementById('scoreResult');
 
-  function getCandidateData(){
-    return {
-      exam: document.querySelector('input[name="exam"]:checked').value,
-      examName: document.getElementById('examName').value.trim(),
-      name: document.getElementById('candidateName').value.trim(),
-      roll: document.getElementById('rollNumber').value.trim(),
-      registration: document.getElementById('registrationNumber').value.trim(),
-      dob: document.getElementById('dob').value,
-      url: document.getElementById('responseUrl').value.trim(),
-      file: document.getElementById('responseFile').files[0]?.name || ''
-    };
+  const options = {
+    RRB: [
+      'Assistant Loco Pilot (ALP)',
+      'Technician',
+      'NTPC Graduate',
+      'NTPC Undergraduate',
+      'Group D',
+      'Junior Engineer (JE)',
+      'Other RRB Exam'
+    ],
+    GDCE: [
+      'ALP',
+      'Technician',
+      'Junior Engineer (JE)',
+      'Goods Guard / Train Manager',
+      'Station Master',
+      'CCTC',
+      'Other GDCE Exam'
+    ],
+    LDCE: [
+      'ALP',
+      'Technician',
+      'Goods Guard / Train Manager',
+      'Station Master',
+      'CCTC',
+      'Shunting Master',
+      'Other LDCE Exam'
+    ]
+  };
+
+  function updateExams(){
+    const selected = document.querySelector('input[name="examType"]:checked').value;
+    examName.replaceChildren();
+
+    const first = document.createElement('option');
+    first.value = '';
+    first.textContent = '-- अपना Exam चुनें --';
+    examName.appendChild(first);
+
+    options[selected].forEach(function(name){
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      examName.appendChild(option);
+    });
   }
 
-  function showScorecard(){
-    const d = getCandidateData();
-    if(!d.name || !d.roll || !d.registration || !d.dob){
-      alert('Please fill in all required Candidate Details first.');
-      document.getElementById('candidateName').focus();
-      return;
-    }
-    if(!d.url && !d.file){
-      alert('Please enter a Response Sheet URL or select a file.');
-      return;
-    }
-    scoreMessage.innerHTML =
-      '<strong>Name:</strong> ' + escapeHTML(d.name) + '<br>' +
-      '<strong>Roll Number:</strong> ' + escapeHTML(d.roll) + '<br>' +
-      '<strong>Exam:</strong> ' + escapeHTML(d.exam) + '<br>' +
-      '<strong>Exam Name:</strong> ' + escapeHTML(d.examName || 'Not entered') + '<br>' +
-      '<strong>Response Sheet:</strong> ' + escapeHTML(d.url ? 'URL provided' : d.file) + '<br><br>' +
-      '<strong>Score:</strong> Not calculated yet<br>' +
-      '<strong>Rank:</strong> Not available yet<br><br>' +
-      'Response Sheet को पढ़ने, Answer Key से मिलान करने और verified candidate-score data जोड़ने के बाद ही वास्तविक score और rank दिखाई जा सकती है.';
-    scorecard.style.display = 'block';
-    scorecard.scrollIntoView({behavior:'smooth',block:'start'});
-  }
+  examTypeInputs.forEach(function(input){
+    input.addEventListener('change', updateExams);
+  });
 
   function escapeHTML(value){
     return String(value).replace(/[&<>"']/g,function(ch){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+      return {
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+      }[ch];
     });
+  }
+
+  function showScorecard(){
+    if(!form.reportValidity()) return;
+
+    const selectedType = document.querySelector('input[name="examType"]:checked').value;
+    const selectedExam = examName.value;
+    const url = document.getElementById('responseUrl').value.trim();
+    const file = document.getElementById('responseFile').files[0];
+
+    if(!selectedExam){
+      alert('कृपया अपना Exam चुनें।');
+      examName.focus();
+      return;
+    }
+
+    if(!url && !file){
+      alert('Response Sheet का URL डालें या फ़ाइल चुनें।');
+      return;
+    }
+
+    if(url && !/^https?:\/\//i.test(url)){
+      alert('कृपया सही HTTP/HTTPS Response Sheet URL डालें।');
+      return;
+    }
+
+    const name = document.getElementById('candidateName').value.trim();
+    const roll = document.getElementById('rollNumber').value.trim();
+    const registration = document.getElementById('registrationNumber').value.trim();
+    const zone = document.getElementById('railwayZone').value || 'नहीं चुना';
+
+    scoreResult.innerHTML =
+      '<strong>Candidate Name:</strong> ' + escapeHTML(name) + '<br>' +
+      '<strong>Roll Number:</strong> ' + escapeHTML(roll) + '<br>' +
+      '<strong>Registration Number:</strong> ' + escapeHTML(registration) + '<br>' +
+      '<strong>Exam Category:</strong> ' + escapeHTML(selectedType) + '<br>' +
+      '<strong>Exam:</strong> ' + escapeHTML(selectedExam) + '<br>' +
+      '<strong>Railway Zone:</strong> ' + escapeHTML(zone) + '<br>' +
+      '<strong>Response Sheet:</strong> ' + escapeHTML(url ? 'URL दिया गया है' : file.name) +
+      '<hr>' +
+      '<strong>Score:</strong> अभी गणना उपलब्ध नहीं है<br>' +
+      '<strong>Rank:</strong> अभी उपलब्ध नहीं है<br><br>' +
+      'वास्तविक Score और Rank दिखाने के लिए Response Sheet को पढ़कर आधिकारिक Answer Key से मिलान करना तथा उम्मीदवारों के सत्यापित स्कोर का डेटा जोड़ना बाकी है।';
+
+    scorecard.style.display = 'block';
+    scorecard.scrollIntoView({behavior:'smooth',block:'start'});
   }
 
   form.addEventListener('submit',function(event){
@@ -163,16 +268,17 @@ RAILWAY RANK MITRA • Score and rank depend on verified answer-key data.
     showScorecard();
   });
 
-  viewButton.addEventListener('click',function(){
+  document.getElementById('viewScorecard').addEventListener('click',function(){
     showScorecard();
   });
 
-  editButton.addEventListener('click',function(){
+  document.getElementById('editDetails').addEventListener('click',function(){
     document.getElementById('candidateName').focus();
     form.scrollIntoView({behavior:'smooth',block:'start'});
   });
+
+  updateExams();
 })();
 </script>
-
 </body>
 </html>
