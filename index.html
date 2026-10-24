@@ -1,650 +1,615 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#991b1b">
-  <title>Railway Rank Mitra | By Rajat Kumar</title>
-  <meta name="description" content="Railway Rank Mitra - Railway exam score calculator, rank predictor and response sheet tools.">
-
-  <style>
-    :root {
-      --red: #991b1b;
-      --red-dark: #7f1d1d;
-      --gold: #fbbf24;
-      --ink: #172033;
-      --muted: #64748b;
-      --bg: #f1f5f9;
-      --white: #ffffff;
-      --border: #e2e8f0;
-      --green: #166534;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.5;
-    }
-
-    button, input, select, textarea {
-      font: inherit;
-    }
-
-    button, a { -webkit-tap-highlight-color: transparent; }
-
-    .hero {
-      background: linear-gradient(135deg, #7f1d1d, #b91c1c 60%, #991b1b);
-      color: white;
-      padding: 25px 15px 28px;
-      text-align: center;
-      border-bottom: 5px solid var(--gold);
-    }
-
-    .logo {
-      width: 76px;
-      height: 76px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 10px;
-      border: 3px solid var(--gold);
-      border-radius: 50%;
-      background: white;
-      color: var(--red);
-      font-weight: 900;
-      font-size: 37px;
-      box-shadow: 0 5px 16px #0003;
-    }
-
-    .hero h1 {
-      font-size: clamp(25px, 6vw, 38px);
-      margin: 5px 0;
-      font-weight: 900;
-      letter-spacing: .4px;
-    }
-
-    .hero .byline {
-      color: #fde68a;
-      font-weight: 800;
-      margin: 5px 0;
-    }
-
-    .hero p { margin: 7px 0 0; }
-
-    .nav {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 12px;
-      background: white;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 5;
-    }
-
-    .nav a {
-      flex: 0 0 auto;
-      color: var(--red);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 9px 12px;
-      border: 1px solid #fecaca;
-      border-radius: 9px;
-      background: #fff7f7;
-    }
-
-    .container {
-      width: min(100% - 24px, 900px);
-      margin: 20px auto 40px;
-    }
-
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 17px;
-      box-shadow: 0 4px 15px #0f172a08;
-      scroll-margin-top: 75px;
-    }
-
-    .card h2 {
-      font-size: 21px;
-      margin: 0 0 7px;
-      color: var(--red);
-    }
-
-    .description {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0 0 17px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 13px;
-    }
-
-    .field { min-width: 0; }
-
-    .field.full { grid-column: 1 / -1; }
-
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    input, select, textarea {
-      display: block;
-      width: 100%;
-      min-height: 45px;
-      border: 1px solid #cbd5e1;
-      border-radius: 9px;
-      padding: 10px 11px;
-      background: white;
-      color: var(--ink);
-      outline: none;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px #991b1b16;
-    }
-
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 7px;
-      min-height: 45px;
-      border: 0;
-      border-radius: 9px;
-      padding: 11px 15px;
-      font-weight: 800;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: var(--red);
-      color: white;
-    }
-
-    .btn-primary:hover { background: var(--red-dark); }
-
-    .btn-light {
-      background: #f1f5f9;
-      color: var(--ink);
-      border: 1px solid var(--border);
-    }
-
-    .btn-gold {
-      background: var(--gold);
-      color: #422006;
-    }
-
-    .btn-green {
-      background: #166534;
-      color: white;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 15px;
-    }
-
-    .actions .btn { flex: 1 1 150px; }
-
-    .notice {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      color: #854d0e;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 13px;
-      margin-top: 14px;
-    }
-
-    .result {
-      display: none;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 15px;
-      overflow-wrap: anywhere;
-    }
-
-    .result h3 {
-      color: var(--green);
-      margin: 0 0 10px;
-    }
-
-    .result strong { color: #14532d; }
-
-    .score-big {
-      font-size: 34px;
-      font-weight: 900;
-      color: var(--green);
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .result-box {
-      padding: 12px;
-      border-radius: 9px;
-      background: white;
-      border: 1px solid #dcfce7;
-    }
-
-    .result-box small {
-      display: block;
-      color: var(--muted);
-    }
-
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .social-grid .btn { width: 100%; }
-
-    .admin-panel { display: none; }
-
-    .footer {
-      text-align: center;
-      background: #111827;
-      color: white;
-      padding: 23px 15px;
-      font-size: 13px;
-    }
-
-    .footer strong { color: var(--gold); }
-
-    .small-text {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 520px) {
-      .grid { grid-template-columns: 1fr; }
-      .field.full { grid-column: auto; }
-      .card { padding: 15px; }
-      .result-grid { grid-template-columns: 1fr 1fr; }
-      .social-grid { grid-template-columns: 1fr; }
-    }
-
-    @media print {
-      .hero, .nav, .no-print, .footer { display: none !important; }
-      body { background: white; }
-      .container { width: 100%; margin: 0; }
-      .card { box-shadow: none; break-inside: avoid; }
-      .result { display: block !important; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123c91">
+<title>Railway Rank Mitra | By Rajat Kumar</title>
+<style>
+:root{--blue:#123c91;--navy:#071b46;--light:#eef4ff;--green:#087443;--red:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f2f5fb;color:#172033;line-height:1.5}
+header{background:linear-gradient(135deg,#071b46,#1765cb);color:#fff;text-align:center;padding:24px 14px}
+header h1{font-size:clamp(25px,5vw,38px);margin:0;font-weight:900}
+header p{margin:5px 0}
+.tag{display:inline-block;background:#ffdc45;color:#172033;font-weight:bold;padding:5px 12px;border-radius:20px;margin-top:8px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:#fff;box-shadow:0 2px 8px #0001}
+nav a{background:#e8efff;color:#123c91;padding:9px 12px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:14px}
+main{max-width:1000px;margin:auto;padding:14px}
+.card{background:#fff;border-radius:14px;padding:18px;margin:16px 0;box-shadow:0 3px 14px #13294b12;border:1px solid #e4e9f3}
+h2{color:var(--blue);font-size:22px;margin:0 0 14px}
+h3{margin:12px 0 6px}
+label{display:block;font-weight:bold;margin:12px 0 5px}
+input,select,button{font:inherit}
+input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;min-height:44px}
+button,.button{display:inline-block;border:0;border-radius:8px;background:var(--blue);color:#fff;padding:12px 16px;font-weight:bold;cursor:pointer;text-decoration:none;text-align:center;margin-top:12px}
+button:hover,.button:hover{filter:brightness(1.1)}
+.secondary{background:#475569}
+.green{background:var(--green)}
+.yellow{background:#f5c542;color:#172033}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid>div{min-width:0}
+.notice{background:#fff8df;border-left:4px solid #e7ac14;padding:12px;border-radius:6px;margin-top:12px}
+.result{display:none;background:#eef8f2;border:1px solid #a8d9ba;border-radius:10px;padding:14px;margin-top:14px;overflow-wrap:anywhere}
+.error{color:var(--red);font-weight:bold}
+.muted{color:#64748b;font-size:14px}
+.stat{padding:10px;background:#fff;border:1px solid #dbe4f0;border-radius:8px}
+.stat strong{display:block;color:var(--blue);font-size:20px}
+.social{display:flex;flex-wrap:wrap;gap:10px}
+.social a{flex:1;min-width:180px}
+footer{background:#071b46;color:#fff;text-align:center;padding:24px 12px;margin-top:25px}
+footer strong{font-size:21px}
+hr{border:0;border-top:1px solid #e2e8f0;margin:18px 0}
+@media(max-width:600px){.grid{grid-template-columns:1fr}main{padding:8px}.card{padding:14px}nav a{font-size:12px;padding:8px}}
+@media print{header,nav,footer,.no-print,#calculator,#rank,#helper,#social,#admin{display:none!important}body{background:#fff}.card{box-shadow:none;border:0}}
+</style>
 </head>
-
 <body>
-  <header class="hero">
-    <div class="logo" aria-label="Railway Rank Mitra logo">R</div>
-    <h1>RAILWAY RANK MITRA</h1>
-    <div class="byline">BY RAJAT KUMAR</div>
-    <p>Railway Exams • Score Calculator • Rank Predictor</p>
-  </header>
 
-  <nav class="nav no-print" aria-label="Main navigation">
-    <a href="#candidate">Candidate Details</a>
-    <a href="#calculator">Score Calculator</a>
-    <a href="#rank">Rank Predictor</a>
-    <a href="#response">Response Sheet</a>
-    <a href="#social">Join Us</a>
-  </nav>
+<header>
+  <h1>🚆 RAILWAY RANK MITRA</h1>
+  <p>Railway Exam Score Calculator & Rank Predictor</p>
+  <div class="tag">BY RAJAT KUMAR</div>
+</header>
 
-  <main class="container">
+<nav class="no-print">
+  <a href="#candidate">Candidate Details</a>
+  <a href="#calculator">Score Calculator</a>
+  <a href="#rank">Rank Predictor</a>
+  <a href="#helper">GDCE / LDCE Helper</a>
+  <a href="#social">YouTube / Telegram</a>
+  <a href="#admin">Admin Login</a>
+</nav>
 
-    <section class="card" id="candidate">
-      <h2>👨‍🎓 Candidate Details</h2>
-      <p class="description">अपनी जानकारी भरें। Score Calculator में अपना पेपर स्कोर निकाल सकते हैं।</p>
+<main>
 
-      <form id="candidateForm">
-        <div class="grid">
-          <div class="field">
-            <label for="category">Exam Category</label>
-            <select id="category">
-              <option value="RRB All Exam">RRB All Exam</option>
-              <option value="GDCE">GDCE</option>
-              <option value="LDCE">LDCE</option>
-            </select>
-          </div>
+<section class="card" id="candidate">
+  <h2>📝 Candidate Details</h2>
+  <form id="candidateForm">
+    <label for="categoryExam">1. Exam Category</label>
+    <select id="categoryExam" required>
+      <option value="">Select Exam Category</option>
+      <option value="RRB All Exam">RRB All Exam</option>
+      <option value="GDCE">GDCE</option>
+      <option value="LDCE">LDCE</option>
+    </select>
 
-          <div class="field">
-            <label for="zone">Railway Zone</label>
-            <select id="zone">
-              <option value="">Select Zone</option>
-              <option>Central Railway</option>
-              <option>East Central Railway</option>
-              <option>East Coast Railway</option>
-              <option>Eastern Railway</option>
-              <option>North Central Railway</option>
-              <option>North Eastern Railway</option>
-              <option>North Western Railway</option>
-              <option>Northern Railway</option>
-              <option>Northeast Frontier Railway</option>
-              <option>South Central Railway</option>
-              <option>South East Central Railway</option>
-              <option>South Eastern Railway</option>
-              <option>Southern Railway</option>
-              <option>South Western Railway</option>
-              <option>West Central Railway</option>
-              <option>Western Railway</option>
-              <option>Other</option>
-            </select>
-          </div>
+    <label for="zone">2. Railway Zone</label>
+    <select id="zone" required>
+      <option value="">Select Railway Zone</option>
+      <option>Northern Railway</option>
+      <option>North Western Railway</option>
+      <option>Western Railway</option>
+      <option>Central Railway</option>
+      <option>Eastern Railway</option>
+      <option>East Central Railway</option>
+      <option>East Coast Railway</option>
+      <option>North Central Railway</option>
+      <option>North Eastern Railway</option>
+      <option>Northeast Frontier Railway</option>
+      <option>South Central Railway</option>
+      <option>South Eastern Railway</option>
+      <option>South East Central Railway</option>
+      <option>South Western Railway</option>
+      <option>Southern Railway</option>
+      <option>West Central Railway</option>
+      <option>Other</option>
+    </select>
 
-          <div class="field">
-            <label for="exam">Exam Name</label>
-            <input id="exam" type="text" placeholder="जैसे ALP / Technician / Group D">
-          </div>
+    <label for="examName">3. Exam</label>
+    <select id="examName" required>
+      <option value="">Select Exam</option>
+    </select>
 
-          <div class="field">
-            <label for="candidateName">Candidate Name</label>
-            <input id="candidateName" type="text" placeholder="अपना नाम लिखें">
-          </div>
+    <label for="studentName">4. Candidate Name</label>
+    <input id="studentName" type="text" maxlength="100" placeholder="Enter candidate name" required>
 
-          <div class="field">
-            <label for="registration">Registration Number</label>
-            <input id="registration" type="text" placeholder="Registration Number">
-          </div>
+    <label for="registration">5. Registration Number</label>
+    <input id="registration" type="text" maxlength="50" placeholder="Enter registration number" required>
 
-          <div class="field">
-            <label for="candidateCategory">Candidate Category</label>
-            <select id="candidateCategory">
-              <option value="">Select Category</option>
-              <option>UR</option>
-              <option>OBC</option>
-              <option>SC</option>
-              <option>ST</option>
-              <option>EWS</option>
-            </select>
-          </div>
-        </div>
+    <label for="candidateCategory">6. Category</label>
+    <select id="candidateCategory" required>
+      <option value="">Select Category</option>
+      <option>UR</option><option>OBC</option><option>SC</option>
+      <option>ST</option><option>EWS</option><option>Other</option>
+    </select>
 
-        <div class="actions no-print">
-          <button type="submit" class="btn btn-primary">Save Details on This Page</button>
-          <button type="button" class="btn btn-light" id="clearCandidate">Clear Details</button>
-        </div>
-      </form>
+    <label for="fourDigitCode">7. 4 Digit Code</label>
+    <input id="fourDigitCode" type="password" inputmode="numeric"
+           pattern="[0-9]{4}" minlength="4" maxlength="4"
+           placeholder="Enter 4 digit code" required>
+    <p class="muted">यह फ़ील्ड आपके द्वारा दर्ज किया गया कोड जाँचती है; यह अपने-आप में आधिकारिक OTP या सुरक्षित लॉगिन नहीं है।</p>
 
-      <div id="candidateMessage" class="notice" role="status">
-        आपकी जानकारी इस पेज पर ही इस्तेमाल होगी। इसे किसी सरकारी रेलवे डेटाबेस से सत्यापित नहीं किया जाता।
-      </div>
-    </section>
+    <button class="green" type="submit">CLICK HERE FOR SCORE</button>
+  </form>
+  <div id="candidateMessage" class="result" aria-live="polite"></div>
+</section>
 
-    <section class="card" id="calculator">
-      <h2>🧮 Railway Exam Score Calculator</h2>
-      <p class="description">सही उत्तर, गलत उत्तर और नेगेटिव मार्किंग भरें। स्कोर अपने आप कैलकुलेट होगा।</p>
+<section class="card" id="calculator">
+  <h2>🧮 Railway Exam Score Calculator</h2>
+  <p class="muted">अपनी Answer Key के अनुसार सही और गलत उत्तर भरें।</p>
 
-      <form id="scoreForm">
-        <div class="grid">
-          <div class="field">
-            <label for="totalQuestions">Total Questions</label>
-            <input id="totalQuestions" type="number" min="1" max="500" value="100" required>
-          </div>
+  <div class="grid">
+    <div>
+      <label for="totalQuestions">Total Questions</label>
+      <input type="number" id="totalQuestions" min="1" max="1000" value="100">
+    </div>
+    <div>
+      <label for="correct">Correct Answers</label>
+      <input type="number" id="correct" min="0" value="0">
+    </div>
+    <div>
+      <label for="wrong">Wrong Answers</label>
+      <input type="number" id="wrong" min="0" value="0">
+    </div>
+    <div>
+      <label for="marks">Marks Per Correct Answer</label>
+      <input type="number" id="marks" min="0" max="10" step="0.01" value="1">
+    </div>
+    <div>
+      <label for="negative">Negative Marking Per Wrong Answer</label>
+      <select id="negative">
+        <option value="0">No Negative Marking</option>
+        <option value="0.25">1/4</option>
+        <option value="0.3333333333" selected>1/3</option>
+        <option value="0.5">1/2</option>
+        <option value="1">1 Mark</option>
+      </select>
+    </div>
+  </div>
 
-          <div class="field">
-            <label for="correct">Correct Answers</label>
-            <input id="correct" type="number" min="0" value="70" required>
-          </div>
+  <button id="calculateButton" type="button">CALCULATE SCORE</button>
+  <button type="button" class="secondary" id="resetCalculator">RESET</button>
+  <div id="calculatorResult" class="result" aria-live="polite"></div>
+</section>
 
-          <div class="field">
-            <label for="wrong">Wrong Answers</label>
-            <input id="wrong" type="number" min="0" value="20" required>
-          </div>
+<section class="card" id="scorecard">
+  <h2>🏆 Generated Scorecard</h2>
+  <p class="muted">पहले Calculator में स्कोर निकालें, फिर Candidate Details में जानकारी भरकर “CLICK HERE FOR SCORE” दबाएँ।</p>
+  <div id="scorecardOutput" class="result"></div>
+  <button type="button" class="no-print" onclick="window.print()">PRINT / SAVE AS PDF</button>
+</section>
 
-          <div class="field">
-            <label for="marksCorrect">Marks for Each Correct Answer</label>
-            <input id="marksCorrect" type="number" min="0" max="10" step="0.01" value="1" required>
-          </div>
+<section class="card" id="rank">
+  <h2>📊 Rank Predictor</h2>
+  <p class="muted">अपना अनुमानित percentile और कुल उम्मीदवारों की संख्या भरें। यह केवल अनुमान है।</p>
+  <div class="grid">
+    <div>
+      <label for="totalCandidates">Estimated Total Candidates</label>
+      <input type="number" id="totalCandidates" min="1" max="100000000" value="100000">
+    </div>
+    <div>
+      <label for="percentile">Your Percentile (0–100)</label>
+      <input type="number" id="percentile" min="0" max="100" step="0.01" value="90">
+    </div>
+  </div>
+  <button type="button" id="rankButton">PREDICT RANK</button>
+  <div id="rankResult" class="result" aria-live="polite"></div>
+</section>
 
-          <div class="field full">
-            <label for="negative">Negative Marks for Each Wrong Answer</label>
-            <select id="negative">
-              <option value="0.3333333333">1/3 mark</option>
-              <option value="0.25">1/4 mark</option>
-              <option value="0">No Negative Marking</option>
-              <option value="0.5">1/2 mark</option>
-              <option value="custom">Custom Negative Marking</option>
-            </select>
-          </div>
+<section class="card" id="helper">
+  <h2>📄 GDCE / LDCE Response Sheet Helper</h2>
+  <p class="muted">यहाँ Response Sheet का लिंक खोल सकते हैं या अपने डिवाइस से HTML फ़ाइल चुनकर उसका टेक्स्ट देख सकते हैं। इससे अपने-आप आधिकारिक स्कोर नहीं निकलता।</p>
 
-          <div class="field full" id="customNegativeField" hidden>
-            <label for="customNegative">Custom Negative Marks</label>
-            <input id="customNegative" type="number" min="0" max="10" step="0.01" value="0.33">
-          </div>
-        </div>
+  <label for="railExam">Exam</label>
+  <select id="railExam">
+    <option>GDCE</option><option>LDCE</option><option>ALP</option>
+    <option>Technician</option><option>Group D</option><option>NTPC</option>
+    <option>JE</option><option>Other</option>
+  </select>
 
-        <div class="actions no-print">
-          <button type="submit" class="btn btn-primary">Calculate Score</button>
-          <button type="reset" class="btn btn-light">Reset</button>
-        </div>
-      </form>
+  <label for="responseUrl">Response Sheet URL</label>
+  <input type="url" id="responseUrl" placeholder="Paste response sheet link (https://...)">
+  <button type="button" id="openResponse">OPEN RESPONSE SHEET</button>
 
-      <div class="result" id="scoreResult" aria-live="polite">
-        <h3>📊 Your Score Result</h3>
-        <div class="score-big" id="scoreValue">0</div>
-        <div class="result-grid">
-          <div class="result-box">
-            <small>Attempted Questions</small>
-            <strong id="attemptedValue">0</strong>
-          </div>
-          <div class="result-box">
-            <small>Unattempted Questions</small>
-            <strong id="unattemptedValue">0</strong>
-          </div>
-          <div class="result-box">
-            <small>Accuracy</small>
-            <strong id="accuracyValue">0%</strong>
-          </div>
-          <div class="result-box">
-            <small>Maximum Marks</small>
-            <strong id="maximumValue">0</strong>
-          </div>
-        </div>
-        <p id="scoreSummary"></p>
-        <p class="small-text">यह अनुमानित raw score है। आधिकारिक normalized score या परिणाम नहीं।</p>
-        <div class="actions no-print">
-          <button type="button" class="btn btn-green" id="printScore">Print / Save PDF</button>
-        </div>
-      </div>
-    </section>
+  <hr>
+  <label for="responseFile">Choose downloaded HTML file</label>
+  <input type="file" id="responseFile" accept=".html,.htm,text/html">
+  <button type="button" id="readResponse">READ HTML FILE</button>
+  <div id="responseResult" class="result" aria-live="polite"></div>
+</section>
 
-    <section class="card" id="rank">
-      <h2>🏆 Rank Predictor</h2>
-      <p class="description">अपने अनुमानित स्कोर और कुल उम्मीदवारों की संख्या से केवल एक सांकेतिक रैंक रेंज देखें।</p>
+<section class="card" id="social">
+  <h2>📢 Join Railway Success Point</h2>
+  <p>Railway exams की तैयारी के लिए हमारे YouTube Channel और Telegram से जुड़ें।</p>
+  <div class="social">
+    <a class="button" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶ SUBSCRIBE YOUTUBE</a>
+    <a class="button green" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">✈ JOIN TELEGRAM</a>
+  </div>
+</section>
 
-      <form id="rankForm">
-        <div class="grid">
-          <div class="field">
-            <label for="rankScore">Your Score</label>
-            <input id="rankScore" type="number" min="0" step="0.01" placeholder="जैसे 75.5" required>
-          </div>
+<section class="card" id="admin">
+  <h2>🔐 Admin Login</h2>
+  <p class="muted">Admin login के लिए Firebase Authentication में पहले से बनाया गया Email/Password अकाउंट चाहिए।</p>
+  <label for="adminEmail">Admin Email</label>
+  <input type="email" id="adminEmail" autocomplete="username" placeholder="Enter admin email">
+  <label for="adminPassword">Password</label>
+  <input type="password" id="adminPassword" autocomplete="current-password" placeholder="Enter password">
+  <button type="button" id="adminLogin">ADMIN LOGIN</button>
+  <button type="button" class="secondary" id="adminLogout">LOGOUT</button>
+  <div id="adminResult" class="result" aria-live="polite"></div>
+</section>
 
-          <div class="field">
-            <label for="maxScore">Maximum Marks</label>
-            <input id="maxScore" type="number" min="1" value="100" required>
-          </div>
+</main>
 
-          <div class="field full">
-            <label for="candidates">Total Candidates (Approx.)</label>
-            <input id="candidates" type="number" min="1" placeholder="जैसे 100000" required>
-          </div>
-        </div>
+<footer>
+  <strong>RAILWAY RANK MITRA</strong>
+  <p>BY RAJAT KUMAR</p>
+  <p>Learn • Calculate • Prepare • Succeed</p>
+  <p class="muted" style="color:#dbeafe">यह स्वतंत्र शैक्षिक टूल है। यह RRB या भारतीय रेलवे की आधिकारिक वेबसाइट नहीं है।</p>
+</footer>
 
-        <div class="actions no-print">
-          <button type="submit" class="btn btn-primary">Estimate Rank</button>
-        </div>
-      </form>
+<script>
+"use strict";
 
-      <div class="result" id="rankResult" aria-live="polite">
-        <h3>Rank Estimate</h3>
-        <p id="rankText"></p>
-        <p class="small-text">यह गणितीय अनुमान है, वास्तविक rank predictor नहीं। उम्मीदवारों के वास्तविक स्कोर डेटा के बिना सही रैंक बताना संभव नहीं है।</p>
-      </div>
-    </section>
+const examOptions = {
+  "RRB All Exam": [
+    "RRB Group D", "RRB ALP", "RRB Technician",
+    "RRB NTPC Undergraduate", "RRB NTPC Graduate",
+    "RRB JE", "Other RRB Exam"
+  ],
+  "GDCE": [
+    "GDCE ALP", "GDCE Technician", "GDCE Station Master",
+    "GDCE Goods Guard / Train Manager", "GDCE CCTC",
+    "GDCE JE", "Other GDCE Exam"
+  ],
+  "LDCE": [
+    "LDCE ALP", "LDCE Technician", "LDCE Station Master",
+    "LDCE Goods Guard / Train Manager", "LDCE Shunting Master",
+    "LDCE CCTC", "Other LDCE Exam"
+  ]
+};
 
-    <section class="card" id="response">
-      <h2>📄 Response Sheet Helper</h2>
-      <p class="description">अपनी response sheet का लिंक खोलें या यदि आपके पास response sheet की HTML फाइल है तो उसे अपने डिवाइस से चुनें।</p>
+const $ = id => document.getElementById(id);
+let currentScore = null;
+let lastCalculation = null;
 
-      <form id="responseForm">
-        <div class="field">
-          <label for="responseUrl">Response Sheet URL</label>
-          <input id="responseUrl" type="url" placeholder="https://..." inputmode="url">
-        </div>
+function showMessage(id, message, isError=false) {
+  const el = $(id);
+  el.style.display = "block";
+  el.classList.toggle("error", isError);
+  el.innerHTML = "";
+  const p = document.createElement("p");
+  p.textContent = message;
+  el.appendChild(p);
+}
 
-        <div class="actions no-print">
-          <button type="submit" class="btn btn-primary">Open Response Sheet</button>
-        </div>
-      </form>
+function updateExamOptions() {
+  const category = $("categoryExam").value;
+  const select = $("examName");
+  select.replaceChildren();
 
-      <hr style="border:0;border-top:1px solid #e2e8f0;margin:20px 0;">
+  const first = document.createElement("option");
+  first.value = "";
+  first.textContent = "Select Exam";
+  select.appendChild(first);
 
-      <div class="field">
-        <label for="responseFile">Or Select a Saved HTML File</label>
-        <input id="responseFile" type="file" accept=".html,.htm,text/html">
-      </div>
+  (examOptions[category] || []).forEach(name => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    select.appendChild(option);
+  });
+}
 
-      <div class="actions no-print">
-        <button type="button" id="previewResponse" class="btn btn-light">Preview Selected HTML</button>
-      </div>
+$("categoryExam").addEventListener("change", updateExamOptions);
+updateExamOptions();
 
-      <div class="notice">
-        यह टूल आधिकारिक वेबसाइट की सुरक्षा को बायपास नहीं करता। यदि लिंक लॉगिन मांगता है या एक्सपायर हो चुका है, तो संबंधित आधिकारिक पोर्टल से दोबारा खोलें। अनजान HTML फाइल में अपनी निजी जानकारी न डालें।
-      </div>
+function calculateScore() {
+  const total = Number($("totalQuestions").value);
+  const correct = Number($("correct").value);
+  const wrong = Number($("wrong").value);
+  const marks = Number($("marks").value);
+  const negative = Number($("negative").value);
 
-      <div class="result" id="responseMessage" role="status"></div>
-      <div id="responsePreview" style="display:none;margin-top:15px;">
-        <h3>Local HTML Preview</h3>
-        <iframe id="responseFrame" title="Selected response sheet preview" sandbox style="width:100%;height:500px;border:1px solid #cbd5e1;border-radius:10px;background:white;"></iframe>
-      </div>
-    </section>
+  if (!Number.isInteger(total) || total < 1 || total > 1000 ||
+      !Number.isInteger(correct) || correct < 0 ||
+      !Number.isInteger(wrong) || wrong < 0 ||
+      correct + wrong > total ||
+      !Number.isFinite(marks) || marks < 0 || marks > 10) {
+    showMessage("calculatorResult",
+      "कृपया सही जानकारी भरें। Correct + Wrong, Total Questions से अधिक नहीं होना चाहिए।", true);
+    currentScore = null;
+    lastCalculation = null;
+    return;
+  }
 
-    <section class="card" id="social">
-      <h2>📢 Railway Success Point</h2>
-      <p class="description">Railway exam updates, classes, answer key solutions और study material के लिए जुड़ें।</p>
+  const unattempted = total - correct - wrong;
+  const score = correct * marks - wrong * negative;
 
-      <div class="social-grid">
-        <a class="btn btn-primary" href="https://www.youtube.com/@RailwaySuccessPoint" target="_blank" rel="noopener noreferrer">▶ YouTube Channel</a>
-        <a class="btn btn-green" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener noreferrer">✈ Join Telegram</a>
-      </div>
-    </section>
+  currentScore = score;
+  lastCalculation = {total, correct, wrong, unattempted, marks, negative, score};
 
-    <section class="card" id="admin">
-      <h2>🔐 Admin Login</h2>
-      <p class="description">यह सेक्शन अभी केवल डेमो है। इसे सुरक्षित admin system बनाने के लिए Firebase Authentication और database rules सेट करना आवश्यक है।</p>
+  const result = $("calculatorResult");
+  result.style.display = "block";
+  result.classList.remove("error");
+  result.replaceChildren();
 
-      <div class="notice">
-        इस नए कोड में आपकी पुरानी Firebase configuration शामिल नहीं है। इसलिए नीचे का demo form वास्तविक admin login नहीं करता और कोई पासवर्ड verify नहीं करता।
-      </div>
+  const heading = document.createElement("h3");
+  heading.textContent = "Your Calculated Score";
+  result.appendChild(heading);
 
-      <form id="adminDemoForm" class="no-print">
-        <div class="grid">
-          <div class="field">
-            <label for="adminEmail">Admin Email</label>
-            <input id="adminEmail" type="email" placeholder="Admin email" autocomplete="username" required>
-          </div>
-          <div class="field">
-            <label for="adminPassword">Password</label>
-            <input id="adminPassword" type="password" placeholder="Password" autocomplete="current-password" required>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn btn-primary" type="submit">Demo Login</button>
-        </div>
-      </form>
-      <div id="adminMessage" class="notice" role="status"></div>
-    </section>
+  const grid = document.createElement("div");
+  grid.className = "grid";
+  [
+    ["Total Questions", total],
+    ["Correct Answers", correct],
+    ["Wrong Answers", wrong],
+    ["Unattempted", unattempted],
+    ["Final Score", score.toFixed(2)]
+  ].forEach(([label, value]) => {
+    const box = document.createElement("div");
+    box.className = "stat";
+    const name = document.createElement("span");
+    name.textContent = label;
+    const strong = document.createElement("strong");
+    strong.textContent = value;
+    box.append(name, strong);
+    grid.appendChild(box);
+  });
+  result.appendChild(grid);
 
-  </main>
+  const note = document.createElement("p");
+  note.className = "muted";
+  note.textContent = "यह आपके दर्ज किए गए उत्तरों और marking settings के आधार पर गणना है।";
+  result.appendChild(note);
+}
 
-  <footer class="footer">
-    <strong>RAILWAY RANK MITRA</strong><br>
-    By Rajat Kumar<br>
-    <span>Railway Success Point • Learn, Practice & Improve</span>
-  </footer>
+$("calculateButton").addEventListener("click", calculateScore);
 
-  <script>
-    "use strict";
+$("resetCalculator").addEventListener("click", () => {
+  $("totalQuestions").value = 100;
+  $("correct").value = 0;
+  $("wrong").value = 0;
+  $("marks").value = 1;
+  $("negative").value = "0.3333333333";
+  $("calculatorResult").style.display = "none";
+  $("scorecardOutput").style.display = "none";
+  currentScore = null;
+  lastCalculation = null;
+});
 
-    const $ = (id) => document.getElementById(id);
+$("candidateForm").addEventListener("submit", event => {
+  event.preventDefault();
 
-    // Candidate details: stored only in this page's browser session.
-    $("candidateForm").addEventListener("submit", function (event) {
-      event.preventDefault();
+  const code = $("fourDigitCode").value.trim();
+  if (!/^[0-9]{4}$/.test(code)) {
+    showMessage("candidateMessage", "कृपया 4 अंकों का कोड दर्ज करें।", true);
+    return;
+  }
 
-      const name = $("candidateName").value.trim();
-      const exam = $("exam").value.trim();
-      const zone = $("zone").value;
-      const reg = $("registration").value.trim();
-      const category = $("candidateCategory").value;
+  const data = {
+    examCategory: $("categoryExam").value,
+    zone: $("zone").value,
+    exam: $("examName").value,
+    name: $("studentName").value.trim(),
+    registration: $("registration").value.trim(),
+    category: $("candidateCategory").value
+  };
 
-      $("candidateMessage").textContent =
-        "Details saved for this page. Name: " + (name || "Not provided") +
-        " | Exam: " + (exam || "Not provided") +
-        " | Zone: " + (zone || "Not selected") +
-        " | Registration: " + (reg || "Not provided") +
-        " | Category: " + (category || "Not selected") +
-        ". Details are not sent to any server.";
+  if (!data.examCategory || !data.zone || !data.exam ||
+      !data.name || !data.registration || !data.category) {
+    showMessage("candidateMessage", "कृपया सभी Candidate Details भरें।", true);
+    return;
+  }
+
+  const msg = $("candidateMessage");
+  msg.style.display = "block";
+  msg.classList.remove("error");
+  msg.replaceChildren();
+
+  if (currentScore === null || !lastCalculation) {
+    const p = document.createElement("p");
+    p.textContent = "Candidate Details भर गई हैं, लेकिन स्कोर निकालने के लिए पहले Score Calculator में सही और गलत उत्तर भरकर CALCULATE SCORE दबाएँ।";
+    msg.appendChild(p);
+    return;
+  }
+
+  const output = $("scorecardOutput");
+  output.replaceChildren();
+  output.style.display = "block";
+
+  const title = document.createElement("h3");
+  title.textContent = "RAILWAY RANK MITRA — SCORECARD";
+  output.appendChild(title);
+
+  const details = [
+    ["Exam Category", data.examCategory],
+    ["Railway Zone", data.zone],
+    ["Exam", data.exam],
+    ["Candidate Name", data.name],
+    ["Registration Number", data.registration],
+    ["Category", data.category],
+    ["Total Questions", lastCalculation.total],
+    ["Correct Answers", lastCalculation.correct],
+    ["Wrong Answers", lastCalculation.wrong],
+    ["Unattempted", lastCalculation.unattempted],
+    ["Calculated Score", lastCalculation.score.toFixed(2)]
+  ];
+
+  const table = document.createElement("table");
+  table.style.width = "100%";
+  table.style.borderCollapse = "collapse";
+
+  details.forEach(([key, value]) => {
+    const row = document.createElement("tr");
+    [key, value].forEach(text => {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      cell.style.padding = "9px";
+      cell.style.borderBottom = "1px solid #dbe4f0";
+      row.appendChild(cell);
     });
+    table.appendChild(row);
+  });
+  output.appendChild(table);
 
-    $("clearCandidate").addEventListener("click", function () {
-      $("candidateForm").reset();
-      $("candidateMessage").textContent = "Candidate details cleared.";
-    });
+  const disclaimer = document.createElement("p");
+  disclaimer.className = "muted";
+  disclaimer.textContent = "यह अनुमानित गणना है, आधिकारिक RRB scorecard या rank नहीं। आधिकारिक परिणाम संबंधित रेलवे भर्ती बोर्ड के अनुसार मान्य होगा।";
+  output.appendChild(disclaimer);
 
-    // Score calculator
-    $("negative").addEventListener("change", function () {
-      $("customNegativeField").hidden = this.value !== "custom";
-    });
+  const success = document.createElement("p");
+  success.textContent = "Scorecard तैयार है। नीचे PRINT / SAVE AS PDF बटन दबाएँ।";
+  msg.appendChild(success);
 
-    $("scoreForm").addEventListener("submit", function (event) {
-      event.preventDefault();
+  $("scorecard").scrollIntoView({behavior:"smooth", block:"start"});
+});
 
-      const total = Number($("totalQuestions").value);
-      const correct = Number($("correct").value);
-      const wrong = Number($("wrong").value);
-      const marks = Number($("marksCorrect").value);
-      const negChoice = $("negative").value;
-      const negative = negChoice === "custom"
-        ? Number($("customNegative").value)
-        : Number(negChoice);
+$("rankButton").addEventListener("click", () => {
+  const candidates = Number($("totalCandidates").value);
+  const percentile = Number($("percentile").value);
 
-      const numbers = [total, correct, wrong, marks, negative];
+  if (!Number.isInteger(candidates) || candidates < 1 ||
+      !Number.isFinite(percentile) || percentile < 0 || percentile > 100) {
+    showMessage("rankResult", "कृपया कुल उम्मीदवारों की संख्या और 0 से 100 के बीच percentile भरें।", true);
+    return;
+  }
 
-      if (!numbers.every(Number.isFinite) ||
-          total < 1 || total > 500 ||
-          correct < 0 || wrong < 0 ||
-          correct + wrong > total ||
-          marks < 0 || marks > 10 ||
-          negative < 0 || negative > 10) {
-        alert("कृपया सही संख्या भरें। Correct + Wrong, Total Questions से अधिक नहीं हो सकते।");
-        return;
-    
+  const rank = Math.max(1, Math.ceil(candidates * (100 - percentile) / 100));
+  showMessage("rankResult",
+    "Estimated Rank: " + rank.toLocaleString("en-IN") +
+    ". यह केवल percentile और अनुमानित उम्मीदवारों पर आधारित अनुमान है; वास्तविक rank अलग हो सकती है।");
+});
+
+$("openResponse").addEventListener("click", () => {
+  const value = $("responseUrl").value.trim();
+
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:" && url.protocol !== "http:") {
+      throw new Error("Invalid protocol");
+    }
+    window.open(url.href, "_blank", "noopener,noreferrer");
+  } catch {
+    showMessage("responseResult", "कृपया सही http:// या https:// Response Sheet लिंक दर्ज करें।", true);
+  }
+});
+
+$("readResponse").addEventListener("click", async () => {
+  const file = $("responseFile").files[0];
+
+  if (!file) {
+    showMessage("responseResult", "पहले अपने डिवाइस से HTML Response Sheet फ़ाइल चुनें।", true);
+    return;
+  }
+
+  if (!/\.html?$/i.test(file.name)) {
+    showMessage("responseResult", "कृपया .html या .htm फ़ाइल चुनें।", true);
+    return;
+  }
+
+  if (file.size > 10 * 1024 * 1024) {
+    showMessage("responseResult", "फ़ाइल 10 MB से बड़ी है। कृपया छोटी HTML फ़ाइल चुनें।", true);
+    return;
+  }
+
+  try {
+    const text = await file.text();
+    const doc = new DOMParser().parseFromString(text, "text/html");
+    const result = $("responseResult");
+    result.style.display = "block";
+    result.classList.remove("error");
+    result.replaceChildren();
+
+    const heading = document.createElement("h3");
+    heading.textContent = "HTML फ़ाइल का टेक्स्ट Preview";
+    result.appendChild(heading);
+
+    const content = document.createElement("pre");
+    content.style.whiteSpace = "pre-wrap";
+    content.style.overflowWrap = "anywhere";
+    content.style.maxHeight = "350px";
+    content.style.overflow = "auto";
+    content.textContent = (doc.body ? doc.body.innerText : doc.documentElement.innerText).slice(0, 30000);
+    result.appendChild(content);
+
+    const note = document.createElement("p");
+    note.className = "muted";
+    note.textContent = "यह केवल फ़ाइल का टेक्स्ट Preview है। आधिकारिक Answer Key से मिलान और स्कोर निकालना अभी स्वचालित रूप से लागू नहीं है।";
+    result.appendChild(note);
+  } catch {
+    showMessage("responseResult", "फ़ाइल पढ़ने में समस्या हुई। कृपया दूसरी HTML फ़ाइल आज़माएँ।", true);
+  }
+});
+</script>
+
+<!-- Firebase Admin Login: अपना मौजूदा Firebase project config नीचे भरें। -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script>
+(function(){
+  const adminResult = document.getElementById("adminResult");
+
+  // यहाँ अपने Firebase Console का सही web app config रखें।
+  // खाली config होने पर Admin Login उपलब्ध नहीं होगा।
+  const firebaseConfig = {
+    apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
+    authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+    projectId: "PASTE_YOUR_PROJECT_ID",
+    appId: "PASTE_YOUR_FIREBASE_APP_ID"
+  };
+
+  let auth = null;
+
+  try {
+    const configured = firebaseConfig.apiKey !== "PASTE_YOUR_FIREBASE_API_KEY" &&
+      firebaseConfig.authDomain !== "PASTE_YOUR_PROJECT.firebaseapp.com" &&
+      firebaseConfig.projectId !== "PASTE_YOUR_PROJECT_ID" &&
+      firebaseConfig.appId !== "PASTE_YOUR_FIREBASE_APP_ID";
+
+    if (configured && window.firebase) {
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+    }
+  } catch (e) {
+    console.error("Firebase initialization failed.");
+  }
+
+  document.getElementById("adminLogin").addEventListener("click", async function(){
+    const email = document.getElementById("adminEmail").value.trim();
+    const password = document.getElementById("adminPassword").value;
+
+    if (!auth) {
+      adminResult.style.display = "block";
+      adminResult.textContent = "Firebase अभी configure नहीं है। Firebase Console से अपने web app की configuration भरें और Email/Password Authentication चालू करें।";
+      return;
+    }
+
+    if (!email || !password) {
+      adminResult.style.display = "block";
+      adminResult.textContent = "Admin email और password भरें।";
+      return;
+    }
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      adminResult.style.display = "block";
+      adminResult.textContent = "Admin login successful.";
+    } catch (e) {
+      adminResult.style.display = "block";
+      adminResult.textContent = "Login नहीं हो पाया। Email/password और Firebase Authentication settings जाँचें।";
+    }
+  });
+
+  document.getElementById("adminLogout").addEventListener("click", async function(){
+    if (!auth) {
+      adminResult.style.display = "block";
+      adminResult.textContent = "Firebase configure नहीं है।";
+      return;
+    }
+
+    try {
+      await auth.signOut();
+      adminResult.style.display = "block";
+      adminResult.textContent = "आप logout हो गए हैं।";
+    } catch (e) {
+      adminResult.style.display = "block";
+      adminResult.textContent = "Logout नहीं हो पाया।";
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
