@@ -61,15 +61,22 @@ button:active{opacity:.8}
   border-radius:8px;
   padding:12px;
   margin-top:12px;
+  overflow-wrap:anywhere;
 }
-.rank-item{
-  padding:12px;
-  margin:8px 0;
-  border:1px solid #d5deea;
-  border-radius:8px;
+.small{
+  font-size:13px;
+  color:#526174;
+  line-height:1.6;
 }
-.small{font-size:13px;color:#526174;line-height:1.5}
 footer{text-align:center;padding:20px;color:#526174}
+.notice{
+  background:#fff7df;
+  border:1px solid #ead69a;
+  padding:12px;
+  border-radius:8px;
+  line-height:1.6;
+  font-size:14px;
+}
 @media(max-width:500px){
   .grid{grid-template-columns:1fr}
   header h1{font-size:22px}
@@ -90,10 +97,12 @@ footer{text-align:center;padding:20px;color:#526174}
   <h2>👤 Candidate Details</h2>
 
   <label for="candidateName">Candidate Name</label>
-  <input id="candidateName" type="text" placeholder="अपना नाम लिखें">
+  <input id="candidateName" type="text"
+         placeholder="अपना नाम लिखें" autocomplete="name">
 
   <label for="rollNumber">Roll Number / Registration Number</label>
-  <input id="rollNumber" type="text" placeholder="अपना नंबर लिखें">
+  <input id="rollNumber" type="text"
+         placeholder="अपना नंबर लिखें">
 
   <label for="exam">Select Exam</label>
   <select id="exam">
@@ -135,10 +144,11 @@ footer{text-align:center;padding:20px;color:#526174}
       <label for="examDate">Exam Date</label>
       <input id="examDate" type="date">
     </div>
+
     <div>
       <label for="shift">Exam Shift</label>
       <select id="shift">
-        <option value="">-- Shift --</option>
+        <option value="">-- Shift चुनें --</option>
         <option>Shift 1</option>
         <option>Shift 2</option>
         <option>Shift 3</option>
@@ -158,91 +168,81 @@ footer{text-align:center;padding:20px;color:#526174}
     <option>EWS</option>
   </select>
 
-  <button type="button" id="saveCandidate">Candidate Details Save करें</button>
-  <div id="candidateMessage" class="result" hidden></div>
-</section>
+  <button type="button" id="saveCandidate">
+    Candidate Details Save करें
+  </button>
 
-<section class="card" id="responseSection">
-  <h2>📄 Response Sheet</h2>
-  <p class="small">
-    नीचे Response Sheet का URL डालें या HTML फ़ाइल अपलोड करें।
-    दोनों में से केवल एक विकल्प इस्तेमाल करें।
-    PDF फ़ाइल अभी समर्थित नहीं है।
-  </p>
-
-  <label for="responseUrl">Response Sheet URL</label>
-  <input id="responseUrl" type="url" placeholder="https://...">
-
-  <label for="responseFile">या HTML Response Sheet फ़ाइल</label>
-  <input id="responseFile" type="file" accept=".html,.htm,text/html">
-
-  <button type="button" id="openResponse">Response Sheet खोलें</button>
-  <div id="responseMessage" class="result" hidden></div>
+  <div id="candidateMessage" class="result"
+       hidden aria-live="polite"></div>
 </section>
 
 <section class="card">
-  <h2>🧮 Score Calculator</h2>
+  <h2>📄 Response Sheet</h2>
 
-  <label for="totalQuestions">कुल प्रश्न</label>
-  <input id="totalQuestions" type="number" min="1" placeholder="जैसे 100">
+  <p class="small">
+    अपनी Response Sheet की HTML फ़ाइल चुनें या उसका URL डालें।
+    यदि URL से फ़ाइल पढ़ना संभव न हो, तो आधिकारिक वेबसाइट से
+    डाउनलोड की गई HTML फ़ाइल अपलोड करें।
+  </p>
 
-  <div class="grid">
-    <div>
-      <label for="correct">सही उत्तर</label>
-      <input id="correct" type="number" min="0" value="0">
-    </div>
-    <div>
-      <label for="wrong">गलत उत्तर</label>
-      <input id="wrong" type="number" min="0" value="0">
-    </div>
-  </div>
+  <label for="responseUrl">Response Sheet URL</label>
+  <input id="responseUrl" type="url"
+         placeholder="https://...">
+
+  <label for="responseFile">या Response Sheet HTML फ़ाइल</label>
+  <input id="responseFile" type="file"
+         accept=".html,.htm,text/html">
+
+  <h2 style="margin-top:24px">🔑 Official Answer Key</h2>
+
+  <p class="small">
+    स्कोर निकालने के लिए संबंधित परीक्षा की सही Answer Key भी
+    आवश्यक है।
+  </p>
+
+  <label for="answerUrl">Answer Key URL</label>
+  <input id="answerUrl" type="url"
+         placeholder="https://...">
+
+  <label for="answerFile">या Answer Key HTML फ़ाइल</label>
+  <input id="answerFile" type="file"
+         accept=".html,.htm,text/html">
 
   <div class="grid">
     <div>
       <label for="marksCorrect">हर सही उत्तर के अंक</label>
-      <input id="marksCorrect" type="number" min="0" step="0.01" value="1">
+      <input id="marksCorrect" type="number"
+             min="0" step="0.01" value="1">
     </div>
+
     <div>
       <label for="negative">हर गलत उत्तर की कटौती</label>
-      <input id="negative" type="number" min="0" step="0.01" value="0.33">
+      <input id="negative" type="number"
+             min="0" step="0.01" value="0.33">
     </div>
   </div>
 
-  <button type="button" id="calculateScore">Score Calculate करें</button>
-  <div id="scoreResult" class="result" hidden aria-live="polite"></div>
+  <button type="button" id="calculateScore">
+    Answer Key से Score निकालें
+  </button>
+
+  <div id="scoreResult" class="result"
+       hidden aria-live="polite"></div>
 </section>
 
 <section class="card">
   <h2>🏆 Rank Information</h2>
-  <p class="small">
-    Rank निकालने के लिए उसी परीक्षा के उम्मीदवारों के स्कोर और
-    संबंधित Zone, Category तथा Shift का डेटा आवश्यक है।
-  </p>
-
-  <div class="rank-item">
-    🇮🇳 <strong>All India Rank</strong>
-    <p>डेटा उपलब्ध होने पर दिखाई जाएगी।</p>
-  </div>
-
-  <div class="rank-item">
-    🚆 <strong>Railway Zone Rank</strong>
-    <p>Zone के उम्मीदवारों का डेटा मिलने पर दिखाई जाएगी।</p>
-  </div>
-
-  <div class="rank-item">
-    📋 <strong>Category Rank</strong>
-    <p>Category के उम्मीदवारों का डेटा मिलने पर दिखाई जाएगी।</p>
-  </div>
-
-  <div class="rank-item">
-    🕒 <strong>Shift Rank</strong>
-    <p>Shift के उम्मीदवारों का डेटा मिलने पर दिखाई जाएगी।</p>
-  </div>
 
   <p class="small">
-    नोट: ये रैंक अभी calculate नहीं हो रही हैं। केवल आपके स्कोर से
-    वास्तविक All India या Zone Rank निर्धारित नहीं की जा सकती।
+    Rank का अनुमान लगाने के लिए उसी परीक्षा के पर्याप्त उम्मीदवारों
+    के स्कोर का डेटा आवश्यक है।
   </p>
+
+  <div class="notice">
+    अभी All India Rank, Zone Rank, Category Rank और Shift Rank
+    उपलब्ध डेटा के बिना निर्धारित नहीं की जा सकतीं।
+    केवल एक उम्मीदवार के स्कोर से वास्तविक रैंक नहीं निकलती।
+  </div>
 </section>
 
 </main>
@@ -258,91 +258,196 @@ $("saveCandidate").addEventListener("click", function(){
   const name = $("candidateName").value.trim();
   const roll = $("rollNumber").value.trim();
   const exam = $("exam").value;
-
-  if(!name || !roll || !exam){
-    alert("कृपया Candidate Name, Roll Number और Exam भरें।");
-    return;
-  }
-
-  $("candidateMessage").hidden = false;
-  $("candidateMessage").textContent =
-    "Candidate Details इस पेज पर दर्ज हैं। अभी ये किसी सर्वर पर सेव नहीं हुई हैं।";
-});
-
-$("openResponse").addEventListener("click", async function(){
-  const url = $("responseUrl").value.trim();
-  const file = $("responseFile").files[0];
-  const message = $("responseMessage");
+  const message = $("candidateMessage");
 
   message.hidden = false;
 
-  if(url && file){
-    message.textContent = "कृपया URL या HTML फ़ाइल में से केवल एक चुनें।";
+  if(!name || !roll || !exam){
+    message.textContent =
+      "कृपया Candidate Name, Roll Number और Exam भरें।";
     return;
   }
 
-  if(!url && !file){
-    message.textContent = "पहले Response Sheet URL डालें या HTML फ़ाइल चुनें।";
-    return;
-  }
+  message.textContent =
+    "Candidate Details दर्ज हो गई हैं। ध्यान दें: ये विवरण अभी किसी सर्वर पर सेव नहीं हुए हैं।";
+});
 
-  if(file){
-    const text = await file.text();
-    const blob = new Blob([text], {type:"text/html"});
-    const localUrl = URL.createObjectURL(blob);
-    const win = window.open(localUrl, "_blank");
+function normalize(value){
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
 
-    if(!win){
-      message.textContent =
-        "ब्राउज़र ने नई विंडो रोक दी। पॉप-अप की अनुमति देकर दोबारा कोशिश करें।";
-    } else {
-      message.textContent =
-        "HTML फ़ाइल खोलने की कोशिश की गई। Score अभी अपने आप नहीं निकलेगा।";
+/*
+  यह सामान्य HTML टेबल से प्रश्न और उत्तर पढ़ने की
+  कोशिश करता है। अलग-अलग RRB फॉर्मेट में पहचान बदल सकती है।
+*/
+function extractQuestionTable(html){
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const tables = Array.from(doc.querySelectorAll("table"));
+
+  for(const table of tables){
+    const rows = Array.from(table.querySelectorAll("tr"));
+    if(rows.length < 2) continue;
+
+    const headerCells = Array.from(rows[0].querySelectorAll("th,td"))
+      .map(cell => normalize(cell.textContent));
+
+    const questionIndex = headerCells.findIndex(text =>
+      /question\s*(id|no|number)|प्रश्न\s*(संख्या|नंबर)/i.test(text)
+    );
+
+    const answerIndex = headerCells.findIndex(text =>
+      /correct\s*answer|official\s*answer|answer\s*key|सही\s*उत्तर/i.test(text)
+    );
+
+    if(questionIndex === -1 || answerIndex === -1) continue;
+
+    const results = new Map();
+
+    for(const row of rows.slice(1)){
+      const cells = Array.from(row.querySelectorAll("td,th"));
+      if(cells.length <= Math.max(questionIndex, answerIndex)) continue;
+
+      const q = normalize(cells[questionIndex].textContent);
+      const a = normalize(cells[answerIndex].textContent);
+
+      if(q && a) results.set(q, a);
     }
+
+    if(results.size) return results;
+  }
+
+  return null;
+}
+
+function showMessage(message){
+  const result = $("scoreResult");
+  result.hidden = false;
+  result.textContent = message;
+}
+
+$("calculateScore").addEventListener("click", async function(){
+  const responseFile = $("responseFile").files[0];
+  const answerFile = $("answerFile").files[0];
+  const responseUrl = $("responseUrl").value.trim();
+  const answerUrl = $("answerUrl").value.trim();
+
+  const correctMarks = Number($("marksCorrect").value);
+  const negativeMarks = Number($("negative").value);
+
+  if((!responseFile && !responseUrl) ||
+     (!answerFile && !answerUrl)){
+    showMessage(
+      "कृपया Response Sheet और Official Answer Key की HTML फ़ाइलें चुनें। URL होने पर भी वेबसाइट को फ़ाइल पढ़ने की अनुमति आवश्यक हो सकती है।"
+    );
+    return;
+  }
+
+  if(responseFile && responseUrl){
+    showMessage(
+      "Response Sheet के लिए फ़ाइल या URL में से केवल एक इस्तेमाल करें।"
+    );
+    return;
+  }
+
+  if(answerFile && answerUrl){
+    showMessage(
+      "Answer Key के लिए फ़ाइल या URL में से केवल एक इस्तेमाल करें।"
+    );
+    return;
+  }
+
+  if(!Number.isFinite(correctMarks) || correctMarks < 0 ||
+     !Number.isFinite(negativeMarks) || negativeMarks < 0){
+    showMessage("अंकों और नेगेटिव मार्किंग की सही संख्या भरें।");
+    return;
+  }
+
+  /*
+    URL को सीधे पढ़ना कई वेबसाइटों पर CORS और लॉगिन सुरक्षा
+    के कारण संभव नहीं होता। इसलिए फ़ाइल अपलोड की सलाह दी जाती है।
+  */
+  if(!responseFile || !answerFile){
+    showMessage(
+      "URL से सीधे स्कोर निकालना अभी समर्थित नहीं है। कृपया Response Sheet और Answer Key को HTML फ़ाइल के रूप में डाउनलोड करके अपलोड करें।"
+    );
     return;
   }
 
   try{
-    const parsed = new URL(url);
-    if(parsed.protocol !== "https:" && parsed.protocol !== "http:"){
-      throw new Error("Invalid URL");
+    const responseHTML = await responseFile.text();
+    const answerHTML = await answerFile.text();
+
+    const responseData = extractQuestionTable(responseHTML);
+    const answerData = extractQuestionTable(answerHTML);
+
+    if(!responseData || !answerData){
+      showMessage(
+        "इन फ़ाइलों का प्रश्न-उत्तर वाला टेबल पहचान नहीं पाया। गलत स्कोर दिखाने से बचने के लिए गणना रोक दी गई है। फ़ाइलों का फ़ॉर्मेट जाँचना होगा।"
+      );
+      return;
     }
-    window.open(parsed.href, "_blank", "noopener,noreferrer");
-    message.textContent =
-      "URL खोलने की कोशिश की गई। अगर लॉगिन या अनुमति चाहिए, तो साइट पर खुद लॉगिन करें।";
+
+    let correct = 0;
+    let wrong = 0;
+    let matched = 0;
+
+    for(const [question, candidateAnswer] of responseData.entries()){
+      if(!answerData.has(question)) continue;
+
+      matched++;
+
+      const officialAnswer = answerData.get(question);
+
+      if(candidateAnswer === officialAnswer){
+        correct++;
+      }else{
+        wrong++;
+      }
+    }
+
+    if(matched === 0){
+      showMessage(
+        "दोनों फ़ाइलों में समान Question ID नहीं मिली। कृपया सही परीक्षा और शिफ्ट की Answer Key चुनें।"
+      );
+      return;
+    }
+
+    const score =
+      correct * correctMarks - wrong * negativeMarks;
+
+    const unattempted = Math.max(0, matched - correct - wrong);
+
+    const result = $("scoreResult");
+    result.hidden = false;
+    result.innerHTML = "";
+
+    const title = document.createElement("strong");
+    title.textContent = "अनुमानित स्कोर: " + score.toFixed(2);
+    result.appendChild(title);
+
+    const details = document.createElement("p");
+    details.textContent =
+      "मिलान किए गए प्रश्न: " + matched +
+      " | सही उत्तर: " + correct +
+      " | गलत उत्तर: " + wrong +
+      " | बिना उत्तर: " + unattempted;
+
+    result.appendChild(details);
+
+    const note = document.createElement("p");
+    note.className = "small";
+    note.textContent =
+      "यह परिणाम तभी भरोसेमंद है जब दोनों फ़ाइलों का प्रश्न-उत्तर फ़ॉर्मेट सही पहचाना गया हो और सही परीक्षा की आधिकारिक Answer Key इस्तेमाल की गई हो।";
+    result.appendChild(note);
+
   }catch(error){
-    message.textContent = "कृपया सही URL डालें।";
+    showMessage(
+      "फ़ाइल पढ़ने में समस्या आई। कृपया सही HTML Response Sheet और Answer Key अपलोड करें।"
+    );
   }
-});
-
-$("calculateScore").addEventListener("click", function(){
-  const total = Number($("totalQuestions").value);
-  const correct = Number($("correct").value);
-  const wrong = Number($("wrong").value);
-  const marks = Number($("marksCorrect").value);
-  const negative = Number($("negative").value);
-
-  const result = $("scoreResult");
-  result.hidden = false;
-
-  if(!Number.isFinite(total) || total < 1 ||
-     !Number.isInteger(correct) || !Number.isInteger(wrong) ||
-     correct < 0 || wrong < 0 ||
-     correct + wrong > total ||
-     marks < 0 || negative < 0){
-    result.textContent =
-      "कृपया सही संख्या भरें। सही और गलत उत्तरों का योग कुल प्रश्नों से अधिक नहीं होना चाहिए।";
-    return;
-  }
-
-  const score = correct * marks - wrong * negative;
-  const attempted = correct + wrong;
-  const unattempted = total - attempted;
-
-  result.innerHTML =
-    "<strong>आपका Score: " + score.toFixed(2) + "</strong><br>" +
-    "Attempt किए गए प्रश्न: " + attempted + "<br>" +
-    "छोड़े गए प्रश्न: " + unattempted;
 });
 </script>
 
