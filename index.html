@@ -70,7 +70,8 @@ button:disabled{opacity:.6;cursor:wait}
 <form id="candidateForm">
 
 <label>Response Sheet URL (वैकल्पिक)</label>
-<input id="responseURL" type="url" placeholder="अपनी Response Sheet का लिंक डालें">
+<input id="responseURL" type="url"
+placeholder="अपनी Response Sheet का लिंक डालें">
 
 <div class="grid">
 
@@ -176,46 +177,13 @@ button:disabled{opacity:.6;cursor:wait}
 <button type="submit" class="primary">CLICK HERE</button>
 </form>
 
+<!-- Candidate details appear here -->
 <div id="candidateResult" class="result hidden"></div>
 
+<!-- Score card appears below candidate details -->
 <div id="rrbScoreResult" class="result hidden"></div>
+
 <div id="rrbScoreError" class="error hidden"></div>
-
-<div class="card" style="box-shadow:none;border:1px solid #dbe3ed;margin-top:16px">
-<h2>Score Card Data</h2>
-
-<p class="note">
-सही स्कोर के लिए Candidate Response Sheet और Official Answer Key का पढ़ने योग्य JSON या CSV डेटा आवश्यक है। नीचे दोनों फ़ाइलें अपलोड करें। केवल Response Sheet URL से स्कोर की गारंटी नहीं है।
-</p>
-
-<label>Official Answer Key (JSON / CSV)</label>
-<input type="file" id="rrbKeyFile" accept=".json,.csv">
-
-<label>Candidate Response Sheet (JSON / CSV)</label>
-<input type="file" id="rrbResponseFile" accept=".json,.csv">
-
-<div class="grid">
-<div>
-<label>Correct Answer Marks</label>
-<input id="rrbPositive" type="number" value="1" min="0" step="0.01">
-</div>
-<div>
-<label>Negative Marks per Wrong Answer</label>
-<input id="rrbNegative" type="number" value="0.33" min="0" step="0.01">
-</div>
-</div>
-
-<button id="rrbCalculateBtn" type="button" class="primary" onclick="calculateRRBScore()">
-CALCULATE SCORE
-</button>
-
-<div id="rrbDownloadSection" class="hidden no-print">
-<br>
-<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ JOIN TELEGRAM CHANNEL</a>
-<br><br>
-<button class="green" onclick="window.print()">DOWNLOAD / SAVE SCORE CARD PDF</button>
-</div>
-</div>
 
 </div>
 </section>
@@ -223,6 +191,7 @@ CALCULATE SCORE
 <!-- LDCE -->
 <section id="ldce" class="page hidden">
 <div class="card">
+
 <h2>Answer Key Score Calculator</h2>
 
 <div class="grid">
@@ -230,14 +199,17 @@ CALCULATE SCORE
 <label>Candidate Name</label>
 <input id="ldceName" placeholder="Candidate Name">
 </div>
+
 <div>
 <label>Zone</label>
 <input id="ldceZone" placeholder="Railway Zone">
 </div>
+
 <div>
 <label>Division</label>
 <input id="division" placeholder="Division">
 </div>
+
 <div>
 <label>Exam / Post</label>
 <input id="ldcePost" placeholder="Exam Post">
@@ -255,6 +227,7 @@ CALCULATE SCORE
 <label>Correct Answer Marks</label>
 <input id="positive" type="number" value="1" min="0" step="0.01">
 </div>
+
 <div>
 <label>Negative Marks per Wrong Answer</label>
 <input id="negative" type="number" value="0.33" min="0" step="0.01">
@@ -263,29 +236,38 @@ CALCULATE SCORE
 
 <p class="note">
 JSON Answer Key उदाहरण:
-[{"id":"1","correctAnswer":"A","subject":"Maths"}]<br><br>
+[{"id":"1","correctAnswer":"A","subject":"Maths"}]
+<br><br>
 JSON Response Sheet उदाहरण:
-[{"id":"1","candidateAnswer":"B","subject":"Maths"}]<br><br>
+[{"id":"1","candidateAnswer":"B","subject":"Maths"}]
+<br><br>
 दोनों फ़ाइलों में प्रश्न ID समान होनी चाहिए।
 </p>
 
-<button id="calculateBtn" class="primary" onclick="calculateLDCEScore()">CALCULATE SCORE</button>
+<button id="calculateBtn" class="primary" onclick="calculateLDCEScore()">
+CALCULATE SCORE
+</button>
 
 <div id="scoreError" class="error hidden"></div>
 <div id="scoreResult" class="result hidden"></div>
 
 <div id="downloadSection" class="hidden no-print">
 <h3>Score Card</h3>
-<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ JOIN TELEGRAM CHANNEL</a>
+<a class="btn telegram" href="https://t.me/railwaysuccespoint"
+target="_blank" rel="noopener">✈ JOIN TELEGRAM CHANNEL</a>
 <br><br>
-<button class="green" onclick="window.print()">DOWNLOAD / SAVE SCORE CARD PDF</button>
+<button class="green" onclick="window.print()">
+DOWNLOAD / SAVE SCORE CARD PDF
+</button>
 </div>
+
 </div>
 </section>
 
 <!-- RANK PREDICTOR -->
 <section id="rank" class="page hidden">
 <div class="card">
+
 <h2>Rank Predictor</h2>
 
 <label>आपके Marks</label>
@@ -302,20 +284,31 @@ JSON Response Sheet उदाहरण:
 <div id="rankResult" class="result hidden"></div>
 
 <p class="note">
-यह अनुमानित रैंक है, आधिकारिक RRB रैंक नहीं। Percentile सही होने पर ही अनुमान उपयोगी होगा।
+यह अनुमानित रैंक है, आधिकारिक RRB रैंक नहीं।
+Percentile सही होने पर ही अनुमान उपयोगी होगा।
 </p>
+
 </div>
 </section>
 
 <!-- SOCIAL LINKS -->
 <div class="card">
 <h2>Railway Success Point से जुड़ें</h2>
+
 <div class="social">
-<a class="btn youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">▶ YouTube Channel</a>
-<a class="btn telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">✈ Telegram Channel</a>
-<a class="btn group" href="https://t.me/" target="_blank" rel="noopener">👥 Telegram Group</a>
+<a class="btn youtube" href="https://www.youtube.com/"
+target="_blank" rel="noopener">▶ YouTube Channel</a>
+
+<a class="btn telegram" href="https://t.me/railwaysuccespoint"
+target="_blank" rel="noopener">✈ Telegram Channel</a>
+
+<a class="btn group" href="https://t.me/"
+target="_blank" rel="noopener">👥 Telegram Group</a>
 </div>
-<p class="note">YouTube और Telegram के लिंक अपने सही चैनल/ग्रुप लिंक से बदलें।</p>
+
+<p class="note">
+YouTube और Telegram के लिंक अपने सही चैनल/ग्रुप लिंक से बदलें।
+</p>
 </div>
 
 </div>
@@ -329,14 +322,20 @@ JSON Response Sheet उदाहरण:
 function showPage(id,button){
  document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
  document.getElementById(id).classList.remove('hidden');
+
  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
  button.classList.add('active');
+
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function esc(v){
  return String(v??'').replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ '&':'&amp;',
+ '<':'&lt;',
+ '>':'&gt;',
+ '"':'&quot;',
+ "'":'&#39;'
  }[c]));
 }
 
@@ -344,63 +343,127 @@ function setField(id,value){
  document.getElementById(id).value=value||'';
 }
 
-function getField(row,names){
- const normal={};
- Object.keys(row).forEach(k=>{
-  normal[k.toLowerCase().replace(/[\s_-]/g,'')]=row[k];
- });
- for(const name of names){
-  const key=name.toLowerCase().replace(/[\s_-]/g,'');
-  const value=normal[key];
-  if(value!==undefined&&value!==null&&String(value).trim()!==''){
-   return String(value).trim();
-  }
- }
- return '';
-}
+/*
+ RRB + GDCE:
+ CLICK HERE पर Candidate Details और Score Card
+ इसी पेज पर दिखेंगे। LDCE पर redirect नहीं होगा।
+*/
+document.getElementById('candidateForm').addEventListener('submit',function(e){
+ e.preventDefault();
 
-function normalAnswer(value){
- return String(value??'').trim().toUpperCase().replace(/\s+/g,'');
-}
+ const get=id=>document.getElementById(id).value;
+ const result=document.getElementById('candidateResult');
+ const score=document.getElementById('rrbScoreResult');
+ const error=document.getElementById('rrbScoreError');
 
+ const fields=[
+  ['Candidate Name','candidateName'],
+  ['Registration Number','regNo'],
+  ['Exam Type','examType'],
+  ['Exam Post','examPost'],
+  ['Railway Zone','zone'],
+  ['Exam Date','examDate'],
+  ['Shift','shift'],
+  ['Category','category']
+ ];
+
+ setField('ldceName',get('candidateName'));
+ setField('ldceZone',get('zone'));
+ setField('ldcePost',get('examPost'));
+
+ result.innerHTML=
+  '<h3>Candidate Details</h3><table>'+
+  fields.map(([label,id])=>
+   '<tr><th>'+esc(label)+'</th><td>'+esc(get(id))+'</td></tr>'
+  ).join('')+
+  '</table>';
+
+ result.classList.remove('hidden');
+ error.classList.add('hidden');
+
+ score.innerHTML=
+  '<h2>RAILWAY RANK MITRA — SCORE CARD</h2>'+
+  '<p><b>Candidate:</b> '+esc(get('candidateName'))+'</p>'+
+  '<p><b>Registration Number:</b> '+esc(get('regNo'))+'</p>'+
+  '<table>'+
+  '<tr><th>विवरण</th><th>परिणाम</th></tr>'+
+  '<tr><td>Total Questions</td><td>अभी उपलब्ध नहीं</td></tr>'+
+  '<tr><td>Attempted</td><td>अभी उपलब्ध नहीं</td></tr>'+
+  '<tr><td>Correct Answers</td><td>अभी उपलब्ध नहीं</td></tr>'+
+  '<tr><td>Wrong Answers</td><td>अभी उपलब्ध नहीं</td></tr>'+
+  '<tr><td>Unattempted / छोड़े गए</td><td>अभी उपलब्ध नहीं</td></tr>'+
+  '<tr><td>Subject-wise Result</td><td>अभी उपलब्ध नहीं</td></tr>'+
+  '</table>'+
+  '<p class="note">Candidate Details सफलतापूर्वक दर्ज हो गई हैं। वास्तविक Score Card के लिए वेबसाइट को Response Sheet के उत्तर और Official Answer Key पढ़ने की सुविधा से जोड़ना होगा। केवल लिंक से उत्तरों का मिलान उपलब्ध नहीं होता, इसलिए गलत स्कोर नहीं दिखाया गया है।</p>';
+
+ score.classList.remove('hidden');
+
+ result.scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+/* LDCE JSON / CSV reader */
 async function readRows(file){
- if(!file) throw Error('Official Answer Key और Candidate Response Sheet दोनों फ़ाइलें अपलोड करें।');
+ if(!file){
+  throw Error('Official Answer Key और Candidate Response Sheet दोनों फ़ाइलें अपलोड करें।');
+ }
 
  const text=await file.text();
- if(!text.trim()) throw Error(file.name+' फ़ाइल खाली है।');
+
+ if(!text.trim()){
+  throw Error(file.name+' फ़ाइल खाली है।');
+ }
 
  if(file.name.toLowerCase().endsWith('.json')){
   let data;
-  try{data=JSON.parse(text);}
-  catch{throw Error(file.name+' में सही JSON डेटा नहीं है।');}
 
-  if(Array.isArray(data)) return data;
-  if(Array.isArray(data.questions)) return data.questions;
-  if(Array.isArray(data.data)) return data.data;
+  try{
+   data=JSON.parse(text);
+  }catch{
+   throw Error(file.name+' में सही JSON डेटा नहीं है।');
+  }
+
+  if(Array.isArray(data))return data;
+  if(Array.isArray(data.questions))return data.questions;
+  if(Array.isArray(data.data))return data.data;
+
   throw Error(file.name+' में प्रश्नों की सूची नहीं मिली।');
  }
 
  if(file.name.toLowerCase().endsWith('.csv')){
   const lines=text.trim().split(/\r?\n/);
-  if(lines.length<2) throw Error('CSV में पर्याप्त डेटा नहीं है।');
+
+  if(lines.length<2){
+   throw Error('CSV में पर्याप्त डेटा नहीं है।');
+  }
 
   function parseCSVLine(line){
    const values=[];
    let value='',quoted=false;
+
    for(let i=0;i<line.length;i++){
     const c=line[i];
+
     if(c==='"'){
-     if(quoted&&line[i+1]==='"'){value+='"';i++;}
-     else{quoted=!quoted;}
+     if(quoted&&line[i+1]==='"'){
+      value+='"';
+      i++;
+     }else{
+      quoted=!quoted;
+     }
     }else if(c===','&&!quoted){
-     values.push(value.trim());value='';
-    }else{value+=c;}
+     values.push(value.trim());
+     value='';
+    }else{
+     value+=c;
+    }
    }
+
    values.push(value.trim());
    return values;
   }
 
   const headers=parseCSVLine(lines[0]).map(h=>h.trim());
+
   return lines.slice(1).filter(line=>line.trim()).map(line=>{
    const vals=parseCSVLine(line);
    const obj={};
@@ -412,61 +475,70 @@ async function readRows(file){
  throw Error('केवल JSON या CSV फ़ाइल स्वीकार की जाती है।');
 }
 
-function getQuestionId(row){
- return getField(row,['id','questionId','question_id','questionNo','questionNumber','quesId','qid']);
+function getField(row,names){
+ const normal={};
+
+ Object.keys(row).forEach(k=>{
+  normal[k.toLowerCase().replace(/[\s_-]/g,'')]=row[k];
+ });
+
+ for(const name of names){
+  const key=name.toLowerCase().replace(/[\s_-]/g,'');
+  const value=normal[key];
+
+  if(value!==undefined&&value!==null&&String(value).trim()!==''){
+   return String(value).trim();
+  }
+ }
+
+ return '';
 }
 
-function getCorrectAnswer(row){
- return getField(row,['correctAnswer','correct_answer','answerKey','correctOption','rightAnswer']);
-}
-
-function getCandidateAnswer(row){
- return getField(row,['candidateAnswer','candidate_answer','selectedAnswer','response','answer','chosenOption']);
-}
-
-function getSubject(row){
- return getField(row,['subject','section','topic','subjectName','sectionName']) || 'अन्य';
+function normalAnswer(value){
+ return String(value??'').trim().toUpperCase().replace(/\s+/g,'');
 }
 
 function isBlankAnswer(answer){
- return !answer || ['-','N/A','NA','NOTANSWERED','NOT_ATTEMPTED','UNANSWERED'].includes(answer);
+ return !answer||['-','N/A','NA','NOTANSWERED','NOT_ATTEMPTED','UNANSWERED'].includes(answer);
 }
 
-/* Build score card, including subject-wise results */
-async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,outputId,errorId,downloadId,nameId,regId){
- const out=document.getElementById(outputId);
- const error=document.getElementById(errorId);
- const download=document.getElementById(downloadId);
+async function calculateLDCEScore(){
+ const error=document.getElementById('scoreError');
+ const out=document.getElementById('scoreResult');
+ const download=document.getElementById('downloadSection');
+ const btn=document.getElementById('calculateBtn');
 
- out.classList.add('hidden');
  error.classList.add('hidden');
+ out.classList.add('hidden');
  download.classList.add('hidden');
 
+ btn.disabled=true;
+ btn.textContent='CALCULATING...';
+
  try{
-  const keyRows=await readRows(keyFile);
-  const responseRows=await readRows(responseFile);
+  const keyRows=await readRows(document.getElementById('keyFile').files[0]);
+  const responseRows=await readRows(document.getElementById('responseFile').files[0]);
 
   const keyMap=new Map();
   const responseMap=new Map();
 
   keyRows.forEach(row=>{
-   const id=getQuestionId(row);
-   const answer=getCorrectAnswer(row);
+   const id=getField(row,['id','questionId','question_id','questionNo','questionNumber','quesId','qid']);
+   const answer=getField(row,['correctAnswer','correct_answer','answerKey','correctOption','rightAnswer']);
+   const subject=getField(row,['subject','section','topic','subjectName','sectionName'])||'अन्य';
+
    if(id&&answer){
-    keyMap.set(id,{
-     answer:normalAnswer(answer),
-     subject:getSubject(row)
-    });
+    keyMap.set(id,{answer:normalAnswer(answer),subject});
    }
   });
 
   responseRows.forEach(row=>{
-   const id=getQuestionId(row);
+   const id=getField(row,['id','questionId','question_id','questionNo','questionNumber','quesId','qid']);
+   const answer=getField(row,['candidateAnswer','candidate_answer','selectedAnswer','response','answer','chosenOption']);
+   const subject=getField(row,['subject','section','topic','subjectName','sectionName'])||'अन्य';
+
    if(id){
-    responseMap.set(id,{
-     answer:normalAnswer(getCandidateAnswer(row)),
-     subject:getSubject(row)
-    });
+    responseMap.set(id,{answer:normalAnswer(answer),subject});
    }
   });
 
@@ -479,15 +551,16 @@ async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,o
   }
 
   const missing=[...keyMap.keys()].filter(id=>!responseMap.has(id));
+
   if(missing.length){
-   throw Error(missing.length+' प्रश्नों की ID Response Sheet में नहीं मिलीं। दोनों फ़ाइलों का प्रारूप जाँचें। स्कोर नहीं निकाला गया।');
+   throw Error(missing.length+' प्रश्नों की ID Response Sheet में नहीं मिली। स्कोर नहीं निकाला गया।');
   }
 
-  const positive=Number(positiveValue);
-  const negative=Number(negativeValue);
+  const positive=Number(document.getElementById('positive').value);
+  const negative=Number(document.getElementById('negative').value);
 
   if(!Number.isFinite(positive)||positive<0||!Number.isFinite(negative)||negative<0){
-   throw Error('Correct और Negative Marks की वैल्यू सही भरें।');
+   throw Error('Marks की वैल्यू सही भरें।');
   }
 
   let correct=0,wrong=0,unattempted=0;
@@ -495,7 +568,7 @@ async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,o
 
   for(const [id,key] of keyMap){
    const response=responseMap.get(id);
-   const subject=key.subject || response.subject || 'अन्य';
+   const subject=key.subject||response.subject||'अन्य';
 
    if(!subjects[subject]){
     subjects[subject]={total:0,attempted:0,correct:0,wrong:0,unattempted:0};
@@ -525,14 +598,13 @@ async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,o
   const percentage=maximum>0?score/maximum*100:0;
   const accuracy=attempted>0?correct/attempted*100:0;
 
-  const candidateName=document.getElementById(nameId).value ||
-                      document.getElementById('candidateName').value || '—';
-  const regNo=document.getElementById(regId).value ||
-               document.getElementById('regNo').value || '—';
+  const candidateName=document.getElementById('ldceName').value||'—';
 
   let subjectRows='';
+
   Object.entries(subjects).forEach(([subject,s])=>{
    const subjectScore=s.correct*positive-s.wrong*negative;
+
    subjectRows+=
     '<tr><td>'+esc(subject)+'</td>'+
     '<td>'+s.total+'</td>'+
@@ -546,14 +618,14 @@ async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,o
   out.innerHTML=
    '<h2>RAILWAY RANK MITRA SCORE CARD</h2>'+
    '<p><b>Candidate:</b> '+esc(candidateName)+'</p>'+
-   '<p><b>Registration Number:</b> '+esc(regNo)+'</p>'+
+   '<p><b>Registration Number:</b> '+esc(document.getElementById('regNo').value||'—')+'</p>'+
    '<table>'+
    '<tr><th>विवरण</th><th>परिणाम</th></tr>'+
    '<tr><td>Total Questions</td><td>'+total+'</td></tr>'+
    '<tr><td>Attempted</td><td>'+attempted+'</td></tr>'+
    '<tr><td>Correct Answers</td><td>'+correct+'</td></tr>'+
    '<tr><td>Wrong Answers</td><td>'+wrong+'</td></tr>'+
-   '<tr><td>Unattempted / छोड़े गए</td><td>'+unattempted+'</td></tr>'+
+   '<tr><td>Unattempted</td><td>'+unattempted+'</td></tr>'+
    '<tr><td>Total Score</td><td>'+score.toFixed(2)+' / '+maximum.toFixed(2)+'</td></tr>'+
    '<tr><td>Percentage</td><td>'+percentage.toFixed(2)+'%</td></tr>'+
    '<tr><td>Accuracy</td><td>'+accuracy.toFixed(2)+'%</td></tr>'+
@@ -561,7 +633,7 @@ async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,o
    '<h3>Subject-wise Result</h3>'+
    '<table><tr><th>Subject</th><th>Total</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Marks</th></tr>'+
    subjectRows+'</table>'+
-   '<p class="note">यह स्कोर अपलोड की गई Answer Key और Response Sheet के मिलान तथा चुनी गई marking scheme पर आधारित है। विषयवार परिणाम तभी सही होगा जब फ़ाइलों में विषय की जानकारी मौजूद हो। यह आधिकारिक RRB Score Card नहीं है।</p>';
+   '<p class="note">गणना अपलोड की गई फ़ाइलों और चुनी गई marking scheme पर आधारित है। यह आधिकारिक RRB Score Card नहीं है।</p>';
 
   out.classList.remove('hidden');
   download.classList.remove('hidden');
@@ -571,90 +643,6 @@ async function buildScoreCard(keyFile,responseFile,positiveValue,negativeValue,o
   error.textContent='स्कोर नहीं निकला: '+e.message;
   error.classList.remove('hidden');
   error.scrollIntoView({behavior:'smooth',block:'center'});
- }
-}
-
-/* RRB + GDCE: stays on same page */
-document.getElementById('candidateForm').addEventListener('submit',function(e){
- e.preventDefault();
-
- const get=id=>document.getElementById(id).value;
- const result=document.getElementById('candidateResult');
-
- const fields=[
-  ['Candidate Name','candidateName'],
-  ['Registration Number','regNo'],
-  ['Exam Type','examType'],
-  ['Exam Post','examPost'],
-  ['Railway Zone','zone'],
-  ['Exam Date','examDate'],
-  ['Shift','shift'],
-  ['Category','category']
- ];
-
- setField('ldceName',get('candidateName'));
- setField('ldceZone',get('zone'));
- setField('ldcePost',get('examPost'));
-
- result.innerHTML='<h3>Candidate Details</h3><table>'+
-  fields.map(([label,id])=>'<tr><th>'+esc(label)+'</th><td>'+esc(get(id))+'</td></tr>').join('')+
-  '</table>';
-
- result.classList.remove('hidden');
-
- const score=document.getElementById('rrbScoreResult');
- score.classList.add('hidden');
-
- const keyFile=document.getElementById('rrbKeyFile').files[0];
- const responseFile=document.getElementById('rrbResponseFile').files[0];
-
- if(keyFile&&responseFile){
-  calculateRRBScore();
- }else{
-  const err=document.getElementById('rrbScoreError');
-  err.textContent='Candidate Details दिख रहे हैं। Score Card निकालने के लिए नीचे Official Answer Key और Candidate Response Sheet की दोनों पढ़ने योग्य JSON/CSV फ़ाइलें अपलोड करके CALCULATE SCORE दबाएँ। केवल URL से स्कोर अपने-आप नहीं निकाला जा सकता।';
-  err.classList.remove('hidden');
-  err.scrollIntoView({behavior:'smooth',block:'start'});
- }
-
- result.scrollIntoView({behavior:'smooth',block:'start'});
-});
-
-async function calculateRRBScore(){
- const btn=document.getElementById('rrbCalculateBtn');
- btn.disabled=true;
- btn.textContent='CALCULATING...';
-
- try{
-  await buildScoreCard(
-   document.getElementById('rrbKeyFile').files[0],
-   document.getElementById('rrbResponseFile').files[0],
-   document.getElementById('rrbPositive').value,
-   document.getElementById('rrbNegative').value,
-   'rrbScoreResult','rrbScoreError','rrbDownloadSection',
-   'candidateName','regNo'
-  );
- }finally{
-  btn.disabled=false;
-  btn.textContent='CALCULATE SCORE';
- }
-}
-
-/* LDCE calculator */
-async function calculateLDCEScore(){
- const btn=document.getElementById('calculateBtn');
- btn.disabled=true;
- btn.textContent='CALCULATING...';
-
- try{
-  await buildScoreCard(
-   document.getElementById('keyFile').files[0],
-   document.getElementById('responseFile').files[0],
-   document.getElementById('positive').value,
-   document.getElementById('negative').value,
-   'scoreResult','scoreError','downloadSection',
-   'ldceName','regNo'
-  );
  }finally{
   btn.disabled=false;
   btn.textContent='CALCULATE SCORE';
@@ -673,7 +661,8 @@ function predictRank(){
   return;
  }
 
- if(pctValue===''||!Number.isFinite(Number(pctValue))||Number(pctValue)<0||Number(pctValue)>100){
+ if(pctValue===''||!Number.isFinite(Number(pctValue))||
+    Number(pctValue)<0||Number(pctValue)>100){
   alert('Percentile 0 से 100 के बीच भरें।');
   return;
  }
