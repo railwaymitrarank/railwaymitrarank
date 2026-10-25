@@ -22,6 +22,7 @@ h2{color:#0756b8;margin-top:0}
 input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}
 input[type=file]{padding:9px}
 .main{border:0;border-radius:8px;background:#0756b8;color:white;font-size:16px;font-weight:bold;padding:13px 18px;cursor:pointer}
+.main:disabled{opacity:.6;cursor:wait}
 .full{width:100%;margin-top:16px}
 .hidden{display:none!important}
 .note{background:#eff6ff;padding:12px;border-radius:8px;line-height:1.6;margin-top:12px}
@@ -35,6 +36,7 @@ table{width:100%;border-collapse:collapse;margin-top:10px}
 td,th{border:1px solid #cbd5e1;padding:10px;text-align:left}
 th{background:#eaf2ff}
 footer{text-align:center;padding:24px 12px;color:#475569}
+.small{font-size:13px;line-height:1.6;color:#475569}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:15px}header h1{font-size:23px}}
 @media print{header,nav,.no-print,footer{display:none!important}.container{max-width:100%}.card{box-shadow:none}}
 </style>
@@ -70,8 +72,9 @@ footer{text-align:center;padding:24px 12px;color:#475569}
 </div>
 
 <div class="note">
-स्कोर के लिए Candidate Response और Official Correct Answer दोनों पढ़ने योग्य होने चाहिए।
-अगर सही उत्तर केवल हरे/लाल रंग से दिखाया गया है और टेक्स्ट में उपलब्ध नहीं है, तो यह संस्करण उस रंग को पहचानने का दावा नहीं करता।
+स्कोर तभी निकलेगा जब Candidate Response और Official Correct Answer की पुष्टि हो सके।
+PDF में सही उत्तर केवल रंग से दिखता हो तो वेबसाइट पहले रंग और प्रश्न की पहचान जाँचेगी।
+अगर भरोसेमंद पहचान नहीं हुई, तो स्कोर नहीं दिखाया जाएगा।
 </div>
 
 <div class="grid" style="margin-top:14px">
@@ -272,6 +275,7 @@ function showPage(id,btn){
  document.getElementById(id).classList.remove("hidden");
  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
  if(btn)btn.classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function esc(v){
@@ -289,14 +293,11 @@ function blank(v){
  /^(--|na|n\/a|not answered|not attempted|-|none)$/i.test(String(v).trim());
 }
 
-function scoreValue(correct,wrong){
- return correct-wrong/3;
-}
-
 function scoreText(score){
  return (Math.round((score+Number.EPSILON)*100)/100).toFixed(2);
 }
 
+/* Candidate Details */
 function renderCandidate(){
  const fields=[
  "candidateName","regNo","examDate","examType",
@@ -314,6 +315,7 @@ function renderCandidate(){
  '</div>';
 }
 
+/* Main RRB form */
 document.getElementById("candidateForm").addEventListener("submit",async function(e){
  e.preventDefault();
 
@@ -333,6 +335,7 @@ document.getElementById("candidateForm").addEventListener("submit",async functio
  }
 
  btn.disabled=true;
+ btn.textContent="PLEASE WAIT...";
 
  try{
   let questions=null;
@@ -345,7 +348,6 @@ document.getElementById("candidateForm").addEventListener("submit",async functio
     const html=await response.text();
     const doc=new DOMParser().parseFromString(html,"text/html");
     questions=parseResponseTables(doc);
-
     if(!questions.length)throw Error("Response table नहीं मिली।");
     source="Response Sheet URL";
    }catch(urlError){
@@ -356,15 +358,15 @@ document.getElementById("candidateForm").addEventListener("submit",async functio
   }
 
   if(!questions&&file){
-   questions=await parsePDF(file);
+   const parsed=await parsePDF(file);
+   questions=parsed.questions;
    source="Uploaded PDF";
   }
 
   if(!questions||!questions.length){
    throw Error(
-    "PDF से Candidate Answer और Official Correct Answer दोनों नहीं मिले। " +
-    "इस PDF में सही उत्तर केवल हरे/लाल रंग से दिख रहे हो सकते हैं। " +
-    "इस संस्करण में रंग पहचानना लागू नहीं है, इसलिए स्कोर नहीं निकाला गया।"
+    "Candidate Response और Official Correct Answer दोनों की पुष्टि नहीं हो सकी। " +
+    "PDF में उत्तर केवल रंग से दिखते हों तो उन्हें अपने-आप सही मानकर स्कोर नहीं निकाला जाएगा।"
    );
   }
 
@@ -376,29 +378,31 @@ document.getElementById("candidateForm").addEventListener("submit",async functio
    esc(error.message||"अज्ञात समस्या")+'</div>';
  }finally{
   btn.disabled=false;
+  btn.textContent="CHECK SCORE";
  }
 });
 
 function scoreQuestions(questions){
  let correct=0,wrong=0,unattempted=0,missing=0;
+ const ids=new Set();
 
- // पहले पूरे प्रश्न-समूह के correct answers जाँचें।
- // अधूरी answer key पर कोई score नहीं दिखाया जाएगा।
  questions.forEach(q=>{
   if(blank(q.correct))missing++;
+  if(q.id){
+   if(ids.has(String(q.id)))throw Error("Duplicate Question ID मिली: "+q.id);
+   ids.add(String(q.id));
+  }
  });
 
  if(missing){
-  throw Error(
-   "Official correct answer "+missing+
-   " प्रश्नों के लिए उपलब्ध नहीं है। पूर्ण answer key के बिना स्कोर नहीं निकाला गया।"
-  );
+  throw Error("Official Correct Answer "+missing+
+  " प्रश्नों के लिए उपलब्ध नहीं है। पूर्ण Answer Key के बिना स्कोर नहीं निकलेगा।");
  }
 
  questions.forEach(q=>{
   if(blank(q.chosen)){
    unattempted++;
-  }else if(norm(q.chosen)===norm(q.correct)){
+  }else if(normalizeAnswer(q.chosen)===normalizeAnswer(q.correct)){
    correct++;
   }else{
    wrong++;
@@ -407,12 +411,19 @@ function scoreQuestions(questions){
 
  return {
   total:questions.length,
-  correct:correct,
-  wrong:wrong,
-  unattempted:unattempted,
+  correct,
+  wrong,
+  unattempted,
   attempted:correct+wrong,
-  score:scoreValue(correct,wrong)
+  score:correct-wrong/3
  };
+}
+
+function normalizeAnswer(value){
+ return norm(value)
+  .replace(/^option\s*/,"")
+  .replace(/[().]/g,"")
+  .trim();
 }
 
 function renderRRB(s,source){
@@ -432,72 +443,162 @@ function renderRRB(s,source){
  '</div>';
 }
 
+/* PDF text + visual rendering */
 async function parsePDF(file){
- if(!window.pdfjsLib){
-  throw Error("PDF reader load नहीं हुई। Internet चालू करके पेज refresh करें।");
- }
+ if(!window.pdfjsLib)throw Error("PDF Reader लोड नहीं हुई। इंटरनेट जाँचें।");
 
  const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
- let allText="";
+ const pages=[];
 
  for(let pageNo=1;pageNo<=pdf.numPages;pageNo++){
   const page=await pdf.getPage(pageNo);
-  const content=await page.getTextContent();
-  const items=content.items.filter(x=>x.str&&x.str.trim());
+  const viewport=page.getViewport({scale:1.6});
+  const canvas=document.createElement("canvas");
+  const context=canvas.getContext("2d",{willReadFrequently:true});
+  canvas.width=Math.ceil(viewport.width);
+  canvas.height=Math.ceil(viewport.height);
 
-  items.sort((a,b)=>{
-   const ay=a.transform[5],by=b.transform[5];
-   if(Math.abs(ay-by)>3)return by-ay;
-   return a.transform[4]-b.transform[4];
+  await page.render({canvasContext:context,viewport}).promise;
+
+  const content=await page.getTextContent();
+  const items=content.items.filter(x=>x.str&&x.str.trim()).map(item=>{
+   const transform=pdfjsLib.Util.transform(viewport.transform,item.transform);
+   return {
+    text:item.str.trim(),
+    x:transform[4],
+    y:transform[5],
+    height:Math.max(8,Math.abs(transform[3]))
+   };
   });
 
-  let currentLine="",lastY=null;
+  const lines=[];
+  items.sort((a,b)=>Math.abs(a.y-b.y)>4?b.y-a.y:a.x-b.x);
 
   for(const item of items){
-   const y=item.transform[5];
-
-   if(lastY!==null&&Math.abs(y-lastY)>3){
-    allText+="\n"+currentLine;
-    currentLine="";
-   }
-
-   currentLine+=(currentLine?" ":"")+item.str.trim();
-   lastY=y;
+   let line=lines.find(l=>Math.abs(l.y-item.y)<=4);
+   if(!line){line={y:item.y,items:[]};lines.push(line);}
+   line.items.push(item);
   }
 
-  if(currentLine)allText+="\n"+currentLine;
+  lines.sort((a,b)=>b.y-a.y);
+  const text=lines.map(line=>{
+   line.items.sort((a,b)=>a.x-b.x);
+   return line.items.map(i=>i.text).join(" ");
+  }).join("\n");
+
+  pages.push({pageNo,canvas,items,lines,text});
  }
 
- return parseAnswerText(allText);
+ return parseRenderedResponse(pages);
+}
+
+/*
+ * केवल रंग दिखने से किसी उत्तर को सही नहीं माना जाता।
+ * प्रश्न ID और Option ID का संबंध स्पष्ट मिलना चाहिए।
+ * अलग-अलग Digialm layouts में रंग/स्थिति बदल सकती है।
+ */
+function parseRenderedResponse(pages){
+ let fullText=pages.map(p=>p.text).join("\n");
+ const labelled=parseAnswerText(fullText);
+
+ if(labelled.length){
+  return {questions:labelled,method:"text"};
+ }
+
+ const visualQuestions=[];
+ let question=null;
+
+ for(const page of pages){
+  const lines=page.lines;
+
+  for(let i=0;i<lines.length;i++){
+   const lineText=lines[i].items.map(x=>x.text).join(" ");
+   const qmatch=lineText.match(/(?:Question\s*(?:ID|No\.?|Number))\s*[:\-]?\s*(\d+)/i);
+
+   if(qmatch){
+    if(question)visualQuestions.push(question);
+    question={id:qmatch[1],chosen:null,correct:null,options:[]};
+   }
+
+   if(!question)continue;
+
+   const optionMatch=lineText.match(/Option\s*([1-4])\s*(?:ID)?\s*[:\-]?\s*(.*)/i);
+   if(optionMatch){
+    const optionNumber=optionMatch[1];
+    const optionText=optionMatch[2].trim();
+    const firstItem=lines[i].items[0];
+
+    if(firstItem){
+     const color=sampleColor(page.canvas,firstItem.x,firstItem.y);
+     question.options.push({
+      number:optionNumber,
+      text:optionText,
+      color
+     });
+    }
+   }
+
+   const chosenMatch=lineText.match(/(?:Chosen\s*Option|Candidate\s*Answer|Your\s*Answer)\s*[:\-]?\s*(.*)/i);
+   if(chosenMatch)question.chosen=chosenMatch[1].trim();
+
+   if(/(?:Question\s*(?:ID|No\.?|Number))\s*[:\-]?\s*\d+/i.test(lineText)&&i>0){
+    // अगले प्रश्न की शुरुआत ऊपर संभाली जाएगी।
+   }
+  }
+ }
+
+ if(question)visualQuestions.push(question);
+
+ const hasOptionData=visualQuestions.some(q=>q.options.length);
+ if(hasOptionData){
+  throw Error(
+   "PDF के प्रश्न/Option पढ़े गए, लेकिन सही उत्तर और उम्मीदवार के चुने उत्तर का विश्वसनीय मिलान नहीं हुआ। " +
+   "रंग देखकर उत्तर का अनुमान लगाकर स्कोर नहीं निकाला गया।"
+  );
+ }
+
+ throw Error(
+  "PDF से Candidate Answer और Official Correct Answer दोनों नहीं मिले। " +
+  "यदि सही उत्तर केवल हरे/लाल रंग से दिखते हैं, तो इस PDF layout के लिए रंग पहचान की पुष्टि नहीं हो सकी।"
+ );
+}
+
+function sampleColor(canvas,x,y){
+ const ctx=canvas.getContext("2d",{willReadFrequently:true});
+ const px=Math.max(0,Math.min(canvas.width-1,Math.round(x)));
+ const py=Math.max(0,Math.min(canvas.height-1,Math.round(y)));
+ const data=ctx.getImageData(px,py,1,1).data;
+ return {r:data[0],g:data[1],b:data[2]};
 }
 
 function parseAnswerText(text){
- const chosenMatches=[
-  ...text.matchAll(
-   /(?:Chosen\s*Option|Candidate\s*Answer|Your\s*Answer|Selected\s*Option)\s*[:\-]\s*([^\r\n]+)/gi
-  )
- ];
+ const questions=[];
+ const blocks=text.split(/(?=Question\s*(?:ID|No\.?|Number)\s*[:\-]?\s*\d+)/i);
 
- const correctMatches=[
-  ...text.matchAll(
-   /(?:Correct\s*Answer|Correct\s*Option|Official\s*Answer)\s*[:\-]\s*([^\r\n]+)/gi
-  )
- ];
+ for(const block of blocks){
+  const idMatch=block.match(/Question\s*(?:ID|No\.?|Number)\s*[:\-]?\s*(\d+)/i);
+  if(!idMatch)continue;
 
- if(!chosenMatches.length||chosenMatches.length!==correctMatches.length){
-  return [];
+  const chosenMatch=block.match(/(?:Chosen\s*Option|Candidate\s*Answer|Your\s*Answer|Selected\s*Option)\s*[:\-]?\s*([^\r\n]+)/i);
+  const correctMatch=block.match(/(?:Correct\s*Answer|Correct\s*Option|Official\s*Answer)\s*[:\-]?\s*([^\r\n]+)/i);
+
+  if(!chosenMatch||!correctMatch)continue;
+
+  questions.push({
+   id:idMatch[1],
+   chosen:cleanAnswer(chosenMatch[1]),
+   correct:cleanAnswer(correctMatch[1])
+  });
  }
 
- return chosenMatches.map((match,index)=>({
-  chosen:cleanAnswer(match[1]),
-  correct:cleanAnswer(correctMatches[index][1])
- }));
+ return questions;
 }
 
 function cleanAnswer(value){
  return String(value||"").replace(/\s+/g," ").trim().replace(/^option\s*/i,"");
 }
 
+/* URL table parser */
 function parseResponseTables(doc){
  const output=[];
 
@@ -508,7 +609,6 @@ function parseResponseTables(doc){
   const headerIndex=rows.findIndex(row=>
    /question|chosen|candidate answer|correct option|correct answer/i.test(row.innerText||"")
   );
-
   if(headerIndex<0)continue;
 
   const headers=[...rows[headerIndex].querySelectorAll("th,td")]
@@ -517,7 +617,6 @@ function parseResponseTables(doc){
   const chosenIndex=headers.findIndex(h=>
    /chosen option|your answer|candidate answer|selected answer|chosen answer/.test(h)
   );
-
   const correctIndex=headers.findIndex(h=>
    /correct option|correct answer|official answer/.test(h)
   );
@@ -530,6 +629,7 @@ function parseResponseTables(doc){
 
    if(cells.length>Math.max(chosenIndex,correctIndex)){
     output.push({
+     id:cells[0]||"",
      chosen:cells[chosenIndex]||"",
      correct:cells[correctIndex]||""
     });
@@ -542,28 +642,21 @@ function parseResponseTables(doc){
  return output;
 }
 
+/* CSV and JSON */
 function parseCSV(text){
  const lines=text.replace(/^\uFEFF/,"").trim().split(/\r?\n/);
  if(lines.length<2)return [];
 
  function splitLine(line){
-  const values=[];
-  let value="",quoted=false;
+  const values=[];let value="",quoted=false;
 
   for(let i=0;i<line.length;i++){
-   const char=line[i];
-
-   if(char==='"'&&line[i+1]==='"'&&quoted){
-    value+='"';i++;
-   }else if(char==='"'){
-    quoted=!quoted;
-   }else if(char===","&&!quoted){
-    values.push(value);value="";
-   }else{
-    value+=char;
-   }
+   const c=line[i];
+   if(c==='"'&&line[i+1]==='"'&&quoted){value+='"';i++;}
+   else if(c==='"')quoted=!quoted;
+   else if(c===","&&!quoted){values.push(value);value="";}
+   else value+=c;
   }
-
   values.push(value);
   return values;
  }
@@ -584,11 +677,9 @@ async function readRows(file){
 
  if(file.name.toLowerCase().endsWith(".json")){
   const data=JSON.parse(text);
-
   if(Array.isArray(data))return data;
   if(Array.isArray(data.questions))return data.questions;
   if(Array.isArray(data.data))return data.data;
-
   throw Error("JSON में questions की list नहीं मिली।");
  }
 
@@ -603,13 +694,13 @@ function getField(row,names){
   const key=keys.find(k=>
    k.toLowerCase().replace(/[\s_-]/g,"")===normalized
   );
-
   if(key!==undefined)return row[key];
  }
 
  return "";
 }
 
+/* LDCE Calculator */
 async function calculateLDCEScore(){
  const err=document.getElementById("scoreError");
  const out=document.getElementById("scoreResult");
@@ -634,9 +725,7 @@ async function calculateLDCEScore(){
   const keyRows=await readRows(keyFile);
   const responseRows=await readRows(responseFile);
 
-  if(!keyRows.length||!responseRows.length){
-   throw Error("एक या दोनों फ़ाइलों में डेटा नहीं मिला।");
-  }
+  if(!keyRows.length||!responseRows.length)throw Error("एक या दोनों फ़ाइलों में डेटा नहीं मिला।");
 
   const answerMap=new Map();
 
@@ -644,13 +733,8 @@ async function calculateLDCEScore(){
    const id=String(getField(row,["id","questionId","question_id","qid"])).trim();
    const answer=getField(row,["correctAnswer","correct_answer","correctOption","answer","correct"]);
 
-   if(!id||blank(answer)){
-    throw Error("Answer Key में Question ID या Correct Answer खाली है।");
-   }
-
-   if(answerMap.has(id)){
-    throw Error("Answer Key में Duplicate Question ID मिली: "+id);
-   }
+   if(!id||blank(answer))throw Error("Answer Key में Question ID या Correct Answer खाली है।");
+   if(answerMap.has(id))throw Error("Answer Key में Duplicate Question ID: "+id);
 
    answerMap.set(id,norm(answer));
   }
@@ -672,14 +756,11 @@ async function calculateLDCEScore(){
    if(!subjects[subject])subjects[subject]={correct:0,wrong:0,unattempted:0};
 
    if(blank(answer)){
-    unattempted++;
-    subjects[subject].unattempted++;
+    unattempted++;subjects[subject].unattempted++;
    }else if(norm(answer)===answerMap.get(id)){
-    correct++;
-    subjects[subject].correct++;
+    correct++;subjects[subject].correct++;
    }else{
-    wrong++;
-    subjects[subject].wrong++;
+    wrong++;subjects[subject].wrong++;
    }
   }
 
@@ -687,7 +768,7 @@ async function calculateLDCEScore(){
    throw Error("Answer Key और Response में प्रश्नों की संख्या अलग है। पूरा स्कोर नहीं दिखाया गया।");
   }
 
-  const score=scoreValue(correct,wrong);
+  const score=correct-wrong/3;
   const attempted=correct+wrong;
   const accuracy=attempted?correct/attempted*100:0;
 
@@ -724,6 +805,7 @@ async function calculateLDCEScore(){
  }
 }
 
+/* Rank Predictor */
 function predictRank(){
  const marks=document.getElementById("rankMarks").value;
  const candidates=document.getElementById("totalCandidates").value;
