@@ -8,841 +8,680 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#172033}
-header{background:linear-gradient(135deg,#073b8c,#087de1);color:#fff;text-align:center;padding:24px 12px}
-header h1{margin:0 0 8px;font-size:27px}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:#fff}
-nav button{border:0;padding:12px 16px;border-radius:8px;background:#e5edff;color:#073b8c;font-weight:bold;cursor:pointer}
-nav button.active{background:#0756b8;color:white}
-.container{max-width:950px;margin:20px auto;padding:0 12px}
-.card{background:white;padding:20px;margin-bottom:18px;border-radius:14px;box-shadow:0 3px 14px #0001}
-h2{color:#0756b8;margin-top:0}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.group label{display:block;font-weight:bold;margin-bottom:6px}
-input,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}
+body{
+ margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;
+ background:#f1f5fb;color:#172033
+}
+header{
+ background:linear-gradient(135deg,#0756b8,#062e70);
+ color:white;text-align:center;padding:24px 12px
+}
+header h1{margin:0;font-size:27px}
+header p{margin:8px 0 0;font-size:14px}
+nav{
+ display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+ background:#fff;padding:12px;box-shadow:0 2px 8px #0001
+}
+button,.navbtn{
+ border:0;border-radius:8px;padding:12px 15px;
+ background:#0756b8;color:#fff;font-weight:bold;
+ cursor:pointer;font-size:14px
+}
+.navbtn{background:#e5edfb;color:#0756b8}
+.navbtn.active{background:#0756b8;color:#fff}
+.container{max-width:850px;margin:18px auto;padding:0 12px}
+.card{
+ background:white;padding:20px;margin-bottom:18px;
+ border-radius:14px;box-shadow:0 4px 15px #0000000d
+}
+h2{margin-top:0;color:#0756b8;font-size:21px}
+h3{font-size:17px}
+label{display:block;font-weight:bold;margin:13px 0 6px}
+input,select{
+ width:100%;padding:12px;border:1px solid #cbd5e1;
+ border-radius:8px;font-size:15px;background:#fff
+}
 input[type=file]{padding:9px}
-.main{border:0;border-radius:8px;background:#0756b8;color:white;font-size:16px;font-weight:bold;padding:13px 18px;cursor:pointer}
-.main:disabled{opacity:.6;cursor:wait}
-.full{width:100%;margin-top:16px}
+button.primary{width:100%;margin-top:18px;padding:14px}
+.note{
+ background:#eef5ff;border-left:4px solid #0756b8;
+ padding:12px;border-radius:6px;font-size:14px;line-height:1.6
+}
+.result{
+ padding:14px;border-radius:8px;margin-top:15px;
+ line-height:1.7;overflow-wrap:anywhere
+}
+.error{background:#fff0f0;color:#a31313;border:1px solid #ffcaca}
+.success{background:#eaf9ef;color:#176534;border:1px solid #b7e5c5}
 .hidden{display:none!important}
-.note{background:#eff6ff;padding:12px;border-radius:8px;line-height:1.6;margin-top:12px}
-.result{border:1px solid #bfdbfe;background:#f8fbff;padding:16px;margin-top:14px;border-radius:10px;overflow-wrap:anywhere}
-.error{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:13px;border-radius:8px;margin-top:12px;overflow-wrap:anywhere}
-.social{display:flex;flex-wrap:wrap;gap:10px}
-.social a{display:inline-block;text-decoration:none;background:#0756b8;color:white;padding:12px 15px;border-radius:8px}
-.youtube{background:#dc2626!important}
-.telegram{background:#0891b2!important}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-td,th{border:1px solid #cbd5e1;padding:10px;text-align:left}
-th{background:#eaf2ff}
-footer{text-align:center;padding:24px 12px;color:#475569}
-.small{font-size:13px;line-height:1.6;color:#475569}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.card{padding:15px}header h1{font-size:23px}}
-@media print{header,nav,.no-print,footer{display:none!important}.container{max-width:100%}.card{box-shadow:none}}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+footer{
+ text-align:center;background:#062e70;color:white;
+ padding:20px 12px;margin-top:25px;line-height:1.8
+}
+footer a{color:#fff}
+.small{font-size:13px;color:#526078;line-height:1.6}
+@media(max-width:550px){
+ .grid{grid-template-columns:1fr}
+ header h1{font-size:23px}
+ .card{padding:15px}
+}
 </style>
 </head>
 
 <body>
+
 <header>
-<h1>🚆 RAILWAY RANK MITRA</h1>
-<p>Railway Exam • Score Calculator • Rank Predictor</p>
+ <h1>🚆 RAILWAY RANK MITRA</h1>
+ <p>Railway Exams • Score Analysis • Rank Predictor</p>
 </header>
 
-<nav class="no-print">
-<button class="active" onclick="showPage('rrb',this)">RRB + GDCE</button>
-<button onclick="showPage('ldce',this)">LDCE EXAMS</button>
-<button onclick="showPage('rank',this)">Rank Predictor</button>
+<nav>
+ <button class="navbtn active" data-page="rrbPage" onclick="showPage('rrbPage',this)">RRB + GDCE</button>
+ <button class="navbtn" data-page="ldcePage" onclick="showPage('ldcePage',this)">LDCE EXAMS</button>
+ <button class="navbtn" data-page="rankPage" onclick="showPage('rankPage',this)">Rank Predictor</button>
 </nav>
 
 <main class="container">
 
-<section id="rrb" class="page">
+<section id="rrbPage" class="page">
+ <div class="card">
+  <h2>📊 RRB / GDCE Score Calculator</h2>
+
+  <div class="note">
+   <b>जरूरी सूचना:</b> स्कोर निकालने के लिए Official Answer Key PDF और उम्मीदवार की Response Sheet दोनों जरूरी हैं।
+   केवल एक फ़ाइल से स्कोर नहीं निकलेगा। वेबसाइट उत्तरों का मिलान न कर पाने पर अनुमान से परिणाम नहीं दिखाएगी।
+  </div>
+
+  <form id="rrbForm">
+   <label for="candidateName">उम्मीदवार का नाम</label>
+   <input id="candidateName" placeholder="अपना नाम लिखें">
+
+   <div class="grid">
+    <div>
+     <label for="examType">Exam Type</label>
+     <select id="examType">
+      <option value="RRB">RRB</option>
+      <option value="GDCE">GDCE</option>
+     </select>
+    </div>
+    <div>
+     <label for="examPost">Exam Post</label>
+     <select id="examPost">
+      <option>ALP</option>
+      <option>Technician</option>
+      <option>Group D</option>
+      <option>NTPC Graduate</option>
+      <option>NTPC Undergraduate</option>
+      <option>JE</option>
+      <option>Goods Guard / Train Manager</option>
+      <option>Station Master</option>
+      <option>Other</option>
+     </select>
+    </div>
+    <div>
+     <label for="examZone">Railway Zone</label>
+     <input id="examZone" placeholder="जैसे Northern Railway">
+    </div>
+    <div>
+     <label for="examDate">Exam Date</label>
+     <input id="examDate" type="date">
+    </div>
+    <div>
+     <label for="examShift">Exam Shift</label>
+     <select id="examShift">
+      <option value="">Select Shift</option>
+      <option>First Shift</option>
+      <option>Second Shift</option>
+      <option>Third Shift</option>
+      <option>Other</option>
+     </select>
+    </div>
+    <div>
+     <label for="candidateCategory">Category</label>
+     <select id="candidateCategory">
+      <option>UR</option>
+      <option>OBC</option>
+      <option>SC</option>
+      <option>ST</option>
+      <option>EWS</option>
+     </select>
+    </div>
+   </div>
+
+   <label for="responseURL">Candidate Response Sheet का लिंक</label>
+   <input id="responseURL" type="url"
+          placeholder="Response Sheet का पूरा लिंक पेस्ट करें"
+          required>
+   <p class="small">
+    लिंक सार्वजनिक रूप से पढ़ने योग्य होना चाहिए। अगर रेलवे की वेबसाइट लॉगिन मांगती है
+    या बाहरी एक्सेस रोकती है, तो यह लिंक सीधे पढ़ा नहीं जा सकेगा।
+   </p>
+
+   <label for="answerKeyPDF">Official Answer Key PDF (एक ही PDF अपलोड करें)</label>
+   <input id="answerKeyPDF" type="file" accept=".pdf,application/pdf" required>
+   <p class="small">
+    यह आधिकारिक उत्तर कुंजी होनी चाहिए। उम्मीदवार की Response Sheet यहाँ अपलोड नहीं करनी है।
+   </p>
+
+   <button class="primary" id="checkScoreBtn" type="submit">CHECK SCORE</button>
+  </form>
+
+  <div id="rrbScoreError" class="result error hidden" role="alert"></div>
+  <div id="rrbScoreResult" class="result success hidden" aria-live="polite"></div>
+ </div>
+</section>
+
+<section id="ldcePage" class="page hidden">
+ <div class="card">
+  <h2>📘 LDCE Score Calculator</h2>
+
+  <div class="note">
+   Candidate Response और Official Answer Key के प्रश्न तथा उत्तर एक ही ID/प्रश्न संख्या से मेल खाने चाहिए।
+   अधूरे डेटा से स्कोर नहीं निकाला जाएगा।
+  </div>
+
+  <form id="ldceForm">
+   <label for="ldceName">Candidate Name</label>
+   <input id="ldceName" placeholder="नाम लिखें">
+
+   <div class="grid">
+    <div>
+     <label for="ldceZone">Railway Zone</label>
+     <input id="ldceZone" placeholder="Zone">
+    </div>
+    <div>
+     <label for="ldceDivision">Division</label>
+     <input id="ldceDivision" placeholder="Division">
+    </div>
+   </div>
+
+   <label for="ldcePost">Post</label>
+   <input id="ldcePost" placeholder="जैसे Goods Guard / SM">
+
+   <label for="ldceKey">Official Answer Key (JSON या CSV)</label>
+   <input id="ldceKey" type="file" accept=".json,.csv" required>
+
+   <label for="ldceResponse">Candidate Response (JSON या CSV)</label>
+   <input id="ldceResponse" type="file" accept=".json,.csv" required>
+
+   <button class="primary" type="submit">CALCULATE LDCE SCORE</button>
+  </form>
+
+  <div id="ldceError" class="result error hidden" role="alert"></div>
+  <div id="ldceResult" class="result success hidden" aria-live="polite"></div>
+  <button id="ldcePrint" class="hidden" onclick="window.print()">Print / Save as PDF</button>
+ </div>
+</section>
+
+<section id="rankPage" class="page hidden">
+ <div class="card">
+  <h2>🏆 Rank Predictor</h2>
+  <div class="note">
+   यह केवल अनुमान है, आधिकारिक रैंक नहीं। इसका परिणाम आपके दिए गए अंकों और उम्मीदवारों की संख्या पर आधारित होगा।
+  </div>
+
+  <form id="rankForm">
+   <label for="rankMarks">आपके Marks</label>
+   <input id="rankMarks" type="number" min="0" step="any" required>
+
+   <label for="rankTotal">कुल उम्मीदवार</label>
+   <input id="rankTotal" type="number" min="1" step="1" required>
+
+   <label for="rankPercentile">Percentile (यदि उपलब्ध हो)</label>
+   <input id="rankPercentile" type="number" min="0" max="100" step="any"
+          placeholder="वैकल्पिक">
+
+   <button class="primary" type="submit">PREDICT RANK</button>
+  </form>
+  <div id="rankResult" class="result success hidden" aria-live="polite"></div>
+ </div>
+</section>
+
 <div class="card">
-<h2>RRB + GDCE Score Calculator</h2>
-
-<form id="candidateForm">
-<div class="group">
-<label for="responseURL">Response Sheet URL (Optional)</label>
-<input id="responseURL" type="url" placeholder="Response Sheet URL">
+ <h2>📢 Railway Success Point</h2>
+ <p>Railway exams की तैयारी, updates और study material के लिए हमारे प्लेटफॉर्म से जुड़ें।</p>
+ <p><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></p>
+ <p><a href="https://telegram.org/" target="_blank" rel="noopener">Telegram</a></p>
 </div>
-
-<div class="group" style="margin-top:14px">
-<label for="rrbPdfFile">Response Sheet PDF</label>
-<input id="rrbPdfFile" type="file" accept=".pdf,application/pdf">
-</div>
-
-<div class="note">
-स्कोर तभी निकलेगा जब Candidate Response और Official Correct Answer की पुष्टि हो सके।
-PDF में सही उत्तर केवल रंग से दिखता हो तो वेबसाइट पहले रंग और प्रश्न की पहचान जाँचेगी।
-अगर भरोसेमंद पहचान नहीं हुई, तो स्कोर नहीं दिखाया जाएगा।
-</div>
-
-<div class="grid" style="margin-top:14px">
-<div class="group">
-<label for="examType">Exam Type</label>
-<select id="examType" required>
-<option value="">Select Exam</option>
-<option>RRB</option><option>GDCE</option>
-</select>
-</div>
-
-<div class="group">
-<label for="examPost">Exam Post</label>
-<select id="examPost" required>
-<option value="">Select Post</option>
-<option>Assistant Loco Pilot (ALP)</option>
-<option>Technician</option>
-<option>Group D</option>
-<option>NTPC Graduate</option>
-<option>NTPC Undergraduate</option>
-<option>Junior Engineer (JE)</option>
-<option>Goods Guard / Train Manager</option>
-<option>Station Master</option>
-<option>Other</option>
-</select>
-</div>
-
-<div class="group">
-<label for="zone">Railway Zone</label>
-<select id="zone" required>
-<option value="">Select Zone</option>
-<option>Central Railway</option>
-<option>Eastern Railway</option>
-<option>East Central Railway</option>
-<option>East Coast Railway</option>
-<option>Northern Railway</option>
-<option>North Central Railway</option>
-<option>North Eastern Railway</option>
-<option>Northeast Frontier Railway</option>
-<option>North Western Railway</option>
-<option>Southern Railway</option>
-<option>South Central Railway</option>
-<option>South Eastern Railway</option>
-<option>South East Central Railway</option>
-<option>South Western Railway</option>
-<option>Western Railway</option>
-<option>Other</option>
-</select>
-</div>
-
-<div class="group">
-<label for="examDate">Exam Date</label>
-<input id="examDate" type="date" required>
-</div>
-
-<div class="group">
-<label for="shift">Shift</label>
-<select id="shift" required>
-<option value="">Select Shift</option>
-<option>First Shift</option>
-<option>Second Shift</option>
-<option>Third Shift</option>
-<option>Not Known</option>
-</select>
-</div>
-
-<div class="group">
-<label for="category">Category</label>
-<select id="category" required>
-<option value="">Select Category</option>
-<option>UR</option><option>OBC</option>
-<option>SC</option><option>ST</option><option>EWS</option>
-</select>
-</div>
-
-<div class="group">
-<label for="candidateName">Candidate Name</label>
-<input id="candidateName" required>
-</div>
-
-<div class="group">
-<label for="regNo">Registration Number</label>
-<input id="regNo" required>
-</div>
-</div>
-
-<button class="main full" id="rrbSubmit" type="submit">CHECK SCORE</button>
-</form>
-
-<div id="candidateResult"></div>
-<div id="rrbScoreResult"></div>
-<div id="rrbScoreError"></div>
-</div>
-</section>
-
-<section id="ldce" class="page hidden">
-<div class="card">
-<h2>LDCE Answer Key Calculator</h2>
-
-<div class="grid">
-<div class="group">
-<label for="ldceName">Candidate Name</label>
-<input id="ldceName">
-</div>
-<div class="group">
-<label for="ldceZone">Railway Zone</label>
-<input id="ldceZone">
-</div>
-<div class="group">
-<label for="ldceDivision">Division</label>
-<input id="ldceDivision">
-</div>
-<div class="group">
-<label for="ldcePost">Exam / Post</label>
-<input id="ldcePost">
-</div>
-<div class="group">
-<label for="keyFile">Official Answer Key (JSON/CSV)</label>
-<input id="keyFile" type="file" accept=".json,.csv">
-</div>
-<div class="group">
-<label for="responseFile">Candidate Response (JSON/CSV)</label>
-<input id="responseFile" type="file" accept=".json,.csv">
-</div>
-</div>
-
-<div class="note">
-दोनों फ़ाइलों में Question ID समान होनी चाहिए।<br>
-Answer Key JSON उदाहरण:
-<code>[{"id":"1","correctAnswer":"A"}]</code><br>
-Response JSON उदाहरण:
-<code>[{"id":"1","candidateAnswer":"B"}]</code><br>
-CSV में भी ID और answer वाले कॉलम होने चाहिए।
-</div>
-
-<button class="main full" id="ldceButton" onclick="calculateLDCEScore()">CALCULATE SCORE</button>
-
-<div id="scoreError"></div>
-<div id="scoreResult"></div>
-<div id="downloadSection" class="hidden">
-<button class="main full no-print" onclick="window.print()">SAVE SCORE CARD PDF</button>
-</div>
-
-<p><a class="social telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">JOIN TELEGRAM</a></p>
-</div>
-</section>
-
-<section id="rank" class="page hidden">
-<div class="card">
-<h2>Rank Predictor</h2>
-
-<div class="grid">
-<div class="group">
-<label for="rankMarks">आपके Marks</label>
-<input id="rankMarks" type="number" min="0">
-</div>
-<div class="group">
-<label for="totalCandidates">Total Candidates</label>
-<input id="totalCandidates" type="number" min="1" step="1">
-</div>
-<div class="group">
-<label for="rankPercentile">Percentile (0–100)</label>
-<input id="rankPercentile" type="number" min="0" max="100" step="any">
-</div>
-</div>
-
-<button class="main full" onclick="predictRank()">ESTIMATE RANK</button>
-<div id="rankResult"></div>
-<div class="note">यह अनुमान है, आधिकारिक रैंक नहीं। केवल Marks से विश्वसनीय Rank निर्धारित नहीं की जा सकती।</div>
-</div>
-</section>
-
-<section class="card">
-<h2>Railway Success Point से जुड़ें</h2>
-<div class="social">
-<a class="youtube" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
-<a class="telegram" href="https://t.me/railwaysuccespoint" target="_blank" rel="noopener">Telegram Channel</a>
-<a href="https://t.me/" target="_blank" rel="noopener">Telegram Group</a>
-</div>
-</section>
 
 </main>
 
-<footer><b>RAILWAY RANK MITRA</b><br>Railway Exam Preparation & Candidate Tools</footer>
+<footer>
+ <b>RAILWAY RANK MITRA</b><br>
+ Railway Exam Preparation & Score Analysis<br>
+ <span class="small" style="color:#fff">
+ यह स्वतंत्र शैक्षणिक टूल है। यह रेलवे का आधिकारिक पोर्टल नहीं है।
+ </span>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 <script>
 "use strict";
 
-if(window.pdfjsLib){
- pdfjsLib.GlobalWorkerOptions.workerSrc=
- "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+if (window.pdfjsLib) {
+ pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 }
 
 function showPage(id,btn){
  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
- if(btn)btn.classList.add("active");
+ const page=document.getElementById(id);
+ if(page) page.classList.remove("hidden");
+ document.querySelectorAll(".navbtn").forEach(b=>b.classList.remove("active"));
+ if(btn) btn.classList.add("active");
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function esc(v){
- return String(v??"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
+function showError(id,message){
+ const el=document.getElementById(id);
+ el.textContent=message;
+ el.classList.remove("hidden");
+}
+function hideResult(id){
+ const el=document.getElementById(id);
+ el.classList.add("hidden");
+ el.textContent="";
+}
+function showResult(id,html){
+ const el=document.getElementById(id);
+ el.innerHTML=html;
+ el.classList.remove("hidden");
+}
+function esc(value){
+ return String(value??"").replace(/[&<>"']/g,ch=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[ch]));
+}
+function normalize(value){
+ return String(value??"").trim().toLowerCase()
+  .replace(/\s+/g," ")
+  .replace(/^(option|answer|ans)\s*/i,"")
+  .replace(/[.)]$/,"");
+}
+function cleanAnswer(value){
+ let v=String(value??"").trim();
+ if(!v) return "";
+ v=v.replace(/^(option|answer|ans)\s*/i,"").trim();
+ v=v.replace(/[.)]$/,"").trim();
+ return normalize(v);
+}
+function getQuestionId(row){
+ return String(
+  row.questionId??row.question_id??row.questionNo??
+  row.question_no??row.questionNumber??row.id??row["Question ID"]??
+  row["Question No"]??row["Question Number"]??""
+ ).trim();
+}
+function getChosen(row){
+ return row.chosen??row.chosenOption??row.chosen_option??
+  row.candidateAnswer??row.candidate_answer??row.response??
+  row.selectedOption??row.selected_option??row["Chosen Option"]??
+  row["Candidate Answer"]??row["Response"]??"";
+}
+function getCorrect(row){
+ return row.correct??row.correctAnswer??row.correct_answer??
+  row.answerKey??row.answer_key??row["Correct Answer"]??
+  row["Answer Key"]??row["Correct Option"]??"";
+}
+function getStatus(row){
+ return String(row.status??row.Status??row.attemptStatus??"").trim().toLowerCase();
+}
+function isBlankAnswer(row){
+ const status=getStatus(row);
+ const answer=cleanAnswer(getChosen(row));
+ return !answer || /not answered|unattempted|not attempted|unattempted/i.test(status);
+}
+function scoreValue(correct,wrong,blank){
+ return correct - wrong/3;
 }
 
-function norm(v){
- return String(v??"").trim().toLowerCase().replace(/\s+/g," ");
+/* PDF से टेक्स्ट पढ़ना। यदि उत्तरों का स्पष्ट प्रारूप नहीं मिलता,
+   तो कोई अनुमान नहीं लगाया जाता। */
+async function readPDFText(file){
+ if(!window.pdfjsLib) throw new Error("PDF Reader लोड नहीं हुआ। इंटरनेट चालू करके पेज रीफ्रेश करें।");
+ const buffer=await file.arrayBuffer();
+ const pdf=await pdfjsLib.getDocument({data:buffer}).promise;
+ let all=[];
+ for(let p=1;p<=pdf.numPages;p++){
+  const page=await pdf.getPage(p);
+  const content=await page.getTextContent();
+  const items=content.items.map(item=>item.str).filter(Boolean);
+  all.push(items.join(" "));
+ }
+ return all.join("\n");
 }
 
-function blank(v){
- return !String(v??"").trim() ||
- /^(--|na|n\/a|not answered|not attempted|-|none)$/i.test(String(v).trim());
+/* केवल स्पष्ट Question ID + Correct Answer जैसे रिकॉर्ड पढ़े जाते हैं।
+   दूसरे प्रारूपों के लिए चुपचाप उत्तर नहीं बनाए जाते। */
+function parseAnswerKeyText(text){
+ const lines=String(text).split(/\r?\n/);
+ const rows=[];
+ let currentId="";
+ let currentAnswer="";
+
+ for(const line of lines){
+  let m=line.match(/(?:question\s*(?:id|no\.?|number)|ques(?:tion)?\s*#)\s*[:\-]?\s*([A-Za-z0-9_-]+)/i);
+  if(m){
+   if(currentId && currentAnswer){
+    rows.push({id:currentId,correct:currentAnswer});
+   }
+   currentId=m[1];
+   currentAnswer="";
+  }
+
+  let a=line.match(/(?:correct\s*answer|answer\s*key|correct\s*option|official\s*answer)\s*[:\-]?\s*(?:option\s*)?([A-D]|[1-4])/i);
+  if(a) currentAnswer=a[1];
+ }
+ if(currentId && currentAnswer){
+  rows.push({id:currentId,correct:currentAnswer});
+ }
+ return rows;
 }
 
-function scoreText(score){
- return (Math.round((score+Number.EPSILON)*100)/100).toFixed(2);
+function parseCSV(text){
+ const lines=String(text).replace(/^\uFEFF/,"").split(/\r?\n/).filter(x=>x.trim());
+ if(lines.length<2) throw new Error("CSV में पर्याप्त डेटा नहीं है।");
+ function splitLine(line){
+  const out=[];let cur="",quoted=false;
+  for(let i=0;i<line.length;i++){
+   const ch=line[i];
+   if(ch==='"'){
+    if(quoted && line[i+1]==='"'){cur+='"';i++;}
+    else quoted=!quoted;
+   }else if(ch===","&&!quoted){out.push(cur.trim());cur="";}
+   else cur+=ch;
+  }
+  out.push(cur.trim());
+  return out;
+ }
+ const headers=splitLine(lines[0]).map(h=>h.trim());
+ return lines.slice(1).map(line=>{
+  const vals=splitLine(line),obj={};
+  headers.forEach((h,i)=>obj[h]=vals[i]??"");
+  return obj;
+ });
+}
+async function readDataFile(file){
+ const text=await file.text();
+ const name=file.name.toLowerCase();
+ if(name.endsWith(".json")){
+  const data=JSON.parse(text);
+  if(Array.isArray(data)) return data;
+  if(data && Array.isArray(data.questions)) return data.questions;
+  if(data && Array.isArray(data.data)) return data.data;
+  throw new Error("JSON में questions या data की सूची नहीं मिली।");
+ }
+ if(name.endsWith(".csv")) return parseCSV(text);
+ throw new Error("केवल JSON या CSV फ़ाइल स्वीकार की जाती है।");
+}
+function validateRows(rows,type){
+ if(!Array.isArray(rows)||!rows.length){
+  throw new Error(type+" में कोई प्रश्न नहीं मिला।");
+ }
+ const seen=new Set();
+ for(const row of rows){
+  const id=getQuestionId(row);
+  if(!id) throw new Error(type+" में प्रश्न संख्या/ID नहीं मिला।");
+  if(seen.has(id)) throw new Error(type+" में प्रश्न ID दोहराई गई है: "+id);
+  seen.add(id);
+ }
+ return rows;
+}
+function makeAnswerMap(rows,type){
+ const map=new Map();
+ for(const row of rows){
+  const id=getQuestionId(row);
+  const answer=type==="key"?getCorrect(row):getChosen(row);
+  if(!id) throw new Error("प्रश्न संख्या/ID नहीं मिली।");
+  if(type==="key" && !cleanAnswer(answer)){
+   throw new Error("Official Answer Key में प्रश्न "+id+" का सही उत्तर नहीं मिला।");
+  }
+  map.set(id,{row,answer:cleanAnswer(answer)});
+ }
+ return map;
 }
 
-/* Candidate Details */
-function renderCandidate(){
- const fields=[
- "candidateName","regNo","examDate","examType",
- "examPost","zone","shift","category"
- ];
- const labels=[
- "Candidate Name","Registration Number","Exam Date","Exam Type",
- "Post","Zone","Shift","Category"
- ];
+/* RRB score तभी दिखेगा जब Response Sheet के HTML में स्पष्ट
+   प्रश्न ID और चुने उत्तर वाला डेटा पढ़ा जा सके। */
+async function readResponseURL(url){
+ let parsed;
+ try{parsed=new URL(url);}
+ catch(e){throw new Error("Response Sheet का लिंक सही नहीं है।");}
 
- document.getElementById("candidateResult").innerHTML=
- '<div class="result"><h3>Candidate Details</h3>'+
- fields.map((f,i)=>'<p><b>'+labels[i]+':</b> '+
- esc(document.getElementById(f).value)+'</p>').join("")+
- '</div>';
-}
-
-/* Main RRB form */
-document.getElementById("candidateForm").addEventListener("submit",async function(e){
- e.preventDefault();
-
- const url=document.getElementById("responseURL").value.trim();
- const file=document.getElementById("rrbPdfFile").files[0];
- const out=document.getElementById("rrbScoreResult");
- const err=document.getElementById("rrbScoreError");
- const btn=document.getElementById("rrbSubmit");
-
- out.innerHTML="";
- err.innerHTML="";
- renderCandidate();
-
- if(!url&&!file){
-  err.innerHTML='<div class="error">Response Sheet URL या PDF चुनें।</div>';
-  return;
+ if(!/^https?:$/.test(parsed.protocol)){
+  throw new Error("Response Sheet के लिंक में HTTP या HTTPS होना चाहिए।");
  }
 
- btn.disabled=true;
- btn.textContent="PLEASE WAIT...";
+ let response;
+ try{
+  response=await fetch(parsed.href,{method:"GET",credentials:"omit"});
+ }catch(e){
+  throw new Error("Response Sheet का लिंक ब्राउज़र से नहीं पढ़ा जा सका। रेलवे साइट CORS या लॉगिन से एक्सेस रोक सकती है। इस स्थिति में लिंक से स्कोर निकालना संभव नहीं है।");
+ }
+ if(!response.ok) throw new Error("Response Sheet वेबसाइट ने HTTP "+response.status+" त्रुटि दी।");
+ const html=await response.text();
+ if(!html.trim()) throw new Error("Response Sheet से खाली डेटा मिला।");
+ if(/login|sign in|session expired/i.test(html.slice(0,5000))){
+  throw new Error("Response Sheet लॉगिन या समाप्त सेशन मांग रही है। प्रश्नों का डेटा उपलब्ध नहीं है।");
+ }
+ const doc=new DOMParser().parseFromString(html,"text/html");
+ const tables=[...doc.querySelectorAll("table")];
+ let found=[];
+ for(const table of tables){
+  const trs=[...table.querySelectorAll("tr")];
+  if(trs.length<2) continue;
+  const cells=trs.map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
+  if(!cells.length) continue;
+  const header=cells[0].map(normalize);
+  const idIndex=header.findIndex(h=>/question (id|no|number)|questionid|questionno/.test(h));
+  const chosenIndex=header.findIndex(h=>/chosen option|candidate answer|selected option|your answer|response/.test(h));
+  if(idIndex<0||chosenIndex<0) continue;
+  const correctIndex=header.findIndex(h=>/correct answer|answer key|correct option/.test(h));
+  for(const cellsRow of cells.slice(1)){
+   const id=cellsRow[idIndex]||"";
+   const chosen=cellsRow[chosenIndex]||"";
+   const correct=correctIndex>=0?(cellsRow[correctIndex]||""):"";
+   if(id) found.push({id,chosen,correct});
+  }
+ }
+ if(!found.length){
+  throw new Error("Response Sheet का पेज खुला, लेकिन प्रश्न ID और उम्मीदवार के चुने उत्तर का पहचाने योग्य टेबल नहीं मिला। स्कोर नहीं निकाला गया।");
+ }
+ return found;
+}
+
+document.getElementById("rrbForm").addEventListener("submit",async function(event){
+ event.preventDefault();
+ hideResult("rrbScoreResult");
+ hideResult("rrbScoreError");
+
+ const button=document.getElementById("checkScoreBtn");
+ const file=document.getElementById("answerKeyPDF").files[0];
+ const url=document.getElementById("responseURL").value.trim();
+
+ if(!file){showError("rrbScoreError","पहले Official Answer Key PDF अपलोड करें।");return;}
+ if(file.type!=="application/pdf"&&!file.name.toLowerCase().endsWith(".pdf")){
+  showError("rrbScoreError","अपलोड की गई फ़ाइल PDF नहीं है।");return;
+ }
+ if(!url){showError("rrbScoreError","Candidate Response Sheet का लिंक भरें।");return;}
+
+ button.disabled=true;
+ button.textContent="DATA CHECK हो रहा है…";
 
  try{
-  let questions=null;
-  let source="";
+  const [keyText,responseRows]=await Promise.all([
+   readPDFText(file),
+   readResponseURL(url)
+  ]);
 
-  if(url){
-   try{
-    const response=await fetch(url);
-    if(!response.ok)throw Error("HTTP "+response.status);
-    const html=await response.text();
-    const doc=new DOMParser().parseFromString(html,"text/html");
-    questions=parseResponseTables(doc);
-    if(!questions.length)throw Error("Response table नहीं मिली।");
-    source="Response Sheet URL";
-   }catch(urlError){
-    if(!file){
-     throw Error("URL से डेटा नहीं पढ़ पाया। URL login या CORS से सुरक्षित हो सकता है। PDF अपलोड करके प्रयास करें।");
-    }
+  const keyRows=parseAnswerKeyText(keyText);
+  if(!keyRows.length){
+   throw new Error("Official Answer Key PDF से प्रश्न ID और सही उत्तर का स्पष्ट मिलान नहीं मिला। यह PDF इस प्रारूप में पढ़ी नहीं जा सकी। स्कोर नहीं निकाला गया।");
+  }
+
+  validateRows(keyRows,"Official Answer Key");
+  validateRows(responseRows,"Candidate Response Sheet");
+
+  const keyMap=makeAnswerMap(keyRows,"key");
+  const responseMap=makeAnswerMap(responseRows,"response");
+
+  let correct=0,wrong=0,blank=0,matched=0;
+  const unmatched=[];
+
+  for(const [id,keyItem] of keyMap){
+   const responseItem=responseMap.get(id);
+   if(!responseItem){
+    unmatched.push(id);
+    continue;
    }
+   matched++;
+   if(isBlankAnswer(responseItem.row)){
+    blank++;
+    continue;
+   }
+   if(!responseItem.answer){
+    unmatched.push(id);
+    matched--;
+    continue;
+   }
+   if(responseItem.answer===keyItem.answer) correct++;
+   else wrong++;
   }
 
-  if(!questions&&file){
-   const parsed=await parsePDF(file);
-   questions=parsed.questions;
-   source="Uploaded PDF";
-  }
-
-  if(!questions||!questions.length){
-   throw Error(
-    "Candidate Response और Official Correct Answer दोनों की पुष्टि नहीं हो सकी। " +
-    "PDF में उत्तर केवल रंग से दिखते हों तो उन्हें अपने-आप सही मानकर स्कोर नहीं निकाला जाएगा।"
+  if(unmatched.length || matched!==keyMap.size || matched!==responseMap.size){
+   throw new Error(
+    "Score नहीं निकला: दोनों फ़ाइलों में प्रश्नों का पूरा मिलान नहीं हुआ। "+
+    "Answer Key में "+keyMap.size+" और Response Sheet में "+responseMap.size+
+    " प्रश्न मिले; मिलान हुए "+matched+"। डेटा अलग होने पर स्कोर दिखाना सुरक्षित नहीं है।"
    );
   }
 
-  const stats=scoreQuestions(questions);
-  out.innerHTML=renderRRB(stats,source);
+  const score=scoreValue(correct,wrong,blank);
+  const name=document.getElementById("candidateName").value.trim();
+  const total=correct+wrong+blank;
 
+  showResult("rrbScoreResult",
+   "<h3>Score Analysis</h3>"+
+   "<b>Candidate:</b> "+esc(name||"Not provided")+"<br>"+
+   "<b>Exam:</b> "+esc(document.getElementById("examType").value)+" — "+
+      esc(document.getElementById("examPost").value)+"<br>"+
+   "<b>Correct:</b> "+correct+"<br>"+
+   "<b>Incorrect:</b> "+wrong+"<br>"+
+   "<b>Unattempted:</b> "+blank+"<br>"+
+   "<b>Matched Questions:</b> "+matched+" / "+total+"<br>"+
+   "<h2>Calculated Score: "+score.toFixed(2)+"</h2>"+
+   "<span class='small'>स्कोरिंग नियम: सही उत्तर +1, गलत उत्तर −1/3, बिना प्रयास 0। अपने परीक्षा के आधिकारिक marking scheme से नियम की पुष्टि करें।</span>"
+  );
  }catch(error){
-  err.innerHTML='<div class="error"><b>Score नहीं निकला:</b><br>'+
-   esc(error.message||"अज्ञात समस्या")+'</div>';
+  showError("rrbScoreError","Score नहीं निकला: "+(error.message||"डेटा पढ़ने में त्रुटि हुई।"));
  }finally{
-  btn.disabled=false;
-  btn.textContent="CHECK SCORE";
+  button.disabled=false;
+  button.textContent="CHECK SCORE";
  }
 });
 
-function scoreQuestions(questions){
- let correct=0,wrong=0,unattempted=0,missing=0;
- const ids=new Set();
-
- questions.forEach(q=>{
-  if(blank(q.correct))missing++;
-  if(q.id){
-   if(ids.has(String(q.id)))throw Error("Duplicate Question ID मिली: "+q.id);
-   ids.add(String(q.id));
-  }
- });
-
- if(missing){
-  throw Error("Official Correct Answer "+missing+
-  " प्रश्नों के लिए उपलब्ध नहीं है। पूर्ण Answer Key के बिना स्कोर नहीं निकलेगा।");
- }
-
- questions.forEach(q=>{
-  if(blank(q.chosen)){
-   unattempted++;
-  }else if(normalizeAnswer(q.chosen)===normalizeAnswer(q.correct)){
-   correct++;
-  }else{
-   wrong++;
-  }
- });
-
- return {
-  total:questions.length,
-  correct,
-  wrong,
-  unattempted,
-  attempted:correct+wrong,
-  score:correct-wrong/3
- };
-}
-
-function normalizeAnswer(value){
- return norm(value)
-  .replace(/^option\s*/,"")
-  .replace(/[().]/g,"")
-  .trim();
-}
-
-function renderRRB(s,source){
- return '<div class="result"><h3>📊 Candidate Score Card</h3>'+
- '<p><b>Source:</b> '+esc(source)+'</p>'+
- '<table>'+
- '<tr><th>विवरण</th><th>रिजल्ट</th></tr>'+
- '<tr><td>Total Questions</td><td>'+s.total+'</td></tr>'+
- '<tr><td>Attempted</td><td>'+s.attempted+'</td></tr>'+
- '<tr><td>Correct</td><td>'+s.correct+'</td></tr>'+
- '<tr><td>Wrong</td><td>'+s.wrong+'</td></tr>'+
- '<tr><td>Unattempted</td><td>'+s.unattempted+'</td></tr>'+
- '<tr><th>Score (+1, -1/3)</th><th>'+scoreText(s.score)+'</th></tr>'+
- '</table>'+
- '<p>यह स्कोर उपलब्ध Candidate Response और Official Answer Key पर आधारित है।</p>'+
- '<button class="main no-print" onclick="window.print()">SAVE SCORE CARD PDF</button>'+
- '</div>';
-}
-
-/* PDF text + visual rendering */
-async function parsePDF(file){
- if(!window.pdfjsLib)throw Error("PDF Reader लोड नहीं हुई। इंटरनेट जाँचें।");
-
- const pdf=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise;
- const pages=[];
-
- for(let pageNo=1;pageNo<=pdf.numPages;pageNo++){
-  const page=await pdf.getPage(pageNo);
-  const viewport=page.getViewport({scale:1.6});
-  const canvas=document.createElement("canvas");
-  const context=canvas.getContext("2d",{willReadFrequently:true});
-  canvas.width=Math.ceil(viewport.width);
-  canvas.height=Math.ceil(viewport.height);
-
-  await page.render({canvasContext:context,viewport}).promise;
-
-  const content=await page.getTextContent();
-  const items=content.items.filter(x=>x.str&&x.str.trim()).map(item=>{
-   const transform=pdfjsLib.Util.transform(viewport.transform,item.transform);
-   return {
-    text:item.str.trim(),
-    x:transform[4],
-    y:transform[5],
-    height:Math.max(8,Math.abs(transform[3]))
-   };
-  });
-
-  const lines=[];
-  items.sort((a,b)=>Math.abs(a.y-b.y)>4?b.y-a.y:a.x-b.x);
-
-  for(const item of items){
-   let line=lines.find(l=>Math.abs(l.y-item.y)<=4);
-   if(!line){line={y:item.y,items:[]};lines.push(line);}
-   line.items.push(item);
-  }
-
-  lines.sort((a,b)=>b.y-a.y);
-  const text=lines.map(line=>{
-   line.items.sort((a,b)=>a.x-b.x);
-   return line.items.map(i=>i.text).join(" ");
-  }).join("\n");
-
-  pages.push({pageNo,canvas,items,lines,text});
- }
-
- return parseRenderedResponse(pages);
-}
-
-/*
- * केवल रंग दिखने से किसी उत्तर को सही नहीं माना जाता।
- * प्रश्न ID और Option ID का संबंध स्पष्ट मिलना चाहिए।
- * अलग-अलग Digialm layouts में रंग/स्थिति बदल सकती है।
- */
-function parseRenderedResponse(pages){
- let fullText=pages.map(p=>p.text).join("\n");
- const labelled=parseAnswerText(fullText);
-
- if(labelled.length){
-  return {questions:labelled,method:"text"};
- }
-
- const visualQuestions=[];
- let question=null;
-
- for(const page of pages){
-  const lines=page.lines;
-
-  for(let i=0;i<lines.length;i++){
-   const lineText=lines[i].items.map(x=>x.text).join(" ");
-   const qmatch=lineText.match(/(?:Question\s*(?:ID|No\.?|Number))\s*[:\-]?\s*(\d+)/i);
-
-   if(qmatch){
-    if(question)visualQuestions.push(question);
-    question={id:qmatch[1],chosen:null,correct:null,options:[]};
-   }
-
-   if(!question)continue;
-
-   const optionMatch=lineText.match(/Option\s*([1-4])\s*(?:ID)?\s*[:\-]?\s*(.*)/i);
-   if(optionMatch){
-    const optionNumber=optionMatch[1];
-    const optionText=optionMatch[2].trim();
-    const firstItem=lines[i].items[0];
-
-    if(firstItem){
-     const color=sampleColor(page.canvas,firstItem.x,firstItem.y);
-     question.options.push({
-      number:optionNumber,
-      text:optionText,
-      color
-     });
-    }
-   }
-
-   const chosenMatch=lineText.match(/(?:Chosen\s*Option|Candidate\s*Answer|Your\s*Answer)\s*[:\-]?\s*(.*)/i);
-   if(chosenMatch)question.chosen=chosenMatch[1].trim();
-
-   if(/(?:Question\s*(?:ID|No\.?|Number))\s*[:\-]?\s*\d+/i.test(lineText)&&i>0){
-    // अगले प्रश्न की शुरुआत ऊपर संभाली जाएगी।
-   }
-  }
- }
-
- if(question)visualQuestions.push(question);
-
- const hasOptionData=visualQuestions.some(q=>q.options.length);
- if(hasOptionData){
-  throw Error(
-   "PDF के प्रश्न/Option पढ़े गए, लेकिन सही उत्तर और उम्मीदवार के चुने उत्तर का विश्वसनीय मिलान नहीं हुआ। " +
-   "रंग देखकर उत्तर का अनुमान लगाकर स्कोर नहीं निकाला गया।"
-  );
- }
-
- throw Error(
-  "PDF से Candidate Answer और Official Correct Answer दोनों नहीं मिले। " +
-  "यदि सही उत्तर केवल हरे/लाल रंग से दिखते हैं, तो इस PDF layout के लिए रंग पहचान की पुष्टि नहीं हो सकी।"
- );
-}
-
-function sampleColor(canvas,x,y){
- const ctx=canvas.getContext("2d",{willReadFrequently:true});
- const px=Math.max(0,Math.min(canvas.width-1,Math.round(x)));
- const py=Math.max(0,Math.min(canvas.height-1,Math.round(y)));
- const data=ctx.getImageData(px,py,1,1).data;
- return {r:data[0],g:data[1],b:data[2]};
-}
-
-function parseAnswerText(text){
- const questions=[];
- const blocks=text.split(/(?=Question\s*(?:ID|No\.?|Number)\s*[:\-]?\s*\d+)/i);
-
- for(const block of blocks){
-  const idMatch=block.match(/Question\s*(?:ID|No\.?|Number)\s*[:\-]?\s*(\d+)/i);
-  if(!idMatch)continue;
-
-  const chosenMatch=block.match(/(?:Chosen\s*Option|Candidate\s*Answer|Your\s*Answer|Selected\s*Option)\s*[:\-]?\s*([^\r\n]+)/i);
-  const correctMatch=block.match(/(?:Correct\s*Answer|Correct\s*Option|Official\s*Answer)\s*[:\-]?\s*([^\r\n]+)/i);
-
-  if(!chosenMatch||!correctMatch)continue;
-
-  questions.push({
-   id:idMatch[1],
-   chosen:cleanAnswer(chosenMatch[1]),
-   correct:cleanAnswer(correctMatch[1])
-  });
- }
-
- return questions;
-}
-
-function cleanAnswer(value){
- return String(value||"").replace(/\s+/g," ").trim().replace(/^option\s*/i,"");
-}
-
-/* URL table parser */
-function parseResponseTables(doc){
- const output=[];
-
- for(const table of doc.querySelectorAll("table")){
-  const rows=[...table.querySelectorAll("tr")];
-  if(rows.length<2)continue;
-
-  const headerIndex=rows.findIndex(row=>
-   /question|chosen|candidate answer|correct option|correct answer/i.test(row.innerText||"")
-  );
-  if(headerIndex<0)continue;
-
-  const headers=[...rows[headerIndex].querySelectorAll("th,td")]
-   .map(cell=>(cell.innerText||"").trim().toLowerCase());
-
-  const chosenIndex=headers.findIndex(h=>
-   /chosen option|your answer|candidate answer|selected answer|chosen answer/.test(h)
-  );
-  const correctIndex=headers.findIndex(h=>
-   /correct option|correct answer|official answer/.test(h)
-  );
-
-  if(chosenIndex<0||correctIndex<0)continue;
-
-  rows.slice(headerIndex+1).forEach(row=>{
-   const cells=[...row.querySelectorAll("td,th")]
-    .map(cell=>(cell.innerText||"").trim());
-
-   if(cells.length>Math.max(chosenIndex,correctIndex)){
-    output.push({
-     id:cells[0]||"",
-     chosen:cells[chosenIndex]||"",
-     correct:cells[correctIndex]||""
-    });
-   }
-  });
-
-  if(output.length)break;
- }
-
- return output;
-}
-
-/* CSV and JSON */
-function parseCSV(text){
- const lines=text.replace(/^\uFEFF/,"").trim().split(/\r?\n/);
- if(lines.length<2)return [];
-
- function splitLine(line){
-  const values=[];let value="",quoted=false;
-
-  for(let i=0;i<line.length;i++){
-   const c=line[i];
-   if(c==='"'&&line[i+1]==='"'&&quoted){value+='"';i++;}
-   else if(c==='"')quoted=!quoted;
-   else if(c===","&&!quoted){values.push(value);value="";}
-   else value+=c;
-  }
-  values.push(value);
-  return values;
- }
-
- const headers=splitLine(lines[0]).map(v=>v.trim().replace(/^"|"$/g,""));
-
- return lines.slice(1).filter(line=>line.trim()).map(line=>{
-  const values=splitLine(line),row={};
-  headers.forEach((header,index)=>{
-   row[header]=(values[index]||"").trim().replace(/^"|"$/g,"");
-  });
-  return row;
- });
-}
-
-async function readRows(file){
- const text=await file.text();
-
- if(file.name.toLowerCase().endsWith(".json")){
-  const data=JSON.parse(text);
-  if(Array.isArray(data))return data;
-  if(Array.isArray(data.questions))return data.questions;
-  if(Array.isArray(data.data))return data.data;
-  throw Error("JSON में questions की list नहीं मिली।");
- }
-
- return parseCSV(text);
-}
-
-function getField(row,names){
- const keys=Object.keys(row||{});
-
- for(const name of names){
-  const normalized=name.toLowerCase().replace(/[\s_-]/g,"");
-  const key=keys.find(k=>
-   k.toLowerCase().replace(/[\s_-]/g,"")===normalized
-  );
-  if(key!==undefined)return row[key];
- }
-
- return "";
-}
-
-/* LDCE Calculator */
-async function calculateLDCEScore(){
- const err=document.getElementById("scoreError");
- const out=document.getElementById("scoreResult");
- const download=document.getElementById("downloadSection");
- const button=document.getElementById("ldceButton");
-
- err.innerHTML="";
- out.innerHTML="";
- download.classList.add("hidden");
-
- const keyFile=document.getElementById("keyFile").files[0];
- const responseFile=document.getElementById("responseFile").files[0];
-
- if(!keyFile||!responseFile){
-  err.innerHTML='<div class="error">Official Answer Key और Candidate Response दोनों फ़ाइलें चुनें।</div>';
-  return;
- }
-
- button.disabled=true;
+document.getElementById("ldceForm").addEventListener("submit",async function(event){
+ event.preventDefault();
+ hideResult("ldceResult");
+ hideResult("ldceError");
+ document.getElementById("ldcePrint").classList.add("hidden");
 
  try{
-  const keyRows=await readRows(keyFile);
-  const responseRows=await readRows(responseFile);
+  const keyFile=document.getElementById("ldceKey").files[0];
+  const responseFile=document.getElementById("ldceResponse").files[0];
+  if(!keyFile||!responseFile) throw new Error("दोनों JSON/CSV फ़ाइलें अपलोड करना जरूरी है।");
 
-  if(!keyRows.length||!responseRows.length)throw Error("एक या दोनों फ़ाइलों में डेटा नहीं मिला।");
+  const [keyRows,responseRows]=await Promise.all([
+   readDataFile(keyFile),readDataFile(responseFile)
+  ]);
 
-  const answerMap=new Map();
+  validateRows(keyRows,"Official Answer Key");
+  validateRows(responseRows,"Candidate Response");
 
-  for(const row of keyRows){
-   const id=String(getField(row,["id","questionId","question_id","qid"])).trim();
-   const answer=getField(row,["correctAnswer","correct_answer","correctOption","answer","correct"]);
+  const keyMap=makeAnswerMap(keyRows,"key");
+  const responseMap=makeAnswerMap(responseRows,"response");
 
-   if(!id||blank(answer))throw Error("Answer Key में Question ID या Correct Answer खाली है।");
-   if(answerMap.has(id))throw Error("Answer Key में Duplicate Question ID: "+id);
+  let correct=0,wrong=0,blank=0,matched=0;
+  const missing=[];
 
-   answerMap.set(id,norm(answer));
-  }
-
-  const seen=new Set();
-  const subjects={};
-  let correct=0,wrong=0,unattempted=0;
-
-  for(const row of responseRows){
-   const id=String(getField(row,["id","questionId","question_id","qid"])).trim();
-   const answer=getField(row,["candidateAnswer","candidate_answer","chosenOption","response","answer","selectedAnswer"]);
-   const subject=String(getField(row,["subject","section","topic"])||"Other");
-
-   if(!id)throw Error("Candidate Response में Question ID नहीं मिली।");
-   if(seen.has(id))throw Error("Duplicate Question ID: "+id);
-   if(!answerMap.has(id))throw Error("Question ID "+id+" Answer Key में नहीं मिली।");
-
-   seen.add(id);
-   if(!subjects[subject])subjects[subject]={correct:0,wrong:0,unattempted:0};
-
-   if(blank(answer)){
-    unattempted++;subjects[subject].unattempted++;
-   }else if(norm(answer)===answerMap.get(id)){
-    correct++;subjects[subject].correct++;
-   }else{
-    wrong++;subjects[subject].wrong++;
+  for(const [id,keyItem] of keyMap){
+   const responseItem=responseMap.get(id);
+   if(!responseItem){missing.push(id);continue;}
+   matched++;
+   if(isBlankAnswer(responseItem.row)){blank++;continue;}
+   if(!responseItem.answer){
+    missing.push(id);matched--;continue;
    }
+   if(responseItem.answer===keyItem.answer) correct++;
+   else wrong++;
   }
 
-  if(seen.size!==answerMap.size){
-   throw Error("Answer Key और Response में प्रश्नों की संख्या अलग है। पूरा स्कोर नहीं दिखाया गया।");
+  if(missing.length||matched!==keyMap.size||matched!==responseMap.size){
+   throw new Error("दोनों फ़ाइलों के सभी प्रश्न मेल नहीं खाते। स्कोर नहीं निकाला गया।");
   }
 
-  const score=correct-wrong/3;
-  const attempted=correct+wrong;
-  const accuracy=attempted?correct/attempted*100:0;
-
-  const subjectRows=Object.entries(subjects).map(([name,data])=>
-   '<tr><td>'+esc(name)+'</td><td>'+data.correct+'</td><td>'+
-   data.wrong+'</td><td>'+data.unattempted+'</td></tr>'
-  ).join("");
-
-  out.innerHTML=
-   '<div class="result"><h3>📊 LDCE Score Card</h3>'+
-   '<p><b>Candidate:</b> '+esc(document.getElementById("ldceName").value)+'</p>'+
-   '<p><b>Zone:</b> '+esc(document.getElementById("ldceZone").value)+'</p>'+
-   '<p><b>Division:</b> '+esc(document.getElementById("ldceDivision").value)+'</p>'+
-   '<p><b>Exam/Post:</b> '+esc(document.getElementById("ldcePost").value)+'</p>'+
-   '<table><tr><th>विवरण</th><th>रिजल्ट</th></tr>'+
-   '<tr><td>Total Questions</td><td>'+answerMap.size+'</td></tr>'+
-   '<tr><td>Attempted</td><td>'+attempted+'</td></tr>'+
-   '<tr><td>Correct</td><td>'+correct+'</td></tr>'+
-   '<tr><td>Wrong</td><td>'+wrong+'</td></tr>'+
-   '<tr><td>Unattempted</td><td>'+unattempted+'</td></tr>'+
-   '<tr><td>Accuracy</td><td>'+accuracy.toFixed(2)+'%</td></tr>'+
-   '<tr><th>Score (+1, -1/3)</th><th>'+scoreText(score)+'</th></tr></table>'+
-   '<h3>Subject-wise Details</h3>'+
-   '<table><tr><th>Subject</th><th>Correct</th><th>Wrong</th><th>Unattempted</th></tr>'+
-   subjectRows+'</table></div>';
-
-  download.classList.remove("hidden");
-
+  const score=scoreValue(correct,wrong,blank);
+  const total=correct+wrong+blank;
+  showResult("ldceResult",
+   "<h3>LDCE Score Analysis</h3>"+
+   "<b>Candidate:</b> "+esc(document.getElementById("ldceName").value||"Not provided")+"<br>"+
+   "<b>Zone:</b> "+esc(document.getElementById("ldceZone").value||"Not provided")+"<br>"+
+   "<b>Division:</b> "+esc(document.getElementById("ldceDivision").value||"Not provided")+"<br>"+
+   "<b>Post:</b> "+esc(document.getElementById("ldcePost").value||"Not provided")+"<hr>"+
+   "<b>Total Questions:</b> "+total+"<br>"+
+   "<b>Correct:</b> "+correct+"<br>"+
+   "<b>Incorrect:</b> "+wrong+"<br>"+
+   "<b>Unattempted:</b> "+blank+"<br>"+
+   "<h2>Score: "+score.toFixed(2)+"</h2>"
+  );
+  document.getElementById("ldcePrint").classList.remove("hidden");
  }catch(error){
-  err.innerHTML='<div class="error"><b>Score नहीं निकला:</b><br>'+
-   esc(error.message||"File error")+'</div>';
- }finally{
-  button.disabled=false;
+  showError("ldceError","Score नहीं निकला: "+(error.message||"फ़ाइल पढ़ने में त्रुटि हुई।"));
  }
-}
+});
 
-/* Rank Predictor */
-function predictRank(){
- const marks=document.getElementById("rankMarks").value;
- const candidates=document.getElementById("totalCandidates").value;
- const percentileValue=document.getElementById("rankPercentile").value;
- const output=document.getElementById("rankResult");
+document.getElementById("rankForm").addEventListener("submit",function(event){
+ event.preventDefault();
+ hideResult("rankResult");
 
- output.innerHTML="";
+ const marks=Number(document.getElementById("rankMarks").value);
+ const total=Number(document.getElementById("rankTotal").value);
+ const percentileText=document.getElementById("rankPercentile").value.trim();
+ const percentile=percentileText===""?null:Number(percentileText);
 
- if(marks===""||candidates===""||Number(marks)<0||
-    Number(candidates)<1||!Number.isInteger(Number(candidates))){
-  output.innerHTML='<div class="error">Marks और Total Candidates सही भरें।</div>';
+ if(!Number.isFinite(marks)||marks<0){
+  showError("rankResult","Marks सही भरें।");return;
+ }
+ if(!Number.isInteger(total)||total<1){
+  showError("rankResult","कुल उम्मीदवारों की संख्या सही भरें।");return;
+ }
+ if(percentile!==null&&(!Number.isFinite(percentile)||percentile<0||percentile>100)){
+  showError("rankResult","Percentile 0 से 100 के बीच होना चाहिए।");return;
+ }
+
+ let estimate;
+ if(percentile!==null){
+  estimate=Math.max(1,Math.ceil(total*(100-percentile)/100));
+ }else{
+  showResult("rankResult",
+   "<b>Marks:</b> "+marks+"<br>"+
+   "<b>Estimated Rank:</b> नहीं निकाली जा सकती<br>"+
+   "Rank का अनुमान लगाने के लिए percentile या विश्वसनीय marks distribution चाहिए। केवल marks और कुल उम्मीदवारों से rank का भरोसेमंद अनुमान नहीं निकाला जा सकता।"
+  );
   return;
  }
 
- if(percentileValue===""){
-  output.innerHTML='<div class="note">Percentile के बिना केवल Marks से विश्वसनीय Rank नहीं निकाली जा सकती।</div>';
-  return;
- }
-
- const percentile=Number(percentileValue);
- const total=Number(candidates);
-
- if(!Number.isFinite(percentile)||percentile<0||percentile>100){
-  output.innerHTML='<div class="error">Percentile 0 से 100 के बीच भरें।</div>';
-  return;
- }
-
- const rank=Math.min(total,Math.max(1,Math.ceil(total*(100-percentile)/100)));
-
- output.innerHTML=
-  '<div class="result"><h3>Estimated Rank</h3>'+
-  '<p><b>Marks:</b> '+esc(marks)+'</p>'+
-  '<p><b>Percentile:</b> '+percentile.toFixed(2)+'%</p>'+
-  '<p><b>Total Candidates:</b> '+total.toLocaleString("en-IN")+'</p>'+
-  '<p><b>अनुमानित Rank:</b> '+rank.toLocaleString("en-IN")+'</p>'+
-  '<p>यह अनुमान है, आधिकारिक Rank नहीं।</p></div>';
-}
+ showResult("rankResult",
+  "<h3>Estimated Rank</h3>"+
+  "<b>Marks:</b> "+marks+"<br>"+
+  "<b>Percentile:</b> "+percentile+"<br>"+
+  "<b>Total Candidates:</b> "+total+"<br>"+
+  "<h2>Approximate Rank: "+estimate+"</h2>"+
+  "<span class='small'>यह गणितीय अनुमान है, आधिकारिक रैंक या चयन की गारंटी नहीं।</span>"
+ );
+});
 </script>
+
 </body>
 </html>
